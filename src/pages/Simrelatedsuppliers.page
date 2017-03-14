@@ -1,0 +1,49 @@
+<apex:page controller="Simrelatedsupplierscontroller">
+  
+ <apex:form id="serform">
+    <script type="text/javascript">
+     function onKeyup_text(e){
+         var keynum;
+        if (window.event && window.event.keyCode == 13 || e.which == 13) 
+             {
+                 searchFunction();
+              	return false;
+
+         }else{
+             return true; 
+             }
+         }
+     
+     </script>
+  <apex:pageBlock title="suppliers">
+      
+       <apex:pageMessages id="msgId" escape="false"/>
+     
+  <apex:inputtext value="{!supp}" id="inputSearchText" onkeypress="return onKeyup_text(event);"/>
+  <apex:commandButton value="Search" action="{!search}" reRender="pb, msgId" status="searchStatus" styleclass="searchByMe" id="button"/>
+  <apex:actionFunction id="searchFunction" name="searchFunction" action="{!search1}" reRender="pb,msgId" status="searchStatus"/>
+      <apex:actionStatus startText="searching..." id="searchStatus"/>
+
+   <table>
+    <tr>
+     <apex:repeat value="{!SerchAlpabet}" var="nn">
+      <td>
+      <apex:commandLink action="{!display}" reRender="pb">
+      <apex:param value="{!nn}" name="sss" assignTo="{!SearchVar}"/>{!nn}
+      </apex:commandLink>
+     </td>     
+     </apex:repeat>
+    </tr>   
+   </table>
+   
+   <apex:outputpanel id="pb">
+    <apex:pageBlockTable value="{!suppliers}" var="s"> 
+    <apex:column headerValue="Name" >
+       <apex:outputLink value="/{!s.id}">{!s.name}</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Enterprise id" value="{!s.Enterprise_Id__c}"/>
+       </apex:pageBlockTable>
+   </apex:outputpanel>  
+  </apex:pageBlock>  
+  </apex:form>
+</apex:page>

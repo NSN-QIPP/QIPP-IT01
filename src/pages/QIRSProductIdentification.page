@@ -1,0 +1,67 @@
+<apex:page Sidebar="true" Showheader="true" StandardController="QIRS_Product_Identification__c" extensions="QIRSProductIdentification">
+<!-- Javascript -->
+<script type = "text/javascript">
+    function winClose()
+    {
+        self.close();
+    }
+</script>
+<!-- End of Javascript-->
+<apex:pageBlock title="QIRS Product Identification" id="thePageBlock" mode="edit">
+<!--<apex:pageBlock ><b>Product Identification</b></apex:pageBlock>-->
+<apex:relatedList list="QIRS__c" />
+<apex:form id="frmID">
+		<apex:pageMessages ></apex:pageMessages>
+      <apex:variable var="rowNum" value="{!0}"  />
+      <apex:pageBlock id="prodAdd" >   
+      <apex:variable var="rowNum" value="{!0}"  />               
+        <apex:pageblockSection >
+            <apex:pageBlockTable value="{!productAddList}" var="prod">
+            <apex:facet name="footer">
+                    <apex:commandButton value="Add Row" action="{!addRow}" reRender="prodAdd"/>
+                </apex:facet>
+                <apex:column headerValue="No." style="width:20px; text-align:center;" headerClass="centertext">
+                  <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                        <apex:param value="{!rowNum+1}" />   
+                    </apex:outputText>
+                </apex:column>
+                
+                 <apex:column headerValue="QIRS">
+                 <apex:inputField value="{!prod.QIRS__c}"/>
+                 </apex:column> 
+                 <apex:column headerValue="Product PN">
+                 <apex:inputField value="{!prod.Name__c}"/>
+                 </apex:column>
+                
+                 <apex:column headerValue="Technology">
+                 <apex:inputField value="{!prod.Technology__c}"/>
+                 </apex:column>
+                 <apex:column headerValue="Product Name">
+               <apex:inputField value="{!prod.Product_Name__c}"/>
+                 </apex:column>
+                 //Added by Sunanda by 06112013
+                  <apex:column headerValue="Launch Date">
+               <apex:inputField value="{!prod.Launch_Date__c}"/>
+                 </apex:column>
+                           <apex:column headerValue="       ">  
+                          <apex:commandLink style="font-size:15px; font-weight:bold; text-align:center;color:green;" value="Clone" action="{!cloneRow}" reRender="prodAdd,temp">
+                        <apex:param value="{!rowNum}" name="index" />
+                    </apex:commandLink>
+                    </apex:column>
+                                   <apex:column headerValue="Delete" >
+                    <apex:commandLink style="font-size:15px; font-weight:bold; text-align:center;color:red;" value="X" action="{!delRow}" reRender="prodAdd,temp">
+                        <apex:param value="{!rowNum}" name="index" />
+                    </apex:commandLink>
+                    <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                </apex:column>  
+                  </apex:pageBlockTable>                    
+        </apex:pageblockSection>        
+        <apex:pageblockSection columns="2" >
+            <apex:commandButton value="Save" action="{!saveMemb}" oncomplete="winClose();" reRender="frmID"/>
+             <apex:commandButton value="Cancel" action="{!Cancel}"/>        
+        </apex:pageblockSection>
+    </apex:pageBlock>
+      
+</apex:form>
+</apex:pageblock>
+</apex:page>

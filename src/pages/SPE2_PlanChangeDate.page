@@ -1,0 +1,38 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE2_PlanChangeDate" >
+    <apex:form >
+        <apex:pageBlock title="Select Start Month/Year and End Month/Year">
+            
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel id="strtmnthPnlid">
+                         Start Month: &nbsp;<apex:inputField value="{!spePlan.Start_Month__c}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="strtyrPnlid">
+                         Start Year: &nbsp;<apex:inputField value="{!spePlan.Start_Year__c}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel id="endMnthPnlid">
+                         End Month: &nbsp;<apex:inputField value="{!spePlan.End_Month__c}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="endyrPnlid">                    
+                         End Year: &nbsp;<apex:inputField value="{!spePlan.End_Year__c}"/>
+                    </apex:outputPanel>
+               </apex:pageBlockSectionItem>              
+            </apex:pageBlockSection><br/>
+            
+            <apex:commandButton value="Change Period" action="{!updateSPEPlans}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="Return" action="{!returnbackToPlan}"/><br/><br/>
+
+            <apex:pageBlockTable value="{!spePlanList}" var="pl" title="Selected Plans">
+                <apex:column value="{!pl.Name}" headerValue="SPE Plan" title="SPE Plan Name"/>
+                <apex:column value="{!pl.Start_Month__c}" headerValue="Start Month" title="Start Month"/>
+                <apex:column value="{!pl.Start_Year__c}" headerValue="Start Year" title="Start Year"/>
+                <apex:column value="{!pl.End_Month__c}" headerValue="End Month" title="End Month"/>
+                <apex:column value="{!pl.End_Year__c }" headerValue="End Year" title="End Year"/>
+            </apex:pageBlockTable>
+        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

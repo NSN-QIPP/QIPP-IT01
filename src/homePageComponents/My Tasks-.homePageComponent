@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;div class=&quot;sidebarModule linksModule&quot;&gt;&lt;span style=&quot;color: rgb(48, 144, 199); font-weight: bold; text-decoration: underline;&quot;&gt;Originator/Owner:&lt;/span&gt;&lt;br&gt;&lt;a href=&quot;../../../../apex/QIRS_Action_Plan_SubmitedTask?type=stask&quot;&gt;Submitted Tasks &lt;/a&gt;&lt;br&gt;&lt;a href=&quot;../../../../apex/QIRS_Action_Plan_SubmitedTask?type=rtask&quot;&gt;Task Review&lt;/a&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(48, 144, 199); font-weight: bold; text-decoration: underline;&quot;&gt;Champion:&lt;/span&gt;&lt;br&gt;&lt;a href=&quot;../../../../apex/QIRS_AP_PendingTask?type=ctask&quot;&gt;Pending Tasks&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;../../../../apex/QIRS_Action_Plan_SubmitedTask?type=ctask&quot;&gt;&lt;/a&gt;&lt;span style=&quot;color: rgb(48, 144, 199); font-weight: bold; text-decoration: underline;&quot;&gt;Approver:&lt;/span&gt;&lt;br&gt;&lt;a href=&quot;../../../../apex/QIRS_AP_PendingTask?type=atask&quot;&gt;Task Analysis&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;../../../../apex/QIRS_Action_Plan_AccpetedRecordPage?type=timpt&quot;&gt;Master&apos;s Analysis&lt;/a&gt;&lt;br&gt;&lt;/div&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>

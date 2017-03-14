@@ -1,0 +1,80 @@
+<apex:page sidebar="false" showHeader="false">
+
+<!-- Moto Image -->
+<apex:form >
+  <table >
+     <tr>
+      <td>
+        <apex:image value="{!$Resource.QIRS_Header}" width="1265" height="100"/>
+      </td>
+     </tr>
+ </table>    
+</apex:form>   
+ 
+<!-- Side bar with Links -->
+<apex:form >
+
+<table cellpadding="8" >
+
+  <tr>
+
+<!-- Sidebar color -->
+        <td valign="top" width="10%">            
+
+            <table bgcolor="#29A6CF" cellpadding="5" >
+               <tr>
+                    <td>
+                    <b><apex:outputLabel value="Management"></apex:outputLabel></b>
+                     </td>
+               
+                </tr>
+                   <tr>
+                     <td>                    
+                     <apex:outputLink value="https://c.cs9.visual.force.com/apex/QIRS_RecordPage">Records</apex:outputLink> 
+                     </td>
+                   </tr>              
+                     <tr>
+                       <td>
+                          <b><apex:outputLabel value="Reports"></apex:outputLabel></b>
+                       </td>
+                 
+                     </tr>
+               
+                <tr>
+
+                    <td>
+
+                        <apex:outputLink value="https://c.cs3.visual.force.com/apex/QIRS_QualityPage">Quality Watch List</apex:outputLink> 
+
+                    </td>
+                   
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                       <apex:outputLink value="https://c.cs3.visual.force.com/apex/QIRS_SLTPage">SLT Notification</apex:outputLink> 
+
+                    </td>
+                  
+                </tr>
+                
+      
+       </table>
+
+        </td>
+
+            <td width="90%">            
+
+                <apex:insert name="body"/>
+
+            </td>
+
+   </tr>        
+
+</table>
+
+</apex:form>
+
+</apex:page>

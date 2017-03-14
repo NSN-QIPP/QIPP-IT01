@@ -1,0 +1,163 @@
+<apex:page tabStyle="QIRS__c" StandardController="QIRS__c" showHeader="true" extensions="QIRS_Create_Controller" sidebar="true">
+<script> 
+function error_message()
+{
+
+var available1 = document.getElementById("j_id0:j_id3:thePageBlock:j_id14:imapct_unselected");
+var chosen1 =  document.getElementById("j_id0:j_id3:thePageBlock:j_id14:imapct_selected");
+//alert(available1.options[available1.selectedIndex].text);
+//alert(chosen1.options[available1.selectedIndex].text);
+        if((available1.options[available1.selectedIndex].text=='ALL')&&(chosen1.length>0))
+        {
+        alert("Please clear other Regions from the chosen section before select 'ALL' value.");
+        available1.selectedIndex=-1;
+        
+        }
+
+
+var strUser = available1.options[available1.selectedIndex].text; 
+        if((chosen1.options[0].text=='ALL')&&(strUser !='ALL'))
+        {
+        alert("You should not select other regions if 'ALL' option selected.");
+        //chosen1.selected = false;
+        available1.selectedIndex=-1;
+        }
+}
+
+</script>
+<style>
+    
+
+       .redTxt
+        {
+            text-align:left;
+            color:red;
+            font-size:12px;
+        }
+
+
+</style>
+
+<apex:sectionHeader title="QIRS Edit" subtitle="{!strSubtitleValue}"/>
+
+<apex:form >
+<apex:messages style="color:Red" />
+    <apex:pageBlock title="QIRS Edit" mode="Details" id="thePageBlock" >
+        <apex:pageBlockButtons location="top">
+        <table>
+            <tr>
+                <td style="padding-top:5px;" align="right">
+                    <apex:commandButton value="Save" action="{!Save}"/>
+                </td>
+                <td style="padding-top:5px;">
+                    <apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td align="right">
+                                <img src="{!$Resource.QIRS_Mandatory}"  valign="top" ALIGN="top" /> 
+                            </td>
+                            <td>
+                                = Required Information
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <img src="{!$Resource.QIRS_question}"  valign="top" ALIGN="top" /> 
+                            </td>
+                            <td>
+                                = Field Information
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </apex:pageBlockButtons>
+    <apex:pageBlockButtons location="bottom">
+        <apex:commandButton value="Save" action="{!Save}"/>
+        <apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+    </apex:pageBlockButtons>
+
+
+    <apex:pageBlockSection title="Required Information" columns="2">
+    
+        <apex:inputField value="{!objqirs.Case_Name__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Process_Owner1__c}" required="true"/>
+        <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Business"/>
+            <apex:outputPanel styleClass="requiredInput" layout="block">
+            <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+            <apex:selectList disabled="{!IsReadOnly}"  required="true" value="{!strBusiness}" label="Business" id="business" size="1">
+                <apex:actionSupport event="onchange"   status="status" reRender="MultiApp" />
+                <apex:selectOptions value="{!Business}" />
+            </apex:selectList>
+            </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+        <apex:inputField value="{!objqirs.Business_Group__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Problem_Description1__c}" style="width:100%" required="true"/>
+        <apex:inputField value="{!objqirs.Issue_Level__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Alert_Type__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Projected_Lift_Date__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Estimated_close_date__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Impacted_Region_Customer__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Factory__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Defective_Part__c}" required="true"/>
+        <apex:inputField value="{!objqirs.Symptom__c}" required="true"/>
+    </apex:pageBlockSection>
+
+    <apex:pageBlockSection title="Optional Information" columns="2">
+        
+        <apex:inputField value="{!objqirs.Product_Safety__c}"/>
+        <apex:inputField value="{!objqirs.MCAR_Supplier_Claim__c}"/>
+        <apex:inputField value="{!objqirs.Pronto__c}"/>
+        <apex:inputField value="{!objqirs.Resolve__c}"/>
+        <apex:inputField value="{!objqirs.RCA_EDA__c}"/>
+        <apex:inputField value="{!objqirs.Line_Stop__c}"/>
+    
+        <apex:inputField value="{!objqirs.Exposed_Base__c}"/>
+        <apex:inputField value="{!objqirs.Affected_Unit_at_Customer_Action__c}"/>
+        
+        <apex:inputField value="{!objqirs.Factory_DC__c}"/>
+        <apex:inputField value="{!objqirs.Affected_Unit_at_Hubs_Action__c}"/>
+        
+        <apex:inputField value="{!objqirs.Units_Impact__c}"/>
+        <apex:inputField value="{!objqirs.Affected_Unit_at_Factories_Action__c}"/>
+        
+        <apex:inputField value="{!objqirs.Affected_Units_at_HWS__c}"/>
+        <apex:inputField value="{!objqirs.Affected_Units_at_HWS_Action__c}"/>
+        
+        <apex:inputField value="{!objqirs.Affected_Units_at_Suppliers__c}"/>
+        <apex:inputField value="{!objqirs.Affected_Units_at_Suppliers_Action__c}"/>
+        
+        <apex:inputField value="{!objqirs.Customer_Impact__c}"/>
+        <apex:inputField value="{!objqirs.Additional_Email__c}"/>
+    </apex:pageBlockSection>
+
+<apex:pageBlockSection title="Status" columns="2">
+
+<!-- <apex:outputField value="{!objqirs.Lock_Points_SH_Shipping__c}"/> -->
+<apex:selectList style="background-color:{!objqirs.StatusColor__c}" disabled="true" required="true" value="{!strStatus}" label="Status" id="Status" size="1">
+    <apex:selectOptions value="{!Status}" />
+</apex:selectList>
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Master Approver">
+            <apex:pageBlockTable id="MultiApp" width="100%" value="{!MultiApprover}" var="q">
+              <apex:column >
+              <apex:inputCheckbox value="{!q.Approver_Contacted__c}" rendered="{!IsRenderConAppInput}"/>
+               <apex:outputField value="{!q.Approver_Contacted__c}"  rendered="{!IsRenderConAppOutput}"/>
+              </apex:column>
+              <apex:column value="{!q.User__r.Name}" /> 
+              <apex:column value="{!q.Phone__c}" /> 
+              <apex:column value="{!q.Email__c}" />
+              
+          </apex:pageBlockTable> 
+<apex:inputField value="{!objqirs.Approval_Comments__c}" style="width:75%;"/>
+</apex:pageBlockSection>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

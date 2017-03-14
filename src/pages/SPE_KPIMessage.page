@@ -1,0 +1,12 @@
+<apex:page standardController="SPE_KPIDefinition__c" extensions="SPE2_CalculationCanvasEXT">
+    <apex:includeScript value="{!$Resource.JqueryMin}"/>
+    
+    <apex:variable var="count" value="{!0}" />
+    <apex:repeat value="{!kpi.KPI_Calculations__r}" var="row">
+        <apex:variable var="count" value="{!count+1}" />
+    </apex:repeat>
+    <apex:outputPanel rendered="{!IF(allowPublish == false && ISBLANK(kpi.PI_Data__c),true,false)}">
+        <Marquee BEHAVIOR="ALTERNATE"> <font Color="red"> The Calculation Information for the KPI is pending. Click on Calculation Canvas Button to complete </font> </marquee>
+    </apex:outputPanel>
+
+</apex:page>

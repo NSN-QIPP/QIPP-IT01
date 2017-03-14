@@ -1,0 +1,198 @@
+<apex:page standardController="SPE2Survey__c" extensions="SPE2_AddSurveyRespondentExt" >
+<style>
+ .pageNoInput{
+    width: 2em;
+    margin: 0 3px;
+    font-size: 98%;
+    text-align: center;
+    vertical-align: middle;
+}
+.paginationArrwCls{
+    background-image: url(/img/paginationArrows.gif);
+    background-repeat: no-repeat;
+    background-position:0 0px;
+    width: 9px;
+    height: 10px;
+}
+</style>
+<script>
+function enterPress(e){
+        if(e.keyCode==13){
+            searchFunction();
+            return false;
+        }
+        else 
+        {
+        return true;
+        }
+    } 
+</script>
+<script type="text/javascript">
+        function setFocusOnLoad() {}
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");
+            for(var i=0; i<inputCheckBox.length; i++){
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        function onEnterprs(thisElem,e)
+         {
+            
+            if(e.keyCode==13)
+            {
+                if(e.preventDefault) 
+                    e.preventDefault();
+                else
+                    e.returnValue = false;
+                
+                //e.preventDefault();
+                
+                goToPage(thisElem.value);
+                return null;
+            }
+            
+         }
+         //method to call for main checkbox
+function checkAll(cb)
+ {
+     var inputElem = document.getElementsByTagName("input");
+     for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                inputElem[i].checked=cb.checked;
+            }
+      }
+ }
+
+//method to call for each checkbox
+ function checkheader(thisElem)
+ {
+    if(thisElem.checked==false)
+    document.getElementById('headerCheckId').checked=false;
+   
+    else
+    {
+        checkAndUpdate();
+    }
+ } 
+
+//to update the main checkbox
+function checkAndUpdate()
+{
+      var inputElem = document.getElementsByTagName("input");
+      var flag=0;
+      var totalCheckBox=0;
+      for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                totalCheckBox=totalCheckBox+1;
+                if(inputElem[i].checked==true)
+                {
+                    flag=flag+1;
+                }
+            }
+      }
+      if(flag==totalCheckBox)
+      document.getElementById('headerCheckId').checked=true;
+      else
+      document.getElementById('headerCheckId').checked=false;
+                 
+}
+
+</script>    
+    <apex:form id="fm">
+    <apex:pageBlock id="respondents" title="Search Respondent">
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton value="Save" action="{!insertRespondent}"  reRender="fm"/>
+            <apex:commandButton value="Cancel" action="{!cancel}" />
+        </apex:pageBlockButtons>
+        <apex:actionFunction name="goToPage" action="{!goToPage2}" rerender="resultTableId,paginationPanelId" status="StatusChange">
+            <apex:param name="crntPageNum" value=""/>
+        </apex:actionFunction>
+        
+        <span class="helpButtonOn" id="showicon-_help">
+            <img src="/s.gif" alt="" class="helpOrb" title="Please provide atleast one character and for the wild card search use *"/>
+        </span>
+        <apex:inputText value="{!contactName}" id="contactName" onkeypress="return enterPress(event)"/> 
+        <apex:commandButton value="Search" action="{!searchRespondent}"  reRender="respondents" status="myStatus" />
+        <apex:actionStatus id="myStatus" startText="Processing..."   stopText=""   startStyleClass="statusStyle"/>
+        <apex:actionFunction action="{!searchRespondent}" name="searchFunction" reRender="respondents" status="myStatus"/>
+            
+        <apex:pageBlockTable value="{!subwrapperList2}" var="rw" id="resultTableId">
+            <apex:column headerValue=" ">  
+                <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this,'LPanel')" id="headerCheckId2"/></apex:facet>
+                <apex:inputCheckbox value="{!rw.isChecked}" styleClass="messageCheckbox2" onclick="checkheader(this,'LPanel');" />                   
+            </apex:column>
+            <apex:column headerValue="First Name">
+                <apex:outputText value="{!rw.res.Contact__r.FirstName}" />
+            </apex:column>
+            <apex:column headerValue="Last Name">
+                <apex:outputfield value="{!rw.res.Contact__r.LastName}" />
+            </apex:column>
+            <apex:column headerValue="Email">
+                <apex:outputfield value="{!rw.res.Contact__r.Email}" />
+            </apex:column>
+            <apex:column headerValue="Category Info">                
+                <apex:pageBlockTable value="{!rw.categories }" var="itemCat">
+                    <apex:column headerValue="Category Area">
+                        <apex:outputField value="{!itemCat.CategoryCluster__c}"/>
+                    </apex:column> 
+                    <apex:column headerValue="Category Group">
+                        <apex:outputField value="{!itemCat.CategoryGroup__c}"/>
+                    </apex:column> 
+                    <apex:column headerValue="Category">
+                        <apex:outputField value="{!itemCat.Category__c}"/>
+                    </apex:column> 
+               </apex:pageBlockTable>
+            </apex:column>
+        </apex:pageBlockTable>             
+            
+        <apex:outputPanel id="paginationPanelId" rendered="{!hasRecords}">
+        
+        <span style="float:left">&nbsp; {!startRecNo2} - {!endRecNo2} of {!respondentWrapperList.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick2}" id="FirstLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showfirst2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst2==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick2}" id="previousLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showprevoius2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius2==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius2)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->           
+            <apex:outputText value="Next" rendered="{!NOT(shownext2)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext2==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick2}" id="nextLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!shownext2}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick2}" id="lastLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showlast2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast2==true,'none','inline')}" />
+            
+            <apex:actionStatus id="StatusChange">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber2}" onchange="goToPage(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId" value="of {!maxPages2}" />
+            </span>
+        </apex:outputPanel>           
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

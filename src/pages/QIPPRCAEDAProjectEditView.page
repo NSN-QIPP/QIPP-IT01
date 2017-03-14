@@ -1,0 +1,525 @@
+<apex:page id="pg" standardController="QIPP_Project__c" extensions="QIPP_RCAEDA_Project" sidebar="false" showHeader="true" tabStyle="QIPP_Project__c" title="{!If(proj.Id == null,'New RCA/EDA QIPP Project', 'QIPP Project Edit: '+proj.Project_Number__c)}" >
+
+    <apex:stylesheet value="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-1.12.4.js" />
+    <apex:includeScript value="https://code.jquery.com/ui/1.12.0/jquery-ui.js" />
+    
+    <style type = 'text/css'>
+        .bPageBlock .detailList .dataCol {
+            width: 25%;
+        }
+        
+        .Project_Description_Detailed__c{
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 475px;
+            height: 60px;        
+        }
+        
+        .Project_Document__c{
+            width: 190px;
+            height: 30px;
+            -webkit-width: 190px;
+            -moz-width: 190px;
+            -webkit-height: 30px;
+            -moz-height: 30px;
+        }
+        
+        .Project_Flex_Field_1__c{
+            width: 190px;
+        }
+        
+        .Progress_To_Date__c{
+            width: 200px;
+            height: 30px;
+        }
+        
+        .Next_Steps__c{
+            height: 30px;
+            width: 200px;
+        }
+        select[multiple], select[size][multiple] {
+            width: 370px !important;
+        }
+        
+        select, select[size] {
+            color: #000;
+            width: 198px;
+            -webkit-width: 199px !important; /* Chrome, Safari, Opera */
+            -moz-width: 197px !important;    /* Firefox */
+ 
+        }
+        input:not([type]), input[type="email" i], input[type="number" i], input[type="password" i], input[type="tel" i], input[type="url" i], input[type="text" i] {
+            padding: 1px 0px;
+            -webkit-width: 195px; /* Chrome, Safari, Opera */
+            -moz-width: 195px; /* Firefox */
+            width: 195px;            
+        }        
+        /*
+        .datePicker {
+            background-color: #ededed;
+            background-image: url("/img/alohaSkin/cal_sprite.png");
+            background-position: left -109px;
+            background-repeat: repeat-x;
+            border-left: 1px solid #d6d6d6;
+            border-right: 1px solid #d6d6d6;
+            border: 0 none;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px #111;
+            padding: 7px 5px 6px;
+            position: absolute;
+            width: 17em;
+            z-index: 100;
+        }
+        */
+        #calMonthPicker, #calYearPicker{
+            width: auto;
+        }
+        
+        .inputdateFld{
+            width:118px !important;
+        }        
+        
+         #loading {
+           width: 100%;
+           height: 100%;
+           top: 0;
+           left: 0;
+           position: fixed;
+           display: block;
+           opacity: 0.5;
+           background-color: #E1E8EB;
+           z-index: 99;
+           text-align: center;
+        }
+        
+        #loading-image {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 100;
+        }
+        .BenfpopupBackground{
+        background-color:black;
+        opacity: 0.20;
+        filter: alpha(opacity = 20);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left:0px;
+        z-index: 9998;
+        }
+        .LeadSponsorEqualPopup{
+        background-color: white;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        left: 38%;
+        padding: 10px;
+        position: fixed;
+        width: 310px !important;
+        top: 32%;     
+        }
+
+    </style>
+    <script type="text/javascript">
+        isNotSaveChangeBBG = false;
+        var countBBG = false;
+        
+        $(document).ready(function() {
+            var profile = '{!profilename}';
+            var projState = '{!projState}';
+            var rolename = '{!rolename}';
+
+            $('.Project_Description_Detailed__c').attr("placeholder", "1800 Character Limit");
+            
+            //$("input[name='pg:frm:pb:pbSecSpFields:pbsiProjStartDtActl:projStartDtActl']").attr('disabled','true');//project star date
+            $("input[name='pg:frm:pb:pbSecSpFields:pbsiCompDateActual:projCompDateActual']").attr('disabled','true');//completion date actual
+            
+            $('[id*=projState] option[value=""]').remove();
+            $('[id*=projState] option[value="Not Started"]').remove();
+            $('[id*=DIState] option[value=""]').remove();
+
+            if(rolename == 'QIPP Project Lead'){
+                $('[id*=projState] option[value="Closed"]').remove();
+                $('[id*=projState] option[value="Complete"]').remove();
+            }
+            if(rolename == 'QIPP Portfolio Owner'){
+                if(projState != 'Closed'){
+                    $('[id*=projState] option[value="Closed"]').remove();
+                }
+                if(projState != 'Complete'){
+                    $('[id*=projState] option[value="Complete"]').remove();
+                }
+            }            
+
+            disabledBG();
+            hideErrorMsg();
+        });
+        
+        function disabledBG(){
+            $("select[name='pg:frm:pb:pbSecStdFields:portfolioBUItem:portfolioBU']").attr('disabled','true');
+        }
+
+        function savePrj(btn){
+            hideErrorMsg();
+            CompareBBG();
+    
+            if(!isNotSaveChangeBBG){
+                if(btn == 'Save'){
+                    saveProject();
+                }else{
+                    saveAndNewProject();
+                }
+            }else{
+                endProcess();
+            }
+        }
+        
+        function hideErrorMsg(){
+            $("[id^=error_]").each(function(index, ele){
+                $(ele).hide();
+            });
+        }
+        
+        function startProcess(){
+            $("#loading").show();
+        }
+        
+        function endProcess(){
+            $("#loading").hide();
+        }
+        
+    </script>  
+    
+    
+    <apex:form id="frm"><apex:inputHidden id="DistributionPercent" value="{!proj.Distribution__c}"/>    <apex:inputHidden id="oldBGVal" value="{!proj.Portfolio_BU__c}"/><apex:inputHidden id="oldBUVal" value="{!proj.Project_BL__c}"/>          <apex:inputHidden id="oldBLVal" value="{!proj.Benefitting_Project_BL_Level_4_Org__c}"/>
+        <apex:actionFunction name="saveProject" action="{!saveProject}" reRender="pgMsg,otPnlErrMsg,projLeadSponsorEqualPopup" oncomplete="endProcess();"/>
+        <apex:actionFunction name="saveAndNewProject" action="{!saveProject}" reRender="pgMsg,otPnlErrMsg,projLeadSponsorEqualPopup" oncomplete="endProcess();">
+            <apex:param name="issaveandnew" value="true" assignTo="{!issaveandnew}"/><!-- Due to Cummound button and param bug in SF we rerendering 'hiddenBlock' block-->
+        </apex:actionFunction>
+
+        <div id="loading" style="display:none;">
+            <img id="loading-image" src="https://raw.githubusercontent.com/ressio/lazy-load-xt/master/src/loading.gif" alt="Loading..." />
+        </div>
+        
+        <apex:sectionHeader id="pbSecHeader" title="{!If(proj.Id == null ,$ObjectType.QIPP_Project__c.Label,$ObjectType.QIPP_Project__c.Label + ' Edit' )}" subtitle="{!If(proj.Id == null ,'New RCA/EDA '+ $ObjectType.QIPP_Project__c.Label,proj.Project_Number__c)}"/>
+        
+        <apex:pageblock id="pb" mode="edit">
+            <apex:pageMessages id="pgMsg" ></apex:pageMessages>
+
+            <apex:pageBlockButtons id="pbButton">
+                <apex:commandButton id="saveButton" Value="Save" title="Save" onclick="startProcess(); savePrj('Save'); return false;" />
+                <apex:commandButton id="saveandnewButton" onclick="startProcess(); savePrj('SaveAndNew'); return false;" value="Save And New" title="Save And New"/>
+                <apex:commandButton id="cancelButton" action="{!cancel}" Value="Cancel" title="Cancel" onclick="startProcess();" oncomplete="endProcess();"/>
+            </apex:pageBlockButtons>
+        
+            <!-- Section 1 - Start -->
+            <apex:pageBlockSection id="pbSecStdFields" title="Standard Project Fields" columns="2" collapsible="false">
+ 
+                <apex:pageBlockSectionItem id="projName" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Name_Succinct__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Name_Succinct__c.Label}" for="projName"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="projName" value="{!proj.Project_Name_Succinct__c}"/>
+                        <br/>
+                        <span id="error_Project_Name_Succinct__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="portfolioBUItem" helpText="{!$ObjectType.QIPP_Project__c.fields.Portfolio_BU__c.inlineHelpText}">
+                    <apex:outputLabel id="PBUItem" value="{!$ObjectType.QIPP_Project__c.fields.Portfolio_BU__c.Label}" for="portfolioBU"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="portfolioBU" value="{!proj.Portfolio_BU__c}" />
+                        <br/>
+                        <span id="error_Portfolio_BU__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outPutPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="projLeadItem" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.Label}" for="projLead"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="projLead" value="{!proj.Project_Lead__c}" />
+                        <br/>
+                        <span id="error_Project_Lead__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="bBLieam" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_BL__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_BL__c.Label}" for="bBL3" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="bBL3" value="{!proj.Project_BL__c}" />
+                        <br/>
+                        <span id="error_Project_BL__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="portfolioItem" helpText="{!$ObjectType.QIPP_Project__c.fields.Portfolio_Name__c.inlineHelpText}">           
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Portfolio_Name__c.Label}" for="portfolioName"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block" >
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/> 
+                        <apex:actionRegion >
+                            <apex:selectList id="portfolioName1" value="{!portfolioName}" size="1" >
+                                <apex:selectOptions value="{!PortfolioValues}" />
+                                <apex:actionSupport event="onchange" action="{!getPortfolioBBGValue}" oncomplete="disabledBG();" reRender="portfolioBU,bBL3,bBL4"/>
+                            </apex:selectList>
+                            <br/>
+                            <span id="error_Portfolio_Name__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                        </apex:actionRegion>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="bBL" helpText="{!$ObjectType.QIPP_Project__c.fields.Benefitting_Project_BL_Level_4_Org__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Benefitting_Project_BL_Level_4_Org__c.Label}" for="bBL4"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="bBL4" value="{!proj.Benefitting_Project_BL_Level_4_Org__c}" />
+                        <br/>
+                        <span id="error_Benefitting_Project_BL_Level_4_Org__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="projState" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_State__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_State__c.Label}" for="projState"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="projState" value="{!proj.Project_State__c}"/>
+                        <!--
+                        <apex:selectList id="projState" value="{!projState}" size="1">
+                            <apex:selectOptions value="{!ProjectStateValues}"/>
+                        </apex:selectList>
+                        -->
+                     </apex:outputPanel>   
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="cemtmeasureID" helpText="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.inlineHelpText}" rendered="{!IF((projectId == null),true,false)}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.Label}" for="cemtID"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="cemtID" value="{!proj.CEMT_ID__c}"/>
+                        <br/>
+                        <span id="error_CEMT_ID__c" style="color:#d74c3b; display:none;">Error: Blank space not accepted, please use Not Applicable instead.</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="CompDatePlanned" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Target__c.inlineHelpText}" rendered="{!IF((projectId == null),true,false)}">
+                    <apex:outputLabel value="Completion Date - Planned" for="CompDtPlanned" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputfield id="CompDtPlanned" value="{!proj.Project_Completion_Date_Target__c}" styleClass="inputdateFld" required="false"/>
+                        <br/>
+                        <span id="error_Project_Completion_Date_Target__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="CompDtPlanned" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Target__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                    <apex:outputLabel value="Completion Date - Planned" for="CompDtPlanned" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputfield id="CompDtPlanned" value="{!proj.Project_Completion_Date_Target__c}" styleClass="inputdateFld" required="false"/>
+                        <br/>
+                        <span id="error_Project_Completion_Date_Target__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="cemtID" helpText="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.Label}" for="cemtID"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="cemtID" value="{!proj.CEMT_ID__c}"/>
+                        <br/>
+                        <span id="error_CEMT_ID__c" style="color:#d74c3b; display:none;">Error: Blank space not accepted, please use Not Applicable instead.</span>                        
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem id="itemforcast" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Forecast__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                    <apex:outputLabel value="Completion Date - Forecast" for="forecast"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="forecast" value="{!proj.Project_Completion_Date_Forecast__c}" styleClass="inputdateFld"/>
+                        <br/>
+                        <span id="error_Project_Completion_Date_Forecast__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="PortfolioDec" helpText="{!$ObjectType.QIPP_Project__c.Fields.Project_Description_Detailed__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                    <apex:outputLabel id="ProjDecs" value="{!$ObjectType.QIPP_Project__c.fields.Project_Description_Detailed__c.Label}" for="projectDesc" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="portfolioDesc" value="{!proj.Project_Description_Detailed__c}" styleClass="Project_Description_Detailed__c"/>
+                        <br/>
+                        <span id="error_Project_Description_Detailed__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="ProjectDec" helpText="{!$ObjectType.QIPP_Project__c.Fields.Project_Description_Detailed__c.inlineHelpText}" rendered="{!IF((projectId == null),true,false)}">
+                    <apex:outputLabel id="ProjDecs" value="{!$ObjectType.QIPP_Project__c.fields.Project_Description_Detailed__c.Label}" for="projectDesc" />
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="portfolioDesc" value="{!proj.Project_Description_Detailed__c}" styleClass="Project_Description_Detailed__c" />
+                        <br/>
+                        <span id="error_Project_Description_Detailed__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="itemforcastDt" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Forecast__c.inlineHelpText}" rendered="{!IF((projectId == null),true,false)}">
+                    <apex:outputLabel value="Completion Date - Forecast" for="forecast"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField id="forecast" value="{!proj.Project_Completion_Date_Forecast__c}" styleClass="inputdateFld"/>
+                        <br/>
+                        <span id="error_Project_Completion_Date_Forecast__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>                  
+
+            </apex:pageBlockSection>
+            <!-- Section 1 - End -->
+
+            <!-- Section 2 - Start -->
+          
+            <apex:pageBlockSection id="pbSecSpFields" title="RCA/EDA Project Fields" columns="3" collapsible="false">
+                      
+           <apex:pageBlockSectionItem labelStyle="width:width:500px;" id="bpSponsorItem" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Sponsor__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Sponsor__c.Label}" for="bpsponsor"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                    <apex:inputField id="bpsponsor" value="{!proj.Project_Sponsor__c}"/>
+                    <br/>
+                    <span id="error_Project_Sponsor__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                </apex:outputPanel>                   
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="ProjCreDt" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Created_Date__c.Label}" for="ProjCreDt"/>
+                <apex:outputField id="ProjCreDt" value="{!proj.Project_Created_Date__c}" styleClass="inputdateFld"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem labelStyle="width:width:500px;" id="copqfinapprover" helpText="{!$ObjectType.QIPP_Project__c.fields.Finance_Approver__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Finance_Approver__c.Label}" for="finapprover"/>
+                <apex:inputField id="finapprover" value="{!proj.Finance_Approver__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="distatepbsi" helpText="{!$ObjectType.QIPP_Project__c.fields.DI_State__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DI_State__c.Label}" for="DIState"/>
+                <apex:inputField id="DIState" value="{!proj.DI_State__c}"/>                    
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Planned_Start_Date__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Planned_Start_Date__c.Label}" for="PlanStartDt" Style="width:160px;display:inline-block"/>
+                <apex:inputField id="PlanStartDt" style="float: center;width:118px;" value="{!proj.Planned_Start_Date__c}" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsL6s" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Assigned__c.inlineHelpText}" >
+                <apex:outputLabel style="float: center;width:120px;" value="{!$ObjectType.QIPP_Project__c.fields.Belt_Assigned__c.Label}" for="projl6s"/>
+                <apex:inputField id="projl6s" value="{!proj.Belt_Assigned__c}" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsiQuaAwa" helpText="{!$ObjectType.QIPP_Project__c.fields.Quality_Award_Project__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Quality_Award_Project__c.Label}" for="qtyAwardProj" Style="width:160px;display:inline-block"/>
+                <apex:selectRadio id="qtyAwardProj" value="{!qtyAwardProj}" style="margin-top: -5px;margin-left:-15px;position:absolute;">
+                    <apex:selectOptions value="{!qtyAwardProjectValues}"/>
+                </apex:selectRadio>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsiProjStartDtActl" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.inlineHelpText}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.Label}" for="projStartDtActl"/>
+                <apex:inputField id="projStartDtActl" value="{!proj.Project_Start_Date__c}" required="false" styleClass="inputdateFld" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Flex_Field_1__c.inlineHelpText}">
+                <apex:outputLabel value="Project Flex Field" for="ProjFlexField1" style="width: 100px;display: inline-block;"/>
+                <apex:inputField id="ProjFlexField1" value="{!proj.Project_Flex_Field_1__c}"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.Label}" for="ProjDoc"/>
+                <apex:outputPanel >
+                    <apex:inputField id="ProjDoc" value="{!proj.Project_Document__c}"  styleClass="Project_Document__c"/>
+                    <br/>
+                    <span id="error_Project_Document__c" styleClass="errMsg" style="color:#d74c3b">Error: Enter a valid url where project doc is stored.</span>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem id="pbsiCompDateActual" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Actual__c.inlineHelpText}" >
+                <apex:outputLabel style="float: center;width:120px;" value="Completion Date - Actual" for="projCompDateActual"/>
+                <apex:inputField id="projCompDateActual" value="{!proj.Project_Completion_Date_Actual__c}" required="false" styleClass="inputdateFld" />
+            </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <!-- Section 2 - End -->
+           <apex:outputPanel id="projLeadSponsorEqualPopup">
+            <apex:actionFunction name="cancelLeadSponserPopuup" action="{!closeLeadSponsorEqualPopup}" reRender="projLeadSponsorEqualPopup" />
+            <apex:outputPanel id="popupLeadSponsorEqual" styleClass="BenfpopupBackground" layout="block" rendered="{!projLeadSponsorEqual}" />
+            <apex:outputPanel styleClass="LeadSponsorEqualPopup" layout="block" rendered="{!projLeadSponsorEqual}">
+    
+               <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem id="projLeadSponsorEqual">
+                        <apex:outputLabel value="{!$Label.QIPP_Lead_and_Sponsor_is_Equal_Msg}" style="width: 300px;display: inline-block;text-align: left;"/>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <div style="text-align:center;margin-top: 8px;">
+                    <apex:commandButton id="btnSaveLeadSponsorEqual" value="OK" onclick="savePrj('Save'); return false;"/>    
+                    <apex:commandButton id="btnCancelLeadSponsorEqual" value="Cancel" onclick="cancelLeadSponserPopuup(); return false;" />
+                </div>             
+            </apex:outputPanel>
+        </apex:outputPanel>
+            
+        </apex:pageblock>
+         <apex:inputHidden id="myHiddenField"/>
+            <apex:actionFunction name="modifiedBBGDetails" action="{!BBGUpdated}" rerender="myHiddenField">
+            </apex:actionFunction>
+        <apex:outputPanel id="otPnlErrMsg">
+            <apex:repeat value="{!errMessageMap}" var="key">
+                <script>
+                    var cntId = 'error_{!key}';
+                    //$('#'+cntId).html('{!errMessageMap[key]}');
+                    $('#'+cntId).show();
+                </script>
+            </apex:repeat>
+        </apex:outputPanel>
+        
+    </apex:form>
+<script type="text/javascript">        
+    function CompareBBG(){
+         var dist = document.getElementById('pg:frm:DistributionPercent').value;
+         var bg = document.getElementById('pg:frm:oldBGVal').value;
+         var bu = document.getElementById('pg:frm:oldBUVal').value;
+         var bl = document.getElementById('pg:frm:oldBLVal').value;
+         
+         var newBG = document.getElementById('pg:frm:pb:pbSecStdFields:portfolioBUItem:portfolioBU').value;
+         var newBU = document.getElementById('pg:frm:pb:pbSecStdFields:bBLieam:bBL3').value;
+         var newBL = document.getElementById('pg:frm:pb:pbSecStdFields:bBL:bBL4').value;
+         //alert({!JSENCODE(cloneid)});
+         isNotSaveChangeBBG = false;
+         if('{!JSENCODE(cloneid)}' == null || '{!JSENCODE(cloneid)}' == ''){
+             if(bg!='' && bu!='' && bl!=''){
+                 if((bg!=newBG || bu!=newBU || bl!=newBL) && ('{!benefitAmount}'> 0.0 ))
+                 {
+                     //modifiedBBGDetails();
+                     //if(dist!=100){
+                     if(!countBBG){
+                        countBBG = true;
+                        var r = confirm("Please review the %\'s allocated to Benefiting Business Groups associated with this Project.It will reset with the Selected Benefitting Business Group");
+                        if (r == true) {
+                           modifiedBBGDetails();    
+                            return true;
+                        } else {
+                            isNotSaveChangeBBG = true;
+                            countBBG = false;
+                            return false;
+                        }
+                        }
+                        else{return true;}
+                     //}
+                 }
+             }
+         }
+     }
+</script>
+</apex:page>

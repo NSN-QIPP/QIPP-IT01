@@ -1,0 +1,67 @@
+<apex:page standardController="SPE_SurveyQuestion__c" extensions="SPE2_translateSurveyQuestionController" >
+<apex:pageMessages />
+<apex:form id="Questionpage">
+    <script>
+        //alert('Hii' + '{!qestionTransReq.Is_Translated__c}');
+        if('{!qestionTransReq.Is_Translated__c}' == 'true'){
+            alert('This is an alternate language question. Adding alternate language text to this version is not permitted. You will now be redirected to the parent Question. Kindly add the language text over there.');
+            window.location = '/'+'{!qestionTransReq.Question_Bank__c}';
+        }
+    </script>
+   
+        <apex:pageBlock id="langSection" rendered="{!showOption}" title="Preferred Alternate Language">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Next" action="{!Next}" reRender="Questionpage" style="width:10%;" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Select Alternate Language</apex:outputLabel>
+                    <apex:selectList size="1" value="{!selectedValue}">
+                        <apex:selectOptions value="{!statusOptions}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!showquestion}" >
+            <apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{!save}"   />
+                    <apex:commandButton value="Cancel" action="{!cancel}"   />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection rendered="{!showquestion}" title="Alternate Language Question Entry" collapsible="false">   
+                
+                    <apex:outputText label="Selected Alternate Language" value="{!selectedValue}" />
+                    <apex:outputField value="{!qestionTransReq.SurveyQuestion__c}"/> 
+                    <apex:inputField value="{!presenttranslatedQuestion.SurveyQuestion__c}" required="true" label="Enter the Survey Question in {!selectedValue}" rendered="{!abc}"  style="width:300px;height:50px;"/>
+                    <apex:inputField value="{!translatedQuestion.SurveyQuestion__c}" required="true" label="Enter the Survey Question in {!selectedValue}" rendered="{!!abc}"/>
+                
+             </apex:pageBlockSection>
+             <apex:pageblockSection title="Alternate Language Answer Entry" collapsible="false" columns="1" rendered="{!IF(AND(showquestion,qestionTransReq.AnswerType__c=='Picklist'),true,false)}">
+                 <apex:pageBlockTable var="anslist" value="{!listansWrapperCls}" width="100%">
+                        <apex:column value="{!anslist.AnswerChoices}" headerValue="Choices in English"/>
+                        <apex:column headerValue="Alternate Choices in {!selectedValue}">
+                              <apex:outputPanel styleClass="requiredInput" layout="block">
+                              <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                              <apex:inputText Value="{!anslist.SecondaryChoices}" required="true" />
+                              </apex:outputPanel>
+                        </apex:column>
+                        <apex:column value="{!anslist.AnswerValue}" headerValue="Value"/>
+                    </apex:pageBlockTable> 
+             </apex:pageblockSection>
+             </apex:pageBlock>
+              <!--<apex:pageBlock rendered="{!showquestion}">
+              
+                     <apex:pageBlockButtons location="bottom"  >
+                            <apex:commandButton value="Save" action="{!save}"   />
+                            <apex:commandButton value="Cancel" action="{!cancel}"   />
+                     </apex:pageBlockButtons>
+                        <apex:pageBlockTable var="anslist" value="{!listansWrapperCls}">
+                        <apex:column value="{!anslist.AnswerChoices}" headerValue="Choices"/>
+                        <apex:column value="{!anslist.AnswerValue}" headerValue="Value"/>
+                        <apex:column headerValue="Translate Choices in {!selectedValue}">
+                              <apex:inputText Value="{!anslist.SecondaryChoices}" />
+                        </apex:column>
+                    </apex:pageBlockTable> 
+             
+        </apex:pageBlock>-->
+  </apex:form>
+</apex:page>

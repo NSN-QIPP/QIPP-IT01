@@ -1,0 +1,78 @@
+<apex:page controller="SPE_FinalInsert_dataupload" showHeader="false" sidebar="false" standardStylesheets="false">
+  <apex:stylesheet value="{!URLFOR($Resource.Bootstrap_min)}"/> 
+  
+  <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: center;    
+    }
+</style>
+  
+  <script>
+      function insertfunction()
+     {
+         document.getElementById('insBtn').disabled = true;   
+         insfunc();
+     }
+  </script>
+  
+  <apex:form >
+  <apex:actionFunction name="insfunc" action="{!BatchUpload}" reRender="BU" status="statusChange1"/>
+  
+  <div class="container">
+
+     <!--- Panel Heading --->
+    <div class="panel panel-primary" style="border-color:#1485a9;">
+        <div class="panel-heading" style="height: 50px;background-color:#1485a9;"> 
+        <div style="float:center;">
+            <center> <b style="color:white;font-weight:bold;font-size: x-large;" >PI Uploader</b></center>
+        </div>
+        
+        <div style="clear:both"/>
+        </div>
+        
+    
+    <!-- Panel heading Ends Here -->
+    
+    <div class="panel-body">
+            
+            <b>You have skipped the validation steps, Please click on "Insert" to upload the data : </b><br/><br/><br/>
+            
+           <table style="width:100%">
+          <tr>
+            <th style="background-color:#93D7EA">Features</th>
+            <th colspan="2" style="background-color:#93D7EA">Impacts</th>
+          </tr>
+          <tr>
+            <td>Enterprise ID</td>
+            <td><b>{!EID}</b> Enterprise ID's out of <b>{!totalCount}</b> are faulty </td>
+          </tr>
+          <tr>
+            <td>Category</td>
+            <td><b>{!cat}</b> Category values out of <b>{!totalCount}</b> are faulty </td>
+          </tr>
+          <tr>
+            <td>Geography</td>
+            <td><b>{!geo}</b> Geography values out of <b>{!totalCount}</b> are faulty </td>
+          </tr>
+          <tr>
+            <td>BU</td>
+            <td><b>{!BUn}</b> BU values out of <b>{!totalCount}</b> are faulty </td>
+          </tr>
+        </table><br/><br/>
+    
+        <input type="button" class="btn btn-primary btn-lg" value="Insert" onclick="insertfunction();" id="insBtn"/>
+        <apex:actionStatus id="statusChange1">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+        </apex:actionStatus>
+    </div>
+  </div>
+  </div>
+ </apex:form> 
+</apex:page>

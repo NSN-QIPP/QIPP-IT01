@@ -1,0 +1,6 @@
+<apex:page standardController="QIPP_Portfolio__c" extensions="QIPP_Portfolio_Owner_Count" sidebar="false">
+    
+    <apex:form >
+        <apex:pagemessages id="errorblock"/>
+    </apex:form>
+</apex:page>

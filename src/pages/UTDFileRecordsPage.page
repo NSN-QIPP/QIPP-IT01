@@ -1,0 +1,251 @@
+<apex:page StandardController="Measurement__c" extensions="UTDSupportController" showHeader="true" action="{!initialisePage}">
+
+ <apex:sectionHeader title="UTD File Records Awaiting Submission "/>
+
+  <apex:form >
+  
+  <apex:pageBlock >
+  <b><font size="2" color = "blue"> Please select at least one and Max 10 Measurement Records to submit to UTD.</font></b>
+  </apex:pageBlock>
+  
+  <!--
+  <apex:pageBlock >
+  <apex:outputField value="Please select at least one and Max 10 Measurement Records to submit to UTD." rendered="true"/>
+  </apex:pageBlock>
+  -->
+  <apex:pageMessages />
+    <apex:outputPanel id="results" >
+    
+    <apex:pageBlock id="repTable">    
+      <apex:panelGrid columns="6"  columnClasses="left,none" width="100%" cellpadding="5" cellspacing="0" border="1">
+     
+                    <tr>
+                        <th bgcolor="skyblue">Sr.No.</th>
+                        <th bgcolor="skyblue">Submit UTD</th>
+                        <th bgcolor="skyblue">Created Date</th>
+                        <th bgcolor="skyblue">Measurement Name</th> 
+                        <th bgcolor="skyblue">Registration ID</th>
+                        <th bgcolor="skyblue">Product Category Table Name</th>
+                        <th bgcolor="skyblue">Product Category</th>
+                        <th bgcolor="skyblue">Product Category Name</th>
+                        <th bgcolor="skyblue">Data Template Type</th>
+                        
+                        <th bgcolor="skyblue">Year Of Data</th>        
+                        <th bgcolor="skyblue">Month Of Data</th>  
+                        <th bgcolor="skyblue">Product/Location</th>             
+                        <th bgcolor="skyblue">Software Option</th>
+                        
+                        <th bgcolor="skyblue">NPRa</th>          
+                        <th bgcolor="skyblue">NPRs</th>        
+                        <th bgcolor="skyblue">Np1</th>     
+                        <th bgcolor="skyblue">Np2</th>
+                        <th bgcolor="skyblue">Np3</th>
+                        <th bgcolor="skyblue">Np4</th>
+                        
+                        <th bgcolor="skyblue">Nso</th>          
+                        <th bgcolor="skyblue">Ns</th>        
+                        <th bgcolor="skyblue">NEOa</th>     
+                        <th bgcolor="skyblue">NEOs</th>
+                        <th bgcolor="skyblue">NEOec</th>
+                        <th bgcolor="skyblue">NEOdc</th>
+                        <th bgcolor="skyblue">NEOep</th>
+                        <th bgcolor="skyblue">NEOdp</th>
+                       <!-- 
+                        <th bgcolor="skyblue">hNEOa</th>          
+                        <th bgcolor="skyblue">hNEOs</th>        
+                        <th bgcolor="skyblue">hNEOec</th>     
+                        <th bgcolor="skyblue">hNEOdc</th>
+                        <th bgcolor="skyblue">hNEOep</th>
+                        <th bgcolor="skyblue">hNEOdp</th>
+                        <th bgcolor="skyblue">hSOa</th>
+                        <th bgcolor="skyblue">hSOs</th>
+                        <th bgcolor="skyblue">hSOea</th>          
+                        <th bgcolor="skyblue">hSOda</th>        
+                        <th bgcolor="skyblue">hSOep</th>     
+                        <th bgcolor="skyblue">hSOdp</th>
+                        
+                        <th bgcolor="skyblue">rNEOa</th>
+                        <th bgcolor="skyblue">rNEOs</th>
+                        <th bgcolor="skyblue">rNEOec</th>
+                        <th bgcolor="skyblue">rNEOdc</th>
+                        <th bgcolor="skyblue">rNEOep</th>
+                        <th bgcolor="skyblue">rNEOdp</th>
+                        <th bgcolor="skyblue">rSOa</th>
+                        <th bgcolor="skyblue">rSOs</th>                        
+                        <th bgcolor="skyblue">rSOea</th>
+                        <th bgcolor="skyblue">rSOda</th>
+                        <th bgcolor="skyblue">rSOep</th>
+                        <th bgcolor="skyblue">rSOdp</th>
+                        -->
+                        <th bgcolor="skyblue">Fr2c</th>
+                        <th bgcolor="skyblue">Fr2d</th>
+                        <th bgcolor="skyblue">Fr3c</th>
+                        <th bgcolor="skyblue">Fr3d</th>                        
+                        <th bgcolor="skyblue">Fr4c</th>
+                        <th bgcolor="skyblue">Fr4d</th>
+                        <th bgcolor="skyblue">Fra</th>
+                        <th bgcolor="skyblue">FRs</th>                        
+                        <th bgcolor="skyblue">FRri</th>
+                        <th bgcolor="skyblue">FRry</th>
+                        <th bgcolor="skyblue">FRrt</th>
+                        <th bgcolor="skyblue">Frsi</th>                        
+                        <th bgcolor="skyblue">Frsy</th>                        
+                        <th bgcolor="skyblue">FRst</th>
+                        <th bgcolor="skyblue">Fc</th>
+                        
+                        <th bgcolor="skyblue">Dla</th>
+                        <th bgcolor="skyblue">Dld</th>                        
+                        <th bgcolor="skyblue">Dva</th>
+                        <th bgcolor="skyblue">DVd</th>
+                        <th bgcolor="skyblue">DFc</th>
+                        
+                        <th bgcolor="skyblue">SPRa</th>
+                        <th bgcolor="skyblue">SPRs</th>
+                        <th bgcolor="skyblue">Sp1</th>                       
+                        <th bgcolor="skyblue">Sp2</th>
+                        <th bgcolor="skyblue">Sp3</th>
+                        <th bgcolor="skyblue">Soa</th>                       
+                        <th bgcolor="skyblue">SOs</th>
+                        <th bgcolor="skyblue">Soea</th>
+                        <th bgcolor="skyblue">Soda</th>                        
+                        <th bgcolor="skyblue">Soep</th>
+                        <th bgcolor="skyblue">Sodp</th>
+                        <th bgcolor="skyblue">SQd</th>
+                        <th bgcolor="skyblue">SQt</th>
+                        
+                        <th bgcolor="skyblue">Of2c</th>
+                        <th bgcolor="skyblue">Of2d</th>
+                        <th bgcolor="skyblue">Of3c</th>
+                        <th bgcolor="skyblue">Of3d</th>
+                        <th bgcolor="skyblue">Of4c</th>
+                        <th bgcolor="skyblue">Of4d</th>
+                        
+                        <th bgcolor="skyblue">Are you submitting data for this Product?</th>                                                
+                        
+                    </tr> 
+                     
+        <apex:repeat value="{!categories}" var="item"  rows="200">
+         <tr>
+           <td><apex:outputtext value="{!item.srNo}"/></td>
+          <td><apex:inputCheckbox value="{!item.checked}" /></td>
+          
+          <td><apex:outputField value="{!item.mest.CreatedDate}"/></td>
+          
+          <td><a href="/{!item.mest.Id}"><font color="#5F9EA0">{!item.mest.Name}</font></a></td>
+          <!--<td><apex:outputField value="{!item.mest.Name}"/></td> -->
+          <td><apex:outputField value="{!item.mest.Registration_ID__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Product_Category_Table_Name__c}"/></td>          
+          <td><apex:outputField value="{!item.mest.Product_Category__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Product_Category_Name__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Data_Template_Type__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Year_Of_Data__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Month_Of_Data__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Product_Location__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Software_Option__c}"/></td>
+          
+          <td><apex:outputField value="{!item.mest.NPRa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NPRs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Np1__c}"/></td>          
+          <td><apex:outputField value="{!item.mest.Np2__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Np3__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Np4_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Nso_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Ns_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NEOa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NEOs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NEOec__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NEOdc__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NEOep__c}"/></td>
+          <td><apex:outputField value="{!item.mest.NEOdp__c}"/></td>
+          <!--
+          <td><apex:outputField value="{!item.mest.hNEOa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hNEOs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hNEOec__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hNEOdc__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hNEOep__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hNEOdp__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hSOa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hSOs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hSOea__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hSOda__c}"/></td>
+          <td><apex:outputField value="{!item.mest.hSOep__c}"/></td>          
+          <td><apex:outputField value="{!item.mest.hSOdp__c}"/></td>
+          
+          <td><apex:outputField value="{!item.mest.rNEOa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rNEOs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rNEOec__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rNEOdc__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rNEOep__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rNEOdp__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rSOa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rSOs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rSOea__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rSOda__c}"/></td>          
+          <td><apex:outputField value="{!item.mest.rSOep__c}"/></td>
+          <td><apex:outputField value="{!item.mest.rSOdp__c}"/></td>
+          -->
+          <td><apex:outputField value="{!item.mest.Fr2c__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Fr2d__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Fr3c__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Fr3d__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Fr4c_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Fr4d_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRs__c}"/></td>         
+          <td><apex:outputField value="{!item.mest.FRri__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRry__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRrt__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRsi__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRsy__c}"/></td>
+          <td><apex:outputField value="{!item.mest.FRst__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Fc__c}"/></td>
+          
+          <td><apex:outputField value="{!item.mest.DIa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.DId__c}"/></td>
+          <td><apex:outputField value="{!item.mest.DVa_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.DVd_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.DFc__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SPRa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SPRs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Sp1__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Sp2__c}"/></td>          
+          <td><apex:outputField value="{!item.mest.Sp3__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SOa__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SOs__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SOea__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SOda__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SOep__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SOdp__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SQd_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.SQt_7_5__c}"/></td>
+          
+          <td><apex:outputField value="{!item.mest.Of2c__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Of2d__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Of3c__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Of3d__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Of4c_7_5__c}"/></td>
+          <td><apex:outputField value="{!item.mest.Of4d_7_5__c}"/></td>
+          
+          <td><apex:outputField value="{!item.mest.submit_yes_no__c}"/></td>                    
+      
+         </tr>
+      </apex:repeat>
+          
+    </apex:panelgrid>  
+     
+  </apex:pageBlock>  
+  
+    <apex:panelGrid columns="4">
+    <apex:commandLink action="{!first}"><font size="4" color = "blue">First</font></apex:commandlink>
+    <apex:commandLink action="{!previous}" rendered="{!hasPrevious}"><font size="4" color = "blue">Previous</font></apex:commandlink>
+    <apex:commandLink action="{!next}" rendered="{!hasNext}"><font size="4" color = "blue">Next</font></apex:commandlink>
+    <apex:commandLink action="{!last}"><font size="4" color = "blue">Last</font></apex:commandlink>
+    </apex:panelGrid>  
+    <BR/>
+          <apex:commandButton value="Submit to UTD" action="{!submit}" />
+      
+    </apex:outputPanel>  
+ 
+ 
+  </apex:form>
+</apex:page>

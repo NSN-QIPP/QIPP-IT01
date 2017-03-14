@@ -1,0 +1,77 @@
+<apex:component controller="MySupplierActionsComponentController" >
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+        <head>
+            <title>My Supplier Actions</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>   
+        <body>    
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <p class="slds-text-heading--label">My Suppliers open Actions &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="Hideactiondetails()" class="slds-button slds-button--brand">Back to Home</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="myapp">    
+                    <table class="slds-table slds-table--bordered">
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Supplier Name
+                                </th>    
+                                <th scope="col">
+                                    <span class="slds-truncate">Action</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Area</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Supplier Responsible</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Nokia User</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Due Date</span>
+                                </th>
+                               <!-- <th scope="col">
+                                    <span class="slds-truncate">Status</span>
+                                </th> -->
+                            </tr>   
+                        </thead>
+                        <apex:repeat value="{!actionList}" var="action" id="theRepeat">
+                            <tr>
+                                <td data-label="Supplier Name">
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!action.Supplier_Name__c}" target="_blank">{!action.Supplier_Name__r.Name}</apex:outputLink>
+                                </td>
+                                <td data-label="Action">
+                                    <span class="slds-truncate">{!action.Action__c}</span>
+                                </td>
+                                <td data-label="Area">
+                                    <span class="slds-truncate">{!action.Area__c}</span>
+                                </td>
+                                <td data-label="Supplier Responsible">
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!action.Supplier_Responsible__c}" target="_blank"><span class="slds-truncate">{!action.Supplier_Responsible__r.Full_Name__c}</span></apex:outputLink>
+                                </td>
+                                <td data-label="Nokia User">
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!action.Nokia_User__c}" target="_blank"><span class="slds-truncate">{!action.Nokia_User__r.Name}</span></apex:outputLink>
+                                </td>
+                                <td data-label="Due Date">
+                                    <span class="slds-truncate">
+                                        <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                            <apex:param value="{!action.Due_Date__c}"></apex:param>
+                                        </apex:outputText>
+                                    </span>
+                                </td>
+                                <!--<td>
+                                    <span class="slds-truncate">{!action.Status__c}</span>
+                                </td> -->
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div> 
+        </body>
+    </html> 
+</apex:component>

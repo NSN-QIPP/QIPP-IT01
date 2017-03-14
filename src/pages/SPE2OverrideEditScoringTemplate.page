@@ -1,0 +1,11 @@
+<apex:page standardController="SPE_ScoringTemplate__c" extensions="SPE2overrideEditScoringTemplate" action="{!populateEditScoringTemplate}" >
+ <script>
+  if ('{!CurrentUserId}' != '{!RecordOwnerId}')
+            {
+                
+                alert('You can only edit the record under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_ScoringTemplate__c.Id}";
+      }
+ </script> 
+</apex:page>

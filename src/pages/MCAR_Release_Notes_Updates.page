@@ -1,0 +1,18 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" >
+    
+       <Body >
+    <!-- End Default Content REMOVE THIS  -->
+     <table bgcolor="green" border="1" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white"> <FONT SIZE="5">The MCAR/Claims Tools will be deploying new changes into production on Friday, 24th June 2016, 10:30 AM UTC (add IST, China time, US time in Texas, and Munich time). MCAR &amp; Claims will be unavailable for 3 hours between 10:30 to 13:30 UTC.
+
+            
+             Requesting you don't use MCAR application between 10:30 to 13:30 UTC.
+   <br/>
+              <p align="center" >Thanks for your co-operation</p>
+
+</FONT></FONT></h1></td>
+        </tr>
+    </table>
+  </body>   
+</apex:page>

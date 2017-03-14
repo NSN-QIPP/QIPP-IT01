@@ -1,0 +1,114 @@
+<apex:page >
+
+    <style>
+#crumbs {
+    text-align: center;
+}
+
+#crumbs ul {
+    list-style: none;
+    display: inline-table;
+}
+
+#crumbs ul li {
+    display: inline;
+}
+
+#crumbs ul li a {
+    display: block;
+    float: left;
+    height: 50px;
+    background: #3498db;
+    text-align: center;
+    padding: 30px 40px 0 80px;
+    position: relative;
+    margin: 0 10px 0 0;
+    font-size: 15px;
+    text-decoration: none;
+    color: #fff;
+    width: 120px;
+}
+
+#crumbs ul li a:after {
+    content: "";
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid transparent;
+    border-left: 40px solid #3498db;
+    position: absolute;
+    right: -40px;
+    top: 0;
+    z-index: 1;
+}
+
+#crumbs ul li a:before {
+    content: "";
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid transparent;
+    border-left: 40px solid #d4f2ff;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#crumbs ul li:first-child a {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#crumbs ul li:first-child a:before {
+    display: none;
+}
+
+#crumbs ul li:last-child a {
+    padding-right: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#crumbs ul li:last-child a:after {
+    display: none;
+}
+
+#crumbs ul li a:hover {
+    background: #fa5ba5;
+}
+
+#crumbs ul li a:hover:after {
+    border-left-color: #fa5ba5;
+}
+</style>
+
+    <apex:form >
+
+        <br></br>
+
+
+
+
+
+
+
+
+
+        <center>
+            <h1 style="font-size: 250%">
+                <b>{!$Label.SPE_CMProcess}</b>
+            </h1>
+            <br />
+            <br />
+
+        </center>
+        <div id="crumbs">
+            <ul>
+                <li><a href="{!$Page.SPE_ReviewPage}">{!$Label.SPE_ReviewPage} </a>
+                       </li>
+                <li><a href="{!URLFOR($Action.SPE_ConsequenceManagement__c.List, $ObjectType.SPE_ConsequenceManagement__c)}">{!$Label.SPE_CMTab}</a>
+                </li>
+                <li><a
+                    href="{!$Page.SPE_BulkUpdate}">{!$Label.SPE_CMWatchlist}</a></li>
+                    <li><a
+                    href="{!$Page.SPE_CMBulkDeLink}">De-link Ticket</a></li>
+            </ul>
+        </div>
+    </apex:form>
+</apex:page>

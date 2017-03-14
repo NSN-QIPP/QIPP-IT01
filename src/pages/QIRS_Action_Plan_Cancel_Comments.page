@@ -1,0 +1,29 @@
+<apex:page tabStyle="QIRS__c" StandardController="QIRS_Action_Plan__c" extensions="QIRS_Action_Plan_Cancel_Comments" showHeader="true" sidebar="true" action="{!ActionMethod}">
+<apex:form >
+<apex:Pagemessages ></apex:Pagemessages>
+<apex:sectionHeader title="Action Plan Edit" subtitle="{!strSubtitleValue}"/>
+<apex:pageBlock title="Reason for Cancelation" mode="detail">
+<apex:pageBlockButtons location="top">
+<apex:commandButton value="Save" action="{!Save}"/>
+<apex:commandButton immediate="true" value="Cancel" action="{!Cancel}"/>
+</apex:pageBlockButtons>
+<apex:pageBlockButtons location="bottom">
+<apex:commandButton value="Save" action="{!Save}"/>
+<apex:commandButton immediate="true" value="Cancel" action="{!Cancel}"/ >
+</apex:pageBlockButtons>
+<table border="0">
+<tr>
+<td>
+<font size= "10" color="red">|</font>
+</td>
+<td>
+<apex:inputTextarea value="{!comments}" rows="10" cols="60"/>
+</td>
+</tr>
+</table>
+
+
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

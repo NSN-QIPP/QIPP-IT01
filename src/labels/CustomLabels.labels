@@ -1,0 +1,2704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>BAM_Header_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Header Text</shortDescription>
+        <value>This section captures the project business activity.</value>
+    </labels>
+    <labels>
+        <fullName>Benefit_Amount_Spread_Over_12_months</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Benefit Amount Spread Over 12 months</shortDescription>
+        <value>Project saving amount are distributed over 12 months.</value>
+    </labels>
+    <labels>
+        <fullName>Benefits_Header_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Benefits Header Text</shortDescription>
+        <value>This section captures the project financial benefits.</value>
+    </labels>
+    <labels>
+        <fullName>Benefits_Overview_Report_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Benefits Overview Report ID</shortDescription>
+        <value>00O0P000002F3rt</value>
+    </labels>
+    <labels>
+        <fullName>DMADVProject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DMADVProject</shortDescription>
+        <value>DMADV</value>
+    </labels>
+    <labels>
+        <fullName>DMAICProject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DMAICProject</shortDescription>
+        <value>DMAIC</value>
+    </labels>
+    <labels>
+        <fullName>LEANProject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LEANProject</shortDescription>
+        <value>Lean (including Kaizen)</value>
+    </labels>
+    <labels>
+        <fullName>Porfolio_Manager</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Porfolio Manager</shortDescription>
+        <value>rajesh.guthula@capgemini.com</value>
+    </labels>
+    <labels>
+        <fullName>ProgressBar_Control</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ProgressBar Control</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
+        <fullName>Project_Phase_Initiation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Project Phase Initiation</shortDescription>
+        <value>Project Initiation</value>
+    </labels>
+    <labels>
+        <fullName>Project_State_Complete</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Project State Complete</shortDescription>
+        <value>Complete</value>
+    </labels>
+    <labels>
+        <fullName>QIPP_Benefit_Distribution_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QIPP Benefit Distribution Message</shortDescription>
+        <value>Note: This section captures the project-benefits distributed to multiple units, if applicable.</value>
+    </labels>
+    <labels>
+        <fullName>QIPP_Benefit_Section_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QIPP Benefit Section Message</shortDescription>
+        <value>Note: Planned amounts are NOT counted for project-benefits. Only ‘Achieved’ and ‘Future’ amounts are counted for project-benefits upon project closure.
+The terms (1) Project-benefits,  (2) Continuous-Improvement-Impact (CII) and (3) Validation-amount, all three refers the same. (Validation amount = Achieved amount + Future amount).</value>
+    </labels>
+    <labels>
+        <fullName>QIPP_Lead_and_Sponsor_is_Equal_Msg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>QIPP Lead and Sponsor is Equal Msg</shortDescription>
+        <value>Note : Project Lead and Project Sponsor are the same person.</value>
+    </labels>
+    <labels>
+        <fullName>Redepoyment_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Redepoyment Description</shortDescription>
+        <value>This section captures the project redeployment possibilities. The execution of project redeployment, if identified here, is usually out of the original project scope, unless it was agreed to be included in the original project deliverables. &lt;/br&gt;
+What is Redeployment? The outcome of the project deliverables (such as improved process, practices etc) are considered as “redeploy-able” if and when the project results (such as Improved process) are applicable to be deployed again in other Business Group(s) or Business Unit(s) – primarily to bring the similar benefits realized in the original project.</value>
+    </labels>
+    <labels>
+        <fullName>SPE2_AddKPI</fullName>
+        <categories>SPE2_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE2_AddKPI</shortDescription>
+        <value>Please add the KPI First</value>
+    </labels>
+    <labels>
+        <fullName>SPE2_Threshold_Selection</fullName>
+        <categories>SPE2_1_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE2_Threshold Selection</shortDescription>
+        <value>Please select the KPI Threshold according to level defined for</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AcceptableUsePolicy</fullName>
+        <categories>SPE_FooterforSite</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AcceptableUsePolicy</shortDescription>
+        <value>Acceptable Use Policy</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Action</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AddAnswers</fullName>
+        <categories>SPE_AddQuestionAnswer</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AddAnswers</shortDescription>
+        <value>Please add the  answers</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AddNewAnswers</fullName>
+        <categories>SPE_AddQuestionAnswer</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AddNewAnswers</shortDescription>
+        <value>Add New Answers</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AddNewKPI</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AddNewKPI</shortDescription>
+        <value>Add New KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AddRowsHelpText</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AddRowsHelpText</shortDescription>
+        <value>Add Rows as Calculation Indexes</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AddedPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AddedPI</shortDescription>
+        <value>Added PI has greater score value compared to current KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Adhoc</fullName>
+        <categories>SPE_generateTrackerPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Adhoc</shortDescription>
+        <value>Adhoc</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AdhocTrackerExecution</fullName>
+        <categories>SPE_generateTrackerPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AdhocTrackerExecution</shortDescription>
+        <value>Adhoc Tracker Execution</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AggFuncWith</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AggFuncWith</shortDescription>
+        <value>Aggregation Fuction with</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Aggregation</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Aggregation</shortDescription>
+        <value>Aggregation</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AggregationConstant</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AggregationConstant</shortDescription>
+        <value>Please enter a constant value for aggregation constant row</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AggregationFunction</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AggregationFunction</shortDescription>
+        <value>Please Select an Aggregation function</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AggregationPIPrevKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AggregationPIPrevKPI</shortDescription>
+        <value>Cant enter the aggregation without PI or Prev.KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AllCategories</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AllCategories</shortDescription>
+        <value>All Categories</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AllMarkets</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AllMarkets</shortDescription>
+        <value>All Markets</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AllProducts</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AllProducts</shortDescription>
+        <value>All Products</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AlldatainCsv</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AlldatainCsv</shortDescription>
+        <value>Please ensure that all the dates entered in the csv follows the format of YYYY-MM-DD</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Answer</fullName>
+        <categories>SPE_AddQuestionAnswer</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Answer</shortDescription>
+        <value>Answers</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AnswerOf</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AnswerOf</shortDescription>
+        <value>Answer of</value>
+    </labels>
+    <labels>
+        <fullName>SPE_AnswerSurveyKPI</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_AnswerSurveyKPI</shortDescription>
+        <value>Answer</value>
+    </labels>
+    <labels>
+        <fullName>SPE_BackToPI</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_BackToPI</shortDescription>
+        <value>Back to PI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_BackToSPEPlan</fullName>
+        <categories>SPE_SPEPlanClone</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_BackToSPEPlan</shortDescription>
+        <value>Back to SPE Plan</value>
+    </labels>
+    <labels>
+        <fullName>SPE_BatchAlreadyRunning</fullName>
+        <categories>SPE_KPIAdhocSchedulePage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_BatchAlreadyRunning</shortDescription>
+        <value>A Batch is already running. Please wait for it to complete</value>
+    </labels>
+    <labels>
+        <fullName>SPE_BooleanValue</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_BooleanValue</shortDescription>
+        <value>Boolean Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_BusinessLine</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_BusinessLine</shortDescription>
+        <value>Business Line</value>
+    </labels>
+    <labels>
+        <fullName>SPE_BusinessUnit</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_BusinessUnit</shortDescription>
+        <value>Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CMProcess</fullName>
+        <categories>SPE_CMTabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CMProcess</shortDescription>
+        <value>Consequence Management Process</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CMSite</fullName>
+        <categories>Consequence Management</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CMSite</shortDescription>
+        <value>http://nsn.cs50.force.com/spe/</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CMTab</fullName>
+        <categories>SPE_CMTabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CMTab</shortDescription>
+        <value>Consequence Management</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CMWatchlist</fullName>
+        <categories>SPE_CMTabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CMWatchlist</shortDescription>
+        <value>Take Off the Watchlist</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CSV</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CSV</shortDescription>
+        <value>CSV</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CalculationLogic</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CalculationLogic</shortDescription>
+        <value>Calculation Logic</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Cancel</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CannotUse</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CannotUse</shortDescription>
+        <value>Cannot Use</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CantRefKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CantRefKPI</shortDescription>
+        <value>Cant Reference to the same KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CatGroupDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CatGroupDashboard</shortDescription>
+        <value>CatGroupDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Categories</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Categories</shortDescription>
+        <value>Categories</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Category</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Category</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryArea</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryArea</shortDescription>
+        <value>Category Area</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryCluster</fullName>
+        <categories>SPE_SurveyKPIView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryCluster</shortDescription>
+        <value>Category Cluster :</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryGroup</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryGroup</shortDescription>
+        <value>Category Group</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryInfo</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryInfo</shortDescription>
+        <value>Category Info</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryInfoEdit</fullName>
+        <categories>SPE_SPECategoryInfo</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryInfoEdit</shortDescription>
+        <value>Category Info Edit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryLab</fullName>
+        <categories>SPE_TrackerViewPDF</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryLab</shortDescription>
+        <value>Category:</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CategoryMaster</fullName>
+        <categories>SPE_MasterData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CategoryMaster</shortDescription>
+        <value>Category master</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Clear</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Clear</shortDescription>
+        <value>Clear</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CloseBulkAPI</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CloseBulkAPI</shortDescription>
+        <value>3. Close the Bulk API job</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CompleteCalc</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CompleteCalc</shortDescription>
+        <value>Please complete Calcultion Logic before you proceed</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Congratulations</fullName>
+        <categories>SPE_TrackerExecution</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Congratulations</shortDescription>
+        <value>Congratulations</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ConstantValue</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ConstantValue</shortDescription>
+        <value>Constant Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Contact</fullName>
+        <categories>SPE_SPECategoryInfo</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Contact</shortDescription>
+        <value>Contact</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ContactUs</fullName>
+        <categories>SPE_FooterforSite</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ContactUs</shortDescription>
+        <value>Contact us</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CorrectValue</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CorrectValue</shortDescription>
+        <value>Please Enter the correct Values</value>
+    </labels>
+    <labels>
+        <fullName>SPE_CorrectValue1</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_CorrectValue1</shortDescription>
+        <value>Please fill the field with correct Values</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Country</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Country</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DataLoader</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DataLoader</shortDescription>
+        <value>Data Loader</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DataLogic2</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DataLogic2</shortDescription>
+        <value>b.  If data not found from (1.a) get the get the average KPI values from other supplier and display as assume data</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DateOfExecution</fullName>
+        <categories>SPE_TrackerViewPDF</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DateOfExecution</shortDescription>
+        <value>Date Of Execution:</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DateValue</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DateValue</shortDescription>
+        <value>DateValue</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Delete</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Delete</shortDescription>
+        <value>delete</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DeletePiValues</fullName>
+        <categories>SPE_PIValuesDelete</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DeletePiValues</shortDescription>
+        <value>Do you really want to Delete All Related PI Values ?</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DeletePlan</fullName>
+        <categories>SPE Plan Validation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DeletePlan</shortDescription>
+        <value>You cannot delete SPE Plan for competed tracker status</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DeleteTemplate</fullName>
+        <categories>SPE Template Validation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DeleteTemplate</shortDescription>
+        <value>You cannot delete SPE Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Delete_Button</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Delete_Button</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Domain</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Domain</shortDescription>
+        <value>SPE Domain</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Done</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Done</shortDescription>
+        <value>Done</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DuplicateAnswer</fullName>
+        <categories>SPE_AddQuestionAnswer</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DuplicateAnswer</shortDescription>
+        <value>Duplicate answer not allowed</value>
+    </labels>
+    <labels>
+        <fullName>SPE_DuplicateKPI</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_DuplicateKPI</shortDescription>
+        <value>Please Do Not Select Duplicate KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Edit</fullName>
+        <categories>Edit</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Else</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Else</shortDescription>
+        <value>,else</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Email</fullName>
+        <categories>SPE_SPEPlanRespondent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EndDateValidation</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EndDateValidation</shortDescription>
+        <value>SPE Plan: End date should not be more than 5 years of Survey Start Date</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterBL</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterBL</shortDescription>
+        <value>Please enter Business Line</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterBU</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterBU</shortDescription>
+        <value>Please enter Business Unit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterCatArea</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterCatArea</shortDescription>
+        <value>Please enter Category Area</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterCatGroup</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterCatGroup</shortDescription>
+        <value>Please enter Category Group</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterCategory</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterCategory</shortDescription>
+        <value>Please enter Category</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterCountry</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterCountry</shortDescription>
+        <value>Please enter Country</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterMarket</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterMarket</shortDescription>
+        <value>Please enter Market</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterMarketUnit</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterMarketUnit</shortDescription>
+        <value>Please enter Market Unit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterProduct</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterProduct</shortDescription>
+        <value>Please enter Product</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterProject</fullName>
+        <categories>PI Values Layout</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterProject</shortDescription>
+        <value>Please enter Project</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnteredValueCorrect</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnteredValueCorrect</shortDescription>
+        <value>Entered value is correct</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterpriseIdName</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterpriseIdName</shortDescription>
+        <value>Enterprise Id Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_EnterprsieId</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_EnterprsieId</shortDescription>
+        <value>Enterprise ID</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Error</fullName>
+        <categories>SPE_SPEPlanClone</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Error</shortDescription>
+        <value>There was some error in performing the operation.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ExistingKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ExistingKPI</shortDescription>
+        <value>Please select an Existing KPI which is complete</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ExistingKPIDef</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ExistingKPIDef</shortDescription>
+        <value>Existing KPI Definition</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ExportTemplate</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ExportTemplate</shortDescription>
+        <value>Export Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ExternalIDField</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ExternalIDField</shortDescription>
+        <value>External ID Field:</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ExtractTemplate</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ExtractTemplate</shortDescription>
+        <value>Extract template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_FillOperator</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_FillOperator</shortDescription>
+        <value>Fill up the value according to Operators</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter1</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter1</shortDescription>
+        <value>Filter1</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter10</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter10</shortDescription>
+        <value>Filter10</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter2</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter2</shortDescription>
+        <value>Filter2</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter3</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter3</shortDescription>
+        <value>Filter3</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter4</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter4</shortDescription>
+        <value>Filter4</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter5</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter5</shortDescription>
+        <value>Filter5</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter6</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter6</shortDescription>
+        <value>Filter6</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter7</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter7</shortDescription>
+        <value>Filter7</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter8</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter8</shortDescription>
+        <value>Filter8</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Filter9</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Filter9</shortDescription>
+        <value>Filter9</value>
+    </labels>
+    <labels>
+        <fullName>SPE_FirstName</fullName>
+        <categories>SPE_SPEPlanRespondent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_FirstName</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_FutureDateValidation</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_FutureDateValidation</shortDescription>
+        <value>SPE Plan Start Date must be a future date because of the survey launch requirement for this SPE Plan</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GenInfo</fullName>
+        <categories>SPE_AddQuestionAnswer</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GenInfo</shortDescription>
+        <value>General Information</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GenerateExcel</fullName>
+        <categories>SPE_TrackerViewPDF</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GenerateExcel</shortDescription>
+        <value>Generate Excel</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GeneratePDF</fullName>
+        <categories>SPE_TrackerViewPDF</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GeneratePDF</shortDescription>
+        <value>Generate PDF</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GenerateTracker</fullName>
+        <categories>SPE_generateTrackerPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GenerateTracker</shortDescription>
+        <value>Generate Tracker</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Geography</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Geography</shortDescription>
+        <value>Geography</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GlobalDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GlobalDashboard</shortDescription>
+        <value>GlobalDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GoodPerformance</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GoodPerformance</shortDescription>
+        <value>Good Performance</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GreaterThan</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GreaterThan</shortDescription>
+        <value>Greater than</value>
+    </labels>
+    <labels>
+        <fullName>SPE_GreaterUpperValue</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_GreaterUpperValue</shortDescription>
+        <value>Upper value always should be greater than Lower value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Group</fullName>
+        <categories>SPE_TrackerViewPDFGenepage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Group</shortDescription>
+        <value>Pillar</value>
+    </labels>
+    <labels>
+        <fullName>SPE_HardDelete</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_HardDelete</shortDescription>
+        <value>hardDelete</value>
+    </labels>
+    <labels>
+        <fullName>SPE_HideFilters</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_HideFilters</shortDescription>
+        <value>Hide Filters</value>
+    </labels>
+    <labels>
+        <fullName>SPE_HighBetterFlag</fullName>
+        <categories>SPE2_NewKPIThreshold</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_HighBetterFlag</shortDescription>
+        <value>Please check Threshold values ordering and magnitudes with respect to the High Better Flag for the</value>
+    </labels>
+    <labels>
+        <fullName>SPE_HighKPIValue</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_HighKPIValue</shortDescription>
+        <value>High KPI value indicates High Performance score OR for some KPIs \r\n</value>
+    </labels>
+    <labels>
+        <fullName>SPE_HybridLogic</fullName>
+        <categories>SPE_ScorecardReportBatch</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_HybridLogic</shortDescription>
+        <value>BW with Project Simple Average</value>
+    </labels>
+    <labels>
+        <fullName>SPE_IDCopiedtoAllRows</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_IDCopiedtoAllRows</shortDescription>
+        <value>Please ensure that the Id value specified in the first row of the template is copied in all the rows</value>
+    </labels>
+    <labels>
+        <fullName>SPE_If</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_If</shortDescription>
+        <value>If</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Index</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Index</shortDescription>
+        <value>Index Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Indexname</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Indexname</shortDescription>
+        <value>Indexname Cant not be blank</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Indication</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Indication</shortDescription>
+        <value>Indication</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Information</fullName>
+        <categories>SPE_ConvertQuestionToPIData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Information</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Insert</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Insert</shortDescription>
+        <value>insert</value>
+    </labels>
+    <labels>
+        <fullName>SPE_InsertCaps</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_InsertCaps</shortDescription>
+        <value>INSERT</value>
+    </labels>
+    <labels>
+        <fullName>SPE_InvalidData</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_InvalidData</shortDescription>
+        <value>a.  Show invalida data</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPI</fullName>
+        <categories>SPE_TrackerViewPDFGenepage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPI</shortDescription>
+        <value>KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIContainsKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIContainsKPI</shortDescription>
+        <value>KPI containing KPI can not be used</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIDefinition</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIDefinition</shortDescription>
+        <value>Please Enter the KPI Definition</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIDefinitionLabel</fullName>
+        <categories>SPE_SPETemplateInline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIDefinitionLabel</shortDescription>
+        <value>KPI Definition</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIGroup1</fullName>
+        <categories>SPE_SPETemplateInline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIGroup1</shortDescription>
+        <value>Pillar</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIGroup2</fullName>
+        <categories>SPE_SPETemplateInline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIGroup2</shortDescription>
+        <value>KPI Group 2</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIHighBUScopeKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIHighBUScopeKPI</shortDescription>
+        <value>You can\&apos;t select the KPI which is having higher BU scope than KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIHighCatScopeKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIHighCatScopeKPI</shortDescription>
+        <value>You can\&apos;t select the KPI which is having higher Category scope than KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIHighGeoScopeKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIHighGeoScopeKPI</shortDescription>
+        <value>You can\&apos;t select the KPI which is having higher Geo scope than KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIIDLabel</fullName>
+        <categories>SPE_SPETemplateInline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIIDLabel</shortDescription>
+        <value>KPI ID</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIMessagelabel</fullName>
+        <categories>SPE_KPIMessage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIMessagelabel</shortDescription>
+        <value>The Calculation Information for the KPI is pending. Click on Calculation Canvas Button to complete</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIName</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIName</shortDescription>
+        <value>KPI Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIThresholdEdit</fullName>
+        <categories>SPE2_KPIThresholdView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIThresholdEdit</shortDescription>
+        <value>KPI Threshold Edit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIThresholdEditLabel</fullName>
+        <categories>SPE2_KPIThresholdView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE2_KPIThresholdEditLabel</shortDescription>
+        <value>New KPI Threshold</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPIValue</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPIValue</shortDescription>
+        <value>KPI Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KPI_Group</fullName>
+        <categories>SPE_SPETemplateInline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KPI_Group</shortDescription>
+        <value>Group</value>
+    </labels>
+    <labels>
+        <fullName>SPE_KpiTarget</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_KpiTarget</shortDescription>
+        <value>KPI Target</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Kpis</fullName>
+        <categories>SPE_SPETemplateInline</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Kpis</shortDescription>
+        <value>KPI&apos;s</value>
+    </labels>
+    <labels>
+        <fullName>SPE_LastName</fullName>
+        <categories>SPE_SPEPlanRespondent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_LastName</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Lesser</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_LesserThan</shortDescription>
+        <value>Lesser than</value>
+    </labels>
+    <labels>
+        <fullName>SPE_LockSurvey</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_LockSurvey</shortDescription>
+        <value>You are about to submit your results; are you sure, the survey will be locked ?</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Logic1</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Logic1</shortDescription>
+        <value>1. Logic 1</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Logic2</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Logic2</shortDescription>
+        <value>2. Logic 2</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Logic3</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Logic3</shortDescription>
+        <value>3. Logic 3</value>
+    </labels>
+    <labels>
+        <fullName>SPE_LowPerfScore</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_LowPerfScore</shortDescription>
+        <value>The high value may mean a low performance score. \r\n</value>
+    </labels>
+    <labels>
+        <fullName>SPE_LowerLimit</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_LowerLimit</shortDescription>
+        <value>Lower Limit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MailSubjectBatch5</fullName>
+        <categories>BatchEmailSubject</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MailSubjectBatch5</shortDescription>
+        <value>Schedule Completed</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Market</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Market</shortDescription>
+        <value>Market</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MarketDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MarketDashboard</shortDescription>
+        <value>MarketDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MarketUnit</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MarketUnit</shortDescription>
+        <value>Market Unit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MarketUnitDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MarketUnitDashboard</shortDescription>
+        <value>MarketUnitDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MasterData</fullName>
+        <categories>SPE_MasterData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MasterData</shortDescription>
+        <value>Master Data</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MeetsRequirement</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MeetsRequirement</shortDescription>
+        <value>Meets Requirement</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MissingData1</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MissingData1</shortDescription>
+        <value>a.  Aggregate past 3 data from last 12 months (first check from last 3 months, secondly check from last 6 months at last check from last 12 months).</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MissingDataLogic</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MissingDataLogic</shortDescription>
+        <value>Missing Data Logic</value>
+    </labels>
+    <labels>
+        <fullName>SPE_MissingDataLogic2</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_MissingDataLogic2</shortDescription>
+        <value>c.  If data not found from (1.b) values will be null and show Assume data</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NeedsImprovement</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NeedsImprovement</shortDescription>
+        <value>Needs Improvement</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NewCategoryInfo</fullName>
+        <categories>SPE_SPECategoryInfo</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NewCategoryInfo</shortDescription>
+        <value>New Category Info</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NewKPI</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NewKPI</shortDescription>
+        <value>New KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NewPIValue</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NewPIValues</shortDescription>
+        <value>New PI Values</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NewPage</fullName>
+        <categories>SPE_TrackerExecution</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NewPage</shortDescription>
+        <value>This is your new Page</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NewSPETemplateLabel</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NewSPETemplateLabel</shortDescription>
+        <value>This is to inform you that your Hierarchy Data has been changed, Please contact support Team for the same !</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NewScoringTemplate_kLabel</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NewScoringTemplate_kLabel</shortDescription>
+        <value>High KPI value indicates High Performance score OR for some KPIs, The high value may mean a low performance score.
+Please add Threshold values/score according to KPI.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Next</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Next</shortDescription>
+        <value>next</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NokiaSolutionsAndNetworks</fullName>
+        <categories>SPE_FooterforSite</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NokiaSolutionsAndNetworks</shortDescription>
+        <value>Nokia Solutions and Networks 2014</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NotFilled</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NotFilled</shortDescription>
+        <value>is not filled up.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NullWeightage</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NullWeightage</shortDescription>
+        <value>Weightage Should Always be Filled with non Null Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_NumberValue</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_NumberValue</shortDescription>
+        <value>Number Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ObsoleteKPI</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ObsoleteKPI</shortDescription>
+        <value>You can&apos;t add Obsolete KPI into SPE Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ObsoletePItoKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ObsoletePItoKPI</shortDescription>
+        <value>You can&apos;t add an obsolete PI into KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_OneCharMsg</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_OneCharMsg</shortDescription>
+        <value>Please provide at least one character and for the wild card search use *
+
+For better performance,please search with more than one character.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_OnlyConstantValue</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_OnlyConstantValue</shortDescription>
+        <value>If Constant is selected as the Aggregation function then you cannot enter any other value than constant</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Operator</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Operator</shortDescription>
+        <value>Operator</value>
+    </labels>
+    <labels>
+        <fullName>SPE_OperatorValue</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_OperatorValue</shortDescription>
+        <value>Fill up the value according to Operators</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Optional</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Optional</shortDescription>
+        <value>(*Optional)</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Org_Grp</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Org_Grp</shortDescription>
+        <value>Organization/Group</value>
+    </labels>
+    <labels>
+        <fullName>SPE_OwnerLab</fullName>
+        <categories>SPE_TrackerViewPDF</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_OwnerLab</shortDescription>
+        <value>Owner</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIDefination</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIDefination</shortDescription>
+        <value>PI Defination</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIDefinition</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIDefinition</shortDescription>
+        <value>PI Definition</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIEqualsKPIAdhocSchedulelabel</fullName>
+        <categories>SPE_PIEqualsKPIAdhocSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIEqualsKPIAdhocSchedulelabel</shortDescription>
+        <value>**It will copy data from PI to KPI for the range specified. If the data is already existing for the specified time range then it is overridden by the new values.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIHighCatScopeKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIHighCatScopeKPI</shortDescription>
+        <value>You can\&apos;t select the PI which is having higher Category scope than KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIHighGeoScopeKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIHighGeoScopeKPI</shortDescription>
+        <value>You can\&apos;t select the PI which is having higher Geo scope than KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIHigherThanKPI</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIHighBUScopeKPI</shortDescription>
+        <value>You can\&apos;t select the PI which is having higher BU scope than KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PINotForDP</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PINotForDP</shortDescription>
+        <value>PI Value Upload is not available for Draft PIs</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PINotForOP</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PINotForOP</shortDescription>
+        <value>PI Value Upload is not available for Obsolete PIs</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PINotForSQ</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PINotForSQ</shortDescription>
+        <value>PI Value Upload is not available for SurveyQueation PIs</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIPrevKPIValidation</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIPrevKPIValidation</shortDescription>
+        <value>Cant enter both PI and Previous KPI at the same time</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIType</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIType</shortDescription>
+        <value>type of PI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PIValiueEdit</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PIValiueEdit</shortDescription>
+        <value>PI Values Edit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PR_CR</fullName>
+        <categories>SPE_SurveyTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PR_CR</shortDescription>
+        <value>Completed Response,Pending Response</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PeningSpeInformation</fullName>
+        <categories>SPE_SPETemplateMessage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PeningSpeInformation</shortDescription>
+        <value>The Scoring Templates information is Pending for SPE Template. Click on New Scoring Template to complete SPE Template .</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Period</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Period</shortDescription>
+        <value>Period</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PiDataEdit</fullName>
+        <categories>SPE_ConvertQuestionToPIData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PiDataEdit</shortDescription>
+        <value>PI Data Edit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Plan</fullName>
+        <categories>SPE_SPETabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Plan</shortDescription>
+        <value>SPE Plan</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PlanDetail</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PlanDetail</shortDescription>
+        <value>SPE Plan Detail</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PlanName</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PlanName</shortDescription>
+        <value>SPE Plan Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PlsFillCorrectValue</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PlsFillCorrectValue</shortDescription>
+        <value>Please fill the field with correct Values</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PlsFillReqdField</fullName>
+        <categories>SPE_SurveyKPIView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PlsFillReqdField</shortDescription>
+        <value>Please fill the required picklist fields</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PlsFillReqdText</fullName>
+        <categories>SPE_SurveyKPIView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PlsFillReqdText</shortDescription>
+        <value>Please fill the required freeText fields</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Poor_Performance</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Poor Performance</shortDescription>
+        <value>Poor Performance</value>
+    </labels>
+    <labels>
+        <fullName>SPE_PrivacyPolicy</fullName>
+        <categories>SPE_FooterforSite</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_PrivacyPolicy</shortDescription>
+        <value>Privacy Policy</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Process</fullName>
+        <categories>SPE_SPETabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Process</shortDescription>
+        <value>SPE Process</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Processing</fullName>
+        <categories>start Tex in Action Status</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Processing</shortDescription>
+        <value>Processing...</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Product</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Product</shortDescription>
+        <value>Product</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ProductMaster</fullName>
+        <categories>SPE_MasterData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ProductMaster</shortDescription>
+        <value>Product Master</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Products</fullName>
+        <categories>SPE_KPIDefinitionIndication</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Products</shortDescription>
+        <value>Products</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Project</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Project</shortDescription>
+        <value>Project</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ProjectMaster</fullName>
+        <categories>SPE_MasterData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ProjectMaster</shortDescription>
+        <value>Project Master</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ProvideOneCharacter</fullName>
+        <categories>SPE_SPEPlanRespondent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ProvideOneCharacter</shortDescription>
+        <value>Please provide atleast one character and for the wild card search use *</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Query</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Query</shortDescription>
+        <value>query</value>
+    </labels>
+    <labels>
+        <fullName>SPE_QueryCaps</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_QueryCaps</shortDescription>
+        <value>Query</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Question</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Question</shortDescription>
+        <value>Question</value>
+    </labels>
+    <labels>
+        <fullName>SPE_QuestionAlreadyConverted</fullName>
+        <categories>SPE_ConvertQuestionToPIData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_QuestionAlreadyConverted</shortDescription>
+        <value>Question has already been converted to one PI Data record. 
+Linking this Question to another PI Data can be done from the new PI Data record page.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RecordLock</fullName>
+        <categories>SPE_KPIDefinitionTrigger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RecordLock</shortDescription>
+        <value>Automatic record lock.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RedirectingHelpContent</fullName>
+        <categories>SPE_KPI_Definition_Help_Page</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RedirectingHelpContent</shortDescription>
+        <value>Redirecting to help content...</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RegionCatGroupDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RegionCatGroupDashboard</shortDescription>
+        <value>RegionCatGroupDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RegionMaster</fullName>
+        <categories>SPE_MasterData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RegionMaster</shortDescription>
+        <value>Region Master</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RequiredFields</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RequiredFields</shortDescription>
+        <value>Please fill up the below Required Fields</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RespndantMissing</fullName>
+        <categories>SPE_SPEPlanMessage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RespndantMissing</shortDescription>
+        <value>The Respondent Information is missing,Please Click on Add Respondent button to add a Respondent to Complete This Plan.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RespondantName</fullName>
+        <categories>SPE_SurveyKPIView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RespondantName</shortDescription>
+        <value>Respondent Name :</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Respondents</fullName>
+        <categories>SPE_SurveyTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Respondents</shortDescription>
+        <value>Respondents</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ReviewPage</fullName>
+        <categories>SPE_CMTabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ReviewPage</shortDescription>
+        <value>CM Review Page</value>
+    </labels>
+    <labels>
+        <fullName>SPE_RulesDriven</fullName>
+        <categories>SPE_ScorecardReportBatch</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_RulesDriven</shortDescription>
+        <value>Rules Driven Averaging</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SPECountry</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SPECountry</shortDescription>
+        <value>SPE_Country</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SPEPlanLabel</fullName>
+        <categories>SPE_TrackerViewPDF</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ SPEPlanLabel</shortDescription>
+        <value>SPE Plan:</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SPEPlanMandatoryField</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SPEPlanMandatoryField</shortDescription>
+        <value>SPE Plan: Please fillup the mandatory fields</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SPETemplate</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SPETemplate</shortDescription>
+        <value>SPE Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SameScope</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SameScope</shortDescription>
+        <value>Same scope of Scoring Template already available related to this SPE Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Save</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SaveTemplate</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SaveTemplate</shortDescription>
+        <value>Please save the template in .csv file format</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Schedule</fullName>
+        <categories>SPE_KPIAdhocSchedulePage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Schedule</shortDescription>
+        <value>Schedule</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScheduleDateModifier</fullName>
+        <categories>Survey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScheduleDateModifier</shortDescription>
+        <value>0</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SchedulingDetails</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SchedulingDetails</shortDescription>
+        <value>SPE Scheduling Details</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScopeMap</fullName>
+        <categories>SPE_ConvertQuestionToPIData</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScopeMap</shortDescription>
+        <value>Scope Map</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScopeNotMatch</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScopeNotMatchTemplate</shortDescription>
+        <value>Scope does not match with SPE Template, Do you really want to proceed further ?</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScopeNotMatchTem</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScopeNotMatchTem</shortDescription>
+        <value>Scope does not match with Scoring Template, Do you really want to proceed further ?</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Score</fullName>
+        <categories>SPE_AddQuestionAnswer</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Score</shortDescription>
+        <value>Score</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScorePoint</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScorePoint</shortDescription>
+        <value>Score Point</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Score_TrackerView</fullName>
+        <categories>SPE_TrackerView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Score_TrackerView</shortDescription>
+        <value>SPE Score</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScorecardTrackerGenerated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScorecardTrackerGenerated</shortDescription>
+        <value>Scorecard Tracker has already generated.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScorecardUrl</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScorecardUrl</shortDescription>
+        <value>http://nsn.force.com/</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScoringTLab</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScoringTLab</shortDescription>
+        <value>SPE Scoring Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScoringTemplate</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScoringTemplate</shortDescription>
+        <value>Scoring Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScoringTemplateEdit</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScoringTemplateEdit</shortDescription>
+        <value>Scoring Template Edit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScoringTemplateEditLabel</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScoringTemplateEditLabel</shortDescription>
+        <value>New Scoring Template !</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScoringTemplateName</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScoringTemplateName</shortDescription>
+        <value>Scoring Template Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ScoringThreshold</fullName>
+        <categories>Scoring Threshold</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ScoringThreshold</shortDescription>
+        <value>Scoring Threshold</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Search</fullName>
+        <categories>Button Text</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SearchRespondant</fullName>
+        <categories>SPE_SPEPlanRespondent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SearchRespondant</shortDescription>
+        <value>Search Respondent</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SectionA</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SectionA</shortDescription>
+        <value>Section A</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SectionB</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SectionB</shortDescription>
+        <value>Section B</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SectionC</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SectionC</shortDescription>
+        <value>Section C</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SelectCsv</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SelectCsv</shortDescription>
+        <value>Please Select a CSV file</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SelectCsvFile</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SelectCsvFile</shortDescription>
+        <value>Select CSV files to upload</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SelectSupplier</fullName>
+        <categories>SPE_AddSupplier</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SelectSupplier</shortDescription>
+        <value>Select Supplier</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SetAdhocDate</fullName>
+        <categories>SPE_KPIAdhocSchedulePage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SetAdhocDate</shortDescription>
+        <value>Set Adhoc Date</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SetDateRange</fullName>
+        <categories>SPE_PIEqualsKPIAdhocSchedule</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SetDateRange</shortDescription>
+        <value>Set Date Range</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ShowFilters</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ShowFilters</shortDescription>
+        <value>Show Filters</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ShowIndicator</fullName>
+        <categories>SPE_MissingDataLogicHelp</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ShowIndicator</shortDescription>
+        <value>a.  Show Indicator</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ShowPIHelpText</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ShowPIHelpText</shortDescription>
+        <value>Show/Hide Filters for PIs</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SimpleAverage</fullName>
+        <categories>SPE_ScorecardReportBatch</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SimpleAverage</shortDescription>
+        <value>Simple Average</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Soql</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Soql</shortDescription>
+        <value>2. Enter a SOQL Query</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SpeTrackerGenerated</fullName>
+        <categories>SPE_GenerateTracker</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SpeTrackerGenerated</shortDescription>
+        <value>SPE Tracker has already Generated</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SpendAverage</fullName>
+        <categories>SPE_ScorecardReportBatch</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SpendAverage</shortDescription>
+        <value>Weighted Average By Spend</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SpendVolume</fullName>
+        <categories>SPE_ScorecardReportBatch</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SpendVolume</shortDescription>
+        <value>Weighted Average By Volume</value>
+    </labels>
+    <labels>
+        <fullName>SPE_StackedBars</fullName>
+        <categories>SPE_SurveyTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_StackedBars</shortDescription>
+        <value>Stacked Bars</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Stage</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Stage</shortDescription>
+        <value>Stage</value>
+    </labels>
+    <labels>
+        <fullName>SPE_StartDateValidation</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_StartDateValidation</shortDescription>
+        <value>SPE Plan: Start date should always be lesser than Survey End Date</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Status</fullName>
+        <categories>SPE_TrackerViewPDFGenepage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Step1</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Step1</shortDescription>
+        <value>Step 1</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Step2</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Step2</shortDescription>
+        <value>Step 2</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Step3</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Step3</shortDescription>
+        <value>Step 3</value>
+    </labels>
+    <labels>
+        <fullName>SPE_StringValue</fullName>
+        <categories>SPE_PIValuesEditPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_StringValue</shortDescription>
+        <value>String Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SubRegionCatGroupDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SubRegionCatGroupDashboard</shortDescription>
+        <value>SubRegionCatGroupDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Supplier</fullName>
+        <categories>SPE_SPECategoryInfo</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Supplier</shortDescription>
+        <value>Supplier</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SupplierAggregation</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SupplierAggregation</shortDescription>
+        <value>Cant use across Suppliers aggregation while using Existing KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SupplierCoverageDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SupplierCoverageDashboard</shortDescription>
+        <value>SupplierCoverageDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SupplierMissing</fullName>
+        <categories>SPE_SPEPlanMessage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SupplierMissing</shortDescription>
+        <value>The Supplier Information is missing,Please Click on Add Supplier button to add a Supplier to Complete This Plan.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SupplierPerfIndexDashboard</fullName>
+        <categories>SPEGlobalDashboardController</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SupplierPerfIndexDashboard</shortDescription>
+        <value>SupplierPerfIndexDashboard</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SurveyDD</fullName>
+        <categories>SPE_SurveyKPIView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SurveyDD</shortDescription>
+        <value>Survey Due Date :</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SurveyKPISelectOption</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SurveyKPISelectOption</shortDescription>
+        <value>--None--</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SurveyReminder</fullName>
+        <categories>SPE_SPEPlanCreate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SurveyReminder</shortDescription>
+        <value>SPE Plan: Survey Reminder before Day should always be lesser than survey execution</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SurveyResponseAvailable</fullName>
+        <categories>Survey</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SurveyResponseAvailable</shortDescription>
+        <value>Response Available</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SurveySessionExpired</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SurveySessionExpired</shortDescription>
+        <value>Survey Submission is Expired !!!</value>
+    </labels>
+    <labels>
+        <fullName>SPE_SurveySessionSubmitted</fullName>
+        <categories>SPE_SurveyKPI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_SurveySessionSubmitted</shortDescription>
+        <value>Survey Is Already Submitted !!!</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Template</fullName>
+        <categories>SPE_SPETabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Template</shortDescription>
+        <value>SPE Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TemplateDetail</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TemplateDetail</shortDescription>
+        <value>SPE Template Detail</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TemplateLabel</fullName>
+        <categories>SPE_SPETabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TemplateLabel</shortDescription>
+        <value>SPE
+                        Template</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TemplateName</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TemplateName</shortDescription>
+        <value>SPE Template Name</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TermsOfUse</fullName>
+        <categories>SPE_FooterforSite</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TermsOfUse</shortDescription>
+        <value>Terms of use</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ThankYou</fullName>
+        <categories>SPE_ConsequenceManagementThankyouPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ThankYou</shortDescription>
+        <value>Thank you</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Then</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Then</shortDescription>
+        <value>then</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Threshold</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Threshold</shortDescription>
+        <value>Please add Threshold values/score according to KPI</value>
+    </labels>
+    <labels>
+        <fullName>SPE_ThresholdValues</fullName>
+        <categories>SPE_NewScoringTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_ThresholdValues</shortDescription>
+        <value>Please check Scoring threshold range values</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TimeFrame</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TimeFrame</shortDescription>
+        <value>TimeFrame is Required</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TimeMonths</fullName>
+        <categories>SPE_CalculationCanvas</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TimeMonths</shortDescription>
+        <value>Time Frame (In Months)</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerExecution</fullName>
+        <categories>SPE_generateTrackerPage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerExecution</shortDescription>
+        <value>Tracker Execution:</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerLabel</fullName>
+        <categories>SPE_SPETabView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerLabel</shortDescription>
+        <value>SPE
+                        Tracker</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerNoResponse</fullName>
+        <categories>SPE_SurveyTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerNoResponse</shortDescription>
+        <value>For this tracker No Response available to track</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerNotAvailable</fullName>
+        <categories>SPE_TrackerView</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerNotAvailable</shortDescription>
+        <value>Tracker Value Is not Available for the given Tracker</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerSchedule</fullName>
+        <categories>SPE_SPETrackerBatch Email Body</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerSchedule</shortDescription>
+        <value>SPE Trackerschedule is completed.</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerScoreMissing</fullName>
+        <categories>SPE_SPETrackerMessage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerScoreMissing</shortDescription>
+        <value>No Tracker score available,Please click on Tracker Execution button to generate Tracker Score</value>
+    </labels>
+    <labels>
+        <fullName>SPE_TrackerValueMissing</fullName>
+        <categories>SPE_SPETrackerMessage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_TrackerValueMissing</shortDescription>
+        <value>No Tracker values are available,Please Click on Tracker Execution button to generate Tracker Values &amp; Pillar scores</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Update</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Update</shortDescription>
+        <value>update</value>
+    </labels>
+    <labels>
+        <fullName>SPE_UpperLimit</fullName>
+        <categories>SPE_NewScoringViewTemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_UpperLimit</shortDescription>
+        <value>Upper Limit</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Upsert</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Upsert</shortDescription>
+        <value>upsert</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Validate</fullName>
+        <categories>SPE_NewScoringTemplate_k</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Validate</shortDescription>
+        <value>Validate</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Value</fullName>
+        <categories>SPE_TrackerViewPDFGenepage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Value</shortDescription>
+        <value>Value</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Weight</fullName>
+        <categories>SPE_TrackerViewPDFGenepage</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Weight</shortDescription>
+        <value>Weight</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Weightage</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Weightage</shortDescription>
+        <value>Total weightage should be 100%</value>
+    </labels>
+    <labels>
+        <fullName>SPE_Weightage1</fullName>
+        <categories>SPE_NewSPETemplate</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_Weightage1</shortDescription>
+        <value>Weightage</value>
+    </labels>
+    <labels>
+        <fullName>SPE_YearRange</fullName>
+        <categories>SPE_ReportHelperExt</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_YearRange</shortDescription>
+        <value>The difference between Start Date and End Date cannot be greater than three years</value>
+    </labels>
+    <labels>
+        <fullName>SPE_loadingObjects</fullName>
+        <categories>SPE_DataLoader</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SPE_loadingObjects</shortDescription>
+        <value>Loading objects...</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,2370 @@
+<apex:page id="pg" standardController="QIPP_Project__c" extensions="QIPP_CIF_Project,QIPPBenefit,businessActivityMapping,BenefitingBusinessGroupController" sidebar="false" showHeader="true"  tabStyle="QIPP_Project__c" title="QIPP Project: {!proj.Project_Number__c}" cache="false" docType="html-5.0">
+    <apex:stylesheet value="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-1.12.4.js" />
+    <apex:includeScript value="https://code.jquery.com/ui/1.12.0/jquery-ui.js" />
+    
+    <style>
+        .bPageBlock .detailList .dataCol {
+            width: 25%;
+        }
+        
+        .Project_Description_Detailed__c{
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 500px;
+            height: 60px;        
+        }
+        
+        .Project_Document__c{
+            width: 190px;
+        }
+        
+        .Project_Flex_Field_1__c {
+            width: 200px;
+        }
+        
+        .Reason_for_no_Financial_Impact__c{
+            width: 200px;        
+        }
+        
+        .Progress_To_Date__c{
+            width: 200px;
+            height: 30px;
+        }
+        
+        .Next_Steps__c{
+            height: 30px;
+            width: 200px;
+        }
+        
+        select[multiple], select[size][multiple] {
+            //width: 370px !important;
+            height: 72px !important;
+            width: 200px !important;
+        }
+        
+        select, select[size] {
+            color: #000;
+            width: 198px;
+            -webkit-width: 199px !important; /* Chrome, Safari, Opera */
+            -moz-width: 197px !important;    /* Firefox */
+        }
+
+        input:not([type]), input[type="email" i], input[type="number" i], input[type="password" i], input[type="tel" i], input[type="url" i], input[type="text" i] {
+            padding: 1px 0px;
+            -webkit-width: 195px; /* Chrome, Safari, Opera */
+            -moz-width: 195px; /* Firefox */
+            width: 195px;            
+        }
+
+        #pg_frm_pb_pbSecSpFields1_repSp1_2_opSP1Field_ilecell, #pg_frm_pb_pbSecAddiFields_repAddi_2_opAddField_ilecell,
+        #pg_frm_pb_pbProjectFields_repProj_2_pbSecItemProjFields_opProjField_ilecell,
+        #pg_frm_pb_pbProjectFields_copqfinapprover_finapprover_ilecell {
+            width: 200px;        
+        }
+        
+        #calMonthPicker, #calYearPicker{
+            width: auto;
+        }
+        
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        
+        #loading, #loading_approve{
+           width: 100%;
+           height: 100%;
+           top: 0;
+           left: 0;
+           position: fixed;
+           display: block;
+           opacity: 0.5;
+           background-color: #E1E8EB;
+           z-index: 99;
+           text-align: center;
+        }
+        
+        #loading-image, #loading_approve-image{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 100;
+        }
+        
+        /* Benefit section Start */
+        ul{color:red!important;}
+        .messageText{color:red;}
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 40%;
+            padding:10px;
+            position: fixed;
+            width: 700px;
+            margin-left: -250px;
+            top:100px;
+        }
+                
+        .custPopup2{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: fixed;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 200px;
+            margin-left: -250px;
+            top:100px;
+        }
+        
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+                
+        .BBGpopupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        
+        .noHeader{
+            display:none;
+        }
+        
+        .rowColor{
+            background-color:#ffcccc;   
+            font-weight:bold;
+        }
+        
+        .BBGcustPopup{
+                background-color: white;
+                height:450px;
+                width:1050px;
+                border-width: 2px;
+                border-style: solid;
+                z-index: 9999;
+                position: absolute;
+                top:160px;
+                left:150px;
+                overflow-x:scroll;
+        }
+                
+        .BAMpopupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left:0px;
+            z-index: 9998;
+        }
+
+        .BAMcustPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            position: absolute;
+            top:40px;
+            left:18%;
+        }
+                
+        .BenfpopupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left:0px;
+            z-index: 9998;
+        }
+                     
+        .BenfcustPopup{
+            background-color: white;
+            height:510px;
+            width:850px;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            position: absolute;
+            top:120px;
+            left:18%;
+            overflow-x:scroll;
+        }
+        
+        .LeadSponsorEqualPopup{
+        background-color: white;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        left: 38%;
+        padding: 10px;
+        position: fixed;
+        width: 310px !important;
+        top: 32%;     
+        }
+                
+        input::-webkit-input-placeholder { font-size: 7pt;}
+        input::-moz-placeholder { font-size: 10pt; color:GrayText;}
+        input:-ms-input-placeholder { font-size: 7pt;}
+
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon > i {
+            position: absolute;
+            display: block;
+            transform: translate(0, -50%);
+            top:45%;
+            pointer-events: none;
+            width: 25px;
+            text-align: center;
+            font-style: normal;
+            z-index:9998;
+        }
+        
+        .input-icon > input {
+            padding-left: 25px;
+            padding-right: 0;
+        }
+        
+        /*
+        select {
+            border: 1px solid #111;
+            background: transparent;
+            width: 150px;
+            padding: 2px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            height: 24px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        */
+        
+        .helpText{
+            z-index:10000;
+        }        
+        /* Benefit section End */
+        
+        .inlineEditUndo{
+            display:none;
+        }
+        
+        /*  Scroll to the top
+        its position to fixed and moving it to the bottom right side of the screen. I’ve also given it a semi-transparent background and finally hidden it. To make it stand out a little more, I’ve also given it a hover effect to darken the background a little.
+        */
+        #return-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.7);
+            width: 50px;
+            height: 50px;
+            display: block;
+            text-decoration: none;
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            display: none;
+            -webkit-transition: all 0.3s linear;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+    
+        #return-to-top i {
+            color: #fff;
+            margin: 0;
+            position: relative;
+            left: 16px;
+            top: 13px;
+            font-size: 19px;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+        #return-to-top:hover {
+            background: rgba(18, 65, 145, 0.80);
+        }
+        #return-to-top:hover i {
+            color: #fff;
+            top: 5px;
+        }
+
+    </style>
+    
+    <script type="text/javascript">
+        var reqMarked = false;
+        var totalvalidatedamount=0;
+        var edittotalvalidatedamount=0;
+        var cancelflg = "false";
+        $(document).ready(function() {
+            var profile = '{!profilename}';
+            var projState = '{!projState}';
+            var rolename = '{!rolename}';
+            var hideButtons = false;
+
+            $("input[name='piSubmit']").hide();
+            hideErrorMsg();
+            
+            if(profile == 'Nokia QIPP Project Viewer'){
+                $("input[name='newNote']").hide();
+                $("input[name='attachFile']").hide();
+            }
+            
+            if((projState == 'Complete' || projState =='Closed') && (rolename == 'QIPP Project Lead')) {
+                hideButtons = true;
+                $("[id*='editButton']").hide();
+                $("[id*='saveButton']").hide();
+                $("[id*='cancelButton']").hide();
+                $("[id*='unlockRecord']").hide();
+                $("[id*='deleteButton']").hide();
+                $("[id*='cloneButton']").hide();
+                $("[id*='shareButton']").hide();
+                $("[id*='approvalButton']").hide();
+                $("input[name='newNote']").hide();
+                $("input[name='attachFile']").hide();
+                $("input[name='new00NU0000003Ngw8']").hide();//Hide task button
+                $("[id*='lockIcon']").hide();
+                
+                //--Added by Haripriya(25-11-2016)--Start--//
+                //$("[id$='lockIcon']").hide();
+                //--Added by Haripriya(25-11-2016)--End--//
+            }
+            
+            if(projState =='Closed' && (rolename == 'QIPP Portfolio Owner')) {
+                hideButtons = true;
+                $("[id*='editButton']").hide();
+            }
+            if(projState =='Complete' && (rolename == 'QIPP Portfolio Owner')) {
+                hideButtons = true;
+            }
+            if(hideButtons){
+                $("[id*='editpipe']").hide();
+                $("[id*='deletepipe']").hide();
+                $("[id*='addBenefit']").hide();
+                $("[id*='editBenefit']").hide();
+                $("[id*='deleteBenefit']").hide();
+                $("[id*='BenefitsOverview']").hide();
+                $("[id*='closeviewpopup']").hide();
+                $("[id*='Adddistribution']").hide();
+            }            
+
+            $('.inlineEditWrite,.inlineEditWriteOn').dblclick(function(){
+                
+                $("[id*='editpipe']").hide();
+                $("[id*='deletepipe']").hide();
+                $("[id*='editBenefit']").hide();
+                $("[id*='deleteBenefit']").hide();
+                $("[id*='viewBenefit']").hide();
+                $("[id*='addBenefit']").hide();
+                $("[id*='BenefitsOverview']").hide();
+                $("[id*='Adddistribution']").hide();
+                $("[id*='selectBAM']").hide();
+                
+                $(".pageType").html('{!$ObjectType.QIPP_Project__c.Label}'+' Edit');
+                markRequired();
+
+                $("#pg_frm_pb_pbSecStdFields_projStateItem_projState option[value='']").remove();
+                $("#pg_frm_pb_pbSecStdFields_projStateItem_projState option[value='Not Started']").remove();
+                $("#pg_frm_pb_pbProjectFields_distatepbsi_DIState option[value='']").remove();
+
+                if(rolename == 'QIPP Project Lead'){
+                    $("#pg_frm_pb_pbSecStdFields_projStateItem_projState option[value='Closed']").remove();
+                    $("#pg_frm_pb_pbSecStdFields_projStateItem_projState option[value='Complete']").remove();
+                }
+                if(rolename == 'QIPP Portfolio Owner'){
+                    if(projState != 'Closed'){
+                        $("#pg_frm_pb_pbSecStdFields_projStateItem_projState option[value='Closed']").remove();
+                    }
+                    if(projState != 'Complete'){
+                        $("#pg_frm_pb_pbSecStdFields_projStateItem_projState option[value='Complete']").remove();                    
+                    }
+                }
+                
+                if((projState == 'Complete' || projState =='Closed') && (rolename == 'QIPP Project Lead')) {
+                    $("[id*='saveButton']").hide();
+                }
+                if(projState =='Closed' && (rolename == 'QIPP Portfolio Owner')) {
+                    $("[id*='saveButton']").hide();
+                }
+                
+            });
+
+            bbgreadonly();
+            if(document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGdefault') != null){
+                document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGdefault').readOnly=true;
+            }
+            editclonesum();
+            
+            if(document.getElementById('pg:frm:pb:benefitingBusinessGrp')){
+                //console.log('Indide benefitingBusinessGrp');
+                $("[id*='benefitingBusinessGrp_link']").show();
+                $("[id*='BenefitDistripipe']").show();
+            }
+            
+            //Back to top start
+            // ===== Scroll to Top ==== 
+            $(window).scroll(function() {
+                if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+                    $('#return-to-top').fadeIn(200);    // Fade in the arrow
+                } else {
+                    $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+                }
+            });
+            $('#return-to-top').click(function() {      // When arrow is clicked
+                $('body,html').animate({
+                    scrollTop : 0                       // Scroll to top of body
+                }, 500);
+            });
+            //Back to top End
+            
+
+        });
+        
+        function markRequired(){
+            /* add required mark */
+            $('[id*=pg_frm_pb_pbSecStdFields_projName_projName_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_projLead_projLead_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_projStateItem_projState_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_cemtID_cemtID_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_portfolioDesc_portfolioDesc_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_CompDtPlanned_CompDtPlanned_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_itemforcast_forecast_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_bpSponsorItem_bpSponsor_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_pbsiCIF_projCIFPhase_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_pbsiReqDepDate_projReqDepDate_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_pbsiReqInitDate_projReqInitDate_ileinner].inlineEditDiv, .inlineEditGroup').addClass('inlineEditRequiredDiv').removeClass('inlineEditDiv');
+
+            /* remove required mark */
+            $('[id*=pg_frm_pb_pbSecStdFields_projName_projName_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_projLead_projLead_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_projStateItem_projState_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_cemtID_cemtID_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_portfolioDesc_portfolioDesc_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_CompDtPlanned_CompDtPlanned_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbSecStdFields_itemforcast_forecast_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_bpSponsorItem_bpSponsor_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_pbsiCIF_projCIFPhase_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_pbsiReqDepDate_projReqDepDate_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+            $('[id*=pg_frm_pb_pbProjectFields_pbsiReqInitDate_projReqInitDate_ileinneredit].inlineEditCompoundDiv').addClass('inlineEditRequiredDiv');
+        }
+
+        function savePrj(){
+            hideErrorMsg();
+            saveProject();
+        }
+
+        function hideErrorMsg(){
+            $("[id^=error_]").each(function(index, ele){
+                $(ele).hide();
+            });
+        }
+
+        /* Benefit section Start */
+
+        function refreshBAM(){
+            refreshBAMSection();
+        }
+        function myTimeOut(){
+            setTimeout(function(){
+              
+            }, 2000);    
+        }
+        
+        function CloseBenefit(){
+            location.refresh(true);
+        }
+    
+        function projectCreation(){
+            var win = window.open("/{!$Label.Benefits_Overview_Report_ID}?pv0={!str}", '_blank');
+            win.focus();
+        }
+         
+        function sumplanned(){
+            var sumofplannedamt=0;
+            var eleAmount = 0;
+            $('.totalplamount').each(function(index, ele){
+                eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumofplannedamt = parseFloat(sumofplannedamt) + parseFloat(eleAmount);
+                if(eleAmount!=0){
+                    $(ele).val(eleAmount);
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+                }
+            });
+        
+            if(sumofplannedamt!=0){
+                document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:pltotal').value=sumofplannedamt.toFixed(1);
+            }else{
+                document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:pltotal').value="-";
+            }
+        }
+        
+        function sumachieved(){
+            var sumofachievedamt=0;
+            var eleAmount = 0;
+            $('.totalachamount').each(function(index, ele){
+                eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumofachievedamt = parseFloat(sumofachievedamt) + parseFloat(eleAmount);
+                if(eleAmount!=0){
+                    $(ele).val(eleAmount);
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+            }
+            });
+            if(sumofachievedamt!=0){
+                document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:achtotal').value=sumofachievedamt.toFixed(1);
+            }else{
+                document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:achtotal').value="-";  
+            }
+        }
+        
+        function sumfuture(){
+            var sumoffutureamt=0;
+            var eleAmount = 0;
+            $('.totalfutamount').each(function(index, ele){
+                eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumoffutureamt = parseFloat(sumoffutureamt) + parseFloat(eleAmount);
+                if(eleAmount!=0){
+                    $(ele).val(eleAmount);        
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+            }
+            });
+            if(sumoffutureamt!=0){
+                document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:futtotal').value=sumoffutureamt.toFixed(1);
+            }else{
+                document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:futtotal').value="-"; 
+            }
+        }
+        
+        function clonesum(){        
+            sumplanned();
+            sumachieved();
+            sumfuture();
+        }        
+
+        function validationamount(){
+            if((document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:futtotal').value) != null){
+                var futuretotal = document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:futtotal').value;
+                if(futuretotal==""){
+                    futuretotal=0;
+                }
+            }
+        
+            if((document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:achtotal').value) != null){
+                var achievedtotal = document.getElementById('pg:frm:pb:benefitLineItem:addbenefittable:achtotal').value;
+                if(achievedtotal==""){
+                    achievedtotal=0;
+                }
+            }
+            
+            totalvalidatedamount = (parseInt(futuretotal) + parseInt(achievedtotal));
+            if(totalvalidatedamount >1000) 
+                         {
+                            document.getElementById("pg:frm:pb:benifitSaveButton").disabled = true;
+                            document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Saving...';
+                            if(confirm("QIPP project benefits must be recorded in Kilo Euro (k€) units [ie.1 k€ = 1000€].\n\n Please correct the numbers if the benefits are not recorded in k€.\n\n Do You Want to Continue ? Press Ok to Proceed and Cancel to cancel.") == true){
+                                cancelflg = "true";
+                            }
+                            else{
+                               return false;
+                               cancelflg = "false";
+                               document.getElementById("pg:frm:pb:benifitSaveButton").disabled = false;
+                               document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Save & Close';
+                            }
+                         }
+                         document.getElementById("pg:frm:pb:benifitSaveButton").disabled = true;
+                         document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Saving...';
+                       doSubmit();
+        }
+            
+                            function SaveBenefits(){
+                              var errormsg = '{!benifitsErrorMessages}';
+                              if(totalvalidatedamount >1000 && cancelflg == "false"){
+                              document.getElementById("pg:frm:pb:benifitSaveButton").disabled = false;
+                              document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Save & Close';
+                              }
+                              else if(totalvalidatedamount >1000 && cancelflg == "true"){
+                              document.getElementById("pg:frm:pb:benifitSaveButton").disabled = true;
+                              document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Saving...';
+                              }
+                              else if(errormsg == "false"){
+                              document.getElementById("pg:frm:pb:benifitSaveButton").disabled = true;
+                              document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Saving...';
+                              }else{
+                              document.getElementById("pg:frm:pb:benifitSaveButton").disabled = false;
+                              document.getElementById("pg:frm:pb:benifitSaveButton").value = 'Save & Close';
+                              }
+                          } 
+        
+        function editvalidationamount(){
+            
+            if((document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal').value)!= null){
+                var editfuturetotal = document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal').value;
+                if(editfuturetotal==""){
+                    editfuturetotal=0;
+                }
+            }
+            
+            if((document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:futtotal').value)!= null){
+                var editachievedtotal = document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:futtotal').value;
+                if(editachievedtotal==""){
+                    editachievedtotal=0;
+                }
+            }
+            
+            edittotalvalidatedamount = (parseInt(editfuturetotal) + parseInt(editachievedtotal));
+            if(edittotalvalidatedamount >1000) 
+             {
+                document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = true;
+                document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Saving...';
+                if(confirm("QIPP project benefits must be recorded in Kilo Euro (k€) units [ie.1 k€ = 1000€].\n\n Please correct the numbers if the benefits are not recorded in k€.\n\n Do You Want to Continue ? Press Ok to Proceed and Cancel to cancel.") == true){
+                    cancelflg = "true";
+                }
+                else{
+                   return false;
+                   cancelflg = "false";
+                   document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = false;
+                   document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Save & Close';
+                }
+             }
+            document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = true;
+            document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Saving...';
+            doeditSubmit();
+        }
+        
+         function editSaveBenefits(){
+                      var errormsg = '{!benifitsErrorMessages}';
+                      if(edittotalvalidatedamount >1000 && cancelflg == "false"){
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = false;
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Save & Close';
+                      }
+                      else if(edittotalvalidatedamount >1000 && cancelflg == "true"){
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = true;
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Saving...';
+                      }
+                      else if(errormsg == "false"){
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = true;
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Saving...';
+                      }else{
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").disabled = false;
+                      document.getElementById("pg:frm:pb:pbeditbenf:pbeditbuttons:benifitEditSaveButton").value = 'Save & Close';
+                      }
+                  } 
+        
+        function editsumplanned(){
+            var sumofplannedamt=0;
+            var eleAmount = 0;
+            $('.edittotalplamount').each(function(index, ele){
+                eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumofplannedamt = parseFloat(sumofplannedamt) + parseFloat(eleAmount);
+                if(eleAmount!=0){
+                    $(ele).val(eleAmount);        
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+            }
+            });
+            
+            if(document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:pltotal') != null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:pltotal').value=sumofplannedamt.toFixed(1);
+            }
+            
+            if(sumofplannedamt!=0 && document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:pltotal')!=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:pltotal').value=sumofplannedamt.toFixed(1);
+            }
+        
+            if(sumofplannedamt==0 && document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:pltotal')!=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:pltotal').value="-";
+            }
+        }
+        
+        function editsumachieved(){
+            var sumofachievedamt=0;
+            var eleAmount = 0;
+            $('.edittotalachamount').each(function(index, ele){
+                eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumofachievedamt = parseFloat(sumofachievedamt) + parseFloat(eleAmount);
+                if(eleAmount!=0){
+                    $(ele).val(eleAmount);
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+            }
+            });
+            
+            if(document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal') !=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal').value=sumofachievedamt.toFixed(1);
+            }
+    
+            if(sumofachievedamt!=0 && document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal')!=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal').value=sumofachievedamt.toFixed(1);
+            }
+            
+            if(sumofachievedamt==0 && document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal')!=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:achtotal').value="-";
+            }
+        }
+        
+        function editsumfuture(){
+            var sumoffutureamt=0;
+            var eleAmount = 0;
+            $('.edittotalfutamount').each(function(index, ele){
+                eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumoffutureamt = parseFloat(sumoffutureamt) + parseFloat(eleAmount);
+                if(eleAmount!=0){
+                    $(ele).val(eleAmount);
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+            }
+            });
+
+            if(sumoffutureamt!=0 && document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:futtotal') !=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:futtotal').value=sumoffutureamt.toFixed(1);
+            }
+            
+            if(sumoffutureamt==0 && document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:futtotal') !=null){
+                document.getElementById('pg:frm:pb:pbeditbenf:benefitLineItemEdit:pbtableeditbenf:futtotal').value="-";
+            }
+        }
+        
+        function editclonesum(){
+            editsumplanned();
+            editsumachieved();
+            editsumfuture();
+        }
+
+        /*        
+        function sumBBG(){
+        
+            var sumofBBGamt1=0;
+            $('.BBGtotal').each(function(index, ele){
+                sumofBBGamt1 += (parseFloat($(ele).val()) || 0);
+            });
+
+            if(sumofBBGamt1>95){
+                alert("Sum OF BBG % Distribution should not be Greater than 100%")
+            }
+    
+            document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGdefault').value=((100)-(sumofBBGamt1));
+            bbgreadonly();
+        }
+        
+        function bbgreadonly(){
+            if(document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGdefault') != null){
+                document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGdefault').readOnly=true;
+            }
+        }
+        */
+        
+        function BBGOPValidationAmount(){
+              var eleAmount=0;
+        var sumofBBGValamt1=0;
+        var BBGDefaultvalamt=0;
+        $('.BBGOPtotal').each(function(index, ele){
+             eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+            sumofBBGValamt1 += parseFloat($(ele).val().replace(/,/g,"") || 0);
+             if(eleAmount!=0)
+                {
+                    $(ele).val(eleAmount);
+                    
+                }
+                 if(eleAmount==0){
+                    $(ele).val(eleAmount);
+                }
+       
+        });
+            BBGDefaultvalamt={!bbgopvalamount};
+            // BBGDefaultvalamt=document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGopval').value;
+            document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGopval').value=((BBGDefaultvalamt)-(sumofBBGValamt1)).toFixed(1);
+            // bbgreadonly();  
+        }
+        
+        function BBGFIValidationAmount(){        
+          var eleAmount=0;
+        var sumofBBGValamt1=0;
+        var BBGDefaultvalamt=0;
+        $('.BBGFItotal').each(function(index, ele){
+             eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+            sumofBBGValamt1 += parseFloat($(ele).val().replace(/,/g,"") || 0);
+             if(eleAmount!=0)
+                {
+                    $(ele).val(eleAmount);
+                    
+                }
+                 if(eleAmount==0){
+                $(ele).val(eleAmount);
+                }
+       
+        });
+            BBGDefaultvalamt={!bbgfivalamount};
+            document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGfival').value=((BBGDefaultvalamt)-(sumofBBGValamt1)).toFixed(1);
+            // bbgreadonly();  
+        }
+        
+        function BBGPOValidationAmount(){        
+            var eleAmount=0;
+        var sumofBBGValamt1=0;
+        var BBGDefaultvalamt=0;
+        $('.BBGPOtotal').each(function(index, ele){
+             eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+            sumofBBGValamt1 += parseFloat($(ele).val().replace(/,/g,"") || 0);
+             if(eleAmount!=0)
+                {
+                    $(ele).val(eleAmount);
+                    
+                }
+                 if(eleAmount==0){
+                    $(ele).val(eleAmount);
+                }
+       
+        });
+            BBGDefaultvalamt={!bbgprvalamount};
+            document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGprojval').value=((BBGDefaultvalamt)-(sumofBBGValamt1)).toFixed(1);
+            // bbgreadonly();
+        }
+        
+    function BBGREValidationAmount(){
+       var sumofBBGValamt1=0;
+            var BBGDefaultvalamt=0;
+            var eleAmount=0;
+            $('.BBGREtotal').each(function(index, ele){
+                 eleAmount = parseFloat($(ele).val().replace(/,/g,"") || 0).toFixed(1);
+                sumofBBGValamt1 += parseFloat(eleAmount);
+                if(eleAmount!=0)
+                    {
+                        $(ele).val(eleAmount);
+                        
+                    }
+                     if(eleAmount==0){
+                        $(ele).val(eleAmount);
+                    }
+           
+            });
+            BBGDefaultvalamt={!bbgrelvalamount};
+            document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGrealval').value=((BBGDefaultvalamt)-(sumofBBGValamt1)).toFixed(1);
+            // bbgreadonly();
+        }
+        
+        function isNumberKey(evt){
+        
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+        
+            if (charCode == 8 || charCode == 37) {
+                return true;
+            } else if (charCode == 46 && $(this).val().indexOf('.') != -1) {
+                alert("Enter Savings as Kilo Euros (k€)"); 
+                return false;
+            } else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+                alert("Enter Savings as Kilo Euros (k€)"); 
+                return false;
+            }
+            else  if (charCode == 13)
+              {
+                alert("Pressing Enter Key is Not Allowed"); 
+                return false;   
+              }
+            return true;
+        }
+        
+        function bbgreadonly(){
+            if(document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGopval') != null){
+                document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGopval').readOnly=true;
+            }
+            
+            if(document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGfival') != null){
+                document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGfival').readOnly=true;
+            }
+            
+            if(document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGprojval') != null){
+                document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGprojval').readOnly=true;
+            }
+            
+            if(document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGrealval') != null){
+                document.getElementById('pg:frm:pb:bgGroupSection:pbTableMultipleBG:0:mainBGrealval').readOnly=true;
+            }
+        }
+        
+        function isNumberKeyBBGfi(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            
+            if(({!bbgfivalamount}!=0)){
+                if (charCode == 8 || charCode == 37) {
+                    return true;
+                } else if (charCode == 46 && $(this).val().indexOf('.') != -1) {
+                    alert("Enter Amount in Numbers Only"); 
+                    return false;
+                } else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+                    alert("Enter Amount in Numbers Only");
+                    return false;
+                }
+                 if (charCode == 13)
+                  {
+                    alert("Pressing Enter Key is Not Allowed"); 
+                    return false;   
+                  }
+                  
+            }else { 
+                alert("BBG Validation Amount is 0,Amount cannot be Distributed");
+                return false;
+            }
+            return true;
+        }
+        
+        function isNumberKeyBBGop(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            
+            if(({!bbgopvalamount}!=0)){
+                if (charCode == 8 || charCode == 37) {
+                    return true;
+                } else if (charCode == 46 && $(this).val().indexOf('.') != -1) {
+                    alert("Enter Amount in Numbers Only"); 
+                    return false;
+                } else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+                    alert("Enter Amount in Number Only");
+                    return false;
+                }
+                 if (charCode == 13)
+                  {
+                    alert("Pressing Enter Key is Not Allowed"); 
+                    return false;   
+                  }
+            }else { 
+                alert("BBG Validation Amount is 0,Amount cannot be Distributed");
+                return false;
+            }
+            return true;
+        }
+        
+        function isNumberKeyBBGproj(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            
+            if(({!bbgprvalamount}!=0)){
+                if (charCode == 8 || charCode == 37) {
+                    return true;
+                } else if (charCode == 46 && $(this).val().indexOf('.') != -1) {
+                    alert("Enter Amount in Numbers Only"); 
+                    return false;
+                } else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+                    alert("Enter Amount in Number Only");
+                    return false;
+                }
+                 if (charCode == 13)
+                  {
+                    alert("Pressing Enter Key is Not Allowed"); 
+                    return false;   
+                  }
+            }else { 
+                alert("BBG Validation Amount is 0,Amount cannot be Distributed");
+                return false;
+            }
+            return true;
+        }
+        
+        function isNumberKeyBBGrel(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            
+            if(({!bbgrelvalamount}!=0)){
+                if (charCode == 8 || charCode == 37) {
+                    return true;
+                } else if (charCode == 46 && $(this).val().indexOf('.') != -1) {
+                    alert("Enter Amount in Numbers Only"); 
+                    return false;
+                } else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+                    alert("Enter Amount in Number Only");
+                    return false;
+                    }
+                if (charCode == 13)
+                  {
+                    alert("Pressing Enter Key is Not Allowed"); 
+                    return false;   
+                  }
+            }else { 
+                alert("BBG Validation Amount is 0,Amount cannot be Distributed");
+                return false;
+            }
+            return true;
+        }        
+       
+        /* Benefit section End */
+        
+        function startProcess(){
+            //$("#loading").show();
+            $("[id^=loading]").each(function(index, ele){
+                $(ele).show();
+            });
+        }
+        
+        function endProcess(){
+            //$("#loading").hide();
+            $("[id^=loading]").each(function(index, ele){
+                $(ele).hide();
+            });
+        }  
+        
+           function preventEnterKey(evt)
+                {
+                     var charCode = (evt.which) ? evt.which : event.keyCode
+                    if (charCode == 13)
+                        {
+                            alert("Pressing Enter Key is Not Allowed"); 
+                            return false;   
+                          } 
+                   return true; 
+                    
+                }
+                
+           function saveBBG()
+            {
+               if(confirm("If Benefits Added/Modified in the Benefit Section after Benefitting Distribution,then all the added Benefitting Businesss Groups will be deleted other than Default Benefitting Group.Please Make sure Benefits are freezed and add Benefit Distribution to the project.")==true)
+                    {
+                        document.getElementById("pg:frm:pb:bgGroupSection:saveBBG").disabled = true;
+                        document.getElementById("pg:frm:pb:bgGroupSection:saveBBG").value = 'Saving...';
+                    }
+                    else{
+                        return false; 
+                        document.getElementById("pg:frm:pb:bgGroupSection:saveBBG").disabled = false;
+                        document.getElementById("pg:frm:pb:bgGroupSection:saveBBG").value = 'Save & Close';
+                     }
+                doSave();
+            }
+                    
+         function SaveBBGVal()
+           {
+              document.getElementById("pg:frm:pb:bgGroupSection:saveBBG").disabled = false;
+              document.getElementById("pg:frm:pb:bgGroupSection:saveBBG").value = 'Save & Close';
+           }
+    
+
+    </script>
+    
+    <apex:form id="frm">
+        <apex:actionFunction name="saveProject" action="{!saveProject}" reRender="errorblock,otPnlErrMsg,projLeadSponsorEqualPopup" oncomplete="endProcess();"/>
+
+        <div id="loading" style="display:none;">
+            <img id="loading-image" src="https://raw.githubusercontent.com/ressio/lazy-load-xt/master/src/loading.gif" alt="Loading..." />
+        </div>
+
+        <apex:sectionHeader title="{!If(proj.Id == null ,$ObjectType.QIPP_Project__c.Label,$ObjectType.QIPP_Project__c.Label)}" subtitle="{!If(proj.Id == null ,'New '+ $ObjectType.QIPP_Project__c.Label,proj.Project_Number__c)}"/>
+        
+        <div class="listHoverLinks" style="visibility: visible;">                      
+            <a class="linklet" href="#pg:frm:pb:businessActivityDetails" id="businessActivityDetails_link" data-uidsfdc="26"><span class="listTitle">Business Activity Mapping </span></a>
+            <span class="pipe"> | </span>
+            <a class="linklet" href="#pg:frm:pb:benfitSec" id="benfitSec_link" data-uidsfdc="26"><span class="listTitle">Benefits</span></a>
+            <span id = "BenefitDistripipe" class="pipe" style="display:none"> | </span>
+            <a class="linklet" style="display:none" href="#pg:frm:pb:benefitingBusinessGrp" id="benefitingBusinessGrp_link" data-uidsfdc="26"><span class="listTitle">Benefit Distribution</span></a>
+            <span class="pipe"> | </span>
+            <a class="linklet" href="#pg:ProcessSteps" id="ProcessSteps_link" data-uidsfdc="26"><span class="listTitle">Approval History</span></a>         
+            <span class="pipe"> | </span>
+            <a class="linklet" href="#pg:relatedtasks" id="relatedtasks_link" data-uidsfdc="26"><span class="listTitle">Tasks</span></a>            
+            <span class="pipe"> | </span>
+            <a class="linklet" href="#pg:notesandattach" id="notesandattach_link" data-uidsfdc="26"><span class="listTitle">Notes &amp; Attachments</span></a>          
+            <span class="pipe"> | </span>
+            <a class="linklet" href="#pg:projecthistory" id="projecthistory_link" data-uidsfdc="26"><span class="listTitle">QIPP Project History</span></a>            
+        </div>
+        
+        <apex:pageblock id="pb" mode="inlineEdit">
+            <apex:pageMessages id="errorblock" escape="false" rendered="{!IF(displayPopupBenf==false && displayPopupeditBenf==false && bbgErrorMessages==false && projectErrorMessages==true,true,false)}"></apex:pageMessages>
+
+            <apex:pageBlockButtons id="pblockBtns">
+
+                <!--<apex:image id="lock" value="/img/lock_small.gif" alt="Lock" width="16" height="16" title="Lock" rendered="{!if(recIsLocked && (projState != 'Complete' || projState != 'Closed'),true,false)}"/>--> 
+                <!-- commented this line by Haripriya and added below line <apex:image id="lock" value="/img/lock_small.gif" alt="Lock" width="16" height="16" title="Lock" rendered="{!if(recIsLocked, if(projState != 'Complete' || projState != 'Closed', false, true), false)}"/> -->
+                <apex:image id="lockIcon" value="/img/lock_small.gif" alt="Lock" width="16" height="16" title="Lock" rendered="{!if(($Profile.Name =='Nokia QIPP Project Viewer') || (recIsLocked==false),false,true)}" />
+                <apex:actionRegion id="pbActionReg">
+                    <apex:commandButton id="saveButton" onclick="startProcess();  savePrj(); return false;" Value="Save" title="Save" style="display:none" />
+                </apex:actionRegion>
+                <apex:commandButton id="cancelButton" value="Cancel" action="{!ValidationCancel}" title="Cancel" style="display:none" onclick="startProcess();" oncomplete="endProcess();"/>
+                <apex:commandButton id="unlockRecord" action="{!unlockRecord}" value="Unlock Record" title="Unlock Record" rendered="{!if(($Profile.Name =='System Administrator') && recIsLocked==true,true,false)}" onclick="startProcess();" oncomplete="endProcess();"/>
+                <apex:commandButton id="editButton"  Value="Edit" action="{!edit}" title="Edit" rerender="errorblock" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && (projState != 'Complete' || projState !='Closed') && recIsLocked==false),true,false)}" onclick="startProcess();" oncomplete="endProcess();" reRender="errorblock"/>
+                <apex:commandButton id="deleteButton" value="Delete" title="Delete" onclick="if(!confirm('Are You Sure?')){return false;}else{startProcess();}" action="{!deleteRecord}" rendered="{!IF((($Profile.Name =='System Administrator') && ($Profile.Name !='Nokia QIPP Project Viewer') || ($Profile.Name =='Nokia QIPP Project Lead' && $UserRole.Name =='QIPP Portfolio Manager') || ($Profile.Name =='Nokia QIPP Project Lead' && $UserRole.Name =='QIPP Admin')), true , false)}" oncomplete="endProcess();" reRender="errorblock" />
+                <apex:commandButton id="cloneButton" action="{!cloneProject}" Value="Clone" title="Clone" rendered="{!IF(($Profile.Name !='Nokia QIPP Project Viewer'),true,false)}" onclick="startProcess();" oncomplete="endProcess();"/>
+                <apex:commandButton id="shareButton" action="{!URLFOR($Action.QIPP_Project__c.Share,Id)}" value="Sharing" title="Sharing" rendered="{!IF(($Profile.Name !='Nokia QIPP Project Viewer'),true,false)}" onclick="startProcess();" oncomplete="endProcess();"/>
+                <apex:commandButton id="approvalButton" action="{!reqApproval}" rendered="{!IF(( ($Profile.Name !='Nokia QIPP Project Viewer') && (projState!='Complete' && projState!='Closed') && (recIsLocked==false)),true,false)}" rerender="benefitpopup,alertpopup,approvepopup,errorblock" Value="Request Project Approval" title="Request Project Approval" onclick="startProcess();" oncomplete="endProcess();"/>
+             </apex:pageBlockButtons>
+            <!-- Section 1 - Start --> 
+            <apex:pageBlockSection id="pbSecStdFields" title="Standard Project Fields" columns="2" collapsible="false">
+
+                <apex:pageBlockSectionItem id="projName" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Name_Succinct__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Name_Succinct__c.Label}" for="projName"/>           
+                    <apex:outputPanel layout="block" id="otp" styleClass="tmpClass">
+                        <apex:outputField id="projName" value="{!proj.Project_Name_Succinct__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Name_Succinct__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="bBG" helpText="{!$ObjectType.QIPP_Project__c.fields.Portfolio_BU__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Portfolio_BU__c.Label}" for="bBG"/>
+                    <apex:outputText id="bBG" value="{!proj.Portfolio_BU__c}"/>
+                </apex:pageBlockSectionItem>                
+
+                <apex:pageBlockSectionItem id="projLead" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.Label}" for="projLead"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="projLead" value="{!proj.Project_Lead__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Lead__c" style="color:#d74c3b; display:none;">{!GenericError}</span>                                                
+                    </apex:outputPanel>                    
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="bBU" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_BL__c.inlineHelpText}">                
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_BL__c.Label}" for="bBU"/>
+                    <apex:outputText id="bBU" value="{!proj.Project_BL__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="portfolioName" helpText="{!$ObjectType.QIPP_Project__c.fields.Portfolio_Name__c.inlineHelpText}">            
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Portfolio_Name__c.Label}" for="portfolioName"/>
+                    <apex:outputField id="portfolioName" value="{!proj.Portfolio_Name__c}">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="bBL" helpText="{!$ObjectType.QIPP_Project__c.fields.Benefitting_Project_BL_Level_4_Org__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Benefitting_Project_BL_Level_4_Org__c.Label}" for="portfolioDesc"/>
+                    <apex:outputText id="bBL" value="{!proj.Benefitting_Project_BL_Level_4_Org__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="projStateItem" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_State__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_State__c.Label}" for="projState"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="projState" value="{!proj.Project_State__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_State__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead_Business_Grp__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead_Business_Grp__c.Label}" for="PLBG"/>
+                    <apex:outputText id="PLBG" value="{!proj.Project_Lead_Business_Grp__c}"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="cemtID" helpText="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.Label}" for="cemtID"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="cemtID" value="{!proj.CEMT_ID__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_CEMT_ID__c" style="color:#d74c3b; display:none;">Error: Blank space not accepted, please use Not Applicable instead.</span>                    
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead_Business_Unit__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead_Business_Unit__c.Label}" for="PLBU"/>
+                    <apex:outputText id="PLBU" value="{!proj.Project_Lead_Business_Unit__c}"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="portfolioDesc" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Description_Detailed__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Description_Detailed__c.Label}" for="projectDesc"/>
+                    <apex:outputPanel layout="block" style="display:inline-block;word-break:break-all">
+                        <apex:outputField id="portfolioDesc" value="{!proj.Project_Description_Detailed__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Description_Detailed__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead_Business_Line__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead_Business_Line__c.Label}" for="PLBL"/>
+                    <apex:outputText id="PLBL" value="{!proj.Project_Lead_Business_Line__c}"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="CompDtPlanned" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Target__c.inlineHelpText}">
+                    <apex:outputLabel value="Completion Date - Planned" for="CompDtPlanned"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="CompDtPlanned" value="{!proj.Project_Completion_Date_Target__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Completion_Date_Target__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="itemforcast" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Forecast__c.inlineHelpText}">
+                    <apex:outputLabel value="Completion Date - Forecast" for="forecast"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="forecast" value="{!proj.Project_Completion_Date_Forecast__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Completion_Date_Forecast__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>            
+            <!-- Section 1 - End --> 
+
+            <!-- Section 2 - Start -->
+            <apex:pageBlockSection id="pbProjectFields" title="CIF Project Fields" columns="3" collapsible="false" >
+
+                <apex:outputText rendered="{!IF(proj.Project_Lead__c == proj.Project_Sponsor__c,true,false)}">
+                <font size="2" style="color:red">{!$Label.QIPP_Lead_and_Sponsor_is_Equal_Msg}</font>
+                </apex:outputText>
+                <apex:outputText rendered="{!IF(proj.Project_Lead__c == proj.Project_Sponsor__c,true,false)}"></apex:outputText>
+                <apex:outputText rendered="{!IF(proj.Project_Lead__c == proj.Project_Sponsor__c,true,false)}"></apex:outputText>
+                
+                <apex:pageBlockSectionItem labelStyle="width:width:500px;" id="bpSponsorItem" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Owner__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Sponsor__c.Label}" for="bpsponsor"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="bpSponsor" value="{!proj.Project_Sponsor__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Sponsor__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="ProjCreDt" >
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Created_Date__c.Label}" for="ProjCreDt"/>
+                    <apex:outputField id="ProjCreDt" value="{!proj.Project_Created_Date__c}" style="width:193px">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem labelStyle="width:width:500px;" id="copqfinapprover" helpText="{!$ObjectType.QIPP_Project__c.fields.Finance_Approver__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Finance_Approver__c.Label}" for="finapprover"/>
+                    <apex:outputPanel style="width: 150px;display: inline-block;">
+                        <apex:outputField id="finapprover" value="{!proj.Finance_Approver__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem labelStyle="width:width:500px;" id="pbsiCIF" helpText="{!$ObjectType.QIPP_Project__c.fields.CIF_Phase__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.CIF_Phase__c.Label}" for="projCIFPhase"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="projCIFPhase" value="{!proj.CIF_Phase__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_CIF_Phase__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="Actual" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Actual__c.inlineHelpText}" >
+                    <apex:outputLabel style="float: center;width:120px;" value="Completion Date - Actual" for="Actual"/>
+                    <apex:outputField id="Actual" value="{!proj.Project_Completion_Date_Actual__c}" style="width: 118px">
+                        <apex:inlineEditSupport disabled="true"/>
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbsiImpOwn" helpText="{!$ObjectType.QIPP_Project__c.fields.Improvement_Owner__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Improvement_Owner__c.Label}" for="projImpOwn"/>
+                    <apex:outputField id="projImpOwn" value="{!proj.Improvement_Owner__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                                
+                <apex:pageBlockSectionItem id="pbsiReqDepDate" helpText="{!$ObjectType.QIPP_Project__c.fields.Deployment_Date__c.inlineHelpText}" >
+                    <apex:outputLabel style="float: center;width:120px;" value="{!$ObjectType.QIPP_Project__c.fields.Deployment_Date__c.Label}" for="projReqDepDate"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="projReqDepDate" value="{!proj.Deployment_Date__c}" style="width: 118px">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Deployment_Date__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Planned_Start_Date__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Planned_Start_Date__c.Label}" for="PlanStartDt" Style="width:160px;display:inline-block"/>
+                    <apex:outputField id="PlanStartDt" style="float: center;width:118px;" value="{!proj.Planned_Start_Date__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pbsL6s" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Assigned__c.inlineHelpText}" >
+                    <apex:outputLabel style="float: center;width:120px;" value="{!$ObjectType.QIPP_Project__c.fields.Belt_Assigned__c.Label}" for="projl6s"/>
+                    <apex:outputField id="projl6s" value="{!proj.Belt_Assigned__c}" style="width: 118px">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem id="pbsiReqInitDate" helpText="{!$ObjectType.QIPP_Project__c.fields.Institutionalize_Date__c.inlineHelpText}" >
+                    <apex:outputLabel style="float: center;width:120px;" value="{!$ObjectType.QIPP_Project__c.fields.Institutionalize_Date__c.Label}" for="projReqInitDate"/>
+                    <apex:outputPanel layout="block">
+                        <apex:outputField id="projReqInitDate" value="{!proj.Institutionalize_Date__c}" style="width: 118px">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Institutionalize_Date__c" style="color:#d74c3b; display:none;">{!GenericError}</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="ProjStartDtActl" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.Label}" for="ProjStartDtActl"/>
+                    <apex:outputField id="ProjStartDtActl" value="{!proj.Project_Start_Date__c}"  style="float: center;width:118px;">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>    
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="distatepbsi" helpText="{!$ObjectType.QIPP_Project__c.fields.DI_State__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DI_State__c.Label}" for="DIState"/>
+                    <apex:outputField id="DIState" value="{!proj.DI_State__c}" style="width:193px">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>                    
+                </apex:pageBlockSectionItem>                
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.Label}" for="ProjDoc"/>
+                    <apex:outputPanel layout="block" style="display:inline-block;word-break:break-all">
+                        <apex:outputField id="ProjDoc" value="{!proj.Project_Document__c}"  style="width: 193px; height: 30px">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                        <span id="error_Project_Document__c" style="color:#d74c3b; display:none;">Error: Enter a valid url where project doc is stored.</span>                        
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Reason_for_no_Financial_Impact__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Reason_for_no_Financial_Impact__c.Label}" for="projReasonNoFinImpact"/>
+                    <apex:outputPanel layout="block" style="display:inline-block;word-break:break-all">
+                        <apex:outputField id="projReasonNoFinImpact" value="{!proj.Reason_for_no_Financial_Impact__c}"  style="width: 193px; height: 30px">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                        </apex:outputField>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Flex_Field_1__c.inlineHelpText}">
+                    <apex:outputLabel value="Project Flex Field" for="ProjFlexField1" style="width: 100px;display: inline-block;"/>
+                    <apex:outputField id="ProjFlexField1" value="{!proj.Project_Flex_Field_1__c}"  style="float: center;width:193px;">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>                
+                <!--
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Schedule_Status__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Schedule_Status__c.Label}" for="bestp"/>
+                    <apex:outputField id="bestp" value="{!proj.Project_Schedule_Status__c}"  style="float: center;width:193px;"/>
+                </apex:pageBlockSectionItem>
+                -->
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.CreatedById.inlineHelpText}">
+                    <apex:outputLabel value="Created By" for="createdBy"/>                
+                    <apex:outputField id="createdBy" value="{!proj.CreatedById}"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.CreatedById.inlineHelpText}">
+                    <apex:outputLabel value="Created Date" for="createdDate"/>                
+                    <apex:outputField id="createdDate" value="{!proj.CreatedDate}"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputText />
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.LastModifiedById.inlineHelpText}">
+                    <apex:outputLabel value="Last Modified By" for="lastmodifiedBy"/>                
+                    <apex:outputField id="lastmodifiedBy" value="{!proj.LastModifiedById}" />
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem datastyle="width:200px;display:inline-block" helpText="{!$ObjectType.QIPP_Project__c.fields.LastModifiedDate.inlineHelpText}">
+                    <apex:outputLabel value="Last Modified Date" for="lastmodifiedDate" style="width: 150px;display: inline-block;"/>                
+                    <apex:outputField id="lastmodifiedDate" value="{!proj.LastModifiedDate}"/>
+                </apex:pageBlockSectionItem>
+                
+                        
+            <!-- Section 2 - End -->
+            
+            <apex:outputPanel id="projLeadSponsorEqualPopup">
+            <apex:outputPanel id="popupLeadSponsorEqual" styleClass="BenfpopupBackground" layout="block" rendered="{!projLeadSponsorEqual}" />
+            <apex:outputPanel styleClass="LeadSponsorEqualPopup" layout="block" rendered="{!projLeadSponsorEqual}">
+    
+               <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem id="projLeadSponsorEqual">
+                        <apex:outputLabel value="{!$Label.QIPP_Lead_and_Sponsor_is_Equal_Msg}" style="width: 300px;display: inline-block;text-align: left;"/>
+                        <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <div style="text-align:center;margin-top: 8px;">
+                    <apex:commandButton id="btnSaveLeadSponsorEqual" value="OK" onclick="savePrj('Save'); return false;"/>    
+                    <apex:commandButton id="btnCancelLeadSponsorEqual" value="Cancel" action="{!closeLeadSponsorEqualPopup}" reRender="projLeadSponsorEqualPopup"/>
+                </div>             
+            </apex:outputPanel>
+            </apex:outputPanel>
+           
+           </apex:pageBlockSection>
+            
+            <!-- Section 3 - Start -->
+            <apex:pageBlockSection id="pbSecSpFields2" title="Impacted BG" columns="2" collapsible="false">
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Applications_Analytics_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Applications_Analytics_BGs__c.Label}" for="projImpAppAnaBGs"/>                
+                    <apex:outputField id="projImpAppAnaBGs" value="{!proj.Impacted_Applications_Analytics_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Human_Resources_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Human_Resources_BGs__c.Label}" for="projImpHumResBGs"/>
+                    <apex:outputField id="projImpHumResBGs" value="{!proj.Impacted_Human_Resources_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>                
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Chief_Financial_Office_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Chief_Financial_Office_BGs__c.Label}" for="projImpChiefFinOffBGs"/>
+                    <apex:outputField id="projImpChiefFinOffBGs" value="{!proj.Impacted_Chief_Financial_Office_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_IP_Optical_Networks_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_IP_Optical_Networks_BGs__c.Label}" for="projImpIPOptNetBGs"/>
+                    <apex:outputField id="projImpIPOptNetBGs" value="{!proj.Impacted_IP_Optical_Networks_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_CIOO_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_CIOO_BGs__c.Label}" for="projImpCIOOBGs"/>
+                    <apex:outputField id="projImpCIOOBGs" value="{!proj.Impacted_CIOO_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Legal_Compliance_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Legal_Compliance_BGs__c.Label}" for="projImplegCompBGs"/>
+                    <apex:outputField id="projImplegCompBGs" value="{!proj.Impacted_Legal_Compliance_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_CSD_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_CSD_BGs__c.Label}" for="projImpCSDBGs"/>
+                    <apex:outputField id="projImpCSDBGs" value="{!proj.Impacted_CSD_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_MCA_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_MCA_BGs__c.Label}" for="projImpMCABGs"/>
+                    <apex:outputField id="projImpMCABGs" value="{!proj.Impacted_MCA_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Customer_Operations_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Customer_Operations_BGs__c.Label}" for="projImpCustOpeBGs"/>
+                    <apex:outputField id="projImpCustOpeBGs" value="{!proj.Impacted_Customer_Operations_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Mobile_Networks_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Mobile_Networks_BGs__c.Label}" for="projImpMobNetBGs"/>
+                    <apex:outputField id="projImpMobNetBGs" value="{!proj.Impacted_Mobile_Networks_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Fixed_Networks_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Fixed_Networks_BGs__c.Label}" for="projImpFixNetBGs"/>
+                    <apex:outputField id="projImpFixNetBGs" value="{!proj.Impacted_Fixed_Networks_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Quality_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Quality_BGs__c.Label}" for="projImpQuaBGs"/>
+                    <apex:outputField id="projImpQuaBGs" value="{!proj.Impacted_Quality_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Impacted_Global_BGs__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Impacted_Global_BGs__c.Label}" for="projImpGlbBGs"/>
+                    <apex:outputField id="projImpGlbBGs" value="{!proj.Impacted_Global_BGs__c}">
+                        <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton,deleteButton,cloneButton,shareButton,approvalButton" event="ondblclick" changedStyleClass="myBoldClass" rendered="{!if((enableInlineEdit) && (recIsLocked==false),true,false)}" />
+                    </apex:outputField>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- Section 3 - End -->
+        
+        <apex:outputPanel id="otPnlErrMsg">
+            <apex:repeat value="{!errMessageMap}" var="key">
+                <script>
+                    var cntId = 'error_{!key}';
+                    //$('#'+cntId).html('{!errMessageMap[key]}');
+                    $('#'+cntId).show();
+                </script>
+            </apex:repeat>
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="approvepopup">
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopup}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopup}">
+                <div id="loading_approve" style="display:none;">
+                    <img id="loading_approve-image" src="https://raw.githubusercontent.com/ressio/lazy-load-xt/master/src/loading.gif" alt="Loading..." />
+                </div>
+                <apex:outputText escape="false" value="{!reqApprovalMessage}" />
+                <div style="margin-top: 25px;text-align: center;">
+                    <apex:commandButton id="btnOk" value="OK" action="{!closePopup}" rendered="{!if(isAlertType,true,false)}" reRender="approvepopup" style="width:10%;" onclick="startProcess();" oncomplete="endProcess();"/>
+
+                    <apex:commandButton id="btnApprove" value="Submit" action="{!submitapprove}" rendered="{!if(isAlertType,false,true)}" reRender="approvepopup,errorblock" style="width:10%;" onclick="startProcess();" oncomplete="endProcess();"/>
+                    <apex:commandButton id="btnCancel" value="Cancel" action="{!closePopup}" rendered="{!if(isAlertType,false,true)}" reRender="approvepopup" style="width:10%;" onclick="startProcess();" oncomplete="endProcess();"/>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <!-- BAM Section Start -->
+
+        <apex:actionFunction name="refreshBAMSection" action="{!callDummy}" rerender="opBAM,businessActivityDetails" oncomplete="closeBAMSection();myTimeOut();" />
+        <apex:actionFunction name="closeBAMSection" action="{!closePopupBAM}"/>        
+        <apex:outputPanel id="opBAM">
+            <apex:pageBlockSection id="businessActivityDetails" columns="1" title="Business Activity Mapping Details" collapsible="false">
+                    <apex:outputText escape="false" value="{!$Label.BAM_Header_Text}" />
+                    <apex:commandButton id="selectBAM" value="Select/Edit Business Activity Mapping" action="{!showPopupBAM}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false && projState != 'Complete' && projState !='Closed'),true,false)}"/>
+                    <apex:commandButton id="ViewBAM" value="View Business Activity Mapping" action="{!showPopupBAM}" rendered="{!IF((recIsLocked==true || projState =='Closed' || projState =='Complete'),true,false)}"/>
+
+                <apex:pageblockTable value="{!BAMDetailsMap}" var="f" id="pbActivity">
+                    <apex:column headerValue="Business Activity" value="{!f.activityName}"/>
+                    <apex:column headerValue="Value Stream" value="{!f.valueStream}"/>
+                    <apex:column headerValue="Business Function" value="{!f.businessFunc}"/>                
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+        
+        <apex:pageBlockSection id="pBlockSection" columns="1" >
+            <apex:outputPanel id="popupBAM"> 
+                <apex:outputPanel id="popupBackgroundBAM" styleClass="BAMpopupBackground" layout="block" rendered="{!displayPopupBAM}" />
+                <apex:outputPanel id="custPopupBAM" styleClass="BAMcustPopup" layout="block" rendered="{!displayPopupBAM}" >
+                    <iframe height="550px" id="theIframe" name="theIframe" src="/apex/Business_Activity_Mapping?projectID={!proj.Id}" width="900px" style="border:none"> </iframe> 
+                    <div align="center" draggable="false" >
+                    </div>
+                </apex:outputPanel>  
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+        
+        <!-- BAM Section End -->
+        
+        <!-- Benefit Creation Start -->
+        <apex:pageblockSection id="benfitSec" title="Project Benefits" columns="1" collapsible="false" >
+             <apex:outputText escape="false" value="{!$Label.Benefits_Header_Text}" />
+            <apex:pageBlock id="pblockbenfitSec"> 
+
+                <apex:commandButton id="addBenefit" value="Add New Benefit (Improvement Measure)" action="{!showPopupBenf}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>
+                <br></br>
+                <apex:outputText rendered="{!if(((QIPP_Project__c.Total_Project_Validation_Amount__c > 1000) &&  (QIPP_Project__c.Project_State__c == 'In Progress' || QIPP_Project__c.Project_State__c == 'Not Started'||QIPP_Project__c.Project_State__c == 'On Hold')),true,false)}">
+                    <font size="2" style="color:red;margin-left:00px;">Note :  QIPP project benefits must be recorded in Kilo Euro (k€) units [ie.1 k€ = 1000€].</font> <br/> 
+                    <font size="2" style="color:red;margin-left:40px;">Please correct the numbers if the benefits are not recorded in k€.</font>
+                    <br/> <br/> 
+                </apex:outputText>
+                
+                <apex:pageBlockTable value="{!Benefits_RelatedList}" id="pbtabledit" var="benifit_list" rendered="{!AND(NOT(ISNULL(Benefits_RelatedList)),Benefits_RelatedList.size>0)}" columnsWidth="10%,17%,12%,15%,11%,11%,11%,15%" >
+                    <apex:column headerValue="Action" style="width:210px">
+                     <apex:commandLink id="viewBenefit" value="View" style="color:CornflowerBlue;text-decoration:none;" action="{!showPopupviewBenf}">
+                        <apex:param name="Benefitid" value="{!benifit_list.id}" assignTo="{!benefitid}"/>
+                     </apex:commandLink>
+                        <apex:outputLabel id="editpipe" value=" | " rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>
+                     <apex:commandLink id="editBenefit" value="Edit" style="color:CornflowerBlue;text-decoration:none;" action="{!showPopupeditBenf}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}">
+                            <apex:param name="editBenefitid" value="{!benifit_list.id}" assignTo="{!benefitid}"/>
+                     </apex:commandLink> 
+                        
+                       <apex:outputLabel id="deletepipe" value=" | " rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>
+                       <apex:outputLink id="deleteBenefit" style="color:CornflowerBlue;text-decoration:none;" value="/apex/QIPP_Benefit_View?delete={!benifit_list.id}&Projectid={!projectid}" onclick="if (!confirm('Are you sure you want to delete this benefit?')) return false" title="Delete"  rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}" >Delete</apex:outputLink>
+                    </apex:column>
+                    <apex:column headerValue="Improvement Measure" >
+                        <apex:outputPanel rendered="{!IF(len(benifit_list.Improvement_Measure_Name__c)>30,true,false)}">                                  
+                            <apex:outputText title="{!benifit_list.Improvement_Measure_Name__c}" value="{!left(benifit_list.Improvement_Measure_Name__c,30)}..."></apex:outputText>
+                        </apex:outputpanel>
+                        <apex:outputPanel rendered="{!IF(len(benifit_list.Improvement_Measure_Name__c)<=30,true,false)}">                                  
+                            <apex:outputText title="{!benifit_list.Improvement_Measure_Name__c}" value="{!benifit_list.Improvement_Measure_Name__c}"></apex:outputText>
+                        </apex:outputpanel>
+                    </apex:column>
+                    <apex:column headerValue="Unit of Measure" >                                  
+                        <apex:outputField value="{!benifit_list.Unit_of_Measure__c}">
+                            <apex:inlineEditSupport rendered="false"/>
+                        </apex:outputField>
+                    </apex:column>
+                    <apex:column headerValue="Benefit Type"> 
+                        <apex:outputField value="{!benifit_list.Benefit_Type__c}"> 
+                            <apex:inlineEditSupport rendered="false"/>
+                        </apex:outputField>
+                    </apex:column>
+                    <apex:column headerValue="Planned (k€)">
+                        <apex:outputText value="{!benifit_list.Planned_Financial_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Planned_Financial_Savings_Total__c)),(benifit_list.Planned_Financial_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Planned_Financial_Savings_Total__c)),(benifit_list.Planned_Financial_Savings_Total__c)==0)}"/>
+
+                        <apex:outputText value="{!benifit_list.Planned_Operational_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Planned_Operational_Savings_Total__c)),(benifit_list.Planned_Operational_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Planned_Operational_Savings_Total__c)),(benifit_list.Planned_Operational_Savings_Total__c)==0)}"/>
+
+                        <apex:outputText value="{!benifit_list.Planned_Projected_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Planned_Projected_Savings_Total__c)),(benifit_list.Planned_Projected_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Planned_Projected_Savings_Total__c)),(benifit_list.Planned_Projected_Savings_Total__c)==0)}"/>
+        
+                        <apex:outputText value="{!benifit_list.Planned_Realized_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Planned_Realized_Savings_Total__c)),(benifit_list.Planned_Realized_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Planned_Realized_Savings_Total__c)),(benifit_list.Planned_Realized_Savings_Total__c)==0)}"/>
+                    
+                    </apex:column>
+                    <apex:column headerValue="Achieved (k€)">
+                        <apex:outputText value="{!benifit_list.Achieved_Financial_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Achieved_Financial_Savings_Total__c)),(benifit_list.Achieved_Financial_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Achieved_Financial_Savings_Total__c)),(benifit_list.Achieved_Financial_Savings_Total__c)==0)}"/>
+
+                        <apex:outputText value="{!benifit_list.Achieved_Operational_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Achieved_Operational_Savings_Total__c)),(benifit_list.Achieved_Operational_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Achieved_Operational_Savings_Total__c)),(benifit_list.Achieved_Operational_Savings_Total__c)==0)}"/>
+
+                        <apex:outputText value="{!benifit_list.Achieved_Projected_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Achieved_Projected_Savings_Total__c)),(benifit_list.Achieved_Projected_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Achieved_Projected_Savings_Total__c)),(benifit_list.Achieved_Projected_Savings_Total__c)==0)}"/>
+        
+                        <apex:outputText value="{!benifit_list.Achieved_Realized_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Achieved_Realized_Savings_Total__c)),(benifit_list.Achieved_Realized_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Achieved_Realized_Savings_Total__c)),(benifit_list.Achieved_Realized_Savings_Total__c)==0)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Future (k€)">
+                      <apex:outputText value="{!benifit_list.Future_Financial_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Future_Financial_Savings_Total__c)),(benifit_list.Future_Financial_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Future_Financial_Savings_Total__c)),(benifit_list.Future_Financial_Savings_Total__c)==0)}"/>
+
+                        <apex:outputText value="{!benifit_list.Future_Operational_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Future_Operational_Savings_Total__c)),(benifit_list.Future_Operational_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Future_Operational_Savings_Total__c)),(benifit_list.Future_Operational_Savings_Total__c)==0)}"/>
+
+                        <apex:outputText value="{!benifit_list.Future_Projected_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Future_Projected_Savings_Total__c)),(benifit_list.Future_Projected_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Future_Projected_Savings_Total__c)),(benifit_list.Future_Projected_Savings_Total__c)==0)}"/>
+        
+                        <apex:outputText value="{!benifit_list.Future_Realized_Savings_Total__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Future_Realized_Savings_Total__c)),(benifit_list.Future_Realized_Savings_Total__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Future_Realized_Savings_Total__c)),(benifit_list.Future_Realized_Savings_Total__c)==0)}"/>
+                    </apex:column>
+                    <apex:column headerValue="Validation Amount (k€)">
+                        
+                        <apex:outputText value="{!benifit_list.Benefit_Amount_Achieved_Future_k__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Benefit_Amount_Achieved_Future_k__c)),(benifit_list.Benefit_Amount_Achieved_Future_k__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Financial Savings'),NOT(ISNULL(benifit_list.Benefit_Amount_Achieved_Future_k__c)),(benifit_list.Benefit_Amount_Achieved_Future_k__c)==0)}"/>
+                      
+                        
+                       <apex:outputText value="{!benifit_list.Benefit_Operational_Achieved_Future_k__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Benefit_Operational_Achieved_Future_k__c)),(benifit_list.Benefit_Operational_Achieved_Future_k__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Operational Savings'),NOT(ISNULL(benifit_list.Benefit_Operational_Achieved_Future_k__c)),(benifit_list.Benefit_Operational_Achieved_Future_k__c)==0)}"/>
+                        
+                          <apex:outputText value="{!benifit_list.Benefit_Projected_Achieved_Future_k__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Benefit_Projected_Achieved_Future_k__c)),(benifit_list.Benefit_Projected_Achieved_Future_k__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Projected Revenue'),NOT(ISNULL(benifit_list.Benefit_Projected_Achieved_Future_k__c)),(benifit_list.Benefit_Projected_Achieved_Future_k__c)==0)}"/>
+                        
+                          <apex:outputText value="{!benifit_list.Benefit_Realized_Achieved_Future_k__c}" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Benefit_Realized_Achieved_Future_k__c)),(benifit_list.Benefit_Realized_Achieved_Future_k__c)>0)}"/>
+                        <apex:outputText value="-" rendered="{!AND((benifit_list.Benefit_Type__c == 'Realized Revenue'),NOT(ISNULL(benifit_list.Benefit_Realized_Achieved_Future_k__c)),(benifit_list.Benefit_Realized_Achieved_Future_k__c)==0)}"/>
+                    </apex:column>
+               </apex:pageBlockTable>
+
+
+                <apex:pageBlockTable value="{!benefitGrandTotalsList}" headerClass="noHeader" rowClasses="rowColor" var="benifit_grandTotal" rendered="{!AND(NOT(ISNULL(Benefits_RelatedList)),Benefits_RelatedList.size>0)}" columnsWidth="15%,24%,15%,11%,11%,11%,15%">
+                    <apex:column headerValue="">
+                        <apex:outputText rendered="true"/>                        
+                    </apex:column>
+                    
+                    <apex:column headerValue=" ">
+                        <apex:outputText rendered="true"/>                        
+                    </apex:column>
+                    
+                    <apex:column headerValue="Grand Totals ">
+                        <apex:outputText value="Total Project Benefits" rendered="true" style="float:left"/>                        
+                    </apex:column>
+                    <apex:column headerValue="Planned (k€)">
+                        <apex:outputText value="{!benifit_grandTotal.plannedGTotalEuro}" rendered="true" style="float:left"/>
+                        
+                    </apex:column>
+                    <apex:column headerValue="Achieved (k€)">
+                        <apex:outputText value="{!benifit_grandTotal.achievedGTotalEuro}" rendered="true" style="float:left"/>
+                        
+                    </apex:column>
+                    <apex:column headerValue="Future (k€)">
+                        <apex:outputText value="{!benifit_grandTotal.futureGTotalEuro}" rendered="true" style="float:left"/>
+                        
+                    </apex:column>
+                    <apex:column headerValue="Validation Amount (k€)">
+                        <apex:outputText value="{!benifit_grandTotal.validationAmountEuro}" rendered="true" style="float:left"/>
+                    </apex:column>    
+                    
+                </apex:pageBlockTable>
+                
+                <apex:pageBlockSection rendered="{!OR(ISNULL(Benefits_RelatedList),Benefits_RelatedList.size=0)}"  columns="1">
+                            <b> <i>There are NO Benefits to display.</i></b>
+                </apex:pageBlockSection>
+                <apex:commandButton id="BenefitsOverview" value="Benefits Overview" onclick="projectCreation()" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false && Benefits_RelatedList!=null && Benefits_RelatedList.size>0),true,false)}"/><br/>
+                <span style="padding-top: 5px;">
+                    <apex:outputText rendered="{!IF(Benefits_RelatedList.size>0,true,false)}" >{!$Label.QIPP_Benefit_Section_Message}</apex:outputText>
+                </span>
+             </apex:pageBlock>
+        </apex:pageblockSection>        
+                         
+        <apex:outputPanel id="popupviewBenf"> 
+            <apex:outputPanel id="popupcustviewBenf" styleClass="BenfpopupBackground" layout="block" rendered="{!displayPopupviewBenf}" />
+            <apex:outputPanel id="custPopupviewBenf" styleClass="BenfcustPopup" layout="block" rendered="{!displayPopupviewBenf}" >
+                <apex:pageBlockSection columns="2" title="Improvement Measure" collapsible="false">
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection id="pbsmeasureview" columns="2">
+                    <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Benefit__c.fields.Improvement_Measure_Name__c.inlineHelpText}">
+                        <apex:outputLabel value="Improvement Measure"/>
+                        <apex:outputtext value="{!benifit2.Improvement_Measure_Name__c}" />
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem id="benefitTypeItemview" helpText="{!$ObjectType.QIPP_Benefit__c.fields.Benefit_Type__c.inlineHelpText}">
+                        <apex:outputLabel value="Benefit Type" style="display:inline-block;width:70px"/>
+                        <apex:outputtext value="{!benifit2.Benefit_Type__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Benefit__c.fields.Unit_of_Measure__c.inlineHelpText}" >
+                        <apex:outputLabel value="Unit of Measure" />
+                        <apex:outputText value="{!benifit2.Unit_of_Measure__c}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                    <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Benefit__c.fields.ImprovementMeasure_Brief_Description__c.inlineHelpText}">
+                        <apex:outputLabel value="Brief Description" />
+                        <apex:outputfield value="{!benifit2.ImprovementMeasure_Brief_Description__c}">
+                            <apex:inlineEditSupport rendered="false"/>
+                        </apex:outputField>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+
+                <apex:pageBlockSection columns="1" id="benefitLineItemview" collapsible="false">
+                    <apex:variable var="rowNum" value="{!0}" /> 
+                    <apex:pageBlockTable id="pbTableView" value="{!Bn_rep_AddList1}" var="benefitTable">
+                        <apex:column headerValue="Year" style="width:80px">
+                            <apex:outputField value="{!benefitTable.Years__c}">
+                                <apex:inlineEditSupport rendered="false"/>
+                            </apex:outputField>
+                        </apex:column>
+
+                        <apex:column headerValue="Month" style="width:80px">
+                            <apex:outputField value="{!benefitTable.Months__c}" rendered="true">
+                                <apex:inlineEditSupport rendered="false"/>
+                            </apex:outputField>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Planned (k€)" style="width:80px">
+                            <apex:outputText value="{!benefitTable.Benefits_Saving_Amount_Planned__c}" rendered="{!AND(NOT(ISNULL(benefitTable.Benefits_Saving_Amount_Planned__c)),(benefitTable.Benefits_Saving_Amount_Planned__c)!=0)}"/>
+                            <apex:outputText value="-" rendered="{!OR(ISNULL(benefitTable.Benefits_Saving_Amount_Planned__c),(benefitTable.Benefits_Saving_Amount_Planned__c)==0)}"/>
+                        </apex:column>
+
+                        <apex:column headerValue="Achieved (k€)" style="width:80px">
+                            <apex:outputText value="{!benefitTable.Benefits_Saving_Amount_Achieved__c}" rendered="{!AND(NOT(ISNULL(benefitTable.Benefits_Saving_Amount_Achieved__c)),(benefitTable.Benefits_Saving_Amount_Achieved__c)!=0)}"/>
+                            <apex:outputText value="-" rendered="{!OR(ISNULL(benefitTable.Benefits_Saving_Amount_Achieved__c),(benefitTable.Benefits_Saving_Amount_Achieved__c)==0)}"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Future (k€)" style="width:80px">
+                            <apex:outputText value="{!benefitTable.Benefit_Savings_Amount__c}" rendered="{!AND(NOT(ISNULL(benefitTable.Benefit_Savings_Amount__c)),(benefitTable.Benefit_Savings_Amount__c)!=0)}"/>
+                            <apex:outputText value="-" rendered="{!OR(ISNULL(benefitTable.Benefit_Savings_Amount__c),(benefitTable.Benefit_Savings_Amount__c)==0)}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    
+                    <apex:pageBlockTable value="{!benefitTotalsList}" headerClass="noHeader" rowClasses="rowColor" var="benifit_Total" rendered="{!AND(NOT(ISNULL(Bn_rep_AddList1)),Bn_rep_AddList1.size>0)}" columnsWidth="20%,20%,20%,20%,20%">
+                        <apex:column headerValue=" ">
+                            <apex:outputText rendered="true"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Grand Totals ">
+                            <apex:outputText value="Totals" rendered="true" style="float:left"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Planned (k€)">
+                            <apex:outputText value="{!benifit2.Total_Benefit_Planned_Amount__c} (k€)" rendered="{!IF(benifit2.Total_Benefit_Planned_Amount__c!=0,true,false)}" style="float:left"/>
+                            <apex:outputText value="-" rendered="{!OR(ISNULL(benifit2.Total_Benefit_Planned_Amount__c),(benifit2.Total_Benefit_Planned_Amount__c)==0)}"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Achieved (k€)">
+                            <apex:outputText value="{!benifit2.Total_Benefit_Achieved_Amount__c} (k€)" rendered="{!IF(benifit2.Total_Benefit_Achieved_Amount__c!=0,true,false)}" style="float:left"/>
+                            <apex:outputText value="-" rendered="{!OR(ISNULL(benifit2.Total_Benefit_Achieved_Amount__c),(benifit2.Total_Benefit_Achieved_Amount__c)==0)}"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Future (k€)">
+                            <apex:outputText value="{!benifit2.Total_Benefit_Future_Amount__c} (k€)" rendered="{!IF(benifit2.Total_Benefit_Future_Amount__c!=0,true,false)}" style="float:left"/>
+                            <apex:outputText value="-" rendered="{!OR(ISNULL(benifit2.Total_Benefit_Future_Amount__c),(benifit2.Total_Benefit_Future_Amount__c)==0)}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                
+                <div align="center" draggable="false" >
+                    <apex:commandButton id="closeviewpopup" value="Edit" action="{!closePopupviewBenf}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>
+                    <apex:commandButton value="Close" action="{!closePopupviewonlyBenf}"/>
+                </div>
+
+            </apex:outputPanel>  
+        </apex:outputPanel>
+        <!-- End of View -->            
+
+        <apex:outputPanel id="popupBenf"> 
+            <apex:outputPanel id="popupBackgroundBenf" styleClass="BenfpopupBackground" layout="block" rendered="{!displayPopupBenf}" />
+            <apex:outputPanel id="custPopupBenf" styleClass="BenfcustPopup" layout="block" rendered="{!displayPopupbenf}" >
+                <apex:actionstatus id="actStatusId">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;height: 100%;opacity:0.65;width:100%;"> 
+                            <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                <span class="waitingDescription"></span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+        
+                <apex:pagemessages id="benifitsErrorblock" rendered="{!benifitsErrorMessages}"/>     
+                <apex:pageBlockSection columns="3" title="Improvement Measure" collapsible="false">
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection id="pbsmeasure" columns="3">
+                    <apex:pageBlockSectionItem id="projectMeasureItem" helpText="{!$ObjectType.QIPP_Benefit__c.fields.Improvement_Measure_Name__c.inlineHelpText}" dataStyle="width:10%;float:center">
+                        <apex:outputLabel value="Improvement Measure"  style="display:inline-block;width:140px"/>
+                        <apex:actionRegion >
+                            <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                <apex:inputText html-placeholder="Enter 1 or more charecter to search" list="{!listOfStrings}"  value="{!textdata}" style="width:350px;height:22px;margin-top:5px" onkeypress=" return preventEnterKey(event)">
+                                    <apex:actionSupport event="onchange"  action="{!getBusinesslinelist}" reRender="pbsmeasure" status="actStatusId"/>
+                                </apex:inputText> 
+                            </apex:outputPanel>
+                        </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+           
+                    <apex:pageBlockSection id="unitmeas">
+                        <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Benefit__c.fields.Unit_of_Measure__c.inlineHelpText}" >
+                            <apex:outputLabel value="Unit of Measure"  style="display:inline-block;width:90px"/>
+                            <apex:outputPanel styleClass="requiredInput" layout="block">
+                                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                <apex:inputText list="{!listOfUoM}" value="{!UoMeasure}" style="width:120px;height:22px;margin-top:2px" onkeypress=" return preventEnterKey(event)"/>  
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+        
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>        
+        
+                    <apex:pageBlockSectionItem id="descItem" dataStyle="width:10%;float:center" helpText="{!$ObjectType.QIPP_Benefit__c.fields.ImprovementMeasure_Brief_Description__c.inlineHelpText}"><!--helpText="Brief Description">-->
+                        <apex:outputLabel value="Brief Description" for="desc" style="display:inline-block;width:120px;"/>
+                        <apex:inputField id="desc" html-placeholder="Enter Description for Improvement Measure - 500 Charecters Limit" value="{!benifit.ImprovementMeasure_Brief_Description__c}" style="width: 350px; height: 60px" />
+                    </apex:pageBlockSectionItem> 
+        
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+        
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem id="benefitTypeItem" dataStyle="width:10%;float:center" helpText="{!$ObjectType.QIPP_Benefit__c.fields.Benefit_Type__c.inlineHelpText}" >
+                        <apex:outputLabel value="Benefit Type" style="display:inline-block"/>
+                        <apex:outputPanel styleClass="requiredInput" layout="block">
+                            <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                            <apex:selectRadio value="{!impBenefitType}" style="width:200%;margin-left:-18px;margin-top:-10px" onkeypress=" return preventEnterKey(event)">
+                                <apex:selectOption itemValue="Financial Savings" itemlabel="Financial Savings" /> 
+                                <apex:selectOption itemValue="Operational Savings" itemlabel="Operational Savings" />
+                                <apex:selectOption itemValue="Projected Revenue" itemlabel="Projected Revenue" />
+                                <apex:selectOption itemValue="Realized Revenue" itemlabel="Realized Revenue" />
+                            </apex:selectRadio>
+                        </apex:outputpanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                    <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection columns="5">
+                    <apex:pageBlockSectionItem >
+                    <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    <apex:outputText ></apex:outputText>
+                    </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+        
+                    <apex:pageBlockSection columns="1" id="benefitLineItem" collapsible="false">
+                        <apex:variable var="rowNum" value="{!0}" />
+                        <apex:pageBlockTable id="addbenefittable" value="{!Bn_rep_AddList}" var="benefitTable">
+        
+                            <apex:facet name="footer">
+                                <apex:outputPanel >
+                                <apex:commandButton value="Add Row" action="{!addRow}" reRender="benefitLineItem" rendered="true" status="actStatusId"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:outputLabel value="Total" style="width: 150px;font-size:12px; font-weight:bold; text-align:right;"></apex:outputLabel>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:inputText id="pltotal" html-readonly="true" style="width: 125px;background-color: lightgray;" onkeypress=" return preventEnterKey(event)"/>&nbsp;&nbsp;
+                                <apex:inputText id="achtotal" html-readonly="true" style="width: 125px;background-color: lightgray;" onkeypress=" return preventEnterKey(event)"/>&nbsp;&nbsp;
+                                <apex:inputText id="futtotal" html-readonly="true" style="width: 125px;background-color: lightgray;" onkeypress=" return preventEnterKey(event)"/>&nbsp;&nbsp;
+                                </apex:outputPanel>
+                            </apex:facet>
+        
+                            <apex:column headerValue="No." style="width:10px; text-align:center;">
+                                <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                                    <apex:param value="{!rowNum+1}" />   
+                                </apex:outputText>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Year" style="width:10px;">
+                                <!--<apex:inputField value="{!benefitTable.Years__c}" rendered="true" style="width: 80px;"/>-->
+                                <apex:selectList id="year" value="{!benefitTable.Years__c}" size="1" style="width: 80px;">
+                                    <apex:selectOptions value="{!YearValues}"/>
+                                </apex:selectList>                                
+                            </apex:column>
+                        
+                            <apex:column headerValue="Month" style="width:10px;">
+                                <apex:inputField value="{!benefitTable.Months__c}" rendered="true" style="width: 70px;"/>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Planned" style="width:12px;">
+                                <div class="input-icon">
+                                    <i>k€</i>
+                                    <apex:inputText html-placeholder="Enter Value in k€" style="width: 100px;padding-top:5px;" value="{!benefitTable.Benefits_Saving_Amount_Planned__c}" rendered="true" onkeypress="return isNumberKey(event)" onchange="sumplanned()" styleClass="totalplamount"/>
+                                </div>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Achieved" style="width:12px;">
+                                <div class="input-icon">
+                                    <i>k€</i>
+                                    <apex:inputText html-placeholder="Enter Value in k€" style="width: 100px;padding-top:5px;" value="{!benefitTable.Benefits_Saving_Amount_Achieved__c}" rendered="true" onkeypress="return isNumberKey(event)" onchange="sumachieved()" styleClass="totalachamount"/>
+                                </div>
+                            </apex:column>
+        
+                            <apex:column headerValue="Future" style="width:12px;" >
+                                <div class="input-icon">
+                                    <i>k€</i>
+                                    <apex:inputText html-placeholder="Enter Value in k€" style="width: 100px;padding-top:5px;" value="{!benefitTable.Benefit_Savings_Amount__c  }" rendered="true" onkeypress="return isNumberKey(event)" onchange="sumfuture()" styleClass="totalfutamount"/>
+                                </div>
+                            </apex:column>
+                            
+                            <apex:column style="width:200px">  
+                                <apex:commandLink style="width: 80px;padding-top:5px;font-size:12px; font-weight:bold; text-align:right;text-decoration:none;" styleClass="btn" value="Clone" action="{!cloneRow}" reRender="benefitLineItem,benifitSaveButton" rendered="true" oncomplete="clonesum()" status="actStatusId">
+                                    <apex:param value="{!rowNum}" name="index" assignTo="{!index}" />
+                                </apex:commandLink>
+                            </apex:column>
+        
+                        <apex:column >
+                            <apex:commandLink style="width: 80px;padding-top:5px;font-size:15px; font-weight:bold; text-align:right;color:red;" value="X" action="{!delRow}" reRender="benefitLineItem,benifitSaveButton" rendered="true" onclick="if (! confirm('Confirm your request to Delete the Row')) return false" oncomplete="clonesum()" status="actStatusId">
+                                <apex:param value="{!rowNum}" name="index" assignTo="{!index}"/>
+                            </apex:commandLink>
+                            <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                        </apex:column>  
+                        
+                    </apex:pageBlockTable>                    
+                </apex:pageBlockSection>
+                
+                <div align="center" draggable="false" >
+                     <apex:commandButton id="benifitSaveButton" value="Save & Close" onclick=" validationamount();" oncomplete="SaveBenefits();" />
+                     <apex:actionFunction name="doSubmit" action="{!saveBenefit}" />
+                    <apex:commandButton value="Cancel" action="{!closePopupBenf}"/>                
+                </div>
+
+                <div id="importantNotes_edit" align="left" draggable="false" style="margin-left:10px;margin-right:1;margin-top:10px;">
+                    <span><b>Note:</b></span><br/>
+                    <apex:outputLabel > 1) The sum of achieved and future savings/revenue are counted as project benefits or continuous improvement impact (CII).</apex:outputLabel><br/>
+                    <apex:outputLabel >Planned savings/revenue are not considered as part of project benefits or CII.</apex:outputLabel><br/>
+                    <apex:outputLabel > 2) Always record the net benefits - after deducting project cost and/or other depreciation.</apex:outputLabel><br/>
+                    <apex:outputLabel > 3) CI projects benefits are usually extrapolated for up to 12 months after the process changes have been implemented. This period may be greater than 12 months when</apex:outputLabel><br/>
+                    <apex:outputLabel > the project requires significant investment that cannot be recouped with net impact within 12 months.</apex:outputLabel><br/>
+                </div>
+            </apex:outputPanel>  
+        </apex:outputPanel>
+        
+        <!-- Start of Edit view -->
+        <apex:outputPanel id="popupEditBenf"> 
+            <apex:outputPanel id="popupEditBackgroundBenf" styleClass="BenfpopupBackground" layout="block" rendered="{!displayPopupeditBenf}" />
+            <apex:outputPanel id="custEditPopupBenf" styleClass="BenfcustPopup" layout="block" rendered="{!displayPopupeditBenf}">
+                <apex:actionstatus id="actStatusId1">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;height: 100%;opacity:0.65;width:100%;"> 
+                            <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                <span class="waitingDescription"></span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+                
+                <apex:pagemessages id="editBenifitsErrorblock" rendered="{!editBenifitsErrorMessages}"/> 
+                <apex:pageBlock id="pbeditbenf">
+                    <apex:pageBlockSection id="pbsmeasureEdit" columns="3"  title="Improvement Measure Edit" collapsible="false">
+                        <apex:pageBlockSectionItem id="projectMeasureItem" dataStyle="width:10%;float:center" helpText="{!$ObjectType.QIPP_Benefit__c.fields.Improvement_Measure_Name__c.inlineHelpText}">
+                            <apex:outputLabel value="Improvement Measure" style="display:inline-block;width:140px"/>
+                            <apex:actionRegion >
+                                <apex:outputPanel styleClass="requiredInput" layout="block">
+                                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>       
+                                    <apex:inputText list="{!listOfStrings}" value="{!benifit.Improvement_Measure_Name__c}" style="width:350px;height:18px;margin-top:2px" onkeypress=" return preventEnterKey(event)">
+                                        <apex:actionSupport event="onchange" action="{!getBusinesslinelist1}" reRender="unitmeasEdit,briefdescEdit,benfittypeid" status="actStatusId1"/>
+                                    </apex:inputText> 
+                                </apex:outputPanel>
+                            </apex:actionRegion>
+                        </apex:pageBlockSectionItem>
+                    
+                        <apex:pageBlockSection id="unitmeasEdit">
+                            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Benefit__c.fields.Unit_of_Measure__c.inlineHelpText}">
+                                <apex:outputLabel value="Unit Of measure" style="display:inline-block;width:90px;margin-left:-30px"/>
+                                <apex:outputPanel styleClass="requiredInput" layout="block">
+                                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                    <apex:inputText list="{!listOfUoM}" value="{!benifit.Unit_of_Measure__c}" style="width:120px;height:18px;margin-top:-2px;" onkeypress=" return preventEnterKey(event)"/>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText ></apex:outputText>
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSection id="briefdescEdit">
+                            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Benefit__c.fields.ImprovementMeasure_Brief_Description__c.inlineHelpText}" dataStyle="width:10%;float:center">
+                                <apex:outputLabel value="Brief Description" style="display:inline-block;width:140px;margin-left:-10px" />
+                                <apex:inputTextarea html-placeholder="Enter Description for Improvement Measure - 500 Charecters Limit" value="{!benifit.ImprovementMeasure_Brief_Description__c}" style="width:350px;height:45px"/>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText ></apex:outputText>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText ></apex:outputText>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem id="benefitTypeItem" dataStyle="width:50%;float:center" labelStyle="width:1%;float:center;margin-top:-10px;" helpText="{!$ObjectType.QIPP_Benefit__c.fields.Benefit_Type__c.inlineHelpText}">
+                            <apex:outputLabel value="Benefit Type" style="display:inline-block;width:125px;margin-top:-10px"/>
+                            <apex:outputPanel id="benfittypeid" styleClass="requiredInput" layout="block">
+                                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                <apex:selectRadio value="{!benifit.Benefit_Type__c}" style="width:160%;float:left;margin-left:-18px;margin-top: -10px;" onkeypress=" return preventEnterKey(event)">
+                                    <apex:selectOption itemValue="Financial Savings" itemlabel="Financial Savings" />
+                                    <apex:selectOption itemValue="Operational Savings" itemlabel="Operational Savings" />
+                                    <apex:selectOption itemValue="Projected Revenue" itemlabel="Projected Revenue" />
+                                    <apex:selectOption itemValue="Realized Revenue" itemlabel="Realized Revenue" />
+                                </apex:selectRadio>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection columns="1" id="benefitLineItemEdit" collapsible="false">
+                        <apex:variable var="rowNum" value="{!0}" /> 
+                        <apex:pageBlockTable id="pbtableeditbenf" value="{!Bn_rep_AddList}" var="benefitTable">
+                            <apex:facet name="footer">
+                                <apex:outputPanel >
+                                    <apex:commandButton value="Add Row" action="{!addRow}" reRender="benefitLineItemEdit" rendered="true" status="actStatusId1"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:outputLabel value="Total" style="width: 100px;font-size:12px; font-weight:bold; text-align:right;"></apex:outputLabel> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:inputText id="pltotal" html-placeholder="k€" html-readonly="true" style="width: 125px;background-color: lightgray;" onkeypress=" return preventEnterKey(event)"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:inputText id="achtotal" html-placeholder="k€" html-readonly="true" style="width: 125px;background-color: lightgray;" onkeypress=" return preventEnterKey(event)"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <apex:inputText id="futtotal" html-placeholder="k€" html-readonly="true" style="width: 125px;background-color: lightgray;" onkeypress=" return preventEnterKey(event)"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </apex:outputPanel>
+                            </apex:facet>
+
+                            <apex:column headerValue="No." style="width:10px; text-align:center;">
+                                <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                                    <apex:param value="{!rowNum+1}" />   
+                                </apex:outputText>
+                            </apex:column>
+
+                            <apex:column headerValue="Year" style="width:10px">
+                                <!--<apex:inputField value="{!benefitTable.Years__c}" rendered="true" style="width: 80px;"/>-->
+                                <apex:selectList id="year" value="{!benefitTable.Years__c}" size="1" style="width: 80px;">
+                                    <apex:selectOptions value="{!YearValues}"/>
+                                </apex:selectList>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Month" style="width:10px">
+                                <apex:inputField value="{!benefitTable.Months__c}" rendered="true" style="width: 60px;"/>
+                            </apex:column>
+                            
+                            <apex:column headerValue="Planned" style="width:12px;">
+                                <div class="input-icon">
+                                    <i>k€</i>
+                                    <apex:inputText html-placeholder="Enter Value in k€" value="{!benefitTable.Benefits_Saving_Amount_Planned__c}" rendered="true" style="width: 100px;padding-top:5px;" onkeypress="return isNumberKey(event)" onchange="editsumplanned()" styleClass="edittotalplamount"/>
+                                </div>
+                            </apex:column>
+
+                            <apex:column headerValue="Achieved" style="width:12px">
+                                <div class="input-icon">
+                                    <i>k€</i>
+                                    <apex:inputText html-placeholder="Enter Value in k€" value="{!benefitTable.Benefits_Saving_Amount_Achieved__c}" rendered="true" style="width: 100px;padding-top:5px;" onkeypress="return isNumberKey(event)"  onchange="editsumachieved()" styleClass="edittotalachamount"/>
+                                </div>
+                            </apex:column>
+
+                            <apex:column headerValue="Future" style="width:12px">
+                                <div class="input-icon">
+                                    <i>k€</i>
+                                    <apex:inputText html-placeholder="Enter Value in k€" value="{!benefitTable.Benefit_Savings_Amount__c  }" rendered="true" style="width: 100px;padding-top:5px;"  onkeypress="return isNumberKey(event)" onchange="editsumfuture()" styleClass="edittotalfutamount"/>
+                                </div>
+                            </apex:column>
+                            
+                            <apex:column style="width:200px">  
+                                <apex:commandLink style="width: 80px;padding-top:5px;font-size:12px; font-weight:bold; text-align:right;text-decoration:none;" styleClass="btn" value="Clone" action="{!cloneRow}" onkeypress="return isNumberKey(event)" reRender="benefitLineItemEdit" rendered="true" oncomplete="editclonesum()" status="actStatusId1">
+                                    <apex:param value="{!rowNum}" name="index" />
+                                </apex:commandLink>
+                            </apex:column>
+                            
+                            <apex:column style="width:20px" >
+                                <apex:commandLink style="width: 80px;padding-top:5px;font-size:15px; font-weight:bold; text-align:right;color:red;"  value="X" action="{!delRow}" reRender="benefitLineItemEdit" rendered="true" oncomplete="editclonesum()" status="actStatusId1">
+                                    <apex:param value="{!rowNum}" name="index" />
+                                </apex:commandLink>
+                                <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockButtons id="pbeditbuttons" location="bottom">
+                       <apex:commandButton id="benifitEditSaveButton" value="Save & Close" style="margin-left:100px" onclick=" editvalidationamount();"  oncomplete="editSaveBenefits();"/>
+                        <apex:actionFunction name="doeditSubmit" action="{!saveBenefit}" />
+                    
+                        <apex:commandButton value="Cancel" action="{!closeEditPopupBenf}"/>
+                        
+                        <!--     
+                        <apex:commandButton id="benifitEditSave" value="Save" action="{!saveBenefit}" style="margin-left:100px" onclick="editvalidationamount()">
+                            <apex:param name="saveOnlybuttonClicked" value="Save Only" assignTo="{!modeOfSave}"/>
+                        </apex:commandButton>
+                        
+                        <apex:commandButton id="benifitEditSaveButton" value="Save & Close" action="{!saveBenefit}" onclick="editvalidationamount()">
+                            <apex:param name="saveClosebuttonClicked" value="Save and Close" assignTo="{!modeOfSave}"/>
+                        </apex:commandButton>
+                        
+                        <apex:commandButton value="Cancel" action="{!closeEditPopupBenf}"/>
+                        -->
+                    </apex:pageBlockButtons>
+                </apex:pageBlock>
+                
+                <div id="importantNotes_edit" align="left" draggable="false" style="margin-left:10px;margin-right:1;margin-top:10px;">
+                    <span><b>Note:</b></span><br/>
+                    <apex:outputLabel > 1) The sum of achieved and future savings/revenue are counted as project benefits or continuous improvement impact (CII).</apex:outputLabel><br/>
+                    <apex:outputLabel >Planned savings/revenue are not considered as part of project benefits or CII.</apex:outputLabel><br/>
+                    <apex:outputLabel > 2) Always record the net benefits - after deducting project cost and/or other depreciation.</apex:outputLabel><br/>
+                    <apex:outputLabel > 3) CI projects benefits are usually extrapolated for up to 12 months after the process changes have been implemented. This period may be greater than 12 months when</apex:outputLabel><br/>
+                    <apex:outputLabel > the project requires significant investment that cannot be recouped with net impact within 12 months.</apex:outputLabel><br/>
+                </div>
+            </apex:outputPanel>  
+        </apex:outputPanel>                   
+        
+        <!-- End of Edit view -->
+        <!-- Benefit Creation End -->
+        
+        
+        <!-- BBG % Distribution Start -->
+        <apex:pageBlockSection id="benefitingBusinessGrp" title="Benefit Distribution" collapsible="false" rendered="{!IF(((Benefits_RelatedList!=null && Benefits_RelatedList.size>0) && (benefitAmount > 0)),true,false)}"/>
+        <apex:pageBlockSection columns="1" id="bgGroupSection" collapsible="false" rendered="{!IF(((Benefits_RelatedList!=null && Benefits_RelatedList.size>0) && (benefitAmount > 0)),true,false)}">
+            <apex:variable var="bggRowNum" value="{!0}" />
+            
+            <apex:outputText rendered="{!IF((projectbbglist!=null && projectbbglist.size>0),true,false)}">{!$Label.QIPP_Benefit_Distribution_Message}</apex:outputText>
+            
+            <apex:pageBlockTable value="{!projectbbglist}" var="bgTable" id="pbTableBG2">
+                <apex:column headerValue="No." style="width:20px; text-align:center;" headerClass="centertext">
+                    <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                        <apex:param value="{!bggRowNum+1}" />   
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column headerValue="Business Group" style="width:120px">
+                    <apex:outputField value="{!bgTable.Benefitting_Business_Grp_Functional_Grp__c}" rendered="true">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                </apex:column>
+                
+                <apex:column headerValue="Business Unit" style="width:120px">
+                    <apex:outputField value="{!bgTable.Benefitting_Business_Unit__c}" rendered="true">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                </apex:column>
+                
+                <apex:column headerValue="Business Line" style="width:120px">
+                    <apex:outputField value="{!bgTable.Benefitting_Business_Line__c}" rendered="true">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                </apex:column>
+                
+                <apex:column headerValue="Financial Validation Amount(k€)" style="width:120px">
+                    <apex:outputText value="{!bgTable.Financial_Validation_Amount__c}(k€)" rendered="{!AND(NOT(ISNULL(bgTable.Financial_Validation_Amount__c)),(bgTable.Financial_Validation_Amount__c)>0)}"/>
+                    <apex:outputText value="-" rendered="{!OR(ISNULL(bgTable.Financial_Validation_Amount__c),(bgTable.Financial_Validation_Amount__c)==0.0)}"/>   
+                </apex:column>
+                
+                <apex:column headerValue="Operational Validation Amount(k€)" style="width:120px">
+                    <apex:outputText value="{!bgTable.Operational_Validation_Amount__c}(k€)" rendered="{!AND(NOT(ISNULL(bgTable.Operational_Validation_Amount__c)),(bgTable.Operational_Validation_Amount__c)>0)}"/>
+                    <apex:outputText value="-" rendered="{!OR(ISNULL(bgTable.Operational_Validation_Amount__c),(bgTable.Operational_Validation_Amount__c)==0.0)}"/>
+                </apex:column>
+                
+                <apex:column headerValue="Projected Validation Amount(k€)" style="width:120px">
+                    <apex:outputText value="{!bgTable.Projected_Validation_Amount__c}(k€)" rendered="{!AND(NOT(ISNULL(bgTable.Projected_Validation_Amount__c)),(bgTable.Projected_Validation_Amount__c)>0)}"/>
+                    <apex:outputText value="-" rendered="{!OR(ISNULL(bgTable.Projected_Validation_Amount__c),(bgTable.Projected_Validation_Amount__c)==0.0)}"/>       
+                </apex:column>
+                
+                <apex:column headerValue="Realized Validation Amount (k€)" style="width:120px">
+                    <apex:outputText value="{!bgTable.Realized_Validation_Amount__c}(k€)" rendered="{!AND(NOT(ISNULL(bgTable.Realized_Validation_Amount__c)),(bgTable.Realized_Validation_Amount__c)>0)}"/>
+                    <apex:outputText value="-" rendered="{!OR(ISNULL(bgTable.Realized_Validation_Amount__c),(bgTable.Realized_Validation_Amount__c)==0.0)}"/>         
+                </apex:column>
+                
+                <apex:column headerValue=" Total (k€)" style="width:120px">
+                    <apex:outputText value="{!bgTable.Total_Validation_Amount__c}(k€)" rendered="{!AND(NOT(ISNULL(bgTable.Total_Validation_Amount__c)),(bgTable.Total_Validation_Amount__c)>0)}"/>
+                    <apex:outputText value="-" rendered="{!OR(ISNULL(bgTable.Total_Validation_Amount__c),(bgTable.Total_Validation_Amount__c)==0.0)}"/>             
+                </apex:column>
+                 
+                <apex:column headerValue=" Amount in Percentage" style="width:120px">
+                    <apex:outputText value="{!bgTable.Total_Validation_Amount_percent__c}%" rendered="{!AND(NOT(ISNULL(bgTable.Total_Validation_Amount_percent__c)),(bgTable.Total_Validation_Amount_percent__c)>0)}"/>
+                    <apex:outputText value="-" rendered="{!OR(ISNULL(bgTable.Total_Validation_Amount_percent__c),(bgTable.Total_Validation_Amount_percent__c)==0.0)}"/>             
+                    <apex:variable var="bggRowNum" value="{!bggRowNum+1}"/>
+                </apex:column>
+
+                <!--
+                <apex:column headerValue="% Distribution" style="width:120px" id="dist">
+                    <apex:outputField value="{!bgTable.Distribution__c}" id="mainBG" rendered="true">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                    <apex:variable var="bggRowNum" value="{!bggRowNum+1}"/>
+                </apex:column>
+
+                <apex:column headerValue="Distributed Amount (k€)" style="width:120px">
+                    <apex:outputField value="{!bgTable.Amount__c}" rendered="true">
+                        <apex:inlineEditSupport rendered="false"/>
+                    </apex:outputField>
+                </apex:column>        
+                -->                
+            </apex:pageBlockTable>                                                
+            
+            <apex:commandButton id="Adddistribution" value="Add/Modify Benefit Distribution" action="{!mulBBGDistribution}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>
+            <!-- Popup Window For To Add BBG % Distribution -->
+            <apex:outputPanel id="popupBBG"> 
+                <apex:outputPanel id="popupBackground" styleClass="BBGpopupBackground" layout="block" rendered="{!displayPopupBBGDist}" />
+                <apex:outputPanel id="custPopup" styleClass="BBGcustPopup" layout="block" rendered="{!displayPopupBBGDist}" >
+                    <apex:actionstatus id="actStatusId2">
+                        <apex:facet name="start">
+                            <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;height: 100%;opacity:0.65;width:100%;"> 
+                                <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                                    <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                    <span class="waitingDescription"></span>
+                                </div>
+                            </div>
+                        </apex:facet>
+                    </apex:actionstatus>
+                    
+                    <apex:pagemessages id="bbgErrorblock" rendered="{!bbgErrorMessages}"/>
+                    <apex:pageBlockSection id="mulBenefitingBusinessGrp" title="Benefit Distribution" collapsible="false"/>
+                    <apex:variable var="mulBGDistRowNum" value="{!0}" />
+
+                    <apex:pageBlockTable value="{!projMultipleBBGDistAddList}" var="mulBGTable" id="pbTableMultipleBG" >
+                        <apex:facet name="footer">
+                            <apex:commandButton value="Add Row" action="{!addBGRowDist}" reRender="popupBBG,pbTableMultipleBG,bgGroupSection" rendered="true" status="actStatusId2" oncomplete="bbgreadonly();"/>
+                        </apex:facet>
+                        
+                        <apex:column headerValue="No." style="width:20px; text-align:center;" headerClass="centertext">
+                            <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                                <apex:param value="{!mulBGDistRowNum+1}" />   
+                            </apex:outputText>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Business Group" style="width:120px">
+                            <apex:inputField value="{!mulBGTable.Benefitting_Business_Grp_Functional_Grp__c}" rendered="{!mulBGTable.Project_BG__c == false}"/>
+                            <apex:outputText value="{!mulBGTable.Benefitting_Business_Grp_Functional_Grp__c}" rendered="{!mulBGTable.Project_BG__c == true}" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Business Unit" style="width:120px">
+                            <apex:inputField value="{!mulBGTable.Benefitting_Business_Unit__c}" rendered="{!mulBGTable.Project_BG__c == false}" />
+                            <apex:outputText value="{!mulBGTable.Benefitting_Business_Unit__c}" rendered="{!mulBGTable.Project_BG__c == true}" />
+                        </apex:column> 
+                        
+                        <apex:column headerValue="Business Line" style="width:120px">
+                            <apex:inputField value="{!mulBGTable.Benefitting_Business_Line__c}" rendered="{!mulBGTable.Project_BG__c == false}" />
+                            <apex:outputText value="{!mulBGTable.Benefitting_Business_Line__c}" rendered="{!mulBGTable.Project_BG__c == true}" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Financial Val Amount(k€)" style="width:40px">
+                            <apex:inputText value="{!mulBGTable.Financial_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == false}" onchange="BBGFIValidationAmount()"  onkeypress="return isNumberKeyBBGfi(event)" styleClass="BBGFItotal"/>
+                            <apex:inputText id="mainBGfival" value="{!mulBGTable.Financial_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == true}" style="border:none;" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Operational Val Amount(k€)" style="width:40px"> 
+                            <apex:inputText value="{!mulBGTable.Operational_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == false}"  onchange="BBGOPValidationAmount()"  onkeypress="return isNumberKeyBBGop(event)" styleClass="BBGOPtotal" />
+                            <apex:inputText id="mainBGopval" value="{!mulBGTable.Operational_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == true}" style="border:none;" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Projected Val Amount(k€)" style="width:40px">
+                            <apex:inputText value="{!mulBGTable.Projected_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == false}" onchange="BBGPOValidationAmount()"  onkeypress="return isNumberKeyBBGproj(event)" styleClass="BBGPOtotal" />
+                            <apex:inputText id="mainBGprojval" value="{!mulBGTable.Projected_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == true}" style="border:none;" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Realized Val Amount(k€)" style="width:40px">
+                            <apex:inputText value="{!mulBGTable.Realized_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == false}" onchange="BBGREValidationAmount()"  onkeypress="return isNumberKeyBBGrel(event)" styleClass="BBGREtotal"/>
+                            <apex:inputText id="mainBGrealval" value="{!mulBGTable.Realized_Validation_Amount__c}" rendered="{!mulBGTable.Project_BG__c == true}" style="border:none;" />
+                        </apex:column>                        
+                        
+                        <!--
+                        <apex:column headerValue="% Distribution" style="width:120px">
+                            <div class="input-icon">
+                                <apex:inputField id="mainBG1" html-placeholder="Enter % Distribution"  value="{!mulBGTable.Distribution__c}" rendered="{!mulBGTable.Project_BG__c == false}" onchange="sumBBG()" styleClass="BBGtotal" />
+                                <i>%</i>
+                                <apex:inputField id="mainBGdefault"  rendered="{!mulBGTable.Project_BG__c == true}"  value=" {!mulBGTable.Distribution__c}" style="border:none"> &nbsp; &nbsp; &nbsp; &nbsp; </apex:inputField>   
+                            </div>
+                        </apex:column>
+                        -->
+                        
+                        <apex:column headerValue="Delete" style="width:90px" >
+                            <apex:commandLink style="font-size:15px; font-weight:bold; text-align:center;color:red;" value="X" action="{!delBGRowDist}" rendered="{!mulBGTable.Project_BG__c == false}" rerender="saveBBG,bgGroupSection" onclick="if (! confirm('Do you want to delete the Business Group from the Project?\r\nOnce the Business Group is deleted, the % Distribution value will be added to the default Business Group.')) return false;" oncomplete="BBGOPValidationAmount();BBGFIValidationAmount();BBGPOValidationAmount();BBGREValidationAmount();" status="actStatusId2" >
+                                <apex:param value="{!mulBGDistRowNum}" name="index"/>
+                            </apex:commandLink>
+                            <apex:variable var="mulBGDistRowNum" value="{!mulBGDistRowNum+1}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    
+                    <div align="center" draggable="false" >
+                         <apex:commandButton id="saveBBG" value="Save & Close" style="margin-left:100px" onclick=" saveBBG();" oncomplete="saveBBGval();"/>
+                          <apex:actionFunction name="doSave" action="{!saveMulBBG}" />
+                        <apex:commandButton value="Close" action="{!closePopupBBGDist}" />
+                    </div>
+        
+                    <div id="BBGInstruction" align="left" draggable="false" style="margin-top:10px;margin-left:8px;">
+                        <span><b>Instructions:</b></span><br/>
+                        <apex:outputLabel >1) The Default Row with Business Group, Business Unit and Business Line are as per the Project Default, with 100% as Default</apex:outputLabel><br/>
+                        <apex:outputLabel >2) Click on Add Row to add New BG,BU,BL with % Distribution, Once the % distribution is added Default Row will be adjusted to make % distribution total to 100%.</apex:outputLabel><br/>
+                        <apex:outputLabel >3) Click on the Delete button to delete the Business Group,deleted Group % distribution will be auto added to the Default Row.</apex:outputLabel><br/>
+                        <apex:outputLabel >4) Minimum % Distribution for BG,BU,BL is 5%.</apex:outputLabel><br/>
+                        <apex:outputLabel >5) Total % Distribution Should not be Greater than 100%.</apex:outputLabel><br/>
+                    </div>
+                </apex:outputPanel>  
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+        <!-- BBG % Distribution End -->
+        </apex:pageBlock>
+    </apex:form>
+
+    <apex:relatedList id="ProcessSteps" list="ProcessSteps"/>
+    <apex:relatedList id="relatedtasks" list="Tasks__r" />
+    <apex:relatedList id="notesandattach" subject="{!proj}" list="CombinedAttachments" />
+    <c:GenericHistoryComponent_Reuse id="projecthistory" recordLimit1="10" myObject1="{!proj}"/>
+    
+    <!-- Return to Top -->
+    <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
+    <!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
+    <!--<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+</apex:page>

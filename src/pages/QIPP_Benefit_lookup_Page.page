@@ -1,0 +1,112 @@
+<apex:page Extensions="QIPP_Benefit_View" standardController="QIPP_Benefit__c">
+
+<style type="text/css">
+a.alpha-link {
+   font-weight: normal;
+   font-size: 91%;
+   padding: 0 4px;
+   color: #015BA7 !important;
+}
+ 
+a.alpha-link+a.alpha-link {
+   border-left: 1px solid #CFCECE;
+}
+ 
+a.alpha-link:hover {
+   background-color: #e0f5fc !important;
+}
+</style>
+
+<apex:form >
+
+<script type="text/javascript">          
+    function noenter(e){
+        if(window.event && window.event.keyCode == 13 || ev.which == 13){                    
+        doSearchAF();                     
+        return false;               
+        }
+        else{                    
+        return true;               
+        }  
+    }
+    
+</script> 
+
+    <!--<apex:pageBlockButtons location="both"> </apex:pageBlockButtons>
+    <apex:pageMessages />-->
+    <apex:pageBlock >
+    <apex:pageBlockSection columns="2"  >
+        <apex:outputField value="{!projectFieldValue.Project_Number__c}"/>
+        <apex:outputField value="{!projectFieldValue.Project_Name_Display__c}"/>
+        <apex:outputField value="{!projectFieldValue.Project_Lead__c}"/> 
+        <apex:outputField value="{!projectFieldValue.Portfolio_Name__c}"/>
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <apex:pageBlock mode="edit" id="block">
+    <apex:pageBlockSection >
+        <apex:commandLink action="{!viewBenefitSummary}" title="Back" value="Back To Benefits Summary Page"/>
+        <br></br>
+        <apex:commandLink action="{!BackToProjectDetailPage}" title="Back" value="Back To Project Detail Page"/>
+        <br></br><br></br>
+        
+        <apex:pageBlockSectionItem helpText="To find a KPI click on the first letter of the KPI name or type a character string with at least 2 consecutive letters in the Search box and click Go. Click the ‘All’ link or click on the link on the left side of QIPP to get a list of all KPIs in QIPP.">
+            <apex:outputLabel for="searchText">Improvement Measure (KPI)</apex:outputLabel>
+            <apex:panelGroup >
+            <apex:inputText id="searchText" value="{!searchText}" onkeypress="return noenter(event)"/>
+            <apex:commandButton value="Go" action="{!search}" status="status" reRender="out,table" id="GoButton" />
+            <apex:actionFunction name="doSearchAF" action="{!search}" status="status" reRender="out,table"/>
+            </apex:panelGroup>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >    
+            
+            <apex:repeat value="{!AlphaList}" var="a">
+                  <apex:commandLink value="{!a}" action="{!search}" rerender="TablePanel"
+                     styleClass="alpha-link{!if(AlphaFilter=a,'alpha-select','')}" status="status" reRender="out,table">
+                     <apex:param name="alpha" value="{!a}" assignTo="{!AlphaFilter}"/>
+                     <apex:param name="sText" value="" assignTo="{!searchText}"/>
+                  </apex:commandLink>
+            </apex:repeat>
+         
+         </apex:pageBlockSectionItem>   
+       
+    </apex:pageBlockSection><br/>
+
+    <apex:actionStatus id="status" startText="Searching... please wait..."/>
+    <apex:outputPanel id="out">
+        <apex:pageBlockTable value="{!ctlist}" var="ctl" id="table" rendered="{!display}">
+        <apex:column headerValue="Improvement Measure">
+        <apex:outputLink value="/{!ctl.id}" target="_blank">  {!ctl.Name} </apex:outputLink>
+        <!--<apex:outputField value="{!ctl.Name}"/>-->
+        </apex:column>
+        <apex:column headerValue="Improvement Measure - Short Name">
+        <apex:outputField value="{!ctl.Improvement_Measure_Short_Name__c}"/>
+        </apex:column>
+        <apex:column headerValue="Brief Description">
+        <apex:outputField value="{!ctl.Brief_Description__c}"/>
+        </apex:column>
+        <apex:column headerValue="IM Grouping">
+        <apex:outputField value="{!ctl.Improvement_Measure_Grouping__c}"/>
+        </apex:column>        
+        <apex:column headerValue="Benefit Type">
+        <apex:outputField value="{!ctl.Benefit_Type__c}"/>
+        </apex:column>
+        <!--<apex:column headerValue="Financial Type">
+        <apex:outputField value="{!ctl.CoPQ_Type__c}"/>
+        </apex:column>-->
+        <apex:column headerValue="UOM">
+        <apex:outputField value="{!ctl.Unit_of_Measure__c}"/>
+        </apex:column>
+        <apex:column headerValue="Examples">
+        <apex:outputField value="{!ctl.Examples_del__c}"/>
+        </apex:column>
+        <apex:column headerValue="Actions">
+        <apex:commandlink value="Add Benefit" action="{!addBenefit}">
+        <apex:param name="imeasure" value="{!ctl.id}" assignTo="{!improvementmeasure}"/>
+        </apex:commandlink>
+        </apex:column>                                
+        </apex:pageBlockTable>
+    </apex:outputPanel>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

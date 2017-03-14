@@ -1,0 +1,97 @@
+<apex:page standardController="SPE_ConsequenceManagement__c" extensions="SPE_ConsequenceMngtAddContactExt" >
+    
+    <apex:form id="fm">
+    <script type='text/javascript'>
+    function noenter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+            SearchFunctionality();
+            return false;
+         } else {
+              return true;
+         }
+     }
+</script>
+    <div id="loadingImage">
+                <apex:actionStatus id="WaitingStatus">
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif" />&nbsp;Please wait...
+                     </apex:facet>
+                </apex:actionStatus>
+     </div>
+     <apex:pageMessages id="msgId" />
+        <apex:pageBlock id="contact" title="Search Contact">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+             
+             <apex:actionRegion >
+                <apex:inputText value="{!contactName}" id="contactName"  onkeypress="return noenter(event);"/> 
+                <apex:commandButton value="Search" action="{!doSearch}"  reRender="ContactTable,UserTable,msgId" status="WaitingStatus" />
+            </apex:actionRegion>
+              
+              <apex:actionFunction name="SearchFunctionality" action="{!doSearch}" status="WaitingStatus" >
+            <apex:param name="contactName" value="" />
+        </apex:actionFunction>
+            
+            <apex:pageBlockTable value="{!contactSearchResult}" var="contact" id="ContactTable" rendered="{!!isSupplierManager}">
+                <apex:column headerValue=" "> 
+                    <apex:actionRegion > 
+                        <input type="button" value="Add" onclick="insertContact('{!contact.Id}');" /> 
+                    </apex:actionRegion> 
+                </apex:column>  
+                <apex:column headerValue="First Name">
+                    <apex:outputfield value="{!contact.FirstName}" />
+                </apex:column>
+                <apex:column headerValue="Last Name">
+                    <apex:outputfield value="{!contact.LastName}" />
+                </apex:column>
+                <apex:column headerValue="Email">
+                    <apex:outputfield value="{!contact.Email}" />
+                </apex:column>
+                <apex:column headerValue="Category Info">
+                    <apex:pageBlockTable value="{!contact.Categories_Info__r}" var="itemCat">
+                        <apex:column headerValue="Category Cluster">
+                            <apex:outputField value="{!itemCat.CategoryCluster__c}"/>
+                        </apex:column> 
+                        <apex:column headerValue="Category Group">
+                            <apex:outputField value="{!itemCat.CategoryGroup__c}"/>
+                        </apex:column> 
+                        <apex:column headerValue="Category">
+                            <apex:outputField value="{!itemCat.Category__c}"/>
+                        </apex:column> 
+                    </apex:pageBlockTable>
+                </apex:column>
+            </apex:pageBlockTable>
+            
+            <apex:pageBlockTable value="{!userSearchResults}" var="user" rendered="{!isSupplierManager}" id="UserTable">
+                <apex:column headerValue=" "> 
+                    <apex:actionRegion > 
+                        <input type="button" value="Add" onclick="insertContact('{!user.Id}');" /> 
+                    </apex:actionRegion> 
+                </apex:column>
+                <apex:column headerValue="First Name">
+                    <apex:outputfield value="{!user.Name}" />
+                </apex:column>
+                <apex:column headerValue="Email">
+                    <apex:outputfield value="{!user.Email}" />
+                </apex:column>
+                
+                <apex:column headerValue="Profile">
+                    <apex:outputfield value="{!user.Profile.Name}" />
+                </apex:column>
+                
+                <apex:column headerValue="Username">
+                    <apex:outputfield value="{!user.Username}" />
+                </apex:column>
+                <apex:column headerValue="Active">
+                    <apex:inputcheckbox selected="{!user.isActive}" disabled="true"/>
+                </apex:column>
+          </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+       
+        <apex:actionFunction name="insertContact" action="{!addContact}" status="myStatus" reRender="contact" >
+            <apex:param name="contactId" value="" />
+        </apex:actionFunction>
+    </apex:form>
+</apex:page>

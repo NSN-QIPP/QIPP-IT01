@@ -1,0 +1,1202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Audit_Conducted_ISO_14001_2015__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Conducted(ISO 14001:2015)</label>
+        <picklist>
+            <controllingField>ISO_14001_2015__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Conducted_ISO_22301_2012__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Conducted(ISO 22301: 2012)</label>
+        <picklist>
+            <controllingField>ISO_22301_2012__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Conducted_ISO_9001_2015__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Conducted(ISO 9001:2015)</label>
+        <picklist>
+            <controllingField>ISO_9001_2015__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Conducted_TL_9000_R6_0__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Conducted(TL 9000:R6.0)</label>
+        <picklist>
+            <controllingField>TL_9000_R6_0__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Name__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Name</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipName>Qualified_Auditors</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Auditor_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Auditor Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Left Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_CMMi__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months.</inlineHelpText>
+        <label>Audits Conducted (CMMi)</label>
+        <picklist>
+            <controllingField>CMMi__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_ISO_14001__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months.</inlineHelpText>
+        <label>Audits Conducted (ISO 14001:2004)</label>
+        <picklist>
+            <controllingField>ISO_14001__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_ISO_27001_ISMS__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months.</inlineHelpText>
+        <label>Audits Conducted (ISO 27001 ISMS :2013)</label>
+        <picklist>
+            <controllingField>ISO_27001_ISMS__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_ISO_9001__c</fullName>
+        <description># of Audits conducted within last 36 months</description>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months</inlineHelpText>
+        <label>Audits Conducted (ISO 9001:2008)</label>
+        <picklist>
+            <controllingField>ISO_9001__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_OHSAS_18001__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months.</inlineHelpText>
+        <label>Audits Conducted (OHSAS 18001:2007)</label>
+        <picklist>
+            <controllingField>OHSAS_18001__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_Process_Audits__c</fullName>
+        <description>Enter details about the audits that you have conducted (i.e. Date, BU, Type, Lead or auditor etc)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter details about the audits that you have conducted (i.e. Date, BU, Type, Lead or auditor etc)</inlineHelpText>
+        <label>Audits Conducted (Process Audit Info)</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_SA_8000__c</fullName>
+        <description>Audits Conducted (SA 8000)</description>
+        <externalId>false</externalId>
+        <label>Audits Conducted (SA 8000)</label>
+        <picklist>
+            <controllingField>SA_8000__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_Supplier_Audit_Info__c</fullName>
+        <description>Enter details about the audits that you have conducted (i.e. Date, BU, Type, Lead or auditor etc)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter details about the audits that you have conducted (i.e. Date, BU, Type, Lead or auditor etc)</inlineHelpText>
+        <label>Audits Conducted (Supplier Audit Info)</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_Supplier_Audits__c</fullName>
+        <description># of Audits conducted within last 36 months</description>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months</inlineHelpText>
+        <label>Audits Conducted (Supplier Audits)</label>
+        <picklist>
+            <controllingField>Supplier_Auditor_Status__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted_TL_9000__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText># of Audits conducted within last 36 months.</inlineHelpText>
+        <label>Audits Conducted (TL 9000:R5.5)</label>
+        <picklist>
+            <controllingField>TL_9000__c</controllingField>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Less than 3</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Between 3 and 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater than 5</fullName>
+                <default>false</default>
+                <controllingFieldValues>Audit Team Leader</controllingFieldValues>
+                <controllingFieldValues>Auditor</controllingFieldValues>
+                <controllingFieldValues>Candidate</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audits_Conducted__c</fullName>
+        <description>Enter details about the audits that you have conducted (i.e. Date, BU, Type, Lead or auditor etc)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter details about the audits that you have conducted (i.e. Date, BU, Type, Lead or auditor etc)</inlineHelpText>
+        <label>Audits Conducted</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>CMMi__c</fullName>
+        <externalId>false</externalId>
+        <label>CMMi</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Care_Process_8_4__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Care Process 8.4</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Audit_Name__r.Contact_City__c</formula>
+        <label>City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Audit_Name__r.Contact_Country__c</formula>
+        <label>Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Create_Process_8_3__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Create Process 8.3</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Delivery_Process_8_2__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Delivery Process 8.2</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disclaimer__c</fullName>
+        <defaultValue>&quot;This application is used to track and manage NSN Internal Auditor and Supplier Auditor qualifications (excluding financial auditors). Each NSN Internal Auditor is asked to update his/her qualification information concerning management system standards. This information will be used to globally by those planning internal audits in order to utilize resources effectively. Only a limited number of NSN audit planners have visibility to a only limited subsection of the information (e.g. qualifications and location). By updating your information in this application, you give permission to these selected audit planners to see this data for audit planning purposes.&quot;</defaultValue>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Disclaimer</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Audit_Name__r.Email__c</formula>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ISO_14001_2015__c</fullName>
+        <externalId>false</externalId>
+        <label>ISO 14001:2015</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ISO_14001__c</fullName>
+        <externalId>false</externalId>
+        <label>ISO 14001:2004</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ISO_22301_2012__c</fullName>
+        <externalId>false</externalId>
+        <label>ISO 22301: 2012</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ISO_27001_ISMS__c</fullName>
+        <externalId>false</externalId>
+        <label>ISO 27001 (ISMS) :2013</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ISO_9001_2015__c</fullName>
+        <externalId>false</externalId>
+        <label>ISO 9001:2015</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ISO_9001__c</fullName>
+        <externalId>false</externalId>
+        <label>ISO 9001:2008</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>I_agree_to_proceed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Provide your approval in order to save this information</inlineHelpText>
+        <label>I agree to proceed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>L2_Org_BU__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Audit_Name__r.Contact_BU__c</formula>
+        <label>L2 Org (BU)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Language__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Language</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OHSAS_18001__c</fullName>
+        <externalId>false</externalId>
+        <label>OHSAS 18001:2007</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_Auditor_Comments_Info__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Auditor Comments / Info</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Process_Audits__c</fullName>
+        <externalId>false</externalId>
+        <label>Process Audits</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SA_8000__c</fullName>
+        <description>SA 8000</description>
+        <externalId>false</externalId>
+        <label>SA 8000</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Process_8_1__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Sales Process 8.1</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Supplier_Auditor_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Supplier Auditor Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TL_9000_R6_0__c</fullName>
+        <externalId>false</externalId>
+        <label>TL 9000:R6.0</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TL_9000__c</fullName>
+        <externalId>false</externalId>
+        <label>TL 9000:R5.5</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Candidate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit Team Leader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>QIPP Qualified Auditor</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Audit_Name__c</columns>
+        <columns>City__c</columns>
+        <columns>Country__c</columns>
+        <columns>L2_Org_BU__c</columns>
+        <columns>ISO_9001__c</columns>
+        <columns>TL_9000__c</columns>
+        <columns>ISO_14001__c</columns>
+        <columns>OHSAS_18001__c</columns>
+        <columns>ISO_27001_ISMS__c</columns>
+        <columns>CMMi__c</columns>
+        <columns>Process_Audits__c</columns>
+        <columns>Supplier_Auditor_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>A-{0000}</displayFormat>
+        <label>ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Qualified Auditors</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Audit_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>City__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Country__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>L2_Org_BU__c</customTabListAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Audit_Name__c</searchFilterFields>
+        <searchFilterFields>City__c</searchFilterFields>
+        <searchFilterFields>Country__c</searchFilterFields>
+        <searchFilterFields>L2_Org_BU__c</searchFilterFields>
+        <searchResultsAdditionalFields>Audit_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>City__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Country__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>L2_Org_BU__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>Check_User_Email</fullName>
+        <active>true</active>
+        <description>Users should ONLY be able to create / update their own record, except users in the Audit Manager role.</description>
+        <errorConditionFormula>NOT (
+
+OR ( $UserRole.Name = &apos;QIPP Audit Manager&apos;,  $Profile.Name = &apos;System Administrator&apos;,
+Audit_Name__r.Email__c =  $User.Email )
+
+)</errorConditionFormula>
+        <errorMessage>Users are ONLY allowed to create / update their own record, unless you are a QIPP Administrator (please contact your QIPP Administrator for further assistance).</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Check_for_Process_Audits</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND (
+(ISPICKVAL( Process_Audits__c , &apos;N/A&apos;)),
+
+ OR (Care_Process_8_4__c = true,
+ Create_Process_8_3__c = true,
+ Delivery_Process_8_2__c =true, 
+ Sales_Process_8_1__c = true) 
+)</errorConditionFormula>
+        <errorDisplayField>Process_Audits__c</errorDisplayField>
+        <errorMessage>Process Audits should not be N/A when one of the following is selected - Sales Process 8.1, Delivery Process 8.2, Create Process 8.3 or Care Process 8.4</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Disclaimer_Confirmation</fullName>
+        <active>true</active>
+        <description>Obtain user&apos;s approval in order to save the record</description>
+        <errorConditionFormula>I_agree_to_proceed__c = false</errorConditionFormula>
+        <errorDisplayField>I_agree_to_proceed__c</errorDisplayField>
+        <errorMessage>Provide your approval in order to save this information.</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,4 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_SPEPlanAbandonedExt" action="{!abandoned}" >
+
+
+</apex:page>

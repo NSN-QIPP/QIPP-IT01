@@ -1,0 +1,72 @@
+<apex:page controller="SPE_CMBulkDeLink">
+    <script>
+        function delinkParent(pId)
+        {
+            var t = confirm('Are you sure you want to delink?');
+            if (t == true)
+            {
+                deLinkParentTicket(pId);
+            }
+        }
+        
+        function delinkAllParent(pId)
+        {
+            var t = confirm('Are you sure you want to delink?');
+            if (t == true)
+            {
+                deLinkChildTicket(pId);
+            }
+        }
+    </script>
+  
+    <apex:form id="fm">
+        <apex:actionFunction name="deLinkParentTicket" action="{!deLinkParentTicket}"  reRender="fm">
+            <apex:param name="Id" value=""/>
+        </apex:actionFunction>
+        
+        <apex:actionFunction name="deLinkChildTicket" action="{!deLinkChildTicket}"  reRender="fm">
+            <apex:param name="Id" value=""/>
+        </apex:actionFunction>
+        
+        <apex:pageMessages id="err"/>
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+              
+              <apex:pageBlockSectionItem >
+                  <apex:outputText value="Supplier Name"/>
+                  <apex:inputText value="{!supplierName}">
+                   <apex:actionSupport event="onkeyup" action="{!searchMatchingTicket}" reRender="op" />
+                  </apex:inputText> 
+              </apex:pageBlockSectionItem>
+              <br />
+          </apex:pageBlockSection>
+          <apex:outputPanel id="op">
+            <apex:pageBlockTable value="{!cmList }" var="parentCM" width="100%" >
+                <apex:column headerValue="Action">
+                    <input type="button" value="De Link All Child" onclick="delinkAllParent('{!parentCM.Id}');"/>
+                </apex:column>
+                <apex:column value="{!parentCM.Title__c}"/>
+                <apex:column value="{!parentCM.SPETracker__c}"/>
+                <apex:column headerValue="KPI Title" >
+                    <apex:outputLink value="/{!parentCM.KPIName__c}" target="_blank">{!parentCM.KPIName__r.KPI_Title__c}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!parentCM.Supplier__c }"/>
+                <apex:column headerValue="Child CM Ticket">
+                    <apex:pageBlockTable value="{!parentCM.Consequence_Management__r}" var="childCM" width="100%" >
+                        <apex:column headerValue="Action">      
+                            <input type="button" value="De Link" onclick="delinkParent('{!childCM.Id}');"/>
+                        </apex:column>
+                        <apex:column value="{!childCM.Title__c}"/>
+                        <apex:column value="{!childCM.SPETracker__c}"/>
+                        <apex:column headerValue="KPI Title" >
+                            <apex:outputLink value="/{!childCM.KPIName__c}" target="_blank">{!childCM.KPIName__r.KPI_Title__c}</apex:outputLink>
+                        </apex:column>
+                        <apex:column value="{!childCM.Supplier__c }"/>
+                    </apex:pageBlockTable>
+                </apex:column>
+            </apex:pageBlockTable>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

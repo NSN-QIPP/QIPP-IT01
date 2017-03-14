@@ -1,0 +1,91 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_InsertSupplier" >
+<head>
+    <script>
+            if ('{!isUserHaveAccessToRecord}' == 'false')
+            {
+                
+                alert('You can only edit SPE under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_SPEPlan__c.Id}";
+                
+            }
+    </script>
+</head>
+
+<script>
+    function enterPress(e){
+        if (window.event && window.event.keyCode == 13 || e.which == 13) {
+            searchFunction();
+            return false;
+        }
+        else 
+        {
+        return true;
+        }
+        
+  }
+</script>    
+    <apex:form id="fm">
+        <apex:pageBlock id="supplier" title="{!$Label.SPE_SelectSupplier}" rendered="{!isUserHaveAccessToRecord}">
+        
+            <apex:pageBlockButtons location="top">
+               <apex:commandButton value="{!$Label.SPE_Save}" action="{!insertSupplierForPlan}"  reRender="fm"/>
+                <apex:commandButton value="{!$Label.SPE_Cancel}" action="{!cancelforPlan}" />
+       </apex:pageBlockButtons>
+        
+        <span class="helpButtonOn" id="showicon-_help">
+            <img src="/s.gif" alt="" class="helpOrb" title="{!$Label.SPE_OneCharMsg}"/>
+        </span>
+        
+        
+        <apex:inputText value="{!supplierName}" id="supplierName" onkeypress="return enterPress(event)"/> 
+        <apex:commandButton value="{!$Label.SPE_Search}"  reRender="supplier" status="myStatus"  action="{!searchSupplier}"/>
+        <apex:actionStatus id="myStatus" startText="{!$Label.SPE_Processing}"   stopText=""   startStyleClass="statusStyle"/>
+        <apex:actionFunction action="{!searchSupplier}" name="searchFunction"  status="myStatus"/> 
+        
+        
+         
+        <apex:pageBlockTable value="{!supplierWrapperList}" var="sw" id="supplier">
+                <apex:column headerValue=" ">
+                    <apex:inputCheckbox value="{!sw.isChecked}" />
+                </apex:column>
+                <apex:column headerValue="{!$Label.SPE_EnterpriseIdName}">
+                    <apex:outputfield value="{!sw.spePlanMap.Supplier__r.EnterpriseId__c}" />
+                </apex:column>
+                <apex:column headerValue="{!$Label.SPE_CategoryInfo}">
+                    <apex:pageBlockTable value="{!sw.categories}" var="itemCat" columnsWidth="33%,33%,33%">
+                        <apex:column headerValue="{!$Label.SPE_CategoryArea}">
+                            <apex:outputField value="{!itemCat.CategoryCluster__c}"/>
+                        </apex:column> 
+                        <apex:column headerValue="{!$Label.SPE_CategoryGroup}">
+                            <apex:outputField value="{!itemCat.CategoryGroup__c}"/>
+                        </apex:column> 
+                        <apex:column headerValue="{!$Label.SPE_Category}">
+                            <apex:outputField value="{!itemCat.Category__c}"/>
+                        </apex:column> 
+                    </apex:pageBlockTable>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>   
+       <!--  <apex:pageBlock id="errorMsgBlock" rendered="{!!isUserHaveAccessToRecord}">
+               <table cellspacing="10">
+               <tbody>
+                   <tr>
+                       <td>
+                           <span style="font-weight: bold;font-size: 12pt;">Insufficient Privileges</span>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.
+                           <br />
+                           <br />
+                           Click <a href="/{!SPE_SPEPlan__c.id}">here</a> to return to the previous page.
+                       </td>
+                   </tr>    
+               </tbody>    
+               </table> 
+           </apex:pageBlock> -->
+    </apex:form> 
+
+</apex:page>

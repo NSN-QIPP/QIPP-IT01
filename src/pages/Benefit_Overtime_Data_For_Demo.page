@@ -1,0 +1,16 @@
+<apex:page controller="Benefit_Overtime_Data_For_Demo" showHeader="false" sidebar="false" >
+<apex:form >
+    <apex:pageBlock title="Send Project With Benefit Savings Report To Current User Email">
+    <apex:pageMessages />
+        <apex:panelgrid cellspacing="2" border="0" columns="2">
+           <apex:outputtext value="Email To :"></apex:outputtext>
+            <apex:inputtext value="{!emailTo}" style="width: 300px"></apex:inputtext>
+            <div class="errorMsg"><strong></strong>&nbsp;{!emailError}</div>
+            <apex:commandbutton value="Send Email" action="{!sendEmail}" rerender="statusMail"></apex:commandbutton>
+            <apex:outputpanel id="statusMail" layout="block">
+                <strong><apex:outputtext value="{!response}"></apex:outputtext></strong>
+            </apex:outputpanel>
+        </apex:panelgrid>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

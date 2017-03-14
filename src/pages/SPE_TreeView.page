@@ -1,0 +1,632 @@
+<apex:page sidebar="false" showHeader="false" controller="SPE_TreeViewEXT">
+<apex:includeScript value="{!$Resource.SPE_JSAPI}"/>
+<apex:includeScript value="{!$Resource.JqueryMin}"/>
+<apex:includeScript value="{!$Resource.SPE_blockui}"/>
+<script>
+function cascadeComplete(msg) {
+if(msg=='true'){
+alert("Cascading Successfull");
+window.location.reload();
+}
+else {
+Notification1();
+
+
+}
+}
+
+ 
+function start() { 
+        $.blockUI({ 
+        message: $('#ptext'),
+        css: { 
+            
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } }); 
+
+        
+    } 
+ 
+ function stop() {
+setTimeout($.unblockUI, 2000); 
+ }
+ 
+ 
+ function Notification1(){ 
+        $.blockUI({ 
+            message: $('div.growlUI'), 
+            fadeIn: 700, 
+            fadeOut: 700, 
+            timeout: 2000, 
+            showOverlay: false, 
+            centerY: false, 
+            css: { 
+                width: '350px', 
+                top: '10px', 
+                left: '', 
+                right: '10px', 
+                border: 'none', 
+                padding: '5px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .6, 
+                color: '#fff' 
+            } 
+        }); 
+    }
+    
+     function EmailNotification(){ 
+        $.blockUI({ 
+            message: $('div.EmailUI'), 
+            fadeIn: 700, 
+            fadeOut: 700, 
+            timeout: 2000, 
+            showOverlay: false, 
+            centerY: false, 
+            css: { 
+                width: '350px', 
+                top: '10px', 
+                left: '', 
+                right: '10px', 
+                border: 'none', 
+                padding: '5px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .6, 
+                color: '#fff' 
+            } 
+        }); 
+    }
+ 
+</script>
+
+
+<apex:form >
+
+<apex:outputPanel id="KPI" rendered="{!If(isKPI && lifecycle=='Published' , true, false)}"> 
+<head>
+ 
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+
+        data.addRows([
+        
+        <!--*******************Changes for Encryption******************-->
+        [{v:'KPIname', f:'{!KPIname}<div style="color:red; font-style:italic">KPI</div>'}, '', 'KPI'],
+         <apex:repeat value="{!PIDefinitionList}" var="k">       
+         
+          <!--[{v:'{!k.Name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.LifecycleStage__c}</div><br/>{!k.Owner.Name}<br/>(PI Data)'} , '{!KPIname}', ''],-->
+          [{v:'{!k.PI_Title__c}',f:'<a href="/{!k.Id}" >{!K.PI_Title__c}</a><div style="color:red; font-style:italic">{!k.LifecycleStage__c}</div><br/>{!k.Owner.Name}<br/>(PI Data)'} , '{!KPIname}', ''],
+        <!--*******************END******************-->
+          
+          </apex:repeat>
+        ]);
+
+        <apex:variable value="{!0}" var="indexes"/>
+        <apex:repeat value="{!PIDefinitionList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.owner.name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            }
+        </apex:repeat>
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" status="Process" oncomplete="EmailNotification()"/>
+        <apex:commandButton value="Cascade Published Action" action="{!cascade}" status="Process" rerender="KPI" oncomplete="cascadeComplete('{!msg}')"/>
+    </div>
+  </body> 
+</apex:outputPanel>
+  
+  
+  
+
+
+
+<apex:outputPanel rendered="{!If(isKPI && lifecycle=='Obsolete' , true, false)}"> 
+<head>
+  
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+
+        data.addRows([
+        [{v:'{!KPIname}', f:'{!KPIname}<div style="color:red; font-style:italic">KPI</div>'}, '', 'KPI'],
+         
+         <!--*******************Changes for Encryption******************-->
+          <apex:repeat value="{!SPEKPIMap}" var="k">
+          <!--[{v:'{!k.SPETemplate__r.name}',f:'<a href="/{!k.SPETemplate__c}" >{!K.SPETemplate__r.name}</a><div style="color:red; font-style:italic">{!k.SPETemplate__r.Stage__c}</div><br/>{!k.SPETemplate__r.Owner.Name}<br/>(SPE Template)'}, '{!k.KPIDefinition__r.name}', ''],-->
+          [{v:'{!k.SPETemplate__r.name}',f:'<a href="/{!k.SPETemplate__c}" >{!K.SPETemplate__r.name}</a><div style="color:red; font-style:italic">{!k.SPETemplate__r.Stage__c}</div><br/>{!k.SPETemplate__r.Owner.Name}<br/>(SPE Template)'}, '{!k.KPIDefinition__r.KPI_Title__c}', ''],
+          <!--***************END********************-->
+          
+          </apex:repeat>
+          
+          <apex:repeat value="{!ScoringTemplateList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.Owner.Name}<br/>(Scoring Template)'}, '{!k.SPETemplate__r.name}', ''],
+          </apex:repeat>
+          
+          <apex:repeat value="{!SPEPlanList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><br/><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.owner.name}<br/>(SPE Plan)'}, '{!k.SPEScoringTemplate__r.name}', ''],
+          </apex:repeat>
+        ]);
+        
+        
+        <apex:variable value="{!0}" var="indexes"/>
+        <apex:repeat value="{!SPEKPIMap}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.SPETemplate__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+        <apex:repeat value="{!ScoringTemplateList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.owner.name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            }
+        </apex:repeat>
+        <apex:repeat value="{!SPEPlanList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+                if('{!p.Owner.Name}'=='{!OwnerName}' && '{!p.Stage__c}'!='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+            
+            if('{!p.Stage__c}'=='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgrey');
+            } 
+            
+        </apex:repeat>
+        
+        
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" status="Process" oncomplete="EmailNotification()"/>
+        <apex:commandButton value="Cascade Obsolete Action" action="{!cascade}" status="Process" rerender="as" oncomplete="cascadeComplete('{!msg}')"/>
+    </div>
+  </body> 
+</apex:outputPanel>
+
+
+
+
+
+<apex:outputPanel rendered="{!If(IsSPETemp && lifecycle=='Published' , true, false)}"> 
+<head>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+
+        data.addRows([
+        [{v:'{!SPETempName}', f:'{!SPETempName}<div style="color:red; font-style:italic">SPE Template</div>'}, '', 'KPI'],
+          
+          <apex:repeat value="{!SPEKPIMap}" var="k">
+          
+          <!--************Changes For Encryption**************-->
+          <!--[{v:'{!k.KPIDefinition__r.name}',f:'<a href="/{!k.KPIDefinition__c}" >{!K.KPIDefinition__r.name}</a><div style="color:red; font-style:italic">{!k.KPIDefinition__r.LifecycleStage__c}</div><br/>{!k.KPIDefinition__r.Owner.Name}<br/>(KPI)'}, '{!k.SPETemplate__r.name}', 'KPI'],-->
+          [{v:'{!k.KPIDefinition__r.KPI_Title__c}',f:'<a href="/{!k.KPIDefinition__c}" >{!K.KPIDefinition__r.KPI_Title__c}</a><div style="color:red; font-style:italic">{!k.KPIDefinition__r.LifecycleStage__c}</div><br/>{!k.KPIDefinition__r.Owner.Name}<br/>(KPI)'}, '{!k.SPETemplate__r.name}', 'KPI'],
+          
+          </apex:repeat>
+          
+          <apex:repeat value="{!KPIDefinitionList}" var="k">
+          <!--[{v:'{!k.PI_Data__r.name}',f:'<a href="/{!k.PI_Data__c}" >{!K.PI_Data__r.name}</a><div style="color:red; font-style:italic">{!k.PI_Data__r.LifecycleStage__c}</div><br/>{!k.PI_Data__r.Owner.Name}<br/>(PI)'}, '{!k.name}', ''],-->
+          [{v:'{!k.PI_Data__r.PI_Title__c}',f:'<a href="/{!k.PI_Data__c}" >{!K.PI_Data__r.PI_Title__c}</a><div style="color:red; font-style:italic">{!k.PI_Data__r.LifecycleStage__c}</div><br/>{!k.PI_Data__r.Owner.Name}<br/>(PI)'}, '{!k.KPI_Title__c}', ''],
+          
+          </apex:repeat>
+          
+          <apex:repeat value="{!KPICal}" var="k">
+          <!--[{v:'{!k.PIDefination__r.name}',f:'<a href="/{!k.PIDefination__r}" >{!K.PIDefination__r.name}</a><div style="color:red; font-style:italic">{!k.PIDefination__r.LifecycleStage__c}</div><br/>{!k.PIDefination__r.Owner.Name}<br/>(PI)'}, '{!k.KPIDefinition__r.name}', ''],-->
+          [{v:'{!k.PIDefination__r.PI_Title__c}',f:'<a href="/{!k.PIDefination__r}" >{!K.PIDefination__r.PI_Title__c}</a><div style="color:red; font-style:italic">{!k.PIDefination__r.LifecycleStage__c}</div><br/>{!k.PIDefination__r.Owner.Name}<br/>(PI)'}, '{!k.KPIDefinition__r.KPI_Title__c}', ''],
+          <!--********************END***********************-->
+          
+          </apex:repeat>
+          
+        ]);
+        
+        
+        <apex:variable value="{!0}" var="indexes"/>
+        
+        <apex:repeat value="{!SPEKPIMap}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.KPIDefinition__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+          <apex:repeat value="{!KPIDefinitionList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.PI_Data__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+         <apex:repeat value="{!KPICal}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.PIDefination__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+        
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" status="Process" oncomplete="EmailNotification()"/>
+        <apex:commandButton value="Cascade Published Action" action="{!cascade}" status="Process" oncomplete="cascadeComplete('{!msg}')"/>
+    </div>
+  </body> 
+</apex:outputPanel>
+
+
+
+
+
+
+<apex:outputPanel rendered="{!If(IsSPETemp && lifecycle=='Obsolete' , true, false)}"> 
+<head>
+   
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+        
+        data.addRows([
+        [{v:'{!RecordName}', f:'{!RecordName}<div style="color:red; font-style:italic">SPE Template</div>'}, '', 'SPE Template'],
+          
+         <apex:repeat value="{!ScoringTemplateList}" var="k">
+         
+          [{v:'{!k.Name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!K.Owner.Name}<br/>(Scoring Template)'}, '{!k.SPETemplate__r.name}', ''],           
+          </apex:repeat>
+          
+         <apex:repeat value="{!SPEPlanList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.Owner.Name}<br/>(SPE Plan)'}, '{!k.SPEScoringTemplate__r.name}', ''],
+          </apex:repeat>
+          
+        ]);
+        
+        <apex:variable value="{!0}" var="indexes"/>
+        <apex:repeat value="{!ScoringTemplateList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.owner.name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            }
+        </apex:repeat>
+        <apex:repeat value="{!SPEPlanList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.Owner.Name}'=='{!OwnerName}' && '{!p.Stage__c}'!='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+            
+            if('{!p.Stage__c}'=='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgrey');
+            } 
+        </apex:repeat>
+        
+        
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" status="Process" oncomplete="EmailNotification()"/>
+        <apex:commandButton value="Cascade Obsolete Action" action="{!cascade}" rerender="bh" status="Process" oncomplete="cascadeComplete('{!msg}')"/>
+    </div>
+  </body> 
+ 
+</apex:outputPanel>
+
+
+
+
+
+
+
+  
+<apex:outputPanel rendered="{!IsPI}" id="PI"> 
+<head>
+   
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+        
+        data.addRows([
+        [{v:'{!PIname}', f:'{!PIname}<div style="color:red; font-style:italic">PI</div>'}, '', 'PI'],
+          
+         <apex:repeat value="{!KPIDefinitionList}" var="k">
+         
+         <!--****************Changes for Encryption****************-->
+          <!--[{v:'{!k.Name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.LifecycleStage__c}</div><br/>{!K.Owner.Name}<br/>(KPI)'}, '{!PIname}', ''],-->           
+          [{v:'{!k.KPI_Title__c}',f:'<a href="/{!k.Id}" >{!K.KPI_Title__c}</a><div style="color:red; font-style:italic">{!k.LifecycleStage__c}</div><br/>{!K.Owner.Name}<br/>(KPI)'}, '{!PIname}', ''],           
+
+          </apex:repeat>
+          
+         <apex:repeat value="{!SPEKPIMap}" var="k">
+          <!--[{v:'{!k.SPETemplate__r.name}',f:'<a href="/{!k.SPETemplate__c}" >{!K.SPETemplate__r.name}</a><div style="color:red; font-style:italic">{!k.SPETemplate__r.Stage__c}</div><br/>{!k.SPETemplate__r.Owner.Name}<br/>(SPE Template)'}, '{!k.KPIDefinition__r.name}', ''],-->
+          [{v:'{!k.SPETemplate__r.name}',f:'<a href="/{!k.SPETemplate__c}" >{!K.SPETemplate__r.name}</a><div style="color:red; font-style:italic">{!k.SPETemplate__r.Stage__c}</div><br/>{!k.SPETemplate__r.Owner.Name}<br/>(SPE Template)'}, '{!k.KPIDefinition__r.KPI_Title__c}', ''],
+          <!--******************END****************-->
+          
+          </apex:repeat>
+          
+          <apex:repeat value="{!ScoringTemplateList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.Owner.Name}<br/>(Scoring Template)'}, '{!k.SPETemplate__r.name}', ''],
+          </apex:repeat>
+          
+          <apex:repeat value="{!SPEPlanList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><br/><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.owner.name}<br/>(SPE Plan)'}, '{!k.SPEScoringTemplate__r.name}', ''],
+          </apex:repeat>
+ 
+        ]);
+        
+        <apex:variable value="{!0}" var="indexes"/>
+        <apex:repeat value="{!KPIDefinitionList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.owner.name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            }
+        </apex:repeat>
+        <apex:repeat value="{!SPEKPIMap}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.SPETemplate__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+        <apex:repeat value="{!ScoringTemplateList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.owner.name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            }
+        </apex:repeat>
+        <apex:repeat value="{!SPEPlanList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.Owner.Name}'=='{!OwnerName}' && '{!p.Stage__c}'!='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+            
+            if('{!p.Stage__c}'=='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgrey');
+            } 
+        </apex:repeat>
+        
+        
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" reRender="sd" status="Process" oncomplete="EmailNotification()" />
+        <apex:commandButton value="Cascade Obsolete Action" status="Process" action="{!cascade}" reRender="gg" oncomplete="cascadeComplete('{!msg}')"/>
+     </div>
+  </body> 
+</apex:outputPanel>
+  
+ 
+  
+
+
+<apex:outputPanel rendered="{!If(IsScoringTemp && lifecycle=='Obsolete' , true, false)}"> 
+<head>
+    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+        
+        data.addRows([
+        [{v:'{!RecordName}', f:'{!RecordName}<div style="color:red; font-style:italic">SPE Template</div>'}, '', 'Scoring Template'],
+          
+         <apex:repeat value="{!SPEPlanList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.Owner.Name}<br/>(SPE Plan)'}, '{!k.SPEScoringTemplate__r.name}', ''],
+          </apex:repeat>
+          
+        ]);
+        
+        <apex:variable value="{!0}" var="indexes"/>
+        <apex:repeat value="{!SPEPlanList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.Owner.Name}'=='{!OwnerName}' && '{!p.Stage__c}'!='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+            
+            if('{!p.Stage__c}'=='Draft'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgrey');
+            } 
+        </apex:repeat>
+        
+        
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" status="Process" oncomplete="EmailNotification()"/>
+        <apex:commandButton value="Cascade Obsolete Action" action="{!cascade}" status="Process" rerender="sd" oncomplete="cascadeComplete('{!msg}')"/>
+    </div>
+  </body> 
+ 
+</apex:outputPanel>
+
+  
+
+
+<apex:outputPanel rendered="{!If(IsScoringTemp && lifecycle=='Published' , true, false)}"> 
+<head>
+    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+        
+        data.addRows([
+        [{v:'{!RecordName}', f:'{!RecordName}<div style="color:red; font-style:italic">Scoring Template</div>'}, '', 'Scoring Template'],
+         
+         <apex:repeat value="{!SPETemplateList}" var="k">
+          [{v:'{!k.name}',f:'<a href="/{!k.Id}" >{!K.name}</a><div style="color:red; font-style:italic">{!k.Stage__c}</div><br/>{!k.Owner.Name}<br/>(SPE Template)'}, '{!RecordName}', ''],
+          </apex:repeat>
+          
+         <!--******************Changes For Encryption****************--> 
+         <apex:repeat value="{!SPEKPIMap}" var="k">
+          <!--[{v:'{!k.KPIDefinition__r.name}',f:'<a href="/{!k.KPIDefinition__c}" >{!K.KPIDefinition__r.name}</a><div style="color:red; font-style:italic">{!k.KPIDefinition__r.LifecycleStage__c}</div><br/>{!k.KPIDefinition__r.Owner.Name}<br/>(KPI)'}, '{!k.SPETemplate__r.name}', ''],-->
+          [{v:'{!k.KPIDefinition__r.KPI_Title__c}',f:'<a href="/{!k.KPIDefinition__c}" >{!K.KPIDefinition__r.KPI_Title__c}</a><div style="color:red; font-style:italic">{!k.KPIDefinition__r.LifecycleStage__c}</div><br/>{!k.KPIDefinition__r.Owner.Name}<br/>(KPI)'}, '{!k.SPETemplate__r.name}', ''],
+
+          </apex:repeat>
+          
+          <apex:repeat value="{!KPIDefinitionList}" var="k">
+          <!--[{v:'{!k.PI_Data__r.name}',f:'<a href="/{!k.PI_Data__c}" >{!K.PI_Data__r.name}</a><div style="color:red; font-style:italic">{!k.PI_Data__r.LifecycleStage__c}</div><br/>{!k.PI_Data__r.Owner.Name}<br/>(PI)'}, '{!k.name}', ''],-->
+          [{v:'{!k.PI_Data__r.PI_Title__c}',f:'<a href="/{!k.PI_Data__c}" >{!K.PI_Data__r.PI_Title__c}</a><div style="color:red; font-style:italic">{!k.PI_Data__r.LifecycleStage__c}</div><br/>{!k.PI_Data__r.Owner.Name}<br/>(PI)'}, '{!k.KPI_Title__c}', ''],
+
+          </apex:repeat>
+          
+          <apex:repeat value="{!KPICal}" var="k">
+          <!--[{v:'{!k.PIDefination__r.name}',f:'<a href="/{!k.PIDefination__r}" >{!K.PIDefination__r.name}</a><div style="color:red; font-style:italic">{!k.PIDefination__r.LifecycleStage__c}</div><br/>{!k.PIDefination__r.Owner.Name}<br/>(PI)'}, '{!k.KPIDefinition__r.name}', ''],-->
+          [{v:'{!k.PIDefination__r.PI_Title__c}',f:'<a href="/{!k.PIDefination__r}" >{!K.PIDefination__r.PI_Title__c}</a><div style="color:red; font-style:italic">{!k.PIDefination__r.LifecycleStage__c}</div><br/>{!k.PIDefination__r.Owner.Name}<br/>(PI)'}, '{!k.KPIDefinition__r.KPI_Title__c}', ''],
+          <!--*****************END****************-->
+          
+          </apex:repeat>
+          
+        ]);
+        
+        <apex:variable value="{!0}" var="indexes"/>
+        <apex:repeat value="{!SPETemplateList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+         <apex:repeat value="{!SPEKPIMap}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.KPIDefinition__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+        
+         <apex:repeat value="{!KPIDefinitionList}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.PI_Data__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+         <apex:repeat value="{!KPICal}" var="p">
+        <apex:variable value="{!indexes+1}" var="indexes"/>
+            if('{!p.PIDefination__r.Owner.Name}'=='{!OwnerName}'){ 
+                data.setRowProperty({!indexes}, 'style', 'background: Lightgreen');
+            } 
+        </apex:repeat>
+        
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true});
+      }
+   </script>
+    </head>
+  <body>
+    <div id="chart_div"></div>
+    <br/>
+    <div align="center">
+        <apex:commandButton value="Send Mail" action="{!sendMail}" status="Process" oncomplete="EmailNotification()"/>
+        <apex:commandButton value="Cascade Published Action" action="{!cascade}" status="Process" oncomplete="cascadeComplete('{!msg}')"/>
+    </div>
+  </body> 
+ 
+</apex:outputPanel>
+<apex:actionStatus id="Process" onstart="start();" onstop="stop();"/>
+
+<div id="ptext" style="display:none">
+<img src="/img/loading32.gif" />
+<div style="font-size:150%;padding:5px">Processing....</div>
+</div>
+<div id="growlUI" class="growlUI" style="display:none">
+<div style="float:left;"> 
+<apex:image value="{!$Resource.SPE_Check}"/>
+</div>
+<div style="float:left;">
+<h1 style="color: white; padding: 5px 5px 5px 75px; text-align: left"><font size="3">No More Records to Cascade</font></h1><br/>
+<h2 style="color: white; padding: 5px 5px 5px 75px; text-align: left"> Processing Complete </h2>
+</div>
+</div>
+
+
+<div id="EmailUI" class="EmailUI" style="display:none">
+<div style="float:left;"> 
+<apex:image value="{!$Resource.SPE_Check}"/>
+</div>
+<div style="float:left;">
+<h1 style="color: white; padding: 5px 5px 5px 75px; text-align: left"><font size="3">Email Sent Successfully</font></h1><br/>
+<h2 style="color: white; padding: 5px 5px 5px 75px; text-align: left"> Processing Complete </h2>
+</div>
+</div>
+
+</apex:form>
+</apex:page>

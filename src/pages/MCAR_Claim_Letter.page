@@ -1,0 +1,69 @@
+<apex:page standardController="MCAR_Claim_Management__c" renderAs="pdf" extensions="getClaimRecordForPDF">
+<html>
+ 
+ <apex:form styleClass="test">     
+   <apex:image url="{!$Resource.NSN_New_Logo}" width="154" height="76"/>
+     <BR/><BR/>
+   <table width = "100%">
+       <tr>
+        <td>
+           <table>
+           <tr>
+               <td>
+               To:</td><td>{!NameOfSupplier}</td>
+               </tr>
+            <tr>
+               <td>
+               Date: </td><td><apex:outputText value="{0,date,dd MMMM yyyy}">
+                                                <apex:param value="{!TODAY()}" />
+                               </apex:outputText></td>
+               </tr>
+             
+             <tr>
+               <td>
+               RE: </td><td>{!MCAR_Claim_Management__c.Name}</td>
+               </tr>
+               <br/><br/>
+              <tr>
+               <td>Dear Sir or Madam,</td>
+               
+               </tr><br/><br/>
+              <tr>
+               <td>As you are aware, Nokia Networks is currently dealing with the consequences of a serious quality defect with a component that {!NameOfSupplier}  is providing to Nokia Networks under a 
+                   Frame Agreement.  The following are the details of this issue:</td>
+               </tr><br/>
+               <tr>
+               <td>Root Cause Summary: {!MCAR_Claim_Management__c.Root_Cause_Summary__c}</td>
+               </tr><br/>
+               <tr>
+               <td>Nokia Networks holds {!NameOfSupplier} liable for and reserves the right to claim from {!NameOfSupplier} all costs and damages incurred by Nokia Networks, Nokia's 
+                    subcontractors, and/or customers, which result from the non-conforming parts supplied by {!NameOfSupplier}. </td>
+               </tr><br/>
+               <tr>
+               <td>Nokia Networks estimates that the total costs incurred due to this issue are EUR {!MCAR_Claim_Management__c.Total_Cost_To_Be_Claimed__c}0.</td>
+               </tr><br/>
+               <tr>
+               <td>We thank you for your immediate attention to this matter and expect to have full support and cooperation in resolving this matter.  </td>
+               </tr><br/>
+               <tr>
+               <td >If you wish to have further information related to this claim, please contact {!MCAR_Claim_Management__c.Category_Manager_Name__c} at <u style = "color :blue ">{!MCAR_Claim_Management__c.Category_Manager_Email__c}</u>.</td>
+               </tr><br/>
+               <tr>
+               <td></td>
+               </tr><br/>
+               <tr>
+               <td>Yours sincerely,</td>
+               </tr>
+               <tr> 
+               <td>Nokia Networks</td>
+               </tr>               
+            </table>
+           </td>
+       </tr>
+     </table>
+     
+
+ </apex:form>
+ 
+</html>
+</apex:page>

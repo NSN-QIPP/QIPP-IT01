@@ -1,0 +1,3 @@
+<apex:page standardController="SPE_SPETemplate__c" extensions="SPE2overrideCloneSPETemplate" action="{!populateCloneSPETemplate}">
+ 
+</apex:page>

@@ -1,0 +1,197 @@
+<apex:page controller="SPE_ReviewPageController">
+   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   <script>
+   function selectAll()
+   {
+       selectAll();
+   }
+   function redirect(Id)
+   {
+       alert(Id);
+       var URL = '/'+Id;
+       window.opem(URL, '_blank')
+   }
+   </script>
+   
+   <style>
+    table {
+    border-collapse: collapse       
+    }
+
+    table.my td
+    {
+        border: 1px solid black;
+    }
+    table.my tr:first-child td 
+    {
+        border-top: 0;
+    }
+    table.my tr:last-child td 
+    {
+        border-bottom: 0;
+    }
+    table.my tr td:first-child,
+    table.my tr th:first-child 
+    {
+        border-left: 0;
+    }
+    table.my tr td:last-child,
+    table.my tr th:last-child 
+    {
+        border-right: 0;
+    }
+</style>
+  <apex:form >
+  <apex:pageBlock mode="edit" id="results">
+        <apex:variable value="{!0}" var="i"/>
+        
+        <table collapse="true" style="margin-left: 7px;margin-top: 5px;">
+        
+            <apex:variable var="index" value="{!0}" />
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th colspan="3" style="font-size: 14px;background:#1797c0;text-align:center;width:200px;border: 1px solid #000000">Prev Tickets</th>
+                <th colspan="2" style="font-size: 14px;background:#1797c0;text-align:center;width:200px;border: 1px solid #000000">Historical Data</th>    
+                <th colspan="2" style="font-size: 14px;background:#1797c0;text-align:center;width:200px;border: 1px solid #000000">Current Period</th>
+                <th style="font-size: 14px;background:#1797c0;text-align:center;width:100px;border: 1px solid #000000">Apply All</th>
+            </tr>
+            <tr>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">Supplier ID</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">Tracker Period</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">KPI Title / ID</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">CM Ticket Name</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">Current Stage</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">CM Type</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">SPE Tracker</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">Score</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">KPI Value</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">KPI Score</td>
+                <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">
+                    <b>Action</b>
+                    <apex:selectList value="{!allTicketType}" size="1" style="margin-left: 9px; background: #1797c0;" onChange="selectAll()">
+                        <apex:selectOptions value="{!allTickeOptions}"/>
+                    </apex:selectList>
+               </td> 
+               <td style="background:#1797c0;text-align:center;font-weight: bold;font-size: 14px;border: 1px solid #000000">
+                Newly Created Ticket Title
+               </td>
+            </tr>
+            <apex:repeat value="{!trackerValueWrapperList}" var="s">
+                <tr>
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">{!s.tv.Supplier__r.Name}</td>
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">{!s.tv.SPETracker__r.Name}</td>
+                    
+                   <!--*********************************Changes For Encryption************************************--> 
+                        <!--<td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">{!s.tv.KPIDefinition__r.Name}</td>-->
+                        <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">{!s.tv.KPIDefinition__r.KPI_Title__c}</td>
+                   <!--****************************************************END*****************************************************--> 
+                   
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">
+                        <table style="width: 100%;" class='my'>
+                            <apex:repeat value="{!s.pastCMTickets}" var="t">
+                                <tr>
+                                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;">{!t.Name}</td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </td >
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">
+                        <table style="width: 100%;" class='my'>
+                            <apex:repeat value="{!s.pastCMTickets}" var="t">
+                                <tr>
+                                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;">{!t.TicketStatus__c}</td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </td >
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">
+                        <table style="width: 100%;" class='my'>
+                            <apex:repeat value="{!s.pastCMTickets}" var="t">
+                                <tr>
+                                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;">{!t.RecordType.Name}&nbsp;</td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </td >
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">
+                        <table style="width: 100%;" class='my'>
+                            <apex:repeat value="{!s.pastTrackerValues}" var="t">
+                                <tr>
+                                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;">{!t.SPETracker__r.Name}</td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </td >
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">
+                        <table style="width: 100%;" height="100%" class='my'>
+                            <apex:repeat value="{!s.pastTrackerValues}" var="t">
+                                <tr>
+                                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;">{!t.Score1__c}&nbsp;</td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </td >
+                    
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">{!s.tv.Value__c}</td>
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">{!s.tv.Score1__c}&nbsp;</td>
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000">
+                        <b>Action</b>
+                        <apex:selectList value="{!s.ticketType}" size="1" style="margin-left: 9px;" required="true">
+                            <apex:selectOptions value="{!tickeOptions}"/>
+                        </apex:selectList>
+                    </td>
+                    <td style="vertical-align: inherit;text-align:center;font-size: 12px;border: 1px solid #000000" id="CMTitle">
+                         <apex:inputTextarea cols="30" rows="2" value="{!s.cmTitle }"/>
+                    </td>
+                </tr>
+            </apex:repeat>
+        </table>
+  </apex:pageBlock>
+  
+  <apex:commandButton value="Submit" action="{!submit}" style="float: right;margin-right: 116px;" reRender="results, cmDetailProcessed, cmDetailFailed"/>
+  <apex:actionFunction name="selectAll" action="{!selectAll}" reRender="results"/> <br /><br />
+  <apex:outputPanel id="cmDetailProcessed">
+      <apex:pageBlock title="Processed CM " rendered="{!processesCMDetails.size>0}">
+          <apex:pageBlockTable value="{!processesCMDetails}" var="proc">
+              <apex:column value="{!proc.tv.Supplier__r.Name}"/>
+              <apex:column value="{!proc.tv.SPETracker__r.Name}"/>
+              
+            <!--*********************************Changes For Encryption************************************-->  
+                  <!--<apex:column value="{!proc.tv.KPIDefinition__r.Name}"/>-->
+                  <apex:column value="{!proc.tv.KPIDefinition__r.KPI_Title__c}"/>
+            <!--****************************************************END*****************************************************--> 
+              
+              <apex:column headerValue="CM ID">
+                  <apex:outputLink value="{!URLFOR($Action.SPE_ConsequenceManagement__c.View, proc.cm.id)}" target="_blank">{!proc.cm.Name}</apex:outputLink> 
+              </apex:column>
+              <apex:column headerValue="Action">
+                  <apex:outputLink value="{!URLFOR($Action.SPE_ConsequenceManagement__c.Edit, proc.cm.id)}" target="_blank">EDIT</apex:outputLink> 
+              </apex:column>
+              
+          </apex:pageBlockTable>
+      </apex:pageBlock>
+  </apex:outputPanel>
+  <apex:outputPanel id="cmDetailFailed">
+      <apex:pageBlock title="Failed CM " rendered="{!FailedCMDetailWrapperList.size>0}">
+          <apex:pageBlockTable value="{!FailedCMDetailWrapperList}" var="failed">
+              <apex:column headerValue="Supplier" value="{!failed.tv.Supplier__r.Name}"/>
+              <apex:column headerValue="SPE Tracker" value="{!failed.tv.SPETracker__r.Name}"/>
+              
+            <!--*********************************Changes For Encryption************************************-->  
+                  <!--<apex:column headerValue="KPI Definition" value="{!failed.tv.KPIDefinition__r.Name}"/>-->
+                  <apex:column headerValue="KPI Definition" value="{!failed.tv.KPIDefinition__r.KPI_Title__c}"/>
+            <!--****************************************************END*****************************************************-->  
+            
+            <apex:column headerValue="Error" style="color:red;">
+                {!failed.errorMessage}<apex:outputLink value="/{!failed.dupCMID}" target="_blank" style="color:red;">{!failed.dupCMName}</apex:outputLink>
+            </apex:column>
+          </apex:pageBlockTable>
+      </apex:pageBlock>
+  </apex:outputPanel>
+  
+  </apex:form>
+</apex:page>

@@ -1,0 +1,172 @@
+<apex:page tabStyle="QIRS__c"  showHeader="true" controller="QIRS_StatusController" sidebar="true" >
+<apex:sectionHeader title="Status Edit" subtitle="{!objQStatus.Name}"/>
+<apex:form >
+<apex:messages style="color:Red"/>
+<apex:pageBlock title="Status Edit" mode="edit">
+<apex:pageBlockButtons location="top">
+<apex:commandButton value="Save" action="{!save}"/>
+<apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+</apex:pageBlockButtons>
+<apex:pageBlockButtons location="bottom">
+<apex:commandButton value="Save" action="{!save}"/>
+<apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+
+
+
+</apex:pageBlockButtons>
+ <!--<p><apex:outputText value="Clicked? {!state}" id="showstate" /></p> -->
+
+<apex:pageBlockSection title="Information" columns="1">
+<apex:outputField value="{!objQStatus.QIRS__c}" />
+<apex:inputField value="{!objQStatus.Status__c}" required="true" style="width:50%" rendered="{!Visible}"/>
+<apex:outputText label="Status" value="{!statusValue}" style="width:50%" rendered="{!TempVisible}"/>
+<apex:inputCheckbox label="Watchlist" value="{!Watchlist}" rendered="{!Visible}"/>
+ 
+<apex:inputField value="{!objQStatus.Comment__c}" label="Latest News" required="true" style="width:50%"/>
+<apex:outputPanel rendered="{!WatchlistVisible}">
+<table border="0" width="100%" cellspacing="0" cellpadding="0" >
+    <tr>
+        <td width="18%">
+            <table border="0" cellspacing="0" cellpadding="0"  width="100%" height="100%">
+                <tr>
+                    <td valign="top" align="right" height="33px">
+                     <apex:outputLabel value="{!$ObjectType.QIRS_Status__c.fields.Watch_List_Status__c.label}"
+                        style="font-weight:normal"/>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="Top" align="right">
+                         <img src="{!$Resource.QIRS_RecommendedArrow}"  valign="top" ALIGN="middle" /> 
+                    </td>
+                </tr>                
+            </table>
+
+
+        </td>
+        <td>
+        <input id="theHiddenInput" type="hidden" name="theHiddenInput" value="{!state}" />
+            <table border="0" cellspacing="0" cellpadding="0"  width="100%">
+                <tr>
+                    <td>
+                         <input  id="Progressred" name="utype" type="radio" value="0"  onclick="ReadOnly1('ProgressRed')"/> 
+                          
+                          <img src="{!$Resource.QIRS_ProgressRed}"  valign="top" ALIGN="middle" />
+                    </td>
+                    <td>
+                         <input id="Regressred" name="utype" type="radio" value="0" onclick="ReadOnly1('RegressRed')"/> 
+                          <img src="{!$Resource.QIRS_RegressRed}"  valign="top" ALIGN="middle" />
+                    </td>
+                    <td>
+                         <input   id="NoChangered" name="utype" type="radio" value="0"  onclick="ReadOnly1('NoChangeRed')"/> 
+                          <img src="{!$Resource.QIRS_NochangeRed}"  valign="top" ALIGN="middle" />
+                    </td>  
+                    <td width="50%">
+                       <div> Red: Major impact to NSN customers</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <input   id="Progressyellow" name="utype" type="radio" value="0" onclick="ReadOnly1('ProgressYellow')"/> 
+                          <img src="{!$Resource.QIRS_ProgressYellow}"  valign="top" ALIGN="middle" />
+                    </td>
+                    <td>
+                         <input id="Regressyellow" name="utype" type="radio" value="0" onclick="ReadOnly1('RegressYellow')"/> 
+                          <img src="{!$Resource.QIRS_RegressYellow}"  valign="top" ALIGN="middle" />
+                    </td>
+                    <td>
+                         <input  id="NoChangeyellow" name="utype" type="radio" value="0" onclick="ReadOnly1('NoChangeYellow')"/> 
+                          <img src="{!$Resource.QIRS_NochangeYellow}"  valign="top" ALIGN="middle" />
+                    </td> 
+                    <td>
+                       <div> Yellow: Minor customer impact </div>                 
+                    </td>                   
+                </tr> 
+                <tr>
+                    <td>
+                         <input  id="Progressgreen" name="utype" type="radio" value="0" onclick="ReadOnly1('ProgressGreen')"/> 
+                          <img src="{!$Resource.QIRS_ProgressGreen}"  valign="top" ALIGN="middle" />
+                    </td>
+                    <td>
+                         <input  id="Regressgreen" name="utype" type="radio" value="0" onclick="ReadOnly1('RegressGreen')"/> 
+                          <img src="{!$Resource.QIRS_RegressGreen}"  valign="top" ALIGN="middle" />
+                    </td>
+                    <td>
+                         <input  id="NoChangegreen" name="utype" type="radio" value="0" onclick="ReadOnly1('NoChangeGreen')"/> 
+                          <img src="{!$Resource.QIRS_NochangeGreen}"  valign="top" ALIGN="middle" />
+                    </td> 
+                    <td>
+                       <div> Green: No customer impact </div>                 
+                    </td>                   
+                </tr>        
+                <tr>
+                    <td colspan="4">
+                          <img src="{!$Resource.QIRS_Arrow_Def}"  valign="top" ALIGN="middle" />                         
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+</apex:outputPanel>
+   <apex:actionFunction immediate="true" action="{!methodOne}"  name="ReadOnly1" rerender="showstate" >
+     <apex:param name="firstParam" assignTo="{!state}" value="" />
+   </apex:actionFunction>
+<apex:outputLabel style="color:Red"> Warning:</apex:outputLabel>
+<apex:outputLabel ></apex:outputLabel>
+<apex:outputLabel > To close the record you must submit it to the MASTER APPROVER. After the master approval it will be automatically CLOSED.
+</apex:outputLabel>
+<apex:outputLabel ></apex:outputLabel>
+<apex:outputLabel > To change the status to SUBMITTED TO MASTER APPROVAL check the following:
+</apex:outputLabel>
+<!--<apex:outputLabel > >>> Record should be in Lifted status.</apex:outputLabel>-->
+<apex:outputLabel > >>> Record should be in Released status.</apex:outputLabel>
+<apex:outputLabel > >>> Record should have at least one Root Cause type action plan.</apex:outputLabel>
+<!--<apex:outputLabel > >>> For Root cause type action plan we need to have at least one Corrective or Preventive action plan.</apex:outputLabel>-->
+<apex:outputLabel > >>> For Root cause type action plan we need to have at least one Corrective and Preventive action plan.</apex:outputLabel>
+<apex:outputLabel > >>> All action plans should be Present.</apex:outputLabel>
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+<script type="text/javascript">
+
+var watchliststatus = document.getElementById("theHiddenInput").value;
+   if(watchliststatus == 'ProgressRed')
+   {
+       document.getElementById("Progressred").checked=true
+   }
+   else if(watchliststatus== 'RegressRed')
+   {
+       document.getElementById("Regressred").checked=true   
+   }
+   else if(watchliststatus == 'NoChangeRed')
+   {
+       document.getElementById("NoChangered").checked=true   
+   }   
+   else if(watchliststatus == 'ProgressYellow')
+   {
+       document.getElementById("Progressyellow").checked=true   
+   }      
+   else if(watchliststatus == 'RegressYellow')
+   {
+       document.getElementById("Regressyellow").checked=true   
+   }
+   else if(watchliststatus == 'NoChangeYellow')
+   {
+       document.getElementById("NoChangeyellow").checked=true   
+   }      
+   else if(watchliststatus == 'ProgressGreen')
+   {
+       document.getElementById("Progressgreen").checked=true   
+   }      
+   else if(watchliststatus == 'RegressGreen')
+   {
+       document.getElementById("Regressgreen").checked=true   
+   }
+   else if(watchliststatus == 'NoChangeGreen')
+   {
+       document.getElementById("NoChangegreen").checked=true   
+   }     
+</script>
+</apex:page>

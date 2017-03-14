@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>MCAR_Code__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Only numeric value</inlineHelpText>
+        <label>MCAR Code</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MCAR_ID__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lookup for MCAR Number</description>
+        <externalId>false</externalId>
+        <label>MCAR - ID</label>
+        <referenceTo>MCAR__c</referenceTo>
+        <relationshipLabel>MCAR</relationshipLabel>
+        <relationshipName>MCAR</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>QIRS__c</fullName>
+        <externalId>false</externalId>
+        <label>QIRS</label>
+        <referenceTo>QIRS__c</referenceTo>
+        <relationshipName>MCAR</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>MCAR</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>MCAR_Code__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>M-{00000}</displayFormat>
+        <label>MCAR Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Material Corrective Action Reports</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>QIRS_MCAR_Numeric_validation</fullName>
+        <active>false</active>
+        <errorConditionFormula>IF( !ISNUMBER( MCAR_Code__c ) , true, false)</errorConditionFormula>
+        <errorDisplayField>MCAR_Code__c</errorDisplayField>
+        <errorMessage>Enter numeric value</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>QIRS_Status_Validation_for_MCAR</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF( ISPICKVAL( QIRS__r.Status__c , &apos;Closed&apos;) ||
+ISPICKVAL( QIRS__r.Status__c , &apos;Submited to Master Approval&apos;) , true, false)</errorConditionFormula>
+        <errorMessage>Cannot add MCAR as status of QIRS is either &quot;Closed&quot; or &quot;Submitted to Master Approval&quot;.</errorMessage>
+    </validationRules>
+</CustomObject>

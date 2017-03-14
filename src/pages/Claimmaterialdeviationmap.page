@@ -1,0 +1,26 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimMaterialDeviationMap">
+<apex:pageBlock title="Material Deviation">
+ <apex:pageblockTable value="{!MaterialDeviation}" var="items">
+  <apex:column headerValue="Material Deviation ID" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="	Code" width="20%">
+      <apex:outputText value="{!items.Code__r.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Quantity" width="20%">
+      <apex:outputText value="{!items.Quantity__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="MCARs" width="20%">
+      <apex:outputText value="{!items.MCARs__r.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Serial Number" width="20%">
+      <apex:outputText value="{!items.Serial_Number__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+</apex:page>

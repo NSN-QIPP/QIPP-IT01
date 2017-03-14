@@ -1,0 +1,57 @@
+<apex:page standardController="SPE_KPIDefinition__c" extensions="SPE_KPIClone">
+  <apex:form >
+      <apex:sectionHeader title="KPI Edit" subtitle="New KPI"/>
+      <apex:pageblock tabstyle="SPE_KPIDefinition__c" title="KPI Edit" mode="edit">
+          <apex:pageblockbuttons >
+              <apex:commandButton value="Save" action="{!SaveKPI}"/>
+              <apex:commandButton value="Cancel" action="{!Cancel}"/>
+          </apex:pageblockbuttons>
+          <apex:pagemessages />
+          <apex:pageblocksection title="Information">
+              <!--************************Changes For Encryption******************-->
+                  <!--<apex:inputfield value="{!objKPIDef.Name}" required="true"/>-->
+                  <apex:inputfield value="{!objKPIDef.KPI_Title__c}" required="true"/>
+              <!--************************END******************--> 
+                 
+                  <apex:inputfield value="{!objKPIDef.LifecycleStage__c}" required="true"/>
+                  <apex:inputfield value="{!objKPIDef.AbbreviatedName__c}" required="true"/>
+                  <apex:inputfield value="{!objKPIDef.Type__c}"/>
+                  <apex:inputfield value="{!objKPIDef.Cluster__c}" />
+                  
+                  <apex:inputfield value="{!objKPIDef.PurposeAndObjective__c}"/>
+                  <apex:inputfield value="{!objKPIDef.Level__c}" required="true"/>
+                  <apex:inputfield value="{!objKPIDef.OperationalType__c}"/>
+                  <apex:inputfield value="{!objKPIDef.MissingDatalogic__c}" required="true"/>
+                  <apex:inputfield value="{!objKPIDef.UoM__c}" required="true"/>
+                  <apex:inputfield value="{!objKPIDef.Confidential__c}"/>
+                  <apex:inputfield value="{!objKPIDef.CalculationFormula__c}"/>
+                  <apex:inputfield value="{!objKPIDef.Group1__c}" required="true"/>
+                  <apex:inputfield value="{!objKPIDef.IsHighBetter__c}"/>
+                  <apex:inputfield value="{!objKPIDef.Group2__c}"/>
+                  <apex:inputfield value="{!objKPIDef.PI_Data__c}"/>
+          </apex:pageblocksection>
+          <apex:pageblocksection title="Schedule Information">
+              <apex:inputfield value="{!objKPIDef.ScheduledDate__c}"/>
+              <apex:inputfield value="{!objKPIDef.FrequencyinMonth__c}"/>
+          </apex:pageblocksection>
+          <apex:pageblocksection title="Description/Title Language">
+              <apex:inputfield value="{!objKPIDef.KPI_Description_Language_1__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Title_Language_1__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Description_Language_2__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Title_Language_2__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Description_Language_3__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Title_Language_3__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Description_Language_4__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Title_Language_4__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Title_Language_5__c}"/>
+              <apex:inputfield value="{!objKPIDef.KPI_Description_Language_5__c}"/>
+          </apex:pageblocksection>
+          <apex:pageblocksection title="Scope Map">
+              <apex:inputfield value="{!objKPIDef.GeoScope__c}" required="true"/>
+              <apex:inputfield value="{!objKPIDef.CategoryScope__c}" required="true"/>
+              <apex:outputText value=""/>
+              <apex:inputfield value="{!objKPIDef.BUScope__c}" required="true"/>
+          </apex:pageblocksection>
+      </apex:pageblock>
+  </apex:form>
+</apex:page>

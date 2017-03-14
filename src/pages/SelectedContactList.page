@@ -1,0 +1,77 @@
+<apex:page standardController="MCAR__c" Extensions="MCARSelectedContactController">
+<apex:form >
+  <Body>
+    <table bgcolor="green" border="1" width= "100%">
+        <tr>
+            <td><h1><FONT COLOR="white">Factory GM - Selected Contacts</FONT></h1></td>
+        </tr>
+        <tr>
+            <apex:PageBlock >
+                <apex:PageBlockSection >
+                <apex:pageBlockTable value="{!FactoryGM}" var="wrap" border="2" align="center" >
+                    <apex:column headerValue="Factory Name" value="{!wrap.Factory}"/>
+                    <apex:column headerValue="EMail" value="{!wrap.Email}"/>
+                    <apex:column headerValue="Factory GM Name" value="{!wrap.Name}"/>
+                </apex:PageBlockTable>
+                </apex:PageBlockSection>
+            </apex:PageBlock>
+        </tr>
+      </table>
+      <table bgcolor="green" border="1" width= "100%">   
+        <tr>
+            <td><h1><FONT COLOR="white">Manufacturer Selected Contacts</FONT></h1></td>
+        </tr>
+        <tr>    
+            <apex:pageBlock >
+                <apex:pageBlockSection >
+                    <apex:pageBlockTable value="{!OtherEmailList}" var="q2" border="2" align="center" >
+                      <apex:column value="{!q2.MCAR_First_Name__c}" headerValue="Name" width="20%" /> 
+                      <apex:column value="{!q2.MCAR_Role__c}" headerValue="MCAR User Account" width="20%"/> 
+                      <apex:column value="{!q2.MCAR_Topic__c}" width="25%" headerValue="Topic" /> 
+                      <apex:column value="{!q2.MCAR_Email__c}" width="45%" headerValue="Email"/> 
+                   </apex:pageBlockTable> 
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </tr>
+    </table>
+    
+     <table bgcolor="green" border="1" width= "100%">   
+        <tr>
+            <td><h1><FONT COLOR="white">NSN Selected Contacts</FONT></h1></td>
+        </tr>
+        <tr>    
+            <apex:pageBlock >
+                <apex:pageBlockSection >
+                    <apex:pageBlockTable value="{!NSNEmailList}" var="q2" border="2" align="center" >
+                      <apex:column value="{!q2.MCAR_First_Name__c}" headerValue="Name" width="20%" /> 
+                      <apex:column value="{!q2.MCAR_Role__c}" headerValue="MCAR User Account" width="20%"/> 
+                      <apex:column value="{!q2.MCAR_Topic__c}" headerValue="Topic" width="25%" /> 
+                      <apex:column value="{!q2.MCAR_Email__c}" headerValue="Email" width="45%" /> 
+                   </apex:pageBlockTable> 
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </tr>
+    </table>
+   
+
+     <table bgcolor="green" border="1" width= "100%">   
+        <tr>
+            <td><h1><FONT COLOR="white">MCAR Other Contacts</FONT></h1></td>
+        </tr>
+        <tr>    
+            <apex:pageBlock >
+                <apex:pageBlockSection >
+                    <apex:pageBlockTable value="{!OtherContacts}" var="q2" border="2" align="center" >
+                      <apex:column value="{!q2.Name}" headerValue="Name" width="50%" /> 
+                      <apex:column value="{!q2.Email}" headerValue="MCAR User Account" width="50%"/> 
+                   </apex:pageBlockTable> 
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </tr>
+    </table>
+    
+   
+   <!-- <apex:PageMessages></apex:PageMessages> -->
+  </body>
+  </apex:form>
+</apex:page>

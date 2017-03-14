@@ -1,0 +1,58 @@
+<apex:page cache="false" expires="0" sidebar="false" showHeader="true" tabStyle="QIRS__c"  controller="QIRSanalysisdetailedreport">
+  
+  <apex:composition template="QIRS_Template_site">
+
+   <apex:define name="body">
+ 
+ 
+    <table border="0" width="100%">
+        <tr>            
+            <td width="85%"> 
+                <font size="5">
+                <b><font size="4">Analysis Report Detailed</font></b>
+                </font>
+             </td>
+        </tr>
+        <tr>
+            <td>
+                <font size="2" color="white">a</font></td></tr>
+        <tr>
+            <td>       
+                 <b><apex:outputLabel title="Filter On Business" value="Business: " />
+                 <apex:selectList id="webform" value="{!Business}" size="1" title="Filter On Business">
+                 <apex:selectOptions value="{!items}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                 </apex:selectList>    
+                 <apex:actionStatus id="update" startText=" UPDATING..." startStyle="color:red"></apex:actionStatus></b>
+             </td>
+         </tr>  
+     </table>
+         
+         <apex:pageBlock id="reports" >
+                <apex:pageBlockTable value="{!Query_Analysis_Report_Detailed}" var="nsn">
+                <apex:actionSupport event="onchange"/>
+                
+                 <apex:column headerValue="Record Code">
+                 <apex:outputLink value="/apex/QIRS_record_site?id={!nsn.Id}">{!nsn.Name}</apex:outputLink>
+                 </apex:column>
+                 <apex:column headerValue="Alert Type" value="{!nsn.Alert_Type__c}"></apex:column>
+                 <apex:column headerValue="Problem Description">{!nsn.Problem_Description1__c}</apex:column>
+                 <apex:column headerValue="Originator" value="{!nsn.CreatedBy.Name}"></apex:column> 
+                 <apex:column headerValue="Created Date">{!nsn.CreatedDate}</apex:column> 
+                 <apex:column headerValue="Closed Date">{!nsn.Closed_Date1__c}</apex:column>
+                 <apex:column headerValue="Lifted Date">{!nsn.Lifted_Date__c}</apex:column>
+                 
+                 <apex:column headerValue="Site" value="{!nsn.Site1__c}"></apex:column>
+                 <apex:column headerValue="Business">{!nsn.Business__c}</apex:column>
+                 <apex:column headerValue="Product Name">{!nsn.View_Product_Name__c}</apex:column>
+                                 
+                 <apex:column headerValue="Status">{!nsn.Status__c} </apex:column>  
+                 
+           </apex:pageBlockTable>
+       </apex:pageBlock> 
+       
+  </apex:define>   
+  </apex:composition>
+  
+  
+</apex:page>

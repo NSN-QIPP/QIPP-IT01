@@ -1,0 +1,44 @@
+<apex:page tabStyle="QIPP_Project__c" standardController="QIPP_Project__c" showHeader="false" sidebar="false" extensions="QIPP_Benefits_RelatedList_Controller">
+    <apex:messages style="color:red"/>
+    <apex:pageBlock > 
+        <apex:outputText rendered="{!if(( ((QIPP_Project__c.Total_Planned_Financial_Benefits_k__c + QIPP_Project__c.Total_Planned_Operational_Benefits_k__c > 1000) || (QIPP_Project__c.TotalKPI__c + QIPP_Project__c.TotalCOPQ__c > 1000)) && (QIPP_Project__c.Project_State__c == 'In Progress' || QIPP_Project__c.Project_State__c == 'Not Started'||QIPP_Project__c.Project_State__c == 'On Hold')),true,false)}">
+            <font size="2" style="color:red;margin-left:00px;">Note :  QIPP project benefits must be recorded in Kilo Euro (k€) units [ie.1 k€ = 1000€].</font> <br/> 
+  			<font size="2" style="color:red;margin-left:40px;">Please correct the numbers if the benefits are not recorded in k€.</font>
+        </apex:outputText>
+            <apex:pageBlockTable value="{!Benefits_RelatedList}"  var="benifit_list" rendered="{!AND(NOT(ISNULL(Benefits_RelatedList)),Benefits_RelatedList.size>0)}"   >
+                <apex:column headerValue="Action" >
+                    <apex:outputLink style="color:CornflowerBlue;text-decoration:none;" target="_parent" value="/apex/QIPP_Benefit_Detail_Page?detailpage={!benifit_list.id}" title="View">View</apex:outputLink>  
+                <!--- 
+                    &nbsp;|&nbsp;
+                    <apex:outputLink value="/apex/QIPP_Benefit?id={!benifit_list.id}&retURL=%2F{!benifit_list.Project_ID__c}&sfdc.override=1" title="Edit"  rendered="{!IF((((projectinfo.CoPQ_Benefits_Validation_State__c != null)&&(projectinfo.CoPQ_Benefits_Validation_State__c == 'With Finance Approver to Validate' || projectinfo.CoPQ_Benefits_Validation_State__c == 'Validation Complete'))|| (projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete')||(projectinfo.Belt_Project_Phase__c != null && projectinfo.Belt_Project_Phase__c == 'Control / Verify' && projectinfo.FieldForControlVerifyPhase__c == 'RecordLock')||(projectinfo.Belt_Project_Phase__c == 'Complete')),false,true)}">Edit</apex:outputLink>
+                    &nbsp;|&nbsp;
+                    <apex:outputLink value="/apex/QIPP_Benefit_View?delete={!benifit_list.id}&Projectid={!projectid}" onclick="if (!confirmDelete()) return false;" title="Delete"  rendered="{!IF( ((projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete') || ((projectinfo.CoPQ_Benefits_Validation_State__c != null)&&(projectinfo.CoPQ_Benefits_Validation_State__c == 'With Finance Approver to Validate' || projectinfo.CoPQ_Benefits_Validation_State__c == 'Validation Complete'))||(projectinfo.Belt_Project_Phase__c != null && projectinfo.Belt_Project_Phase__c == 'Control / Verify' && projectinfo.FieldForControlVerifyPhase__c == 'RecordLock')||(projectinfo.Belt_Project_Phase__c == 'Complete')),false,true)}">Delete</apex:outputLink>
+                -->
+                </apex:column>
+                <!--- <apex:column value="{!benifit_list.Name}"/>  -->
+                <apex:column headerValue="Improvement Measure (KPI)" >                                  
+                    <apex:outputField value="{!benifit_list.Improvement_Measure_Name__c}"/>
+                </apex:column>
+                <apex:column value="{!benifit_list.Benefit_Type__c}"/> 
+                <apex:column headerValue="Planned (k€)">
+                    <apex:outputText value="{!benifit_list.Planned_Financial_Savings_Total__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Financial Savings',true,false)}"/>
+                    <apex:outputText value="{!benifit_list.Planned_Operational_Savings_Total__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Operational Savings',true,false)}"/>
+                </apex:column>
+                <apex:column headerValue="Achieved (k€)">
+                    <apex:outputText value="{!benifit_list.Achieved_Financial_Savings_Total__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Financial Savings',true,false)}"/>
+                    <apex:outputText value="{!benifit_list.Achieved_Operational_Savings_Total__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Operational Savings',true,false)}"/>
+                </apex:column>
+                <apex:column headerValue="Future (k€)">
+                    <apex:outputText value="{!benifit_list.Future_Financial_Savings_Total__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Financial Savings',true,false)}"/>
+                    <apex:outputText value="{!benifit_list.Future_Operational_Savings_Total__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Operational Savings',true,false)}"/>
+                </apex:column>
+                <apex:column headerValue="Validation Amount (k€)">
+                    <apex:outputText value="{!benifit_list.Benefit_Amount_Achieved_Future_k__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Financial Savings',true,false)}"/>
+                    <apex:outputText value="{!benifit_list.Benefit_Operational_Achieved_Future_k__c}" rendered="{!if(benifit_list.Benefit_Type__c == 'Operational Savings',true,false)}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockSection rendered="{!OR(ISNULL(Benefits_RelatedList),Benefits_RelatedList.size=0)}"  columns="1">
+                        <b> <i>There are NO Benefits to display.</i></b>
+            </apex:pageBlockSection> 
+     </apex:pageBlock> 
+</apex:page>

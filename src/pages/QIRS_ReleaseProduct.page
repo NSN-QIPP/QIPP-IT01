@@ -1,0 +1,54 @@
+<apex:page tabStyle="QIRS_Product_Identification__c"  showHeader="true"  sidebar="true"  controller="QIRS_ReleaseProductWiseController">
+<apex:sectionHeader title="Release Product" subtitle="{!QIRSName}"/>
+<apex:form >
+<apex:messages style="color:Red"/>
+<apex:pageBlock title="Release Product" mode="edit">
+<apex:pageBlockButtons location="top">
+<apex:commandButton value="Save" action="{!Save}"/>
+<apex:commandButton value="Cancel" action="{!cancel}"/>
+</apex:pageBlockButtons>
+<apex:pageBlockButtons location="bottom">
+<apex:commandButton value="Save" action="{!Save}"/>
+<apex:commandButton value="Cancel" action="{!cancel}"/>
+</apex:pageBlockButtons>
+ 
+
+<table width = "100%" >
+
+<tr>
+<td >
+<apex:dataTable id="ListTbl" value="{!QIRSReleaseProductDetails}"  border="1" width="100%" var="cv" rowClasses="odd,even" styleClass="tableClass"> 
+      <apex:column headerValue="Select" width="5%">
+            <apex:inputField value="{!cv.Release_Product__c}" id="ReleaseProductCheckbox"/>
+        </apex:column>
+       
+      <apex:column headerValue="Product PN" width="10%" style="align:center">
+            <apex:OutputField value="{!cv.Name}" id="ProductPn"/>
+        </apex:column>                                  
+       <apex:column headerValue="Market Product" width="10%" style="align:center">
+            <apex:OutputField value="{!cv.Product_Name__c}" id="MarketProduct"/>
+        </apex:column>    
+        <apex:column headerValue="Technology" width="10%" style="align:center">
+            <apex:OutputField value="{!cv.Technology__c }" id="Technology"/>
+        </apex:column>    
+  </apex:dataTable> 
+</td>
+</tr>
+<tr>
+<td width="10%">
+<br/>
+<apex:outputLabel for="{!objqirs.Watchlist__c}" value="Watchlist" style="font-weight:bold;"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<apex:inputField value="{!objqirs.Watchlist__c}" /> 
+</td>
+</tr>
+</table>
+
+   
+                                         
+
+
+</apex:pageBlock>
+</apex:form>
+
+</apex:page>

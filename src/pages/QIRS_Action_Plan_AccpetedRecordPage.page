@@ -1,0 +1,60 @@
+<apex:page tabStyle="QIRS_Action_Plan__c" StandardController="QIRS_Action_Plan__c" 
+extensions="QIRS_Action_Plan_RecordController" sidebar="true" >
+
+
+<apex:form >
+ 
+ 
+ 
+ <table width="100%">
+      <apex:sectionHeader title="QIRS" subtitle="{!QIRS_Tag}"/>
+   
+    <br></br>
+    <br></br>
+      <tr> 
+                  
+        <td colspan="12">
+         
+         <apex:pageBlock id="QIRSgrid" >
+          
+           <apex:pageBlockTable width="500%" value="{!PendingQIRSApprovalDetails}" var="q">
+               <apex:column headerValue="Action">
+                    <apex:commandLink immediate="true" styleClass="blueTxt" action="/apex/QIRS_Status?id={!q.id}&LQ1=app">Approve
+                    </apex:commandlink> 
+                    <apex:outputLabel > /&nbsp; </apex:outputLabel>
+                     <apex:commandLink immediate="true" styleClass="blueTxt" action="/apex/QIRS_Status?id={!q.id}&LQ1=rej">Reject
+                    </apex:commandlink>  
+                                                   
+                </apex:column> 
+                
+                <apex:column headerValue="Record Code" >  
+                {!q.Name}
+                </apex:column>     
+             
+              <apex:column value="{!q.Alert_Type__c}"/>
+              <apex:column value="{!q.Process_Owner1__c}"/>              
+
+              <apex:column value="{!q.Business__c}"/> 
+
+              <apex:column value="{!q.Business_Group__c}"/>
+              <apex:column value="{!q.Site1__c}"/>
+              <apex:column value="{!q.Status__c}"/>
+
+          </apex:pageBlockTable> 
+
+       </apex:pageBlock> 
+     
+       </td>
+             
+     </tr>
+             
+
+ </table>
+
+
+ 
+
+
+</apex:form>
+
+</apex:page>

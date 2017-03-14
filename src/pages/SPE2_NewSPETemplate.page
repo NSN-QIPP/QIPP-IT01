@@ -1,0 +1,159 @@
+<apex:page standardController="SPE_SPETemplate__c" extensions="SPE2_NewSPETemplateExt" id="pgId">
+    <c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE ></c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE>
+   <style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+    .tg .tg-yw4l{vertical-align:top}
+    .tg .tg-b7b8{background-color:#f9f9f9;vertical-align:top}
+    .redClass{color:red;}
+    .greenClass{color:green;}
+   </style> 
+   <head>
+        <script>
+            
+            if ('{!SPETemp.Stage__c}'=='Obsolete')
+            {
+                alert('Obsolete SPE Template is not Editable !!!');
+                window.location.href="/{!SPETemp.Id}";
+            }
+            
+             if ('{!CurrentUserId}' != '{!RecordOwnerId}')
+            {
+                
+                alert('You can only edit a record under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_SPETemplate__c.Id}";
+                
+            }
+            
+        </script>
+    </head>
+    
+     
+    <apex:outputpanel id="op" rendered="{!IF(SPETemp.Stage__c !='Obsolete',true,false)}">
+    
+    <apex:stylesheet value="{!$Page.SPE_CssStyleSheet}" />
+    <apex:form id="frmId">
+   
+        <apex:pageBlock id="detail">
+            <apex:pageMessages id="myMsg" />
+            
+            <apex:pageBlockButtons location="top">
+              <apex:actionStatus id="validateSaveStatusId" >
+                    <apex:facet name="start" >
+                      <img src="/img/loading.gif" />                    
+                    </apex:facet>
+              </apex:actionStatus>
+              <apex:commandButton value="{!$Label.SPE_Save}" action="{!save}" reRender="myMsg,newKPI" status="validateSaveStatusId"/>
+              <apex:commandButton value="{!$Label.SPE_Cancel}" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:PageBlockSection title="{!$Label.SPE_TemplateDetail}" collapsible="false" id="pgsection">
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="{!$Label.SPE_TemplateName}"/>
+                    <apex:inputField value="{!SPETemp.Name}" required="true" style="height: 100%;width: 120%;padding-left: 3px;"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Stage" />
+                    <apex:outputField value="{!SPETemp.Stage__c}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageblockSectionItem ></apex:pageblockSectionItem>    
+               
+                <apex:pageblockSectionItem >
+                    <apex:outputText value="Owner" />
+                    <apex:outputText value="{!Userid}" />
+                </apex:pageblockSectionItem>                
+                  
+            </apex:PageBlockSection>
+            <apex:pageBlockSection title="Scope Map" collapsible="false">
+            </apex:pageBlockSection>
+            
+            <!-- SPE2 Changes start here  ---->
+            <apex:outputPanel id="scopeTableId">
+                <table class="tg">
+                  <tr>
+                    <th class="tg-yw4l"></th>
+                    <th class="tg-yw4l"><b>MIN Permission Level</b></th>                                      
+                  </tr>
+                  
+                  <tr>
+                    <td class="tg-rmb8">
+                        <b>Geography Scope</b>&nbsp;&nbsp;&nbsp;
+                        <apex:inputField value="{!SPETemp.GeoScope__c}" rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}"> 
+                            <apex:param name="isGeoScope" value="isGeoScope"/>
+                            <apex:actionSupport event="onchange" action="{!assignMinScope}" reRender="scopeTableId" status="loadStatus"/>                           
+                        </apex:inputField>
+                    </td>
+                    <td class="tg-rmb8"><b><apex:outputText value="{!minGeoScope}" styleClass="{!IF(isGeoScopeMatch,'greenClass','redClass')}"/></b></td>
+                  </tr>
+                  <tr>  
+                    <td class="tg-rmb8">
+                        <b>Category Scope</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:inputField value="{!SPETemp.Categoryscope__c}" rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}">
+                            <apex:param name="isCatScope" value="isCatScope"/>
+                            <apex:actionSupport event="onchange" action="{!assignMinScope}" reRender="scopeTableId" status="loadStatus"/>
+                        </apex:inputField>
+                    </td>
+                    <td class="tg-rmb8"><b><apex:outputText value="{!minCatScope}" styleClass="{!IF(isCatScopeMatch,'greenClass','redClass')}"/></b></td>                   
+                  </tr>
+                  <tr>
+                    <td class="tg-rmb8">
+                       <b>Product Scope</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <apex:inputField value="{!SPETemp.BUScope__c}" rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}">
+                           <apex:param name="isProdScope" value="isProdScope"/>
+                           <apex:actionSupport event="onchange" action="{!assignMinScope}" reRender="scopeTableId" status="loadStatus"/>
+                       </apex:inputField>
+                   </td>
+                   <td class="tg-rmb8"><b><apex:outputText value="{!minProductScope}" styleClass="{!IF(isProdScopeMatch,'greenClass','redClass')}"/></b></td>                                                      
+                 </tr>
+                </table>
+            </apex:outputPanel>
+                
+            <!-- SPE2 Changes ends here   ---->
+        
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="newKPI">
+            <apex:commandButton value="{!$Label.SPE_AddNewKPI}" action="{!addNewKPI}"  reRender="newKPI,detail" rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}" status="loadStatus"/>
+            <apex:variable var="rowNumber" value="{!0}"/>
+             <!-- KPI Table for New SPE Template and editing SPE template starts here -->
+            <apex:pageBlockTable value="{!kpiToSpeKpiMap}" var="item" id="table" >
+                <apex:column headerValue="{!$Label.SPE_Action} " rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}">
+                     <input type="Button" value="{!$Label.SPE_Delete}"  id="{!rowNumber}" onclick="removeNewKPI('{!item}','RemoveKpi')" />
+                     <apex:variable var="rowNumber" value="{!rowNumber+1}"/>    
+                                                                
+                </apex:column>
+                
+                <apex:column headerValue="{!$Label.SPE_NewKPI}" >
+                    <apex:inputfield value="{!kpiToSpeKpiMap[item].KPIDefinition__c}" rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}">
+                        <apex:actionSupport action="{!assignMinScope}" event="onchange" reRender="scopeTableId" status="loadStatus">
+                            <apex:param name="addingKpi" value="AddKpi"/>    
+                        </apex:actionSupport>
+                    </apex:inputfield>
+                    <apex:outputfield value="{!kpiToSpeKpiMap[item].KPIDefinition__c}" rendered="{!IF(SPETemp.Stage__c =='Published',true,false)}"/>
+                </apex:column>
+                
+                <apex:column headerValue="{!$Label.SPE_Weightage1}">
+                    <apex:inputfield value="{!kpiToSpeKpiMap[item].Weight__c}" rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}" />
+                    <apex:outputfield value="{!kpiToSpeKpiMap[item].Weight__c}" rendered="{!IF(SPETemp.Stage__c =='Published',true,false)}"/>
+                </apex:column>
+                                               
+                <apex:column headerValue="Use Highest Version">
+                    <apex:inputfield value="{!kpiToSpeKpiMap[item].UseLatestKPIVersion__c}"  rendered="{!IF(SPETemp.Stage__c !='Published',true,false)}"/>
+                    <apex:outputfield value="{!kpiToSpeKpiMap[item].UseLatestKPIVersion__c}" rendered="{!IF(SPETemp.Stage__c =='Published',true,false)}"/>
+                </apex:column> 
+            </apex:pageBlockTable>
+            <!-- KPI Table for New SPE Template and editing SPE template ends here -->
+           
+          
+        </apex:pageBlock>
+        <apex:actionFunction action="{!removeNewKPI}" name="removeNewKPI" reRender="newKPI,scopeTableId" immediate="true" status="loadStatus">
+            <apex:param name="indexNum" value=""/>
+            <!--<apex:param name="indexNum" value="{!item}"/>-->
+            <apex:param name="removeKpi" value=""/>
+        </apex:actionFunction>
+     </apex:form>
+   
+   </apex:outputpanel>
+</apex:page>

@@ -1,0 +1,46 @@
+<apex:page standardController="Portfolios_Owner__c" extensions="QIPP_MultiPOSelectConroller" sidebar="false" >
+    <!--<apex:sectionHeader title="Selected Portfolio Owners" subtitle="Portfolio Owners"  />-->
+    <apex:form >
+        <!------------------------------------------For Selected PO--------------------------------------------------------->
+        <apex:pageBlock title="Modify Portfolio Owner" >
+            <apex:pagemessages id="errorblock"/>
+
+            <apex:pageBlockTable value="{!PortfolioOwnerlist}" var="pos" >
+                <apex:column headerValue="Name" value="{!pos.Name}" />                    
+                <apex:column headerValue="Email" value="{!pos.Email__c}" />
+                 <apex:column headerValue="Super PortfolioOwner"  >
+                    <apex:inputCheckbox value="{!pos.Is_Super_Portfolio__c}" /> 
+                </apex:column>
+                <apex:column headerValue="DMAIC / DMADV"  >
+                    <apex:inputCheckbox value="{!pos.DMAIC_DMADV__c}" disabled="{!editCon.dmaicEdit}" /> 
+                </apex:column>
+                <apex:column headerValue="Lean (including Kaizen)"  >
+                    <apex:inputCheckbox value="{!pos.Lean_including_Kaizen__c}" disabled="{!editCon.leanEdit}" /> 
+                </apex:column>
+                <apex:column headerValue="8D"  >
+                    <apex:inputCheckbox value="{!pos.X8D__c}" disabled="{!editCon.X8DEdit}" /> 
+                </apex:column>
+                <apex:column headerValue="A3"  >
+                    <apex:inputCheckbox value="{!pos.A3__c}" disabled="{!editCon.A3Edit}" /> 
+                </apex:column>
+                <apex:column headerValue="CIF"  >
+                    <apex:inputCheckbox value="{!pos.CIF__c}" disabled="{!editCon.CIFEdit}" /> 
+                </apex:column>
+                <apex:column headerValue="DI (CoPQ)"  >
+                    <apex:inputCheckbox value="{!pos.DI_Logic__c}" disabled="{!editCon.DILogicEdit}" /> 
+                </apex:column>
+                <apex:column headerValue="RCA/EDA" >
+                    <apex:inputCheckbox value="{!pos.RCA_EDA__c}" disabled="{!editCon.RCAEdit}"/> 
+                </apex:column>
+                <apex:column headerValue="Other"  >
+                    <apex:inputCheckbox value="{!pos.Other__c}" disabled="{!editCon.OthersEdit}" /> 
+                </apex:column>
+            </apex:pageBlockTable>  
+                                
+            <apex:pageBlockButtons >            
+                <apex:commandButton value="Update" action="{!updatePo}" />        
+                <apex:commandButton value="Cancel" action="/{!thePortfolioId}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

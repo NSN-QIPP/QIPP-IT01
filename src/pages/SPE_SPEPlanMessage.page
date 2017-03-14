@@ -1,0 +1,26 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_RecalculateIsSurveyBasePI" >
+    <apex:variable var="count1" value="{!0}" />
+    
+    <apex:repeat value="{!SPE_SPEPlan__c.SPE_Plan_Supplier_Maps__r}" var="row">
+        <apex:variable var="count1" value="{!count1+1}" />
+    </apex:repeat>
+    
+    <apex:variable var="count2" value="{!0}" />
+    
+    <apex:repeat value="{!SPE_SPEPlan__c.Survey_Respondents__r}" var="row">
+        <apex:variable var="count2" value="{!count2+1}" />
+    </apex:repeat>
+    
+         <marquee BEHAVIOR="ALTERNATE"> 
+            <font Color="red"> 
+            <apex:outputPanel rendered="{!(count1==0)}" > &nbsp; &nbsp; &nbsp; &nbsp; The Supplier Information is missing,Please Click on Add Supplier button to add a Supplier to Complete This Plan.
+             </apex:outputPanel>
+             <br></br>
+            <apex:outputPanel rendered="{!AND(count2==0, IsSurveyBasePI)}"> The Respondent Information is missing,Please Click on Add Respondent button to add a Respondent to Complete This Plan.
+             </apex:outputPanel>
+              
+            </font> 
+         </marquee>
+   
+
+</apex:page>

@@ -1,0 +1,101 @@
+<apex:page standardController="SPE_SPETemplate__c" extensions="SPE_LifecycleEXT" sidebar="false" rendered="{!IsAccess}" showheader="false" standardStylesheets="false">
+<apex:stylesheet value="{!$Resource.SPE_bootstraps}/css/bootstrap.min.css"/>
+<apex:includeScript value="{!$Resource.SPE_bootstraps}/js/bootstrap.min.js"/> 
+<apex:includeScript value="{!$Resource.JqueryMin}"/>
+<apex:stylesheet value="{!$Resource.SPE_Lifecycle}/fileupload.css"/>
+<apex:includeScript value="{!$Resource.AngularJs}"/>
+
+<script>
+function onPublish(sucess,msg,proceed)
+{
+    if(sucess=='false' && proceed=='true'){
+        alert(msg);
+     }
+     else {
+        
+         if(proceed=='false') {    
+             window.open('/apex/SPE_TreeView?id={!RecordId}&Lifecycle=Published', 'TreeView', 'left=250,top=100,width=800,height=500,toolbar=1,resizable=0');
+            }
+         if(sucess=='true' && proceed=='true') {
+             window.top.location.href = '/{!RecordId}';
+            }        
+    }
+}
+
+function onObsolete(sucess,msg,proceed)
+{
+    if(sucess=='false' && proceed=='true'){
+        alert(msg);
+     }
+    else {
+        if(proceed=='false') {    
+             window.open('/apex/SPE_TreeView?id={!RecordId}&Lifecycle=Obsolete', 'TreeView', 'left=250,top=100,width=800,height=500,toolbar=1,resizable=0');
+            }
+         if(sucess=='true' && proceed=='true') {
+             window.top.location.href = '/{!RecordId}';
+            }        
+    }
+}
+
+function onDelete () {
+
+    if(confirm("Are you sure you want to delete?")) {
+    deleteNow();
+    }
+}
+
+function onDeleteTestData () {
+
+    if(confirm("Are you sure you want to delete Test Data ?")) {
+        deleteTestdata();
+    }
+}
+
+function OnPilotConfirm () {
+    if(confirm("Are you sure you want to Change to Pilot?")) {
+    PilotNow();
+    }
+
+}
+
+
+function OnPublishedConfirm () {
+    if(confirm("Are you sure you want to Publish the definition?")) {
+    PublishNow();
+    }
+}    
+
+
+function OnObsoleteConfirm () {
+    if(confirm("Are you sure you want to Obsolete the definition?")) {
+    ObsoleteNow();
+    }
+}
+
+
+
+</script>
+
+
+
+<apex:form >
+
+
+    <apex:outputPanel rendered="{!IsAccess}">
+        <center>
+        <apex:commandButton rendered="true" value="Pilot" disabled="{!pilot}" styleclass="btn btn-primary" oncomplete=" OnPilotConfirm ()"/>
+        <apex:commandButton rendered="true" value="Published" disabled="{!published}" oncomplete="OnPublishedConfirm ()" styleclass="btn btn-primary"/>
+        <apex:commandButton rendered="true" value="Obsolete" disabled="{!obsolete}" oncomplete="OnObsoleteConfirm ()" styleclass="btn btn-primary"/>
+        <apex:commandButton rendered="false" value="Delete Test Data" disabled="{!delval}" oncomplete="onDeleteTestData()" styleclass="btn btn-danger" style="margin-right: 5px;margin-top:5px;"/>
+        <apex:commandButton rendered="false" value="Delete" disabled="{!del}" oncomplete="onDelete()" styleclass="btn btn-danger"/>
+        </center>
+    </apex:outputPanel>
+    
+    <apex:actionFunction action="{!executeTestBatch}" status="processStatus" name="deleteTestdata" oncomplete="window.top.location.href = '/{!RecordId}';"/>
+    <apex:actionFunction action="{!Stagedelete}" status="processStatus" name="deleteNow" oncomplete=" window.top.location.href = '/home/home.jsp'"/>
+    <apex:actionFunction action="{!StagePilot}" status="processStatus" name="PilotNow" oncomplete="window.top.location.href = '/{!RecordId}';"/>
+    <apex:actionFunction action="{!StagePublished}" status="processStatus" name="PublishNow" oncomplete="onPublish('{!isSuccess}','{!msg}','{!Proceed}')"/>
+    <apex:actionFunction action="{!StageObsolete}" status="processStatus" name="ObsoleteNow" oncomplete="onObsolete('{!isSuccess}','{!msg}','{!Proceed}')"/>
+            
+</apex:form>
+</apex:page>

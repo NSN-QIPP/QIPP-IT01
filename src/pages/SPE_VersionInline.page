@@ -1,0 +1,236 @@
+<apex:page standardController="SPE_KPIDefinition__c" extensions="SPE_VersionInlineExt">
+
+<script>
+function kpicall(id)
+{
+      var i = id;
+      window.top.location.href = '/'+id;
+      
+}
+</script>
+
+<apex:form >
+
+
+<style>
+th
+       {
+        border-color: Black;
+        text-align: center;
+        background-color:lightblue;
+       }
+       tr
+       {
+        border-color: Black;
+        text-align: center;
+        
+       }
+       td:hover 
+       {
+        background-color: #dfebbc;
+        
+       }
+       td{
+         
+       }
+       .table1 td
+       {
+        height:10px;
+        border-color: Black;
+       }
+       
+       .table2 td
+       {
+        height:10px;
+        border-color: Black;
+       }
+       .table3 td
+       {
+        height:10px;
+        border-color: Black;
+       }
+       
+       .table4 td
+       {
+        height:10px;
+        border-color: Black;
+       }
+       
+       table
+       {
+        border-color: Black;
+        border-collapse: collapse;
+        width:22%;
+        float:left;
+        margin-top: 15px;
+        margin-right: 30px;
+       }
+       hr 
+       { 
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        border-color: #6b3021;
+        border-width: 1.5px;
+       }
+    .GreenColor
+       {
+           background: #8dc712; 
+       }
+       
+       .GreyColor
+       {
+           background: lightgrey; 
+       }
+</style>  
+  
+     <div style="width:100%" oncontextmenu="return false;"> 
+      
+      <div style="float:left;width:30%"><apex:commandLink value="All Versions" onclick="window.open('https://cs10.salesforce.com/00OJ0000000gi3c?pv0={!AllReport}','_blank')"/></div>
+      
+      <div style="float:left;width:30%"> <apex:commandLink value="Highest Pilot Version" onclick="window.open('https://cs10.salesforce.com/00OJ0000000gi3c?pv0={!pilotReport}','_blank')"/></div>
+      <div style="float:left;width:30%"><apex:commandLink value="Highest Published Version" onclick="window.open('https://cs10.salesforce.com/00OJ0000000gi3c?pv0={!publishedReport}','_blank')"/></div>
+      
+      </div>
+      <div style="clear:both"/>
+      <table border="1" cellspacing="1" cellpadding="3" class="table1">
+           <tr>
+               <th>
+                   Draft Stage
+               </th>
+           </tr>
+          
+          <apex:variable value="{!1}" var="var"/>
+          <apex:variable value="{!draft}" var="varsize"/>
+          <apex:variable value="{!KPI.Version__c}" var="vers"/>
+           <apex:repeat value="{!KPIList}" var="kpi"> 
+           
+               <tr>    
+                       <apex:outputPanel rendered="{!IF(kpi.id == KPIid,true,false)}">
+                        <td class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}">
+                                
+                                    <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                 
+                        </td>
+                      </apex:outputPanel> 
+                      
+                      <apex:outputPanel rendered="{!!IF(kpi.id == KPIid,true,false)}">
+                        <td onclick="kpicall('{!kpi.id}')" class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}" style="cursor: pointer;">
+                                
+                                    <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                 
+                        </td>
+                      </apex:outputPanel>  
+               </tr>
+               <apex:variable value="{!var+1}" var="var"/>   
+           </apex:repeat> 
+       </table>
+       
+       <table border="1" cellspacing="1" cellpadding="3" class="table2">
+           <tr>
+               <th>
+                   Pilot Stage
+               </th>
+           </tr>
+           
+           <apex:variable value="{!1}" var="var"/>
+           <apex:variable value="{!pilot}" var="varsize"/>
+           <apex:repeat value="{!KPIPilotList}" var="kpi"> 
+               <tr>
+                  
+                      <apex:outputPanel rendered="{!kpi.LifecycleStage__c == 'Pilot'}">
+                           <apex:outputPanel rendered="{!IF(kpi.id == KPIid,true,false)}">
+                            <td class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}">
+                                    
+                                        <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                     
+                            </td>
+                          </apex:outputPanel> 
+                          
+                          <apex:outputPanel rendered="{!!IF(kpi.id == KPIid,true,false)}">
+                            <td onclick="kpicall('{!kpi.id}')" class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}" style="cursor: pointer;">
+                                    
+                                        <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                     
+                            </td>
+                      </apex:outputPanel> 
+                       </apex:outputPanel>
+                  
+               </tr>
+               <apex:variable value="{!var+1}" var="var"/> 
+           </apex:repeat> 
+       </table>
+       
+       <table border="1" cellspacing="1" cellpadding="3" class="table3">
+           <tr>
+               <th>
+                   Published Stage
+               </th>
+           </tr>
+           
+           <apex:variable value="{!1}" var="var"/>
+           <apex:variable value="{!published}" var="varsize"/>
+           <apex:repeat value="{!KPIPublishedList}" var="kpi"> 
+               <tr>
+                  
+                      <apex:outputPanel rendered="{!kpi.LifecycleStage__c == 'Published'}">
+                               <apex:outputPanel rendered="{!IF(kpi.id == KPIid,true,false)}">
+                                <td class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}">
+                                        
+                                            <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                         
+                                </td>
+                              </apex:outputPanel> 
+                              
+                              <apex:outputPanel rendered="{!!IF(kpi.id == KPIid,true,false)}">
+                                <td onclick="kpicall('{!kpi.id}')" class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}" style="cursor: pointer;">
+                                        
+                                            <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                         
+                                </td>
+                          </apex:outputPanel> 
+                       </apex:outputPanel>
+                 
+               </tr>
+               <apex:variable value="{!var+1}" var="var"/>
+            </apex:repeat> 
+       </table>
+       <table border="1" cellspacing="1" cellpadding="3" class="table4">
+           <tr>
+               <th>
+                   Obsolete Stage
+               </th>
+           </tr>
+           
+           <apex:variable value="{!1}" var="var"/>
+           <apex:variable value="{!obsolete}" var="varsize"/>
+           <apex:repeat value="{!KPIObsoleteList}" var="kpi"> 
+               <tr>
+                  
+                      <apex:outputPanel rendered="{!kpi.LifecycleStage__c == 'Obsolete'}">
+                           <apex:outputPanel rendered="{!IF(kpi.id == KPIid,true,false)}">
+                                <td class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}">
+                                        
+                                            <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                         
+                                </td>
+                              </apex:outputPanel> 
+                              
+                              <apex:outputPanel rendered="{!!IF(kpi.id == KPIid,true,false)}">
+                                <td onclick="kpicall('{!kpi.id}')" class="{!If(varsize == var, 'GreenColor', 'GreyColor' )}" style="cursor: pointer;">
+                                        
+                                            <b>{!kpi.Version__c}</b>  ({!kpi.Owner.name})
+                                         
+                                </td>
+                          </apex:outputPanel> 
+                       </apex:outputPanel>
+                  
+               </tr>
+               <apex:variable value="{!var+1}" var="var"/>
+           </apex:repeat> 
+       </table>
+      
+      
+   
+ </apex:form>
+</apex:page>

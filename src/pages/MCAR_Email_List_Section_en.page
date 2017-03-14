@@ -1,0 +1,111 @@
+<apex:page tabStyle="MCAR__c"  showHeader="true" controller="MCAR_Email_List_en_Controller" sidebar="true">
+<apex:form >
+<apex:pageBlock >
+<apex:messages style="color:red"/>
+<apex:pageBlockButtons >
+    <apex:commandButton value="Send Email"  action="{!SendEmail}" />
+    <apex:commandButton value="Back to MCAR Details"  action="{!back}" />
+
+</apex:pageBlockButtons>    
+    <apex:pageBlockSection title="Manufacturer Contacts" columns="1">
+                <apex:pageBlockTable id="MultiApp" width="100%" value="{!MCARManufactureEmailList}" var="q2">
+                  <apex:column width="25">
+                  <apex:inputCheckbox value="{!q2.MCAR_Selected__c}" id="checkedone" />
+                   </apex:column>
+                  <apex:column value="{!q2.MCAR_First_Name__c}" /> 
+                  <apex:column value="{!q2.MCAR_Last_Name__c}" headerValue="Manufacturer Site" /> 
+                  <apex:column value="{!q2.MCAR_Role__c}" headerValue="MCAR User Account" width="15%" /> 
+                  <apex:column value="{!q2.MCAR_Topic__c}" width="15%" /> 
+                  <apex:column value="{!q2.MCAR_Email__c}" width="45%" /> 
+              </apex:pageBlockTable> 
+    </apex:pageBlockSection>
+
+      <apex:pageBlockSection title="NSN Contacts" columns="1" >
+        <apex:pageBlockTable id="MultiApp" width="100%" value="{!MCARNSNContactEmailList}" var="q">
+          <apex:column width="25">
+          <apex:inputCheckbox value="{!q.MCAR_Selected__c}" id="checkedone" />
+          </apex:column>
+          <apex:column value="{!q.MCAR_First_Name__c}" /> 
+          <apex:column value="{!q.MCAR_Role__c}" width="15%" /> 
+          <apex:column value="{!q.MCAR_Topic__c}" width="15%" /> 
+          <apex:column value="{!q.MCAR_User_Account__c}" width="15%" />           
+          <apex:column value="{!q.MCAR_Email__c}" width="45%" /> 
+      </apex:pageBlockTable> 
+</apex:pageBlockSection>
+<!-- The below code lines from 36 to 43 commented by Thiresh on 04-Jul-2013-->
+ <!--<apex:pageBlockSection title="Addtional Contacts" columns="2" >
+<apex:inputCheckbox id="checkedone" label="Factory GM Email -  {!currentMCAR2.MCAR_Factory_GM_Email__c}"  value="{!GM_Email}" disabled="{!rGM}"/>
+<apex:inputCheckbox id="checkedone1" label="CC Email -  {!currentMCAR2.MCAR_CC_Email__c}"  value="{!CC1}" disabled="{!rCC1}" />
+<apex:inputCheckbox id="checkedone2" label="CC Email -  {!currentMCAR2.MCAR_CC_Email2__c}"  value="{!CC2}" disabled="{!rCC2}"/>
+<apex:inputCheckbox id="checkedone3" label="CC Email -  {!currentMCAR2.MCAR_CC_Email3__c}"  value="{!CC3}" disabled="{!rCC3}"/>
+<apex:inputCheckbox id="checkedone4" label="CC Email -  {!currentMCAR2.MCAR_CC_Email4__c}"  value="{!CC4}" disabled="{!rCC4}"/>
+<apex:inputCheckbox id="checkedone5" label="CC Email -  {!currentMCAR2.MCAR_CC_Email5__c}"  value="{!CC4}" disabled="{!rCC5}"/>
+</apex:pageBlockSection> -->
+
+<!-- ===================================================================================================================  -->
+
+<!-- The below snippet added by Thiresh on 04-Jul-2013 -->
+<apex:pageBlock >
+<apex:pageBlockSection title="Factory GM's " columns="3" >
+
+<apex:inputCheckbox value="{!currentMCAR2.Suzhou__c}"/>
+
+<apex:outputText value="Michael Yang" /> <!--Michael Yang-->
+<apex:outputText value="michael.x.yang@nokia.com" /> <!--michael.x.yang@nokia.com disabled="{!isFactoryGMContactDisabled}" -->
+<apex:inputCheckbox value="{!currentMCAR2.Beijing__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Adam Wang" />
+<apex:outputText value="xuejun.wang@nokia.com" />
+<apex:inputCheckbox value="{!currentMCAR2.Tianjin__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Weichong Tan" />
+<apex:outputText value="weichong.tan@nokia.com" />
+<apex:inputCheckbox value="{!currentMCAR2.Shanghai__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Jose Menendez" />
+<apex:outputText value=" jose.menendez_herrero@nokia.com" />
+<apex:inputCheckbox value="{!currentMCAR2.Chennai__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Satendra Singh" />
+<apex:outputText value="satendra.singh@nokia.com" />
+<apex:inputCheckbox value="{!currentMCAR2.Oulu__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Erja Sankari" />
+<apex:outputText value="erja.sankari@nokia.com" />
+<apex:inputCheckbox value="{!currentMCAR2.Bruchsal__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Heinrich Jurtan" />
+<apex:outputText value="heinrich.jurtan@nokia.com" />
+
+
+</apex:PageBlockSection>
+</apex:pageBlock>
+
+<apex:pageBlockSection title="MCAR Other Contacts "  columns="2" >
+
+
+
+<apex:inputField id="name1" value="{!currentMCAR2.MCARName1__c}" label="Contact Name: 1"/>
+<apex:inputField id="email1" value="{!currentMCAR2.MCAREmail1__c}" label="Contact Email: 1"/>
+
+<apex:inputField id="name2" value="{!currentMCAR2.MCARName2__c}" label="Contact Name: 2"/>
+<apex:inputField id="email2" value="{!currentMCAR2.MCAREmail2__c}" label="Contact Email: 2"/>
+
+<apex:inputField id="name3" value="{!currentMCAR2.MCARName3__c}" label="Contact Name: 3"/>
+<apex:inputField id="email3" value="{!currentMCAR2.MCAREmail3__c}" label="Contact Email: 3"/>
+
+<apex:inputField id="name4" value="{!currentMCAR2.MCARName4__c}" label="Contact Name: 4"/>
+<apex:inputField id="email4" value="{!currentMCAR2.MCAREmail4__c}" label="Contact Email: 4"/>
+
+<apex:inputField id="name5" value="{!currentMCAR2.MCARName5__c}" label="Contact Name: 5"/>
+<apex:inputField id="email5" value="{!currentMCAR2.MCAREmail5__c}" label="Contact Email: 5"/>
+
+<apex:inputField id="name6" value="{!currentMCAR2.MCARName6__c}" label="Contact Name: 6"/>
+<apex:inputField id="email6" value="{!currentMCAR2.MCAREmail6__c}" label="Contact Email: 6" />
+
+<apex:inputField id="name7" value="{!currentMCAR2.MCARName7__c}" label="Contact Name: 7"/>
+<apex:inputField id="email7" value="{!currentMCAR2.MCAREmail7__c}" label="Contact Email: 7"/>
+
+<apex:inputField id="name8" value="{!currentMCAR2.MCARName8__c}" label="Contact Name: 8"/>
+<apex:inputField id="email8" value="{!currentMCAR2.MCAREmail8__c}" label="Contact Email: 8"/>
+
+</apex:pageBlockSection>
+
+<!-- ===================================================================================================================  -->
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,11 @@
+<apex:page controller="QIPP_demo_cntr">
+    
+    <apex:form >
+        <apex:pageBlock >
+        
+            <c:QIPP_Benefit_History_Tracking listLineitems="{!History_Tracking}" recordLimit1="10" myObject1="{!BURids}"/>
+
+        </apex:pageBlock>
+     </apex:form>
+    
+</apex:page>

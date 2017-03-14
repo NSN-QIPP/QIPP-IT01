@@ -1,0 +1,9 @@
+<apex:page standardController="MCAR__c" >
+  <Body>
+    <table bgcolor="green" border="1" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">To view Contacts please click on "Contacts" or "Open" button above</FONT></h1></td>
+        </tr>
+    </table>
+  </body>
+</apex:page>

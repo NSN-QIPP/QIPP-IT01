@@ -1,0 +1,202 @@
+<apex:page standardController="SPE_ScorecardTemplate__c" extensions="SPE_NewScorecardTemplateExt,SPE_MasterDataExt" >
+    <apex:stylesheet value="{!$Page.SPE_CssStyleSheet}" />
+    <apex:form >
+        <apex:pageBlock id="detail">
+            
+            <apex:pageBlockButtons location="top">
+            <apex:outputPanel id="topbutton" rendered="{!IF(showSave == 'true', true, false)}" >
+                <apex:commandButton value="Save" action="{!save}" reRender="speTemplate,detail,myMsg"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+             </apex:outputPanel>                          
+           <apex:outputPanel id="otherbutton" rendered="{!IF(showCancel == 'true', true, false)}" >
+            <apex:commandButton value="Continue" action="{!save}" rerender="speTemplate,detail">
+                <apex:param name="cont" value="continueSave" assignTo="{!contvalue}" />
+             </apex:commandButton>   
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+            
+            </apex:outputPanel>
+            <apex:commandButton value="Select SPE Template" action="{!redirectToadhoc}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageMessages id="myMsg"/>
+            <apex:outputText value="{!errorMsg}" rendered="{!isError}"/>
+             
+             
+             
+            <apex:PageBlockSection title="Scorecard Template Detail" collapsible="false" columns="1">
+                <apex:inputField value="{!scoreCardTemp.Name}" required="true"/>
+                <!--<apex:inputField value="{!scoreCardTemp.Stage__c}"/>-->
+                
+                
+                <!--<apex:inputField value="{!scoreCardTemp.Region__c}"/>-->
+               <apex:pageBlockSection collapsible="false" title="{!$Label.SPE_SectionA}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_Market}"/>
+                        <apex:outputPanel id="marketPanel">
+                            <apex:selectList id="chooseMarket" value="{!marketVal}" size="1" onchange="callMarketUnit(this.value);">
+                                <apex:selectOptions value="{!MarketValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChange" stopText="" startStyleClass="popupBackground">                                           
+                            <!--<apex:facet name="start">
+                                <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                            </apex:facet>-->                               
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_BusinessUnit}"/>
+                        <apex:outputPanel id="buPanel">
+                            <apex:selectList id="chooseBu" value="{!buVal}" size="1" onchange="callBl(this.value);">
+                                <apex:selectOptions value="{!BuValues}"/>
+                            </apex:selectList>
+                          
+                            <apex:actionStatus id="statusChangeBu" stopText="" startStyleClass="popupBackground">
+                           </apex:actionStatus>
+                           
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_MarketUnit}"/>
+                        <apex:outputPanel id="muPanel">
+                            <apex:selectList id="chooseMarketUnit" value="{!marketUnitVal}" size="1" onchange="callCountry(this.value);">
+                                <apex:selectOptions value="{!MarketUnitValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeC" stopText="" startStyleClass="popupBackground">
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_BusinessLine}"/>
+                        <apex:outputPanel id="blPanel">
+                            <apex:selectList id="chooseBl" value="{!blVal}" size="1" onchange="callProduct(this.value);">
+                                <apex:selectOptions value="{!BlValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangePrd" stopText="" startStyleClass="popupBackground">
+                               </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_Country}"/>
+                        <apex:outputPanel id="countryPanel">
+                            <apex:selectList id="chooseCountry" value="{!countryVal}" size="1" onchange="callProject(this.value);">
+                                <apex:selectOptions value="{!CountryValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeP" stopText="" startStyleClass="popupBackground">
+                              </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_Product}"/>
+                        <apex:outputPanel id="prdPanel">
+                            <apex:selectList id="chooseProduct" value="{!prdVal}" size="1">
+                                <apex:selectOptions value="{!ProductValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                  
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_Project}"/>
+                        <apex:outputPanel id="prjPanel">
+                            <apex:selectList id="chooseProject" value="{!projectVal}" size="1">
+                                <apex:selectOptions value="{!ProjectValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>   
+                     <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_CategoryArea}"/>
+                        <apex:outputPanel id="caPanel">
+                            <apex:selectList id="chooseCa" value="{!caVal}" size="1" onchange="callCg(this.value);">
+                                <apex:selectOptions value="{!CaValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCa" stopText="" startStyleClass="popupBackground">
+                              </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_CategoryGroup}"/>
+                        <apex:outputPanel id="cgPanel">
+                            <apex:selectList id="chooseCg" value="{!cgVal}" size="1" onchange="callCt(this.value);">
+                                <apex:selectOptions value="{!CgValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCg" stopText="" startStyleClass="popupBackground">
+                              </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="{!$Label.SPE_Category}"/>
+                        <apex:outputPanel id="ctPanel">
+                            <apex:selectList id="chooseCategory" value="{!ctVal}" size="1">
+                                <apex:selectOptions value="{!CategoryValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>  
+                               
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="{!$Label.SPE_SectionB}">
+                     <apex:pageBlockSectionItem >
+                        Domain
+                        <apex:outputPanel id="prdPanel22">
+                            <apex:inputfield value="{!scoreCardTemp.Type__c}"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                       
+                    </apex:pageBlockSectionItem>
+                     
+                </apex:pageBlockSection>
+                
+                
+            </apex:PageBlockSection>
+            <apex:actionFunction id="callMarketUnit" name="callMarketUnit" action="{!fillMarketUnit}" immediate="true" reRender="muPanel, countryPanel, prjPanel, myMsg" status="statusChange" >
+                <apex:param value="" name="marketVal" />
+            </apex:actionFunction>
+            <apex:actionFunction id="callCountry" name="callCountry" action="{!fillCountry}" immediate="true" reRender="countryPanel, prjPanel, myMsg" status="statusChangeC" >
+                <apex:param value="" name="marketUnitVal" />
+            </apex:actionFunction>
+            <apex:actionFunction id="callProject" name="callProject" action="{!fillProject}" immediate="true" reRender="prjPanel,myMsg" status="statusChangeP" >
+                <apex:param value="" name="countryVal" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction id="callBl" name="callBl" action="{!fillBusinessLines}" immediate="true" reRender="blPanel,prdPanel,myMsg" status="statusChangeBu">
+                <apex:param value="" name="buVal" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction id="callProduct" name="callProduct" action="{!fillProduct}" immediate="true" reRender="prdPanel,myMsg" status="statusChangePrd">
+                <apex:param value="" name="blVal" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction id="callCg" name="callCg" action="{!fillCategoryGroups}" immediate="true" reRender="cgPanel,ctPanel, myMsg" status="statusChangeCa">
+                <apex:param value="" name="caVal" />
+            </apex:actionFunction>
+            <apex:actionFunction id="callCt" name="callCt" action="{!fillCategory}" immediate="true" reRender="ctPanel,myMsg" status="statusChangeCg">
+                <apex:param value="" name="cgVal" />
+            </apex:actionFunction>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="speTemplate">
+            <apex:commandButton value="Add New SPE Template" action="{!addSPETemplate}"  reRender="speTemplate" immediate="true" />
+            <apex:variable var="rowNumber" value="{!0}"/>
+            <apex:pageBlockTable value="{!scorecardSPETemplateMaps}" var="item">
+                <apex:column headerValue="Action">
+                    <input type="Button" value="Delete" id="{!rowNumber}" onclick="removeSPETemplate(this.id)"/>
+                    <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+                </apex:column>
+                
+                <apex:column headerValue="SPE Template">
+                    <apex:inputfield value="{!item.SPETemplate__c}"  />
+                </apex:column>
+                
+                <apex:column headerValue="Weightage">
+                    <apex:inputfield value="{!item.Weight__c}"  />
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:actionFunction action="{!removeSPETemplate}" name="removeSPETemplate" reRender="speTemplate,detail" >
+            <apex:param name="rowIndex" value=""/>
+        </apex:actionFunction>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,28 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" >
+    <style> 
+    table, th, td,font 
+    {
+        font-family: Calibri;
+        font-style: normal;
+        color:white;
+    }
+    </style>
+    
+       <Body >
+
+     <table bgcolor="green" border="1" width="30%">
+     
+   <tr bgcolor="#0B614B" height="40"> <th align="left"> <font size ="3">Source System</font></th> <th align="left"><font size ="3"> Target </font></th><th align="left"><font size ="3"> Update on</font></th></tr>
+   <tr> <td align="left">F and C Data updated on</td> <td>Category master</td><td>26-July-2016</td> </tr>
+   <tr> <td> F and C Data updated on</td> <td>Enterprise id </td>  <td>26-July-2016</td> </tr>
+   <tr> <td>F and C Data updated on</td> <td>Category info</td><td>26-July-2016</td> </tr>
+   <tr> <td>F and C Data updated on</td> <td>Contact insert</td> <td>26-July-2016</td></tr>  
+   <tr> <td>F and C Data updated on</td> <td>SPEND </td> <td>26-July-2016</td></tr>  
+    <tr> <td>F and C Data updated on</td> <td>Volume</td> <td>26-July-2016</td></tr>  
+   <tr> <td>IPM Data updated on</td> <td>Project Master</td><td>26-July-2016</td> </tr>     
+   <tr> <td>MxPDM Data updated on</td> <td>BU BL Product Master</td><td>26-July-2016</td> </tr>   
+         
+        
+    </table>
+  </body>   
+</apex:page>

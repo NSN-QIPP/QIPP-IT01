@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>Action_Owner_Quality_Review__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Action Owner</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Compatibility Milestone Reviews (Action Owner)</relationshipLabel>
+        <relationshipName>Compatibility_Milestone_Reviews2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action_Quality_Review__c</fullName>
+        <externalId>false</externalId>
+        <label>Action</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Internal Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compatibility Quality Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Training</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other (specify)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Approval_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending for Approval</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval required, please click ‘Submit for Approval’ button below</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Compatibility_Milestone__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Approver - Compatibility Milestone Review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select person responsible for compatibility approval - in most cases the program manager.</inlineHelpText>
+        <label>Approver</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <filterItems>
+                <field>User.UserRole.Name</field>
+                <operation>equals</operation>
+                <value>Compatibility Review Approver</value>
+            </filterItems>
+            <filterItems>
+                <field>User.UserRole.Name</field>
+                <operation>equals</operation>
+                <value>Central Compatibility Team</value>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Compatibility_Milestone_Reviews</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Closure_Date_Quality_Review__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Closure Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Comments_and_Conclusions__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Conclusion of the meeting with date and reasoning:
+1-Approved
+2-Not approved, milestone postponed.
+3-Re-review needed
+4-Release does not fulfill NET Compatibility Criteria, milestone postponed until compatibility is approved or Business Decision made</inlineHelpText>
+        <label>Comments and Conclusions</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Compatibility_Manager_Name__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Owner:User.FirstName +&quot; &quot;+  Owner:User.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Compatibility Manager Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Compatibility_Testing__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Follow-up of Compatibility Testing planning and execution.
+P3/I3:Resource and commitment availability.
+P7:Compatibility testing completeness &amp; quality target check. Exceptions reported to minutes, Customers and Counterparts.  
+P8:No exceptions allowed.</inlineHelpText>
+        <label>Compatibility Testing</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Compatibility_in_milestone_criteria__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Add statement that NET compatibility management checkpoints (mainly P1, P3/I3, P7 and P8) are followed and included in program milestone criteria. Otherwise, state the reason why the milestone criteria are not followed.</inlineHelpText>
+        <label>Compatibility in milestone criteria</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Compatibility_scope_Planner_nomination__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Insert Planner’s name and statement that the full NET compatibility management process is followed. Otherwise, state the reason why the process is not followed.
+In system programs, responsibilities between system and products programs have to be recorded</inlineHelpText>
+        <label>Compatibility Scope, Planner Nomination</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Current_Milestone__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the milestone which the review is concerning.</inlineHelpText>
+        <label>Current Milestone</label>
+        <picklist>
+            <picklistValues>
+                <fullName>P1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Description_Quality_Review__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Description_Review_Result__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>CASE(Review_State__c, 
+
+&apos;Draft&apos;, &quot;Review minutes are in draft state for Current Milestone&quot;,
+&apos;Finalized&apos;, &quot;Review minutes are finalized and ready for approval for the Current Milestone&quot;,
+&apos;Open&apos;, &quot;Review minutes are official but there are still open issues preventing compatibility approval&quot;,
+&apos;Irrelevant&apos;, &quot;Special case: Release has been cancelled or become irrelevant&quot;,
+&apos;Business Decision&apos;, &quot;Special case: Review minutes are official but compatibility criteria for the Current Milestone are NOT fulfilled. P8 for the program has however been approved due to business reasons&quot;,
+&quot;&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Description (Review Result)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feature_System_Dependencies__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Follow-up of compatibility plan’s Feature/System Dependencies chapter &amp; related actions. P3/I3:Features having dependency towards counterpart are identified.Deadline for counterpart reviews agreed. P7/P8:Changes are recorded, counterpart commitments exist</inlineHelpText>
+        <label>Feature/System Dependencies</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Findings__c</fullName>
+        <externalId>false</externalId>
+        <label>Findings</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Major NC (non-conformity)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minor NC (non-conformity)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OFI (Opportunity For Improvement)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strength</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Interface_Documentation__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Follow-up of compatibility plan’s Interface Specification (IFS) chapter and related actions.
+At P3/I3, Check availability of IFSs and agree target dates for review comments from the counterpart release programs. 
+At P6/P7 check that all actions closed.</inlineHelpText>
+        <label>Interface Documentation</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Legacy_Approver__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Don’t fill. This field is for migration purposes</inlineHelpText>
+        <label>Legacy Approver</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Name_of_Reviewer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Name of Reviewer</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Compatibility Milestone Reviews (Name of Reviewer)</relationshipLabel>
+        <relationshipName>Compatibility_Milestone_Reviews1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Network_Dependencies__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Follow-up of compatibility plan’s Network Dependencies chapter and related actions. 
+Product releases to be available at P7 are analyzed, compatible/not-compatible/not-relevant releases defined.
+P3/I3:Approval &amp; counterpart reviews done.
+P7/P8:Updates</inlineHelpText>
+        <label>Network Dependencies</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Network_Element__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Product_System_Release_ID__r.Network_Element__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Network Element</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes_Quality_Review__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Pilot_Findings__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Follow-up of Pilot planning and results. 
+P3/I3: pre-information about piloting.
+P7: Pilot customers known and added to minutes. Testing completed against Pilot NEs.
+P8: Pilot completeness, Pilot Report available without any open Compatibility issues.</inlineHelpText>
+        <label>Pilot Findings</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Portfolio_and_Compatibility_data_in_PDM__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Follow-up of PDM and Compatibility Matrix data.  
+P1: Release item availability in PDM.
+P3/I3: Compatibility relation check in PDM, information visibility in customer matrix.
+P7/P8: Check status according the latest information and testing results.</inlineHelpText>
+        <label>Portfolio and Compatibility data in PDM</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Product_System_Release_ID__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Alert: Use the Lookup window to find the Product / System Release. If you cannot find it, then create a new one before creating compatibility milestone review. Otherwise the review cannot be saved.</inlineHelpText>
+        <label>Product / System Release ID</label>
+        <referenceTo>Product_System_Release__c</referenceTo>
+        <relationshipLabel>Compatibility Milestone Reviews</relationshipLabel>
+        <relationshipName>Compatibility_Milestone_Reviews</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Release__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Product_System_Release_ID__r.Product_System_Release__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Release</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Review_State__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Open– Open issues prevent approval; Finalized– Ready for approval; Irrelevant- Release become irrelevant; Business Decision- Review minutes official but compatibility criteria NOT fulfilled. P8 for program has however been approved due to business reasons</inlineHelpText>
+        <label>Review Result</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finalized</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Irrelevant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Decision</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Review_Team__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Review Team</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Start_Date_Quality_Review__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status_Quality_Review__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Compatibility Milestone Review</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Network_Element__c</columns>
+        <columns>Release__c</columns>
+        <columns>Current_Milestone__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Review_State__c</columns>
+        <columns>Compatibility_Manager_Name__c</columns>
+        <columns>Approval_State__c</columns>
+        <columns>Approver_Compatibility_Milestone__c</columns>
+        <columns>Approval_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>My_CMRs</fullName>
+        <columns>NAME</columns>
+        <columns>Network_Element__c</columns>
+        <columns>Release__c</columns>
+        <columns>Current_Milestone__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Review_State__c</columns>
+        <columns>Approval_State__c</columns>
+        <filterScope>Mine</filterScope>
+        <label>My CMRs</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>CMR-{0000}</displayFormat>
+        <label>Milestone Review ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Compatibility Milestone Reviews</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Network_Element__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Release__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Current_Milestone__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Review_State__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Approval_State__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Compatibility_Manager_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Network_Element__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Release__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Current_Milestone__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Review_State__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>NAME</lookupFilterFields>
+        <lookupFilterFields>Network_Element__c</lookupFilterFields>
+        <lookupFilterFields>Release__c</lookupFilterFields>
+        <lookupFilterFields>Current_Milestone__c</lookupFilterFields>
+        <lookupFilterFields>Review_State__c</lookupFilterFields>
+        <searchResultsAdditionalFields>Network_Element__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Release__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Current_Milestone__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Review_State__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Validate_Comments_and_Conclusions</fullName>
+        <active>true</active>
+        <description>Validate Comments and Conclusions field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(   Comments_and_Conclusions__c ),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P1&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;),    
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Comments_and_Conclusions__c</errorDisplayField>
+        <errorMessage>&quot;Comments and Conclusions&quot; field is required for P1, P3, P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Compatibility_Approval_State</fullName>
+        <active>true</active>
+        <description>Validate Compatibility Milestone &quot;Approval State&quot;.  If it is approved, no further changes can be made - except System Administrator and Central Compatibility Team.</description>
+        <errorConditionFormula>AND( 
+
+NOT (OR ($UserRole.Name = &apos;Central Compatibility Team&apos;, $Profile.Name = &apos;System Administrator&apos;)), 
+
+ISPICKVAL( Approval_State__c , &apos;Approved&apos;) 
+)</errorConditionFormula>
+        <errorMessage>Compatibility Milestone Review has already been approved.  NO further changes can be made at this point.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Compatibility_Testing</fullName>
+        <active>true</active>
+        <description>Validate Compatibility Testing field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(  Compatibility_Testing__c  ),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Compatibility_Testing__c</errorDisplayField>
+        <errorMessage>&quot;Compatibility Testing&quot; field is required for P3, P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Compatibility_milestone_criteri</fullName>
+        <active>true</active>
+        <description>Compatibility milestone criteria field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK( Compatibility_in_milestone_criteria__c),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P1&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Compatibility_in_milestone_criteria__c</errorDisplayField>
+        <errorMessage>&quot;Compatibility Milestone Criteria&quot; field is required for P1 and P3 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Compatibility_scope_Planner_nom</fullName>
+        <active>true</active>
+        <description>Validate Compatibility scope, Planner nomination field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(Compatibility_scope_Planner_nomination__c),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P1&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Compatibility_scope_Planner_nomination__c</errorDisplayField>
+        <errorMessage>&quot;Compatibility Scope, Planner Nomination&quot; field is required for P1 and P3 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Feature_System_Dependencies</fullName>
+        <active>true</active>
+        <description>Validate Feature/System Dependencies field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(  Feature_System_Dependencies__c ),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Feature_System_Dependencies__c</errorDisplayField>
+        <errorMessage>&quot;Feature/System Dependencies&quot; field is required for P3, P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Interface_Documentation</fullName>
+        <active>true</active>
+        <description>Validate Interface Documentation field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(  Interface_Documentation__c ),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Interface_Documentation__c</errorDisplayField>
+        <errorMessage>&quot;Interface Documentation&quot; field is required for P3, P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Network_Dependencies</fullName>
+        <active>true</active>
+        <description>Validate Network Dependencies field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(   Network_Dependencies__c ),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Network_Dependencies__c</errorDisplayField>
+        <errorMessage>&quot;Network Dependencies&quot; field is required for P3, P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Pilot_Findings</fullName>
+        <active>true</active>
+        <description>Validate Pilot Findings field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK(  Pilot_Findings__c  ),
+
+ OR (
+         
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Pilot_Findings__c</errorDisplayField>
+        <errorMessage>&quot;Pilot Findings&quot; field is required for P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Portfolio_and_Compatibility_PDM</fullName>
+        <active>true</active>
+        <description>Validate Portfolio and Compatibility data in PDM field</description>
+        <errorConditionFormula>AND (
+
+     ISBLANK( Portfolio_and_Compatibility_data_in_PDM__c ),
+
+ OR (
+     ISPICKVAL( Current_Milestone__c , &apos;P3&apos;),      
+     ISPICKVAL( Current_Milestone__c , &apos;P7&apos;),
+     ISPICKVAL( Current_Milestone__c , &apos;P8&apos;)
+     )
+)</errorConditionFormula>
+        <errorDisplayField>Portfolio_and_Compatibility_data_in_PDM__c</errorDisplayField>
+        <errorMessage>&quot;Portfolio and Compatibility data in PDM&quot; field is required for P3, P7 and P8 milestones.  Please fill in relevant data.</errorMessage>
+    </validationRules>
+</CustomObject>

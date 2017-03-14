@@ -1,0 +1,15 @@
+<apex:page controller="NQT_Search_forHomepage_Component" >
+    
+    <apex:form >
+        
+    <apex:pageBlock >
+
+            <apex:inputText value="{!myString}" id="searchString" />
+        
+            <apex:commandButton value="GO!" action="{!myfunc}" styleClass="groovybutton" />
+
+    </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

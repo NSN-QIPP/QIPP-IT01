@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>Quality_Watch_List</links>
+    <links>Analysis_Report_Summary</links>
+    <links>Analysis_Report_Detailed</links>
+    <links>Global_Summary_Report</links>
+    <links>QIRS_Cycle_Time_Report</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

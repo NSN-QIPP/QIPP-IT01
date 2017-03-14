@@ -1,0 +1,181 @@
+<apex:page tabStyle="MCAR__c" StandardController="MCAR__c" showHeader="true" extensions="MCAR_Email_List_Controller" sidebar="true">
+<style>
+       .redTxt
+        {
+            text-align:left;
+            color:red;
+            font-size:12px;
+        }
+</style>
+
+<script type="text/javascript">
+function checkAll(cb)
+        {
+            var inputElem = document.getElementsByTagName("input");          
+            for(var i=0; i<inputElem.length; i++)
+            {   
+                 if(inputElem[i].id.indexOf("checkedone")!=-1)                         
+                inputElem[i].checked = cb.checked;
+            }
+        }
+        
+function checkAll2(cb2)
+        {
+            var inputElem2 = document.getElementsId("checkedone2");          
+            for(var i=0; i<inputElem2.length; i++)
+            {   
+                 if(inputElem2[i].id.indexOf("checkedone2")!=-1)                         
+                inputElem2[i].checked = cb2.checked;
+            }
+        }
+
+
+</script>
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockSection title="Manufacturer Contacts" columns="5" >
+            <apex:pageBlockTable id="MultiApp"  value="{!otherEmailList}" var="q2" columnsWidth="100%">
+              <apex:column width="50%">
+              <apex:facet name="header">
+              <!-- <apex:inputCheckbox onclick="checkAll(this)"  /> --> <!-- disabled={!isgSaveDisabled} -->
+              </apex:facet>
+              <apex:inputCheckbox value="{!q2.MCAR_Selected__c}" id="checkedone" />   <!--- disabled="{!isManufactureContactDisabled}"--->
+              </apex:column>
+              <apex:column value="{!q2.MCAR_First_Name__c}" width="50%" /> 
+              <apex:column value="{!q2.MCAR_Role__c}" headerValue="MCAR User Account" width="10%" /> 
+            
+              <apex:column value="{!q2.MCAR_Topic__c}"  width="10%" /> 
+              <apex:column value="{!q2.MCAR_Email__c}"  width="10%" />
+              <!-- <apex:column value="{!q2.Supplier_Manager__c}"  width="10%"  headerValue="Supplier Manager"/> --> 
+                <apex:column value="{!q2.MCAR_User_Status__c}" headerValue="MCAR User Status"  /> 
+              <!--<apex:column value="{!q2.ManufactureSiteName__c}"  width="10%" />-->
+          </apex:pageBlockTable> 
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+    <apex:pageBlock >
+<apex:pageBlockSection title="NSN Contacts" columns="5">
+            <apex:pageBlockTable id="MultiApp" width="100%" value="{!NSNEmailList}" var="q">
+              <apex:column width="50%">
+              <!-- <apex:facet name="header">
+              <apex:inputCheckbox onclick="checkAll2(this)" />
+              </apex:facet>
+              <apex:inputCheckbox value="{!q.MCAR_Selected__c}" id="checkedone2" /> -->
+              
+              <apex:inputCheckbox value="{!q.MCAR_Selected__c}" id="checkedone"  /> <!-- disabled="{!isNSNContactsDisabled}" -->
+               <!--apex:outputField value="{!q.Approver_Contacted__c}"  rendered="{!IsRenderConAppOutput}"/-->
+              </apex:column>
+              <apex:column value="{!q.MCAR_First_Name__c}" width="75%"/> 
+              <!--apex:column value="{!q.MCAR_Last_Name__c}" /--> 
+              <apex:column value="{!q.MCAR_Role__c}" width="55%" /> 
+              <apex:column value="{!q.MCAR_Topic__c}" width="15%" /> 
+              <apex:column value="{!q.MCAR_User_Account__c}" width="15%" /> 
+              <apex:column value="{!q.MCAR_Email__c}" width="15%" /> 
+              <!---<apex:column value="{!q.Supplier_Manager__c }"/>--->
+             
+              <apex:column value="{!q.MCAR_User_Status__c}"/>   disabled="{!isFacilityContactUserStatus}
+          </apex:pageBlockTable> 
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+<!-- Code added by Abhishek on 11/03/2013 For GM List START-->
+
+<apex:pageBlock >
+<apex:pageBlockSection title="Factory GM's " columns="3" >
+<apex:inputCheckbox value="{!mcar.Suzhou__c}" /> 
+<apex:outputText value="Michael Yang" />
+<apex:outputText value="michael.x.yang@nokia.com"/>
+<!--apex:outputText value="michael.x.yang@nokia.com" --> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:inputCheckbox value="{!mcar.Beijing__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Adam Wang" />
+<apex:outputText value="xuejun.wang@nokia.com"/>
+<!--apex:outputText value="xuejun.wang@nokia.com" -->
+<apex:inputCheckbox value="{!mcar.Tianjin__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Weichong Tan" />
+<apex:outputText value="weichong.tan@nokia.com"/>
+<!--apex:outputText value="weichong.tan@nokia.com" -->
+<apex:inputCheckbox value="{!mcar.Shanghai__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Jose Menendez" />
+<apex:outputText value="jose.menendez_herrero@nokia.com"/>
+<!--apex:outputText value=" jose.menendez_herrero@nokia.com" -->
+<apex:inputCheckbox value="{!mcar.Chennai__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Satendra Singh" />
+<apex:outputText value="satendra.singh@nokia.com"/>
+<!--apex:outputText value="satendra.singh@nokia.com" -->
+<apex:inputCheckbox value="{!mcar.Oulu__c}" /> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Erja Sankari" />
+<apex:outputText value="erja.sankari@nokia.com"/>
+<!--apex:outputText value="erja.sankari@nokia.com" -->
+<apex:inputCheckbox value="{!mcar.Bruchsal__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Heinrich Jurtan" />
+<apex:outputText value="heinrich.jurtan@nokia.com"/>
+<!--apex:outputText value="heinrich.jurtan@nokia.com" -->
+<apex:inputCheckbox value="{!mcar.FLEX_Tzcew__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<!--<apex:outputText value="Andrzej Polojko" />
+<apex:outputText value="andrzej.polojko@flextronics.com" />-->
+<apex:outputText value="Andrzej Polojko" />
+<apex:outputText value="andrzej.polojko@flextronics.com"/>
+<!--apex:outputText value="andrzej.polojko@flextronics.com" -->
+<apex:inputCheckbox value="{!mcar.FOX_Shanghai__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Maggie Yang" />
+<apex:outputText value="maggie.df.yang@mail.foxconn.com"/>
+<!--apex:outputText value="maggie.df.yang@mail.foxconn.com" -->
+<apex:inputCheckbox value="{!mcar.SANM_Haukipudas__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Eeva-Liisa Kylmanen" />
+<apex:outputText value="eeva-liisa.kylmanen@sanmina.com"/>
+<!--apex:outputText value="eeva-liisa.kylmanen@sanmina.com" -->
+<apex:inputCheckbox value="{!mcar.SANM_Kunshan__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Larry Chung" />
+<apex:outputText value="larry.chung@sanmina.com"/>
+<!--apex:outputText value="larry.chung@sanmina.com"--> <!--larry.chung@sanmina.com-->
+<apex:inputCheckbox value="{!mcar.SANM_Chennai__c}"/> <!-- disabled="{!isFactoryGMContactDisabled}" -->
+<apex:outputText value="Muthu Sivan" />
+<apex:outputText value="muthu.sivan@sanmina.com"/>
+<!--apex:outputText value="kiran.2.kumar@atos.net"/-->
+</apex:PageBlockSection>
+</apex:pageBlock>
+
+<apex:pageBlock >
+<apex:pageBlockSection title="MCAR Other Contacts "  columns="2" >
+
+
+<apex:inputField id="name1" value="{!mcar.MCARName1__c}" label="Contact Name: 1"/>
+<apex:inputField id="email1" value="{!mcar.MCAREmail1__c}" label="Contact Email: 1"/>
+
+<apex:inputField id="name2" value="{!mcar.MCARName2__c}" label="Contact Name: 2"/>
+<apex:inputField id="email2" value="{!mcar.MCAREmail2__c}" label="Contact Email: 2"/>
+
+<apex:inputField id="name3" value="{!mcar.MCARName3__c}" label="Contact Name: 3"/>
+<apex:inputField id="email3" value="{!mcar.MCAREmail3__c}" label="Contact Email: 3"/>
+
+<apex:inputField id="name4" value="{!mcar.MCARName4__c}" label="Contact Name: 4"/>
+<apex:inputField id="email4" value="{!mcar.MCAREmail4__c}" label="Contact Email: 4"/>
+
+<apex:inputField id="name5" value="{!mcar.MCARName5__c}" label="Contact Name: 5"/>
+<apex:inputField id="email5" value="{!mcar.MCAREmail5__c}" label="Contact Email: 5"/>
+
+<apex:inputField id="name6" value="{!mcar.MCARName6__c}" label="Contact Name: 6"/>
+<apex:inputField id="email6" value="{!mcar.MCAREmail6__c}" label="Contact Email: 6" />
+
+<apex:inputField id="name7" value="{!mcar.MCARName7__c}" label="Contact Name: 7"/>
+<apex:inputField id="email7" value="{!mcar.MCAREmail7__c}" label="Contact Email: 7"/>
+
+<apex:inputField id="name8" value="{!mcar.MCARName8__c}" label="Contact Name: 8"/>
+<apex:inputField id="email8" value="{!mcar.MCAREmail8__c}" label="Contact Email: 8"/>
+
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+
+<apex:pageBlock >
+<apex:pageMessages />
+<apex:pageBlockButtons location="bottom">
+    <apex:commandButton value="Save Contacts" action="{!Save}"  /> <!-- Open MCAR disabled="{!isgSaveDisabled}" -->
+    <apex:commandButton immediate="true" value="Notify" action="{!sendNotificationMail}"  />
+    <apex:commandButton value="Back to MCAR Details" action="{!cancel}" />    
+</apex:pageBlockButtons>
+</apex:pageBlock>
+
+<!-- Code added by Abhishek on 11/03/2013 For GM List END-->
+</apex:form>  
+</apex:page>

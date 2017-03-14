@@ -1,0 +1,151 @@
+<apex:page standardController="CPR__c" extensions="QuoteGeneration" tabStyle="CPR__c" cache="true" contentType="{!ContentTypeTest}">
+      <apex:form rendered="{!FieldTest}" >
+      <b><font size="3">Select Notes:</font></b><br/>
+      <apex:repeat id="inst1" var="Instructions" value="{!notes}">
+          <apex:inputField Value="{!Instructions.NQTSelect__c}"/><apex:outputText value="{!Instructions.NQT_Notes__c}"/><br/>
+      </apex:repeat>
+      <br>
+      Note:
+      </br>
+      <apex:inputField Value="{!SelectAll.NQT_Class_Access_After__c}">
+          <apex:actionSupport event="onchange" reRender="inst1" action="{!Select_All}"/>
+      </apex:inputField><b>Select this checkbox to select all Options mentioned Above.</b>
+      <br/><br/>
+      <apex:pageBlock >
+      <table border="0" width="100%">
+      <tr><td><font size="3">Select Records to Create Quote</font></td></tr>
+      <!--tr><td><b>SOW Pricing</b></td></tr>
+      <tr><td>
+          <apex:outputPanel rendered="{!PanelTest}">
+              <apex:pageBlockTable var="SOW2" value="{!SOWResult}">
+                  <apex:column ><apex:inputField value="{!SOW2.NQT_Select__c}" rendered="{!FieldTest}"/>
+                  </apex:column>
+                  <apex:column headerValue="Quantity" value="{!SOW2.NQT_Quantity__c}" />
+                  <apex:column headerValue="Part Number" value="{!SOW2.NQT_Part_Number__c}" />
+                  <apex:column headerValue="Product Description" colspan="3" value="{!SOW2.NQT_Description__c}" />
+                  <apex:column headerValue="Unit Price" value="{!SOW2.NQT_Unit_Price__c}" />
+                  <apex:column headerValue="Total" value="{!SOW2.NQT_Extended_Price__c}" />
+                  <apex:column headerValue="Notes" colspan="2" value="{!SOW2.NQT_Engineering_Notes__c}"/>                  
+                  
+              </apex:pageBlockTable>
+          </apex:outputPanel></td></tr>-->
+      <tr><td><b>Equipment Lists</b></td></tr>
+      <tr><td>
+          <apex:outputPanel rendered="{!PanelTest}">
+              <apex:pageBlockTable var="SOW2" value="{!EquipmentResult}">
+                  <apex:column ><apex:inputField value="{!SOW2.NQT_Select__c}" rendered="{!FieldTest}"/>
+                  </apex:column>
+                  <apex:column headerValue="Quantity" value="{!SOW2.NQT_Quantity__c}" />
+                  <apex:column headerValue="Part Number" value="{!SOW2.NQT_Part_Number__c}" />
+                  <apex:column headerValue="Product Description" colspan="3" value="{!SOW2.NQT_Description__c}" />
+                  <apex:column headerValue="Unit Price" value="{!SOW2.Unit_Price__c}" />
+                  <apex:column headerValue="Total" value="{!SOW2.NQT_Extended_Price__c}" />
+                  <apex:column headerValue="Notes" colspan="2" value="{!SOW2.NQT_Engineering_Notes__c}"/>
+                  
+              </apex:pageBlockTable>
+          </apex:outputPanel></td>
+      </tr>
+      </table>
+      </apex:pageBlock>
+      
+    
+      <apex:outputPanel rendered="{!PanelTest}">
+      <apex:commandButton action="{!save_it}" value="Generate Quote"/>
+      <apex:commandButton action="{!Redirect}" value="Back to CPR"/>
+      </apex:outputPanel>
+      </apex:form>
+      
+      <apex:outputPanel rendered="{!PanelTest1}">
+      <table border="0">
+      <tr>
+          <td colspan="1" rowspan="1"><apex:image url="http://www.liveside.net/wp-content/images/2012/02/Nokia.png"/></td> 
+           <!-- <td colspan="6" rowspan="3"><apex:image url="http://www.nokiasolutionsandnetworks.com/sites/all/themes/nsn/logo.png"/></td> --> 
+          <td align="right" colspan="3">Quote Date:</td>
+          <td align="center" colspan="2" bgcolor="grey"><apex:outputText value="{0,date,dd'-'MMM'-'yy}">
+          <apex:param value="{!TODAY()}"/></apex:outputText></td>
+      </tr>
+      <tr>
+      <td></td>
+          <td align="right" colspan="3"> Quote Number:</td>
+          <td align="center" colspan="2" bgcolor="grey">{!ProjectId}</td>
+      </tr>
+      <tr>
+      <td></td>
+          <td align="right" colspan="3">CPR Name:</td>
+          <td align="center" colspan="2" bgcolor="grey">{!CPRName}</td>
+      </tr>
+      <tr>
+          <td colspan="4" align="center"><b>Sales Quote</b></td>
+      </tr>
+      <tr>
+          <td colspan="9"><hr size="2" color="black"/></td>
+      </tr>
+      <tr>
+          <td colspan="9">Quote Description:</td>
+      </tr>
+      <tr>
+          <td>Company:</td>
+          <td colspan="8">Verizon</td>
+      </tr>
+      <tr>
+          <td>Contact:</td>
+          <td colspan="8">{!ContactName}</td>
+      </tr>
+      <tr>
+          <td>Market:</td>
+          <td colspan="8">{!Market}</td>
+      </tr>
+      <tr>
+          <td>MTSO:</td>
+          <td colspan="8">{!MTSO}</td>
+      </tr>
+      <tr>
+          <td>CLLI Code:</td>
+          <td colspan="8">{!CLLI}</td>
+      </tr>
+      <tr>
+          <td valign="top">NSN Account Manager:</td>
+          <td colspan="8">{!AMName}<br/>{!AMEmail}</td>
+      </tr>
+      <tr><td><p></p></td></tr>
+      <tr>
+      <td colspan="9">
+      <apex:pageblock >
+      <apex:outputPanel rendered="{!PanelTest1}" >
+              <!--apex:pageBlockTable var="SOW2" value="{!SOWResult1}" title="Check" style="text-align:center;" border="2">
+                  <apex:column headerValue="Quantity" value="{!SOW2.NQT_Quantity__c}" style="text-align:center;"/>
+                  <apex:column headerValue="Part Number" value="{!SOW2.NQT_Part_Number__c}" style="text-align:center;"/>
+                  <apex:column headerValue="Product Description" colspan="3" value="{!SOW2.NQT_Description__c}" style="text-align:center;"/>
+                  <apex:column headerValue="Unit Price" value="{!SOW2.NQT_Unit_Price__c}" style="text-align:center;"/>
+                  <apex:column headerValue="Total" value="{!SOW2.NQT_Extended_Price__c}" style="text-align:center;"/>
+                  <apex:column headerValue="Notes" colspan="2" value="{!SOW2.NQT_Engineering_Notes__c}" style="text-align:center;"/>  
+              </apex:pageBlockTable-->
+              
+               <apex:pageBlockTable var="SOW2" value="{!EquipmentResult1}" border="2">
+                  <apex:column headerValue="Quantity" value="{!SOW2.NQT_Quantity__c}"  style="text-align:center;"/>
+                  <apex:column headerValue="Part Number" value="{!SOW2.NQT_Part_Number__c}"  style="text-align:center;"/>
+                  <apex:column headerValue="Product Description" colspan="3" value="{!SOW2.NQT_Description__c}"  style="text-align:center;"/>
+                  <apex:column headerValue="Unit Price" value="{!SOW2.Unit_Price__c}"  style="text-align:center;"/>
+                  <apex:column headerValue="Total" value="{!SOW2.NQT_Extended_Price__c}"  style="text-align:center;"/>
+                  <apex:column headerValue="Notes" colspan="2" value="{!SOW2.NQT_Engineering_Notes__c}" style="text-align:center;"/>
+                  
+              </apex:pageBlockTable>
+      </apex:outputPanel>
+      </apex:pageblock>
+      </td>
+      </tr>
+      <tr><td><p/></td></tr>
+      <tr><td><p/></td></tr>
+      <tr><td><p/></td></tr>
+      <tr><td><b>NOTES:</b></td></tr>
+      <tr>
+      <td colspan="9">
+      <apex:repeat var="Instructions" value="{!notes1}">
+          <b>></b><apex:outputText value="{!Instructions}"/><br/>
+      </apex:repeat>
+      
+      </td>
+      </tr>
+      </table>
+      </apex:outputPanel>
+</apex:page>

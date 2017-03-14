@@ -1,0 +1,19 @@
+<apex:page sidebar="false" showHeader="false">
+  <div align="center">
+  <br/>
+  <b><u><font color="blue" size="3"> Missing Data Logic</font></u></b><br/><br/><br/></div>
+  <div style="padding-left:300px;">
+  <b>1. Logic 1</b></div> <br/>
+    <div style="padding-left:350px;"><b>a.  Aggregate past 3 data from last 12 months (first check from last 3 months, secondly check from last 6 months at last check from last 12 months).<br/><br/>
+    b.  If data not found from (1.a) get the get the average KPI values from other supplier and display as assume data<br/><br/>
+    c.  If data not found from (1.b) values will be null and show Assume data</b><br/><br/><br/></div>
+  <div style="padding-left:300px;">
+  <b>2. Logic 2</b></div> <br/>
+    <div style="padding-left:350px;"><b>a.  Show invalida data</b><br/><br/><br/>
+    </div>
+  <div style="padding-left:300px;">
+  <b>3. Logic 3</b></div> <br/>
+    <div style="padding-left:350px;"><b>a.  Show Indicator</b><br/><br/>
+    </div>
+    
+</apex:page>

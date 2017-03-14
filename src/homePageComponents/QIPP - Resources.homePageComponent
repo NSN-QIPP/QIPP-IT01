@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>QIPP_Gateway</links>
+    <links>DMAIC_User_Quick_Guide</links>
+    <links>QIPP_Project_Training_Material</links>
+    <links>List_of_Improvement_Measures</links>
+    <links>Quality_Awards_Home_Page</links>
+    <links>MN_A3_Program_Management_Process_and_Guidelines</links>
+    <links>Project_Benefit_Email_Report</links>
+    <links>Project_Benefit_Monthly_Email_Report</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

@@ -1,0 +1,167 @@
+<apex:page standardController="SPE2_KPI_Threshold__c" extensions="SPE2_NewKPIThresholdExt" tabStyle="SPE_SPETemplate__c" id="viewpageId">
+<c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE />
+
+ 
+ <script>
+    function OnPilotConfirm(){
+        if(confirm("Are you sure you want to Change to Pilot?")) {
+        PilotNow();
+        }
+        
+    }
+    
+    
+    function OnPublishedConfirm(){
+        if(confirm("Are you sure you want to Publish the definition?")){
+        PublishNow();
+        }
+        
+    }    
+    
+    function OnObsoleteConfirm(){
+        if(confirm("Are you sure you want to Obsolete the definition?")) {
+        ObsoleteNow();
+        }
+       
+     }
+    
+ </script>
+ <apex:sectionHeader title="{!$Label.SPE_KPIThresholdEdit}" subtitle="{!$Label.SPE_KPIThresholdEditLabel}"/>
+<apex:form >
+
+ <apex:pageBlock title="Threshold Definition" id="viewThresoldId">
+ <apex:pageBlockButtons location="top">
+    <apex:commandButton value="Edit" action="{!edi}"/>
+    <apex:commandButton action="{!cloneFn}" value="Clone" />
+    <br/>
+   <!-- <apex:outputPanel id="OP1"> 
+        <apex:commandButton rendered="true" value="Pilot" disabled="{!pilot}"  onclick="OnPilotConfirm();" id="pilotBtnId" reRender="viewThresoldId,OP1" />
+        <apex:commandButton rendered="true" value="Published" disabled="{!published}" onclick="OnPublishedConfirm();" id="publishedBtnId" reRender="viewThresoldId,OP1"/>
+        <apex:commandButton rendered="true" value="Obsolete" disabled="{!obsolete}" onclick="OnObsoleteConfirm();" id="obsoleteBtnId" rerender="viewThresoldId,OP1" />
+    </apex:outputPanel>-->
+    
+ </apex:pageBlockButtons>
+ 
+ 
+     <apex:pageBlockSection columns="2" title="Information" collapsible="false" id="InformationPBSid">
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Threshold Id"/>
+          <apex:outputField value="{!kpiThreshold.Name}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem id="ownerid">
+          <apex:outputText value="Owner"/>
+          <apex:outputField value="{!kpiThreshold.OwnerId}" id="ownerIdfield"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="KPI Id"/>
+          <apex:outputField value="{!kpiThreshold.KPI_ID__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Threshold Title"/>
+          <apex:outputField value="{!kpiThreshold.Threshold_Title__c}"/>
+      </apex:pageblockSectionItem>      
+      
+      
+                  
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Market"/>
+          <apex:outputField value="{!kpiThreshold.Region__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Category Area"/>
+          <apex:outputField value="{!kpiThreshold.CategoryCluster__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Market Unit"/>
+          <apex:outputField value="{!kpiThreshold.SubRegion__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Category Group"/>
+          <apex:outputField value="{!kpiThreshold.CategoryGroup__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Country"/>
+          <apex:outputField value="{!kpiThreshold.Country__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Category"/>
+          <apex:outputField value="{!kpiThreshold.Category__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Project"/>
+          <apex:outputField value="{!kpiThreshold.Project__c}"/>
+      </apex:pageblockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Business Unit"/>
+          <apex:outputField value="{!kpiThreshold.BusinessUnit__c}"/>
+      </apex:pageblockSectionItem>
+                 
+     <apex:pageBlockSectionItem >
+          <apex:outputText value="Is High Better?"/>
+          <apex:inputCheckbox value="{!isHighBetterNew}" label="Is High Better?" disabled="true"/>  
+      </apex:pageBlockSectionItem>
+      
+    <apex:pageblockSectionItem >
+          <apex:outputText value="Business Line"/>
+          <apex:outputField value="{!kpiThreshold.BusinessLine__c}"/>
+      </apex:pageblockSectionItem>
+          
+      <apex:pageBlockSectionItem >
+          <apex:outputText value="Threshold Created Date"/>
+          <apex:outputField value="{!kpiThreshold.Createddate}"/>
+      </apex:pageBlockSectionItem>
+      
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Product"/>
+          <apex:outputField value="{!kpiThreshold.Product__c}"/>
+      </apex:pageblockSectionItem>
+      <apex:outputLabel value=""></apex:outputLabel>
+      <apex:pageblockSectionItem >
+          <apex:outputText value="Last Modified by"/>
+          <apex:outputField value="{!kpiThreshold.lastmodifiedbyid}"/>
+      </apex:pageblockSectionItem>
+        
+   </apex:pageBlockSection>
+ </apex:pageBlock>
+ <apex:pageBlock title="Scoring Threshold">
+     <apex:pageBlockTable value="{!scoreValcalcdisplay}" var="scoreCaldisp">
+         <apex:column width="15%">
+             Score&nbsp;<b><apex:outputfield style="width: 60px;" value="{!scoreCaldisp.Score__c}" />&nbsp;</b>for KPI values
+         </apex:column>
+                    
+        <apex:column width="6%">
+            <b><apex:outputfield style="width: 60px;" value="{!scoreCaldisp.LowerTo__c}" /></b>
+        </apex:column>
+        <apex:column width="6%" >
+            <b><apex:outputfield style="width: 60px;" value="{!scoreCaldisp.Lower__c}"/></b>
+        </apex:column>
+        <apex:column width="6%" >
+            <apex:OutputLabel value="and"/>
+        </apex:column>
+        <apex:column width="6%">
+            <b><apex:outputfield style="width: 60px;" value="{!scoreCaldisp.UpperTo__c}" /></b>
+        </apex:column>
+        <apex:column width="10%">
+            <b><apex:outputfield style="width: 60px;" value="{!scoreCaldisp.Upper__c}" /></b>
+        </apex:column>
+                     
+    
+     
+     </apex:pageBlockTable>
+ </apex:pageBlock>
+    <apex:actionFunction action="{!StagePilot}" name="PilotNow" status="loadStatus" reRender="viewThresoldId,OP1"/>
+    <apex:actionFunction action="{!StagePublished}" name="PublishNow" status="loadStatus" rerender="viewThresoldId,OP1"/>
+    <apex:actionFunction action="{!StageObsolete}" name="ObsoleteNow" status="loadStatus" reRender="viewThresoldId,OP1"/>
+</apex:form>
+
+</apex:page>

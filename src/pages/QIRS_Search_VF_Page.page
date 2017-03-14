@@ -1,0 +1,15 @@
+<apex:page controller="QIRSSerachController" >
+    
+    <apex:form >
+        
+    <apex:pageBlock tabStyle="QIRS__c" >
+
+            <apex:inputText value="{!myString}" id="searchString" />
+        
+            <apex:commandButton value="GO!" action="{!myfunc}" styleClass="groovybutton" />
+
+    </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

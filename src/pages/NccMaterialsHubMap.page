@@ -1,0 +1,26 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimMaterialDeviationMap">
+<apex:pageBlock title="NCC Materials Hub Worksheet">
+ <apex:pageblockTable value="{!NccMaterialHub}" var="items">
+  <apex:column headerValue="NCC Category" width="20%">
+      <apex:outputText value="{!items.Category__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Description" width="20%">
+      <apex:outputText value="{!items.Description__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Qty/Hours" width="20%">
+      <apex:outputText value="{!items.Qty_Hours__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Unit Price" width="20%">
+      <apex:outputText value="{!items.Unit_Price__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Amount" width="20%">
+      <apex:outputText value="{!items.Amount__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+</apex:page>

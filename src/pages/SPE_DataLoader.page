@@ -1,0 +1,423 @@
+<apex:page id="pgId" standardController="SPE_PIDefinition__c" extensions="SPE_DataLoaderExt">
+<head>
+<meta content="IE=EmulateIE8" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+</head>
+
+    <apex:form id="frmId">
+        <style>
+            .apexp .bPageBlock.apexDefaultPageBlock .pbBody .pbSubheader {
+            border-top: 0;
+            color: orangered;
+            }
+        </style>
+        <apex:includeScript value="{!$Resource.JqueryMin}"/>
+        <apex:includeScript value="{!$Resource.json2}"/>
+        <div id="step1">
+        <apex:sectionHeader title="Data Loader" subtitle="{!stepName}"/>
+        <apex:pageMessages />
+            <apex:outputpanel >
+                            <div style="float:left">
+                            <b>Extract template</b>
+                            </div>
+                            <div id="chrome" style="float:left">
+                            <a href="#" class="export btn" style="text-decoration:none">Export Template</a><br/><br/></div>
+                            
+                            <div id="ie" style="float:left">&nbsp;<input type="Button" class="export btn" style="text-decoration:none"  value="Export Template" onclick="window.open('/apex/SPE_downloadTemplate?id='+'{!objPIVal.PIDefination__c}','_blank');"/><br/><br/></div>
+                            <div style="clear:both"/>
+                            <font color='red'>* </font>&nbsp;Please ensure that all the dates entered in the csv follows the format of YYYY-MM-DD<br/>
+                            <font color='red'>* </font>&nbsp;Please ensure that the Id value specified in the first row of the template is copied in all the rows<br/>
+                            <font color='red'>* </font>&nbsp;Please save the template in .csv file format<br/>
+           </apex:outputpanel>  <br/>
+         <center>           
+        <input type="Button" value="next" onclick="showInsDiv()"/>
+        </center>  
+        </div>
+
+        <script type="text/javascript">
+//userAgent in IE7 WinXP returns: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)
+//userAgent in IE11 Win7 returns: Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko
+
+if (navigator.userAgent.indexOf('MSIE') != -1)
+ var detectIEregexp = /MSIE (\d+\.\d+);/ //test for MSIE x.x
+else // if no "MSIE" string in userAgent
+ var detectIEregexp = /Trident.*rv[ :]*(\d+\.\d+)/ //test for rv:x.x or rv x.x where Trident string exists
+
+if (detectIEregexp.test(navigator.userAgent)){ //if some form of IE
+ var ieversion=new Number(RegExp.$1) // capture x.x portion and store as a number
+  if (ieversion>=11)
+  $("#chrome").hide();
+}
+else{
+ $("#ie").hide();
+}
+</script>
+        
+        
+         
+       
+           <script>
+        
+            function TableToExcel(tableid)
+            {
+            
+            var id = $('[id$="' + tableid + '"]');
+            var strCopy = $('<div></div>').html(id.clone()).html(); window.clipboardData.setData("Text", strCopy);
+            var objExcel = new ActiveXObject("Excel.Application");
+            objExcel.visible = false; var objWorkbook = objExcel.Workbooks.Add; var objWorksheet = objWorkbook.Worksheets(1); objWorksheet.Paste; objExcel.visible = true;
+            }
+            </script>
+
+       
+       
+       
+        
+        <div id="templateId" style="display:none">
+            <table id="tableid">
+                <tr>
+                    <td>PIDefination__c</td>
+                    <td>EnterpriseID__c</td>
+                    <td>Cluster__c</td>
+                    <td>CategoryGroup__c</td>
+                    <td>Category__c</td>
+                    <td>BusinessUnit__c</td>
+                    <td>BusinessLine__c</td>
+                    <td>Product__c</td>
+                    <td>Market__c</td>
+                    <td>MarketUnit__c</td>
+                    <td>Country__c</td>
+                    <td>Project__c</td>
+                    <td>Period__c</td>
+                    <td>{!strValueType}</td>
+                    <td>Filter1__c</td>
+                    <td>Filter2__c</td>
+                    <td>Filter3__c</td>
+                    <td>Filter4__c</td>
+                    <td>filter5__c</td>
+                    <td>Filter6__c</td>
+                    <td>Filter7__c</td>
+                    <td>Filter8__c</td>
+                    <td>Filter9_del__c</td>
+                    <td>Filter10__c</td>
+                </tr>
+                <tr>
+                    <td><apex:outputText value="{!objPIVal.PIDefination__c}"/></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+       <script src="{!$Resource.JqueryMin}"></script>
+    <script src="{!$Resource.forcetk}"></script>
+    <script src="{!$Resource.jxon}"></script>
+    <script src="{!$Resource.bulkTK}"></script>
+    <script src="{!$Resource.vkbeautify}"></script>
+   
+        <script>
+        $j = jQuery.noConflict();
+        $j(document).ready(function () {
+            
+            function exportTableToCSV($jtable, filename) {
+                
+                var $jrows = $jtable.find('tr:has(td)'),
+                    
+                    // Temporary delimiter characters unlikely to be typed by keyboard
+                    // This is to avoid accidentally splitting the actual contents
+                    tmpColDelim = String.fromCharCode(11), // vertical tab character
+                    tmpRowDelim = String.fromCharCode(0), // null character
+                    
+                    // actual delimiter characters for CSV format
+                    colDelim = '","',
+                    rowDelim = '"\r\n"',
+                    
+                    // Grab text from table into CSV formatted string
+                    csv = '"' + $jrows.map(function (i, row) {
+                        var $jrow = $j(row),
+                            $jcols = $jrow.find('td');
+                        
+                        return $jcols.map(function (j, col) {
+                            var $jcol = $j(col),
+                                text = $jcol.text();
+                            
+                            return text.replace(/"/g, '""'); // escape double quotes
+                            
+                        }).get().join(tmpColDelim);
+                        
+                    }).get().join(tmpRowDelim)
+                .split(tmpRowDelim).join(rowDelim)
+                .split(tmpColDelim).join(colDelim) + '"',
+                    
+                    // Data URI
+                    csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+                
+                $j(this)
+                .attr({
+                    'download': filename,
+                    'href': csvData,
+                    'target': '_blank'
+                });
+            }
+            
+            
+            $j(".export").on('click', function (event) {
+                exportTableToCSV.apply(this, [$j('#templateId>table'), 'PI Values.csv']);
+                
+            });
+        });
+        
+        function showInsDiv(){
+           
+           $("#step1").hide();
+           $("#load").show();   
+           createJob();
+        }
+     </script>
+    
+    </apex:form>
+   
+        <script> 
+        var client = new forcetk.Client();
+        client.setSessionToken('{!$Api.Session_ID}');
+        $("#load").hide();
+        var jobId;
+        var batches;
+        var operation;
+        var object;
+        var contentType;
+        var $message;
+        var resultss;
+        var $operation;
+        var $object;
+        var $soql;
+        var $file;
+        var $insert;
+        var $query;
+        var $close;            
+        var $externalIdDiv; 
+        var $externalIdField; 
+        var $contentType;
+    
+        function showError(jqXHR, textStatus, errorThrown) {
+            $message.append(document.createTextNode(jqXHR.responseText));
+            //$resultss.append(document.createTextNode(jqXHR.responseText));
+        }
+        function reset() {
+            $insert.hide();
+            $query.hide();
+            $close.hide();            
+            $externalIdDiv.hide(); 
+        }
+        function selectOp() {
+            if ($operation.val() === 'upsert') {
+                $externalIdDiv.show(); 
+            }
+        }
+        function createJob() {
+            operation = $operation.val();
+            object = $object.val();
+            contentType = $contentType.val();
+            
+            var job = {
+                operation : operation,
+                object : object,
+            };
+            
+            if (operation === 'upsert') {
+                job.externalIdFieldName = $externalIdField.val();
+            }
+            job.contentType = contentType;
+            
+            client.createJob(job, function(response) {
+                batches = 0;
+                jobId = response.jobInfo.id;
+                $message.text('Job created with id '+jobId+'\n');
+                $("."+$operation.val()).show();
+                if (operation === 'query') {
+                    $soql.val("SELECT Region__c,Spend__c FROM SPE_Spend__c");
+                }
+            }, showError);          
+        }
+        function setQuery() {
+            var soql = $soql.val();
+            var mimeType = (contentType === 'CSV') 
+            ? "text/csv; charset=UTF-8" 
+            : "application/xml; charset=UTF-8";
+            
+            client.addBatch(jobId, mimeType, soql, function(response){
+                batches++;
+                $message.append('Batch state: ',response.batchInfo.state+'\n');
+                $close.show();
+            }, showError);
+        }
+        function getJobDetails(client, jobId){
+            client.getJobDetails(jobId, function(response){
+                $message.append(response.jobInfo.numberRecordsProcessed+' records processed\n');
+                if ((response.jobInfo.numberBatchesCompleted + 
+                     response.jobInfo.numberBatchesFailed) === batches) {
+                    $message.append('Done!\n');
+                    client.getJobBatchDetails(jobId, function(response){
+                        response.batchInfoList.batchInfo.forEach(function(batch){
+                            var batchId = batch.id;
+                            
+                            client.getBatchResult(jobId, batchId, (operation === 'query'), function(response){
+                                $message.append('Batch result:\n');
+                                if (operation === 'query') {
+                                    response['result-list'].result.forEach(function(result){
+                                        client.getBulkQueryResult(jobId, batchId, result, function(response){
+                                            $message.append('Query result:\n');
+                                            var text = (contentType === 'CSV') ? response : vkbeautify.xml(response);
+                                            $message.append(document.createTextNode(text));
+                                            
+                                        }, showError);
+                                        
+                                    });
+                                } else {
+                                    var text = (contentType === 'CSV') ? response : vkbeautify.xml(response);
+                                    $message.append(document.createTextNode(text));
+                                    
+                                    reset();
+                                }
+                            }, showError);
+                        });
+                    }, showError);
+                } else {
+                    setTimeout(function(){
+                        getJobDetails(client, jobId);                   
+                    }, 1000);
+                }
+            }, showError);
+        }
+        function upload() {
+            
+            var fup = document.getElementById('file');
+            var fileName = fup.value;
+            
+            var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+            if(ext == "csv"){
+            
+            
+            var file = $file[0].files[0];
+            
+            var mimeType = (contentType === 'CSV') 
+            ? "text/csv; charset=UTF-8" 
+            : "application/xml; charset=UTF-8";
+           
+            client.addBatch(jobId, mimeType,
+                            file, function(response){
+                                batches++;
+                                $message.append('Batch state: ',response.batchInfo.state+'\n');
+                                $close.show();
+                            }, showError);
+            }
+            else {
+            alert('Please Select a CSV file');
+            }
+        }
+        function closeJob() {
+            
+            client.closeJob(jobId, function(response){
+                $message.append('Job state: '+response.jobInfo.state+'\n');
+                getJobDetails(client, jobId);
+                document.getElementById('redirectBtn').style.display='';
+            }, showError);
+        }
+        $(document).ready(function(){
+            client.describeGlobal(function(response){
+                $object.empty();
+                response.sobjects.forEach(function(sobject){
+                    $object.append('<option value='+sobject.name+'>'+sobject.label+'</option>');
+                });
+                $object.val('SPE_PIValues__c');
+                createJob();
+                
+            }, showError);
+            
+            $message     = $("#message");
+            $operation   = $("#operation");
+            $object      = $("#object");
+            $soql        = $("#soql");
+            $file        = $("#file");
+            $contentType = $("#contentType");
+            $insert      = $(".insert");
+            $query       = $(".query");
+            $close       = $(".close");            
+            $externalIdDiv   = $(".externalIdDiv");
+            $externalIdField = $("#externalIdField");
+        });
+    </script>
+    <center>
+        <div id="load"  style="display:none">
+            <div class="content" style="display:none">                    
+                <select id="operation" onchange="selectOp()">
+                    <option value="delete">delete</option>
+                    <option value="insert" selected="true">insert</option>
+                    <option value="query">query</option>
+                    <option value="update">update</option>
+                    <option value="upsert">upsert</option>
+                    <option value="hardDelete">hardDelete</option>
+                </select>
+                <select id="object">
+                    <option value="null" selected="true">Loading objects...</option>
+                </select>
+                <!--<button onclick="createJob()">Create Job</button>--><br/>
+                <select id="contentType">
+                    <option value="CSV" selected="true">CSV</option>
+                    
+                </select>
+            </div>          
+            <div class="externalIdDiv" style="display: none">
+                External ID Field:&nbsp;<input type="text" id="externalIdField"/>            
+            </div>
+            
+            <br/>
+            <div class="insert update delete upsert hardDelete" style="display: none">
+                <h3>Select CSV files to upload</h3><br/>
+                <input type="file" id="file" onchange="upload()"/>
+                <br/>
+            </div>
+            <div class="query" style="display: none">
+                <h3>2. Enter a SOQL Query</h3><br/>
+                <input type="text" id="soql"/>
+                <button onclick="setQuery()">Query</button>
+                <br/>
+            </div>
+            <div class="close" style="display: none">
+                <h3>3. Close the Bulk API job</h3><br/>
+                <button onclick="closeJob()">INSERT</button>
+                <br/>
+            </div>           
+        </div>
+    </center>  
+    <center> 
+    <div class="content right" style="height:300px;overflow-y:auto;">        
+        <pre id="message"></pre><br/>
+        <div id="redirectBtn" style="display:none;">
+            <apex:outputpanel styleclass="btn" style="padding: 6px 12px;" onclick="window.open('/'+'{!objPIVal.PIDefination__c}','_self');"> Back to PI</apex:outputpanel>
+        </div>        
+    </div>
+        
+    </center> 
+    <div style="clear:both"/>
+    
+</apex:page>

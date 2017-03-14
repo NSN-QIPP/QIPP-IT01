@@ -1,0 +1,4 @@
+<apex:component access="global" controller="Claim_Contact">
+    <apex:attribute name="ClaimId" assignTo="{!Claim_Id}" description="This is the value for the component." type="String"/>
+    {!Legal}
+</apex:component>

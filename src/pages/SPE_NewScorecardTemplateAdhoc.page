@@ -1,0 +1,71 @@
+<apex:page standardController="SPE_ScorecardTemplate__c" extensions="SPE_AdhocScorecardPageEXT" >
+    <apex:stylesheet value="{!$Page.SPE_CssStyleSheet}" />
+    <apex:form >
+        <apex:pageBlock id="detail">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save And Next" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="myMsg"/>
+            <apex:PageBlockSection title="Scorecard Template Detail" collapsible="false" columns="1">
+                
+                <apex:inputText value="{!scoreCardTempName}" label="ScoreCard Template Name"/>
+                <!--<apex:inputField value="{!scoreCardTemp.Stage__c}"/>-->
+                    
+                
+                <!--<apex:inputField value="{!scoreCardTemp.Region__c}"/>-->
+               <apex:pageBlockSection collapsible="false" title="{!$Label.SPE_SectionA}" columns="1">
+                     <apex:pageBlockTable value="{!supplierPlanMap}" var="lstPlan" >
+                         <apex:column headerValue="Remove">
+                            <apex:commandLink action="{!removeSupplierPlandata}" reRender="detail,speTemplate">
+                                <apex:image value="{!$Resource.DeleteLogo}" width="23" height="23"/>
+                                <apex:param name="tempId2" id="tempName2" value="{!lstPlan}"/>
+                            </apex:commandLink>
+                        </apex:column>
+                        <apex:column headerValue="SPE Plan Name">
+                            <apex:outputText value="{!supplierPlanMap[lstPlan].SPEPlan__r.name}"/>
+                        </apex:column>
+                        <apex:column headerValue="SPE Template">
+                            <apex:outputText value="{!supplierPlanMap[lstPlan].SPEPlan__r.SPETemplate__r.Name}"/>
+                        </apex:column>
+                         <apex:column headerValue="Supplier EID">
+                            <apex:outputText value="{!supplierPlanMap[lstPlan].Supplier__r.EnterpriseId__c}"/>
+                        </apex:column>
+                     </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                
+                
+            </apex:PageBlockSection>
+            
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="speTemplate">
+            <!--<apex:commandButton value="Add New SPE Template" action="{!addSPETemplate}"  reRender="speTemplate" immediate="true" />
+            <apex:variable var="rowNumber" value="{!0}"/> -->
+            <apex:pageBlockTable value="{!templateMap}" var="item">
+                <!--<apex:column headerValue="Action">
+                    <apex:commandLink action="{!removedata}" reRender="speTemplate">
+                        <apex:image value="{!$Resource.DeleteLogo}" width="23" height="23"/>
+                        <apex:param name="tempId1" id="tempName1" value="{!templateMap[item].rowNum}"/>
+                    </apex:commandLink>
+                </apex:column>-->
+                
+                <apex:column headerValue="SPE Template">
+                    <!--<apex:inputfield value="{!templateMap[item].objScorecradTempMapRec.SPETemplate__c}"  />-->
+                    <apex:outputText value="{!templateMap[item].templateName}"  />
+                </apex:column>
+                
+                <apex:column headerValue="Weightage">
+                    <apex:inputfield value="{!templateMap[item].objScorecradTempMapRec.Weight__c}"  />
+                </apex:column>
+                
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <!--<apex:actionFunction action="{!removeSPETemplate}" name="removeSPETemplate" reRender="speTemplate,detail" >
+            <apex:param name="rowIndex" value=""/>
+        </apex:actionFunction> -->
+    </apex:form>
+    
+</apex:page>

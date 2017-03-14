@@ -1,0 +1,55 @@
+<apex:page tabStyle="QIRS_Action_Plan__c" controller="QIRS_AP_DelegateTask_Controller" sidebar="true">
+<apex:form >
+<table width="100%">
+      <apex:sectionHeader title="Action Plan" subtitle="{!QIRS_Action_plan_Tag}"/>
+
+    <br></br>
+    <tr>
+    <td>
+    <apex:outputLabel value="Employee User ID : " rendered="{!bvisible}"/>
+    <apex:inputField value="{!objAP.Employee_User_ID__c}" rendered="{!bvisible}"/>
+    <apex:commandButton value="Submit" action="{!GetData}" rendered="{!bvisible}"/>
+    </td>
+    </tr>
+      <tr> 
+                  
+        <td colspan="12">
+         <apex:pageBlock id="APQIRSgrid" >
+      <apex:messages />
+
+    
+    <apex:pageBlockButtons location="top">
+    <apex:commandButton value="Delegate Request" action="{!Save}" disabled="{!bdesable}"/>
+    <apex:commandButton value="Cancel" action="{!cancel}"/>
+    </apex:pageBlockButtons>   
+    
+            <apex:pageBlockTable width="100%" value="{!PendingTask}" var="q">
+              <apex:column value="{!q.Name}" /> 
+              <apex:column value="{!q.QIRS__c}" /> 
+          <apex:column headerValue="Owner" >
+             <apex:inputField value="{!q.CreatedById}"/>
+         </apex:column>
+              <apex:column headerValue="Champion" >
+                <apex:outputField value="{!q.Champion__c}" rendered="{!if((q.Delegate_task__c =true),false,true)}"/>
+                <apex:inputField value="{!q.Reassign__c}" rendered="{!if((q.Delegate_task__c =true),true,false)}"/>
+              </apex:column>
+              <apex:column headerValue="Existing Champion" value="{!q.Champion__c}" />
+
+              <apex:column headerValue="Approver" >
+                <apex:outputField value="{!q.Approver__c}"  rendered="{!if((q.Delegate_task__c =true),true,false)}"/>
+                <apex:inputField value="{!q.Reassign__c}"  rendered="{!if((q.Delegate_task__c =true),false,true)}"/>
+              </apex:column>
+                <apex:column value="{!q.Approver__c}" headerValue="Existing Approver"/>
+             
+          </apex:pageBlockTable> 
+      </apex:pageBlock> 
+       </td>
+             
+     </tr>
+             
+
+ </table>
+
+</apex:form>
+
+</apex:page>

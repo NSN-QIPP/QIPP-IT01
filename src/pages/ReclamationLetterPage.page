@@ -1,0 +1,111 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimReclamationLetterController" sidebar="false" showHeader="false" renderAs="pdf" >    
+<html>
+<apex:image url="{!$Resource.NSN_New_Logo}" width="154" height="76"/>
+
+        <body>
+        <table width="100%" border="0" height="100%">
+            <tr>
+                <td width="25%" valign="top" >    <br/>               
+                    <div style="line-height: 0.4cm; font-size: 10px; position:absolute left: 100px top:400px;">                                                                     
+                        <apex:outputText value="{0, date, dd',' MMMM',' yyyy}"><apex:param value="{!NOW()}" /></apex:outputText><br/>                                                                           
+                        <br/>
+                        TO: <br/>              
+                        {!ManufacturerContact.Name__c}<br/>
+                        {!ManufacturerContact.Email__c}<br/>
+                        {!supplierContact.Contact_Type__c}<br/>
+                        <br/>
+                        {!MCAR_Claim_Management__c.Manufacturer__r.Name}<br/>   
+                        <!--
+                        {!supplierContact.MCAR_Street__c} <br/>                                                           
+                        {!supplierContact.MCAR_City__c}, {!supplierContact.State__c}, {!supplierContact.Zip__c} <br/>                                                                                                                   
+                        {!supplierContact.MCAR_Country__c}<br/>-->
+                        
+                        {!manufacturer.MCAR_HQ_Street__c} <br/>                                                           
+                        {!manufacturer.MCAR_HQ_City__c}, {!manufacturer.MCAR_HQ_State__c}, {!manufacturer.MCAR_HQ_Zip_Postal_Code__c} <br/>                                                                                                                     
+                        {!manufacturer.MCAR_HQ_Country__c}<br/>
+                        <br/>                                                 
+                        
+                        <br/>
+                        FROM:<br/>
+                        {!CMcontact.Name__c}<br/>                         
+                        {!CMcontact.Email__c}<br/>
+                        {!MCAR_Claim_Management__c.Owner.Name}<br/> 
+                        {!MCAR_Claim_Management__c.Owner.Email}<br/>                                                                                                          
+                        Nokia Solutions and Networks Oy<br/>                                                        
+                        Karaportti 3<br/>
+                        02610 Espoo<br/>                            
+                        Finland<br/>                                                        
+                        VAT ID: FI20584306<br/>                         
+                    </div>                    
+                </td> 
+                
+                <td width="75%">                                        
+                   <div>                       
+                                          
+                        <p>
+                                RE: Reclamation Regarding {!MCAR_Claim_Management__c.Name}
+                        </p>
+                    </div>
+                    
+                    <div><br/>
+                        <p>
+                            Dear Sir or Madam,
+                          </p>                     
+                    </div>
+                                        
+                    <div style="line-height: 1cm;">
+                        <p>
+                            This is to inform you that we have identified certain defects and deficiencies in {!MCAR_Claim_Management__c.Supplied_Product_Summary__c} which have been delivered to us under the Frame Agreement {!MCAR_Claim_Management__c.Frame_Agreement__c}.  
+                        </p>                       
+                    </div>
+                                        
+                    <div style="line-height: 1cm;">
+                        <p>
+                            Our current understanding is the following: {!MCAR_Claim_Management__c.Root_Cause_Summary__c}
+                        </p>
+                    </div>
+                    
+                    <div style="line-height: 1cm;">
+                        <p>
+                            We hold your company liable for and reserve the right to claim from you any costs, expenses and damages incurred by us, our subcontractors and/or our customers, which result from the defects and deficiencies referred to above. The full extent of these costs, expenses and damages will only be known at a later stage, and currently a final estimate is not available. We will provide you with calculations relating to such costs, expenses and damages as soon as they are available.
+                        </p>                        
+                    </div>
+                    
+                    <div style="line-height: 1cm;">
+                        <p>
+                            We kindly request your immediate attention to this matter and expect to have your feedback on or before <apex:outputText value="{0,date, dd-MMMM-yyyy}"><apex:param value="{!MCAR_Claim_Management__c.Response_Due_Date__c}" /> </apex:outputText>
+                            together with your proposal to remedy the issue referred to above. We expect your full support and cooperation in solving the issue without delay.                  
+                              
+                                                           
+                        </p>
+                    </div>
+                    
+                    <div style="line-height: 1cm;">                     
+                        <p>
+                            In the absence of a response from you please be advised that we may need to take necessary corrective actions at your cost and/or take any other such action that we may be entitled to under the aforementioned agreement and by law.
+                        </p>
+                    </div>
+                    
+                    <div style="line-height: 1cm;">                            
+                        <p>
+                              If you wish to have further information related to any of this, please contact the undersigned at left.    
+                        </p>                  
+                    </div>
+                    
+                    <div><br/>                              
+                        <p>
+                            Yours sincerely,   <br/> <br/> Nokia Networks
+                        </p>                  
+                    </div>
+                </td>
+            </tr>            
+        </table>
+        
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <div style="line-height: 1cm;">
+                       
+        </div>
+ 
+    </body>    
+</html>
+</apex:page>

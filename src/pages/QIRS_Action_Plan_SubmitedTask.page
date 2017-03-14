@@ -1,0 +1,60 @@
+<apex:page tabStyle="QIRS_Action_Plan__c" StandardController="QIRS_Action_Plan__c" extensions="QIRS_Action_Plan_Submition_Controller" sidebar="true" >
+<apex:form >
+ 
+
+ 
+
+<table width="100%" >
+   <!--<b><apex:outputLabel value=""></apex:outputLabel></b>-->
+   <apex:sectionHeader title="Action Plan" subtitle="{!QIRS_Action_plan_Tag}"/>
+
+    <br></br>
+
+     <tr>
+     <td valign="top" >
+        <h1><apex:outputLabel rendered="{!QIRS_Action_plan_Flag}" value="Record Status: "></apex:outputLabel></h1>
+           <apex:selectList value="{!QIRS_Action_plan_Status}" size="1" rendered="{!QIRS_Action_plan_Flag}" >
+           <apex:selectOptions value="{!QIRS_Action_plan_Item}"/>
+           <apex:actionSupport event="onchange" reRender="QIRSActionplangrid"/>
+           </apex:selectList> 
+     </td>
+     </tr>
+    
+        
+      <tr> 
+                  
+        <td colspan="12">
+        
+         <apex:pageBlock id="QIRSActionplangrid" >
+          
+           <apex:pageBlockTable width="500%" value="{!showQIRSActionPlan}" var="q">
+                <apex:column headerValue="Record Code" >  
+                  <apex:outputLink value="/{!q.id}" >{!q.Name}
+                  </apex:outputLink>
+                </apex:column>     
+              <apex:column value="{!q.QIRS__c}"/> 
+              <apex:column value="{!q.QIRS__r.Alert_Type__c}"/> 
+              <apex:column value="{!q.Action_Type__c}"/> 
+              <!-- <apex:column value="{!q.Champion__c}"/>
+              <apex:column value="{!q.Approver__c}"/>  -->
+              <apex:column value="{!q.CreatedBy.Name}" headerValue="Originator"/>
+              <apex:column value="{!q.QIRS__r.Process_Owner1__c}"/>
+
+              <apex:column value="{!q.Required_date__c}"/>
+              <apex:column value="{!q.Implementation_Date__c}"/>
+              <apex:column value="{!q.Implementation_Comment__c}"/>
+              <apex:column value="{!q.Status__c}"/>
+
+          </apex:pageBlockTable> 
+
+       </apex:pageBlock> 
+         
+       </td>
+             
+     </tr>
+             
+    
+ </table>
+</apex:form>
+
+</apex:page>

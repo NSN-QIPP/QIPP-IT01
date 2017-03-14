@@ -1,0 +1,3519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EnableCustomerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ListClean</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewCustomerPortalUser</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>WebsiteHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>AccountNumber</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>AccountSource</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Advertisement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employee Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Public Relations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seminar - Internal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seminar - Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Word of mouth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Spend__c</fullName>
+        <defaultValue>00.00</defaultValue>
+        <externalId>false</externalId>
+        <label>Actual Spend (YTD) (M€)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AnnualRevenue</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>BillingAddress</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Business_Groups__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Business Groups which are buying from this supplier</inlineHelpText>
+        <label>Business Groups</label>
+        <picklist>
+            <picklistValues>
+                <fullName>MN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A&amp;A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Defined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Business_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Business Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Accounts6</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CategoryAreaSIM__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Category Area wiht highest spend with this supplier</inlineHelpText>
+        <label>Category Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DELIVERY OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not defined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SERVICES PROCUREMENT OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INDIRECT PROCUREMENT OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PRODUCT PROCUREMENT OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryArea__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Direct Services Procurement (DSP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indirect Procurement (INP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Networks Product Procurement (NPP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryGroupArea__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Group Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Network products procurement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryGroupSIM__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Category Group wiht highest spend with this supplier</inlineHelpText>
+        <label>Category Group</label>
+        <picklist>
+            <controllingField>CategoryAreaSIM__c</controllingField>
+            <picklistValues>
+                <fullName>Business Incubation &amp; e2e Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>PRODUCT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electronic Manufacturing Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>PRODUCT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Workforce Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>SERVICES PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Facility</fullName>
+                <default>false</default>
+                <controllingFieldValues>INDIRECT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Interconnect</fullName>
+                <default>false</default>
+                <controllingFieldValues>PRODUCT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Procurement &amp; Telecoms</fullName>
+                <default>false</default>
+                <controllingFieldValues>INDIRECT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Logistics Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>INDIRECT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NI Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>SERVICES PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM/ODM/JDM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical components</fullName>
+                <default>false</default>
+                <controllingFieldValues>PRODUCT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Professional Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>INDIRECT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D Subcontracting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semiconductor and RF</fullName>
+                <default>false</default>
+                <controllingFieldValues>PRODUCT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <controllingFieldValues>PRODUCT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting MS, NPO &amp; SI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting Other NI Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting Telecom Implementation Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Testing, Manufacturing &amp; Measurement Equipment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travel &amp; Fleet</fullName>
+                <default>false</default>
+                <controllingFieldValues>INDIRECT PROCUREMENT OPERATIONS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not defined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryGroup__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Antennas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Workforce Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Facility Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IP Transport</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Hardware and Care Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Logistics Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Managed Services (NO &amp; NPO)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Services (EMS)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanics (MEC)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NI Installation &amp; Construction Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NI Site Materials &amp; Power Solutions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Professional Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D and IT Solutions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF Customized Components (RFC)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF Products &amp; Castings (RFP&amp;C)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Software and System Integration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard &amp; Interconnect Components (STC, INT)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Systems and Embedded Power (SEP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travel &amp; Fleet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Procurement Category with highest spend with this supplier</inlineHelpText>
+        <label>Category</label>
+        <picklist>
+            <controllingField>CategoryGroupSIM__c</controllingField>
+            <picklistValues>
+                <fullName>Travel</fullName>
+                <default>false</default>
+                <controllingFieldValues>Travel &amp; Fleet</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Subcontracting</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Building investment/CAPEX without Rents and Leases</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Facility Management services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rental/Lease/Transactions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Maintenance</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infrastructure Services &amp; Cloud</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Voice</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workplace Devices</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associated Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transport</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Services Others</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coaching &amp; Other Consulting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial, Tax &amp; Insurances</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal &amp; Intellectual Property</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing &amp; Communications Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Test Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Training Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Functional Test Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Peripheral Devices</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Auxiliaries and Consumables</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance Test Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fleet</fullName>
+                <default>false</default>
+                <controllingFieldValues>Travel &amp; Fleet</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Incubation Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Business Incubation &amp; e2e Solutions</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Engineering Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Mature</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Multiradio</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - RRH</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Reconciliations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Small Cell</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - System Module</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repair &amp; Spares</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable Assemblies - RF, FO, Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cables - Core Networks + I/O &amp; Power Cables</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Connectors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCB</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cabinet/Enclosure Assy</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Filter Castings</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plastics, Rubber &amp; Gaskets</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; Microwave Mechanical Parts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sheet Metal Parts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thermal Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tooling for Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Basestation Antennas &amp; Ecosystem</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM &amp; ODM Telecom Eqpmt</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM IT HW &amp; HW Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW Applications &amp; Databases</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW Mgmt &amp; Security Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW OS &amp; SW Stack</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Power Supply Unit &amp; Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; Microwave OEM</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF Passive &amp; Active Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Small Cells Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Switching &amp; Routing</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>System Boards &amp; Shelves</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical Transceivers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Optical components</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASIC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analog IC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Circulators / Isolators / Terminators / Resonators</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communication &amp; Telecom IC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DSP / NP</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPGA</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency Control Products (FCP)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Linear &amp; Logic</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Microprocessors / Microcontrollers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF&amp;MW Components</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacitors &amp; Resistors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Discretes, Protection Devices &amp; Switches</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inductives &amp; Transformers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memories</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care &amp; Maintenance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Care Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Temporary Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>External Workforce Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indirect Temporary Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>External Workforce Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Batteries</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable &amp; Feeder Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RA Accessories</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Renewable Energy Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Construction Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Installation Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stand Alone Power Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Installation &amp; Commissioning</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Telecom Implementation Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Service Delivery</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Managed Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Planning Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting SI</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site acquisition &amp; Civil Works Wireless</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Other NI Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site acquisition &amp; Civil Works Fixed</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Other NI Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not defined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Classification__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Global Class of Supplier. Focus and Strategic suppliers are in scope of Supplier Relationship Management</inlineHelpText>
+        <label>Classification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Focus</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supplier Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CurrencyIsoCode</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <encrypted>false</encrypted>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Ecovadis_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Ecovadis Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EnterpriseId__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <label>EncryptedEnterprise Id</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enterprise_Id__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <label>Enterprise  Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fax</fullName>
+        <encrypted>false</encrypted>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Impact__c</fullName>
+        <externalId>false</externalId>
+        <label>Impact</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Industry</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Agriculture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apparel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Banking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biotechnology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chemicals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Construction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Education</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electronics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Energy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Entertainment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Environmental</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Food &amp; Beverage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Government</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hospitality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Machinery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Media</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not For Profit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recreation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Technology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Telecommunications</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Jigsaw</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>LE_Spend__c</fullName>
+        <defaultValue>00.00</defaultValue>
+        <externalId>false</externalId>
+        <label>LE Spend (YTD) (M€)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LSM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead Supplier Manager</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <filterItems>
+                <field>$Profile.Name</field>
+                <operation>equals</operation>
+                <value>Supplier Manager</value>
+            </filterItems>
+            <filterItems>
+                <field>$Profile.Name</field>
+                <operation>equals</operation>
+                <value>System Administrator</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Accounts7</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Category_Manager1__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead Category Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Accounts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Category_Manager__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>LSM__r.FirstName+&quot; &quot;+LSM__r.LastName</formula>
+        <label>Lead Category Manager</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead_Unit__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The lead supplier manager&apos;s unit</inlineHelpText>
+        <label>Lead Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GSCM AMS PO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IPO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PPO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SPO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Likelihood__c</fullName>
+        <externalId>false</externalId>
+        <label>Likelihood</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Market_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Market Information</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Market_Share__c</fullName>
+        <externalId>false</externalId>
+        <label>Market Share</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Model_Description__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Model Description</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Model__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Model</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <encrypted>true</encrypted>
+        <trackFeedHistory>true</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>News__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=&quot;
+&amp; Unique_Id__c &amp;&quot;&amp;tbm=nws&quot;, &quot;NEWS&quot;)</formula>
+        <label>Supplier News</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Nokia_Spend_of_Revenue__c</fullName>
+        <externalId>false</externalId>
+        <label>% Nokia Spend of Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Nokia_as_a_Customer__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Supplier&apos;s view on Nokia as a customer (estimation)</inlineHelpText>
+        <label>Supplier View</label>
+        <picklist>
+            <controllingField>Supplier_Segmentation__c</controllingField>
+            <picklistValues>
+                <fullName>Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>Leverage</controllingFieldValues>
+                <controllingFieldValues>Manage Risk</controllingFieldValues>
+                <controllingFieldValues>Shop</controllingFieldValues>
+                <controllingFieldValues>Strategic Alliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Develop</fullName>
+                <default>false</default>
+                <controllingFieldValues>Leverage</controllingFieldValues>
+                <controllingFieldValues>Manage Risk</controllingFieldValues>
+                <controllingFieldValues>Shop</controllingFieldValues>
+                <controllingFieldValues>Strategic Alliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exploit</fullName>
+                <default>false</default>
+                <controllingFieldValues>Leverage</controllingFieldValues>
+                <controllingFieldValues>Manage Risk</controllingFieldValues>
+                <controllingFieldValues>Shop</controllingFieldValues>
+                <controllingFieldValues>Strategic Alliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nuisance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Leverage</controllingFieldValues>
+                <controllingFieldValues>Manage Risk</controllingFieldValues>
+                <controllingFieldValues>Shop</controllingFieldValues>
+                <controllingFieldValues>Strategic Alliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not defined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>NumberOfEmployees</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Number_of_Employees__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Employees</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ownership</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Public</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Private</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subsidiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Hierarchy</type>
+    </fields>
+    <fields>
+        <fullName>Period_for_RAT__c</fullName>
+        <externalId>false</externalId>
+        <label>Period of Risk Assesment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Q1,2016</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q2,2016</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q3,2016</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q4,2016</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q1,2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q2,2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q3,2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q4,2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Phone</fullName>
+        <encrypted>false</encrypted>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>PrimaryContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Accounts</relationshipLabel>
+        <relationshipName>Accounts</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Rating</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Hot</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Warm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rating__c</fullName>
+        <externalId>false</externalId>
+        <label>Rating</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remarks_Category_Manager__c</fullName>
+        <externalId>false</externalId>
+        <label>Remarks</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Remarks_Secondary_Category_Manager__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Remarks_Tertiary_Category_Manager__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SAM_Innovation_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Supplier Innovation Account Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Accounts4</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SGN2__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Supplier Group Number 2 from fALU</inlineHelpText>
+        <label>Supplier Group Number 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SGN_Name__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Supplier Group Number Name from fALU</inlineHelpText>
+        <label>Supplier Group Number  Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SGN__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Supplier Group Number from fALU</inlineHelpText>
+        <label>Supplier Group Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SPE_Parent_Account_Check__c</fullName>
+        <externalId>false</externalId>
+        <formula>OR(Parent.Id != Null,Parent.Id != &apos;&apos;)</formula>
+        <label>SPE Parent Account Check</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>SPV__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Index based on Supplier Experience Survey - typically updated once a year</inlineHelpText>
+        <label>Supplier Perceived Value(0-100%)</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Scope__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Scope</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Category_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Category Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Indirect Procurement (INP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Procurement (PP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Services Procurement (SP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Category_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Category Group</label>
+        <picklist>
+            <controllingField>Secondary_Category_Area__c</controllingField>
+            <picklistValues>
+                <fullName>Facility</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Procurement &amp; Telecoms</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Logistics Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Professional Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D Subcontracting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Testing, Manufacturing &amp; Measurement Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travel &amp; Fleet</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Incubation &amp; e2e Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electronic Manufacturing Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Interconnect</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM/ODM/JDM</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical components</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semiconductor and RF</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Workforce Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NI Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting Telecom Implementation Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting MS, NPO &amp; SI</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting Other NI Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Category</label>
+        <picklist>
+            <controllingField>Secondary_Category_Group__c</controllingField>
+            <picklistValues>
+                <fullName>Building investment/CAPEX without Rents and Leases</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Facility Management services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rental/Lease/Transactions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Maintenance</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infrastructure Services &amp; Cloud</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Voice</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workplace Devices</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associated Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transport</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Services Others</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coaching &amp; Other Consulting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial, Tax &amp; Insurances</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal &amp; Intellectual Property</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing &amp; Communications Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Test Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Training Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Subcontracting</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Functional Test Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Peripheral Devices</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Auxiliaries and Consumables</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance Test Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fleet</fullName>
+                <default>false</default>
+                <controllingFieldValues>Travel &amp; Fleet</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travel</fullName>
+                <default>false</default>
+                <controllingFieldValues>Travel &amp; Fleet</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Incubation Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Business Incubation &amp; e2e Solutions</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Engineering Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Mature</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Multiradio</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - RRH</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Reconciliations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Small Cell</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - System Module</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repair &amp; Spares</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable Assemblies - RF, FO, Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cables - Core Networks + I/O &amp; Power Cables</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Connectors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCB</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cabinet/Enclosure Assy</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Filter Castings</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plastics, Rubber &amp; Gaskets</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; Microwave Mechanical Parts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sheet Metal Parts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thermal Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tooling for Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Basestation Antennas &amp; Ecosystem</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM &amp; ODM Telecom Eqpmt</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM IT HW &amp; HW Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW Applications &amp; Databases</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW Mgmt &amp; Security Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW OS &amp; SW Stack</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Power Supply Unit &amp; Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; Microwave OEM</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF Passive &amp; Active Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Small Cells Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Switching &amp; Routing</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>System Boards &amp; Shelves</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical Transceivers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Optical components</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASIC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analog IC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Circulators / Isolators / Terminators / Resonators</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communication &amp; Telecom IC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DSP / NP</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPGA</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency Control Products (FCP)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Linear &amp; Logic</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Microprocessors / Microcontrollers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF&amp;MW Components</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacitors &amp; Resistors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Discretes, Protection Devices &amp; Switches</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inductives &amp; Transformers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memories</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care &amp; Maintenance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Care Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Temporary Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>External Workforce Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indirect Temporary Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>External Workforce Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Batteries</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable &amp; Feeder Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RA Accessories</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Renewable Energy Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Construction Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Installation Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stand Alone Power Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Installation &amp; Commissioning</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Telecom Implementation Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Service Delivery</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Managed Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Planning Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting SI</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site acquisition &amp; Civil Works Wireless</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Other NI Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site acquisition &amp; Civil Works Fixed</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Other NI Services</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ShippingAddress</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Sic</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>SicDesc</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Single_Source__c</fullName>
+        <externalId>false</externalId>
+        <label>Single Source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Site</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Sponsor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Executive Sponsor</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Accounts5</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SupplierId__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Supplier Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SupplierManager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Supplier Manager</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Accounts (Supplier Manager)</relationshipLabel>
+        <relationshipName>Accounts1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Supplier_Governance_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Supplier Governance Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Accounts3</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Supplier_News__c</fullName>
+        <description>Supplier_News</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Supplier News</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Supplier_Segmentation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Supplier Segmentation based on Kraljic Matrix</inlineHelpText>
+        <label>Supplier Segmentation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Strategic Alliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leverage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manage Risk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shop</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Supplier_Type__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>&apos;Vendor&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Supplier Type</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Supplier_Url__c</fullName>
+        <externalId>false</externalId>
+        <label>Supplier Url</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>TPD__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Payable Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tertiary_Category_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Tertiary Category Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Indirect Procurement (INP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Procurement (PP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Services Procurement (SP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tertiary_Category_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Tertiary Category Group</label>
+        <picklist>
+            <controllingField>Tertiary_Category_Area__c</controllingField>
+            <picklistValues>
+                <fullName>Facility</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Procurement &amp; Telecoms</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Logistics Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Professional Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D Subcontracting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Testing, Manufacturing &amp; Measurement Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travel &amp; Fleet</fullName>
+                <default>false</default>
+                <controllingFieldValues>Indirect Procurement (INP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Incubation &amp; e2e Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electronic Manufacturing Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Interconnect</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM/ODM/JDM</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical components</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semiconductor and RF</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <controllingFieldValues>Product Procurement (PP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Workforce Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NI Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting Telecom Implementation Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting MS, NPO &amp; SI</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting Other NI Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Services Procurement (SP)</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tertiary_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Tertiary Category</label>
+        <picklist>
+            <controllingField>Tertiary_Category_Group__c</controllingField>
+            <picklistValues>
+                <fullName>Building investment/CAPEX without Rents and Leases</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Facility Management services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rental/Lease/Transactions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+                <controllingFieldValues>Facility</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Maintenance</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infrastructure Services &amp; Cloud</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Voice</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workplace Devices</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT Procurement &amp; Telecoms</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associated Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transport</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Warehouse</fullName>
+                <default>false</default>
+                <controllingFieldValues>Logistics Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Services Others</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coaching &amp; Other Consulting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial, Tax &amp; Insurances</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal &amp; Intellectual Property</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing &amp; Communications Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Test Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Training Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Professional Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Subcontracting</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Functional Test Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Peripheral Devices</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Auxiliaries and Consumables</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance Test Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Testing, Manufacturing &amp; Measurement Equipment</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fleet</fullName>
+                <default>false</default>
+                <controllingFieldValues>Travel &amp; Fleet</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Travel</fullName>
+                <default>false</default>
+                <controllingFieldValues>Travel &amp; Fleet</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Incubation Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Business Incubation &amp; e2e Solutions</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Engineering Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Mature</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Multiradio</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - RRH</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Reconciliations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - Small Cell</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - System Module</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Repair &amp; Spares</fullName>
+                <default>false</default>
+                <controllingFieldValues>Electronic Manufacturing Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable Assemblies - RF, FO, Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cables - Core Networks + I/O &amp; Power Cables</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Connectors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCB</fullName>
+                <default>false</default>
+                <controllingFieldValues>Interconnect</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cabinet/Enclosure Assy</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Filter Castings</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plastics, Rubber &amp; Gaskets</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; Microwave Mechanical Parts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sheet Metal Parts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standard Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thermal Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tooling for Mechanics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mechanics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Basestation Antennas &amp; Ecosystem</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM &amp; ODM Telecom Eqpmt</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM IT HW &amp; HW Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW Applications &amp; Databases</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW Mgmt &amp; Security Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW OS &amp; SW Stack</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Power Supply Unit &amp; Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; Microwave OEM</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF Passive &amp; Active Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Small Cells Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Switching &amp; Routing</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>System Boards &amp; Shelves</fullName>
+                <default>false</default>
+                <controllingFieldValues>OEM/ODM/JDM</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical Transceivers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Optical components</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASIC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analog IC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Circulators / Isolators / Terminators / Resonators</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communication &amp; Telecom IC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DSP / NP</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPGA</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Frequency Control Products (FCP)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Linear &amp; Logic</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Microprocessors / Microcontrollers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF&amp;MW Components</fullName>
+                <default>false</default>
+                <controllingFieldValues>Semiconductor and RF</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capacitors &amp; Resistors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Discretes, Protection Devices &amp; Switches</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inductives &amp; Transformers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memories</fullName>
+                <default>false</default>
+                <controllingFieldValues>Standard</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care &amp; Maintenance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Care Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Temporary Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>External Workforce Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indirect Temporary Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>External Workforce Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Batteries</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable &amp; Feeder Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RA Accessories</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Renewable Energy Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Construction Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Installation Materials</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Stand Alone Power Systems</fullName>
+                <default>false</default>
+                <controllingFieldValues>NI Materials</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Installation &amp; Commissioning</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Telecom Implementation Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Service Delivery</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Managed Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Planning Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subcontracting SI</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting MS, NPO &amp; SI</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site acquisition &amp; Civil Works Wireless</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Other NI Services</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site acquisition &amp; Civil Works Fixed</fullName>
+                <default>false</default>
+                <controllingFieldValues>Subcontracting Other NI Services</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TickerSymbol</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Total_SPE_score__c</fullName>
+        <externalId>false</externalId>
+        <label>Total SPE score</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Risk Assesment Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_of_Ideas__c</fullName>
+        <externalId>false</externalId>
+        <label>Total # of Ideas</label>
+        <summaryFilterItems>
+            <field>GIM__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Already Known, Community Discussion, HOT, Implementation Done, Implementation Started, Implementation Stopped, Jewel, On Hold, Rejected, Stake Holder Assessment</value>
+        </summaryFilterItems>
+        <summaryForeignKey>GIM__c.Supplier__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Analyst</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Competitor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Integrator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Press</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prospect</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reseller</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Unique_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <encrypted>false</encrypted>
+        <externalId>true</externalId>
+        <label>Unique Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Website</fullName>
+        <encrypted>false</encrypted>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>of_Open_Ideas__c</fullName>
+        <externalId>false</externalId>
+        <label># of Open Ideas</label>
+        <summaryFilterItems>
+            <field>GIM__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Community Discussion, HOT, Jewel, Stake Holder Assessment</value>
+        </summaryFilterItems>
+        <summaryForeignKey>GIM__c.Supplier__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>of_Rejected_Ideas__c</fullName>
+        <externalId>false</externalId>
+        <label># of Rejected Ideas</label>
+        <summaryFilterItems>
+            <field>GIM__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </summaryFilterItems>
+        <summaryForeignKey>GIM__c.Supplier__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <listViews>
+        <fullName>ALL_Enterprise_ID</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>SPE_Parent_Account_Check__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>ALL Enterprise ID</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>AllAccounts</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>PARENT_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>SPE_Parent_Account_Check__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>All Suppliers</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>MyAccounts</fullName>
+        <filterScope>Mine</filterScope>
+        <label>My Accounts</label>
+    </listViews>
+    <listViews>
+        <fullName>NewThisWeek</fullName>
+        <columns>ACCOUNT.NAME</columns>
+        <columns>ACCOUNT.SITE</columns>
+        <columns>ACCOUNT.ADDRESS1_STATE</columns>
+        <columns>ACCOUNT.PHONE1</columns>
+        <columns>ACCOUNT.TYPE</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>ACCOUNT.CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>THIS_WEEK</value>
+        </filters>
+        <label>New This Week</label>
+    </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.ADDRESS1_CITY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ACCOUNT.PHONE1</customTabListAdditionalFields>
+        <listViewButtons>SPE_All_Enterprise_ID_Extended_View</listViewButtons>
+        <listViewButtons>SPE_All_Suppliers_Extended_View</listViewButtons>
+        <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CORE.USERS.ALIAS</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ACCOUNT.TYPE</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.SITE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.ALIAS</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.TYPE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ACCOUNT.PHONE1</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>ACCOUNT.ACCOUNT_NUMBER</searchFilterFields>
+        <searchFilterFields>SupplierId__c</searchFilterFields>
+        <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.PHONE1</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>SupplierId__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Account_Currency_is_Not_Editable</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND( ISCHANGED(CurrencyIsoCode),
+NOT(ISNEW()), 
+OR($Profile.Name = &quot;Supplier Manager&quot;, $Profile.Name = &quot;General Management Role&quot;, $Profile.Name = &quot;Executive&quot;, $Profile.Name = &quot;Key Users&quot;) 
+)</errorConditionFormula>
+        <errorDisplayField>CurrencyIsoCode</errorDisplayField>
+        <errorMessage>Supplier Currency can not be modified</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Account_Name_is_Not_Editable</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED(Name),
+NOT(ISNEW()), 
+OR($Profile.Name = &quot;Supplier Manager&quot;, $Profile.Name = &quot;General Management Role&quot;, $Profile.Name = &quot;Executive&quot;, $Profile.Name = &quot;Key Users&quot;) 
+)</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Supplier Name can not be modified</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>LSM_is_Mandatory</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+OR(ISBLANK(  LSM__c ), ISNULL(LSM__c)), 
+ OR($Profile.Name = &quot;Supplier Manager&quot;, $Profile.Name = &quot;Key Users&quot;, $Profile.Name = &quot;General Management Role&quot;, $Profile.Name = &quot;Executive&quot;))</errorConditionFormula>
+        <errorDisplayField>LSM__c</errorDisplayField>
+        <errorMessage>Lead Supplier Manager is Mandatory field</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Only_LSM_can_edit_record</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(IF(ISCHANGED( LSM__c ),$User.Id !=  PRIORVALUE(LSM__c),$User.Id !=  LSM__r.Id), NOT(ISNEW()),
+OR($Profile.Name = &quot;Supplier Manager&quot;, $Profile.Name = &quot;General Management Role&quot;, $Profile.Name = &quot;Executive&quot;)
+)</errorConditionFormula>
+        <errorMessage>You are not authorized to edit record. Only LSM can edit the record</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Secondary_Category_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND
+(
+	NOT(ISPICKVAL( Secondary_Category_Area__c , &apos;&apos;)),
+	OR
+	(
+	(ISPICKVAL( Secondary_Category_Group__c , &apos;&apos;)),
+	(ISPICKVAL( Secondary_Category__c, &apos;&apos;))
+	),
+OR($Profile.Name = &quot;Supplier Manager&quot;, $Profile.Name = &quot;Key Users&quot;, $Profile.Name = &quot;General Management Role&quot;, $Profile.Name = &quot;Executive&quot;)
+)</errorConditionFormula>
+        <errorDisplayField>Secondary_Category_Area__c</errorDisplayField>
+        <errorMessage>Secondary Category Group &amp; Secondary  Category cannot be empty</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Tertiary_Category_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND
+(
+	NOT(ISPICKVAL( Tertiary_Category_Area__c , &apos;&apos;)),
+	OR
+	(
+	(ISPICKVAL( Tertiary_Category_Group__c , &apos;&apos;)),
+	(ISPICKVAL( Tertiary_Category__c, &apos;&apos;))
+	),
+OR($Profile.Name = &quot;Supplier Manager&quot;, $Profile.Name = &quot;Key Users&quot;, $Profile.Name = &quot;General Management Role&quot;, $Profile.Name = &quot;Executive&quot;)
+)</errorConditionFormula>
+        <errorDisplayField>Tertiary_Category_Area__c</errorDisplayField>
+        <errorMessage>Tertiary Category Group &amp; Tertiary Category cannot be empty</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>AltavistaNews</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>true</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>true</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Altavista News</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>true</showsLocation>
+        <showsStatus>true</showsStatus>
+        <url>http://news.altavista.com/search?nc=0&amp;q={!Account_Name}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleMaps</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Maps</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://maps.google.com/maps?f=q&amp;hl=en&amp;q={!Account_BillingStreet}+{!Account_BillingCity}+{!Account_BillingState}&amp;om=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleNews</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google News</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/news?&amp;q={!Account_Name}&amp;btnG=Search+News</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GoogleSearch</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Google Search</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://www.google.com/search?q={!Account_Name}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>HooversProfile</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Hoovers Profile</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>http://search.hoovers.com/cgi-bin/hol_search?which=company&amp;query_string={!Account_Name}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>SPE_All_Enterprise_ID_Extended_View</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>All Enterprise ID Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;SPE All Enterprise ID&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>SPE_All_Suppliers_Extended_View</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>All Suppliers Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;SPE All Suppliers&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>YahooMaps</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>true</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>true</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Yahoo Maps</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>true</showsLocation>
+        <showsStatus>true</showsStatus>
+        <url>http://maps.yahoo.com/py/maps.py?cn={!Account_BillingCountry}&amp;csz={!Account_BillingCity}+{!Account_BillingState}+{!Account_BillingPostalCode}+&amp;addr={!Account_BillingAddress}</url>
+    </webLinks>
+</CustomObject>

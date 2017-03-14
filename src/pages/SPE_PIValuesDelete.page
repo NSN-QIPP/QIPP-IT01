@@ -1,0 +1,23 @@
+<apex:page controller="SPE_PIValuesDeleteCon"  >
+<script type="text/javascript">
+ 
+window.onload=function()
+{
+ 
+ var r = confirm("Do you really want to Delete All Related PI Values ? ");
+ if (r == true) 
+    {
+       
+        deleteAllPIValues();
+    } 
+    else 
+    {
+      window.location.href='/{!$Request.Id}';
+    }
+}
+</script>
+<apex:form >
+<apex:detail subject="{!PIDef.Id}"/> 
+<apex:actionFunction name="deleteAllPIValues" action="{!deletePIValues}"  />
+</apex:form>
+</apex:page>

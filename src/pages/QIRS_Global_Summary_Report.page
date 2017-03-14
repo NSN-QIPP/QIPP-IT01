@@ -1,0 +1,110 @@
+<apex:page cache="false" expires="0" sidebar="false" showHeader="true" tabStyle="QIRS__c"  controller="QIRSglobalsummaryreport">
+<apex:composition template="QIRS_Template_site">
+
+   <apex:define name="body">
+ 
+    <table border="0" width="100%">
+        
+   <tr bgcolor="skyblue">
+  <b><font size="4"> Global Summmary Report </font></b>
+   </tr>  
+   <tr>
+            <td>
+                <font size="2" color="white">a</font></td></tr>        
+      
+        <tr>
+        
+            <td width = "8%">
+            <h1>Business:</h1> 
+            </td>
+              <td width = "8%">
+              <apex:selectList id="webform" value="{!Business}" size="1" title="Filter On Business">
+                 <apex:selectOptions value="{!itemsBusiness}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+              </apex:selectList>
+              </td>          
+                <td width = "8%">
+               <h1>Business Group:</h1> 
+                </td>
+                  <td width = "6%">
+                  <apex:selectList id="webform1" value="{!BusinessGroup}" size="1" title="Filter On Businessgroup">
+                  <apex:selectOptions value="{!itemsBG}"/>
+                  <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                  </apex:selectList>
+                  </td>
+                 
+                 <td width = "8%">
+                 <h1>Site:</h1> 
+                 </td>
+                  <td width = "8%">
+                  <apex:selectList id="webform2" value="{!Site}" size="1" title="Filter On Site">
+                  <apex:selectOptions value="{!itemsSite}"/>
+                  <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                  </apex:selectList>
+                  </td>
+                 
+                 <td width = "8%">
+                 <h1>Alert Type:</h1> 
+                 </td>
+                  <td width = "8%">
+                  <apex:selectList id="webform3" value="{!AlertType}" size="1" title="Alert Type">
+                  <apex:selectOptions value="{!itemsAT}"/>
+                  <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                  </apex:selectList>
+                  </td>
+                 
+                 <td width = "8%">
+                 <h1>Status:</h1> 
+                 </td>
+                 <td width = "8%">
+                 <apex:selectList id="webform4" value="{!Status}" size="1" title="Status">
+                 <apex:selectOptions value="{!itemsStatus}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                 </apex:selectList> 
+                 </td>
+                 
+                 <td width = "8%">
+                 <h1>Month/Year:</h1> 
+                 </td>
+                 <td width = "8%">
+                 <apex:selectList id="webform5" value="{!Year}" size="1" title="Month/Year">
+                 <apex:selectOptions value="{!ItemsYear}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                 </apex:selectList>                            
+                </td>
+                 <td width = "6%">
+                 </td>
+        </tr>  
+     </table>
+         
+         <apex:pageBlock id="reports" >
+                <apex:pageBlockTable value="{!Query_Global_Report_Summary}" var="nsn">
+                <apex:actionSupport event="onchange"/>
+                <apex:column headerValue="Record Code">
+                 <apex:outputLink value="/apex/QIRS_record_site?id={!nsn.Id}">{!nsn.Name}</apex:outputLink>
+                 </apex:column>
+                 <apex:column headerValue="Alert Type" value="{!nsn.Alert_Type__c}"></apex:column>
+                 <apex:column headerValue="Business">{!nsn.Business__c}</apex:column>
+                 <apex:column headerValue="Business Group">{!nsn.Business_Group__c}</apex:column>
+                 <apex:column headerValue="Site">{!nsn.Site1__c}</apex:column>
+                
+                 <apex:column headerValue="Created Date" value="{!nsn.CreatedDate}"></apex:column>
+                 <apex:column headerValue="Factory">{!nsn.Factory__c}</apex:column>
+                 <apex:column headerValue="Customer">{!nsn.Customer__c}</apex:column>
+                 <apex:column headerValue="Product Name">{!nsn.View_Product_Name__c}</apex:column>
+                 <apex:column headerValue="Problem Description">{!nsn.Problem_Description1__c}</apex:column>
+                 <apex:column headerValue="Exposed Base">{!nsn.Exposed_Base__c}</apex:column>
+                 <apex:column headerValue="% Factory/DC">{!nsn.Factory_DC__c}</apex:column>
+                 <apex:column headerValue="Expected Number of returns">{!nsn.Expected_Number_of_return__c}</apex:column>
+                 <apex:column headerValue="Cost">{!nsn.Cost__c} 
+                 </apex:column>
+                 
+                 <apex:column headerValue="Case Owner" value="{!nsn.Process_Owner1__r.Name}"></apex:column>
+                 <apex:column headerValue="Closed Date">{!nsn.Closed_Date1__c} </apex:column>
+                 <apex:column headerValue="Status">{!nsn.Status__c} </apex:column>
+           </apex:pageBlockTable>
+       </apex:pageBlock>
+       
+ </apex:define>   
+  </apex:composition>
+</apex:page>

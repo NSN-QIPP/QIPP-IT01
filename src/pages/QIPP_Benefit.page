@@ -1,0 +1,434 @@
+<apex:page standardController="QIPP_Benefit__c" extensions="QIPP_BenefitController" tabStyle="QIPP_Project__c" showHeader="true" sidebar="true">
+   
+<apex:form >
+
+      <apex:variable var="rowNum" value="{!0}" />
+<!--  <apex:outputPanel id="alertpopup">
+script
+        var amount = {!totalamountvalidation};
+        var projectstate = '{!projectinfo.Project_State__c}'; 
+		var benefitamount = {!currentbenifitamount};
+        var pageredirect1 = '{!pageredirect}';
+        //var useremail = '{!$User.Email}';
+        if(amount > 1000  && (projectstate == 'In Progress' || projectstate == 'Not Started'|| projectstate== 'On Hold')){
+            alert('Note: High Benefit Project (>1000k€), QIPP project benefit unit is in k€.');
+            window.location.replace('/apex/QIPP_Benefit_Detail_Page?detailpage={!benifit.id}');
+        }
+        if(pageredirect1 == 'true'){            
+            window.location.replace('/apex/QIPP_Benefit_Detail_Page?detailpage={!benifit.id}');
+        }
+
+        </script>
+    </apex:outputPanel> 
+-->
+<apex:pageBlock >
+<apex:pageMessages ></apex:pageMessages>
+<apex:pageBlockButtons location="both">
+<apex:commandButton title="Save" value="Save" action="{!save}" /> 
+<!-- <apex:commandButton value="Save"  action="{!save}" /> -->
+<apex:commandButton value="Cancel"  action="{!cancel}" immediate="false"/> 
+</apex:pageBlockButtons>
+    
+<apex:pageBlockSection columns="2"  >
+<apex:outputfield value="{!benifit.Project_Number__c}"/>
+<apex:outputfield value="{!benifit.Project_Name_Display__c}"/>
+<apex:outputfield value="{!benifit.Project_Lead__c}"/> 
+<apex:outputfield value="{!benifit.Portfolio_Name__c}"/>
+<!--<apex:commandLink action="{!GoBackToSearch}" value="Go Back To Search" rendered="{!if(ConversionId!=null,true,false)}"/>-->
+
+</apex:pageBlockSection>
+
+<apex:pageBlockSection columns="2" title="Quality Improvement Measure" >
+<apex:actionRegion >  
+<table width="100%">
+<tr>
+<td width="37%" align="center" style=" font-size: 91%;font-weight: bold;color: #4A4A56">
+    <apex:outputText value="Improvement Measure (KPI)"  />
+</td>
+<td >
+   <apex:inputField value="{!benifit.Improvement_Measure_KPI__c}" rendered="{!DI3DI5rule1 == false}">  
+       <apex:actionSupport event="onchange"  action="{!getBusinesslinelist}" />   
+   </apex:inputField>
+   <apex:outputfield value="{!benifit.Improvement_Measure_KPI__c}"  rendered="{!DI3DI5rule1 == true}" />
+</td>
+</tr>
+</table>
+</apex:actionRegion> 
+<apex:pageBlockSectionItem helpText="Default description of the Improvement Measure in QIPP">
+Improvement Measure Brief Description
+<apex:outputtext value="{!IMPDescription}"/>
+</apex:pageBlockSectionItem>
+
+
+<apex:outputText value="{!benifit.Unit_of_Measure__c}"/>
+<apex:pageBlockSectionItem helpText="Either “Financial Savings” or “Operational Savings” based upon the default condition of the KPI chosen.">
+Benefit Type
+<apex:outputtext value="{!benifit.Benefit_Type__c}" />
+</apex:pageBlockSectionItem>
+<apex:outputText value="{!benifit.Directional_Indicator__c}"/>
+<apex:pageBlockSectionItem helpText="Based upon the default set-up of the KPI.  Either “Direct Financial” or “Indirect Financial” when the Benefit Type is Financial Savings, or “Non-Financial” when the Benefit Type is Operational Savings.">
+Financial Type
+<apex:outputText value="{!benifit.Financial_Type__c}"/>
+</apex:pageBlockSectionItem>
+<apex:inputField value="{!benifit.Project_Charter_Goal_Statement__c}" rendered="{!DI3DI5rule1 == false}" />
+<apex:outputfield value="{!benifit.Project_Charter_Goal_Statement__c}"  rendered="{!DI3DI5rule1 == true}" />
+<apex:pageBlockSectionItem rendered="{!DI3DI5rule1 == false}" helpText="If not already described in the project or in linked project documentation, input a summary description of the calculation basis for the project savings. DMAIC projects can leave this field blank since this is explained in the project documents.">
+Basis
+<apex:inputField value="{!benifit.Basis__c}" rendered="{!DI3DI5rule1 == false}" />
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem rendered="{!DI3DI5rule1 == true}" helpText="If not already described in the project or in linked project documentation, input a summary description of the calculation basis for the project savings. DMAIC projects can leave this field blank since this is explained in the project documents.">
+Basis
+<apex:outputfield value="{!benifit.Basis__c}"  rendered="{!DI3DI5rule1 == true}" />
+</apex:pageBlockSectionItem>
+
+</apex:pageBlockSection>
+
+<!-----------------------------
+    <apex:pageBlockSection title="Baseline Condition" columns="2" >
+    
+    <table width="100%" >
+    <tr>
+    
+    <apex:inputField value="{!benifit.Baseline_Quantity__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') ||  (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation'  && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), false, true)}"/>
+    <apex:outputField value="{!benifit.Baseline_Quantity__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') ||  projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True' , true , false)}"/>
+    
+    </tr>
+    </table>
+    
+        
+    <apex:actionRegion >  
+    <table  width="100%" >
+    <tr><td width="40%" align="center"  style=" font-size: 91%;font-weight: bold;color: #4A4A56">     
+    <apex:outputLabel value="Type of Measure (Time Period)"  /> 
+    </td><td align="LEFT">
+          <apex:inputField value="{!benifit.Type_of_Measure__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') ||  (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation'  && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), false, true)}">
+            <apex:actionSupport event="onchange" />
+          </apex:inputField>
+          <apex:outputField value="{!benifit.Type_of_Measure__c}" rendered="{!if( (projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') || (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True') , true , false)}"/>
+    </td></tr></table>      
+    </apex:actionRegion>
+    
+    <apex:outputText value=""/>
+    <apex:inputField id="mytable" value="{!benifit.Baseline_Period_weeks__c}" rendered="{!if( (benifit.Type_of_Measure__c =='Distributed Amount') && !((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') || (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True')) , true , false)}"/>
+    <apex:outputField value="{!benifit.Baseline_Period_weeks__c}" rendered="{!if( (benifit.Type_of_Measure__c =='Distributed Amount') && ((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') || (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True')) , true , false)}"/>
+    
+    </apex:pageBlockSection>
+    
+----------------->
+
+
+<!------ starting new sections------------>
+
+<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">Baseline And Forecast</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR><BR></BR>
+<apex:actionRegion > 
+<apex:outputPanel layout="block" id="BaselinePanel">
+
+<table style="width:1100px">
+<tr HEIGHT="30PX">
+  <td width = "250px" align="LEFT"><strong>Type of Quantity</strong></td>
+  <td width = "250px" align="LEFT"><strong>Quantity</strong></td>     
+  <td width = "200px" align="LEFT"><strong>UOM</strong></td>
+  <td width = "200px" align="LEFT"><strong>Time Period</strong></td>
+  <td width = "200px" align="LEFT"><strong> Weeks </strong></td>
+</tr>
+
+
+<tr>
+<td width = "250px" align="left">
+     <apex:outputText value="Baseline"/>
+</td>
+
+    <td width = "250px" align="LEFT">
+         <span class="helpButton" id="example-title1-_help">
+            <apex:outputPanel layout="block" styleClass="requiredInput" rendered="{!DI3DI5rule2 == false}">
+                <apex:outputPanel layout="block" styleClass="requiredBlock"/>
+                <apex:inputField value="{!benifit.Baseline_Quantity__c}" />
+                <span class="helpButton" id="example-title1-_help">
+                    <img src="/s.gif" class="helpOrb"/>
+                </span>                       
+            </apex:outputPanel>
+            <apex:outputfield value="{!benifit.Baseline_Quantity__c}"  rendered="{!DI3DI5rule2 == true}"> <span class="helpButton" id="example-title1-_help"><img src="/s.gif" class="helpOrb"/></span> </apex:outputfield>
+            <script type="text/javascript">
+                sfdcPage.setHelp('example-title1', 'The current (as-is) observed condition (KPI quantity) that exists prior to implementing a Quality Improvement.');
+            </script>
+        </span>
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Unit_of_Measure__c}" />
+    </td>  
+    <td width = "200px" align="LEFT">
+        <apex:outputPanel layout="block" styleClass="requiredInput" rendered="{!DI3DI5rule2 == false}">
+        <apex:outputPanel layout="block" styleClass="requiredBlock"/>
+            <apex:inputField value="{!benifit.Type_of_Measure__c}" >
+                <apex:actionSupport event="onchange" reRender="BaselinePanel"/>
+            </apex:inputField>        
+        </apex:outputPanel>   
+        <apex:outputfield value="{!benifit.Type_of_Measure__c}"  rendered="{!DI3DI5rule2 == true}" />
+    </td>  
+    <td width = "200px" align="LEFT">
+        <apex:inputField value="{!benifit.Baseline_Period_weeks__c}" rendered="{!benifit.Type_of_Measure__c =='Distributed Amount' && DI3DI5rule2 == false}"/>
+        <apex:outputfield value="{!benifit.Baseline_Period_weeks__c}"  rendered="{!benifit.Type_of_Measure__c =='Distributed Amount' && DI3DI5rule2 == true}"/>
+    </td> 
+</tr>
+
+<tr>
+<td width = "250px" align="left">
+     <apex:outputText value="Planned"/>
+</td>
+    <td width = "250px" align="LEFT">
+        <span class="helpButton" id="example-title2-_help">
+                <apex:inputField value="{!benifit.Planned_Quanity__c}" rendered="{!DI3DI5rule2 == false}"/>
+                <apex:outputfield value="{!benifit.Planned_Quanity__c}"  rendered="{!DI3DI5rule2 == true}" />
+            <img src="/s.gif" class="helpOrb"/>
+            <script type="text/javascript">
+            sfdcPage.setHelp('example-title2', 'What the expected condition will be after implementing the Quality Improvement, i.e. the estimated new “run rate” of the KPI. The Planned Quantity estimate is typically calculated at the beginning of a project (e.g. during Define Phase).');
+            </script>
+        </span>
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Unit_of_Measure__c}" />
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:inputField value="{!benifit.Planned_Type_of_Measure__c}" rendered="{!DI3DI5rule2 == false}">
+            <apex:actionSupport event="onchange" reRender="BaselinePanel"/>
+        </apex:inputField>
+        <apex:outputfield value="{!benifit.Planned_Type_of_Measure__c}"  rendered="{!DI3DI5rule2 == true}" />
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:inputField value="{!benifit.Planned_Benefit_Period_Weeks__c}" rendered="{!benifit.Planned_Type_of_Measure__c == 'Distributed Amount' && DI3DI5rule2 == false}"/>
+        
+        <apex:outputfield value="{!benifit.Planned_Benefit_Period_Weeks__c}"  rendered="{!benifit.Planned_Type_of_Measure__c == 'Distributed Amount' && DI3DI5rule2 == true}"/>
+    </td> 
+</tr>
+
+<tr>
+<td width = "250px" align="left">
+     <apex:outputText value="Revised Forecast"/>
+</td>
+    <td width = "250px" align="LEFT">
+        <span class="helpButton" id="example3-title-_help">
+                <apex:inputField value="{!benifit.Revised_Forecast_Quanity__c}" rendered="{!DI3DI5rule2 == false}" />
+                <apex:outputfield value="{!benifit.Revised_Forecast_Quanity__c}"  rendered="{!DI3DI5rule2 == true}" />
+                <img src="/s.gif" class="helpOrb"/>
+            <script type="text/javascript">
+                sfdcPage.setHelp('example3-title', 'The revised estimate of the KPI “run rate” or what the improved condition is after the Quality Improvements have been made. The Revised Forecast is calculated after the process improvements are made and KPI improvements are observed (e.g. Control Phase).');
+            </script>
+        </span>
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Unit_of_Measure__c}" />
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:inputField value="{!benifit.Revised_Forecast_Type_of_Measure__c}" rendered="{!DI3DI5rule2 == false}">
+            <apex:actionSupport event="onchange" reRender="BaselinePanel"/>
+        </apex:inputField>
+        <apex:outputfield value="{!benifit.Revised_Forecast_Type_of_Measure__c}"  rendered="{!DI3DI5rule2 == true}" />
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:inputField value="{!benifit.Revised_Forecast_Benefit_Period_Weeks__c}" rendered="{!benifit.Revised_Forecast_Type_of_Measure__c == 'Distributed Amount' && DI3DI5rule2 == false}" />
+        <apex:outputfield value="{!benifit.Revised_Forecast_Benefit_Period_Weeks__c}"  rendered="{!benifit.Revised_Forecast_Type_of_Measure__c == 'Distributed Amount' && DI3DI5rule2 == true}" />
+
+    </td> 
+</tr>
+
+</table>
+</apex:outputPanel>
+</apex:actionRegion>
+
+<!------ ending new sections------------>
+
+
+<!---
+<BR></BR><BR></BR>
+
+<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white"> OLD KPI Metrics</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR><BR></BR>
+
+<table style="width:1100px">
+<tr HEIGHT="30PX">
+  <td width = "250px" align="LEFT"><strong>Conditions</strong></td>
+  <td width = "200px" align="LEFT"><strong>Quantity</strong></td>     
+  <td width = "200px" align="LEFT"><strong>Start Date</strong></td>
+  <td width = "200px" align="LEFT"><strong>End Date</strong></td>
+  <td width = "200px" align="LEFT"><strong>Savings Amount (k€)</strong></td>
+</tr>
+
+
+<tr>
+  <td width = "250px" align="left"><apex:outputText value="{!TypeOfPlannedSaving}"/></td>
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Planned_Quanity__c}" rendered="{!if( (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation'  && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), false, true)}"/>
+  <apex:outputfield value="{!benifit.Planned_Quanity__c}" rendered="{!if( projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True' , true , false)}"/> </td>  
+          
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Planned_Start_Date__c}" rendered="{!if( (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation'  && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), false, true)}"/>
+  <apex:outputText value="{!steplanstartdate}" rendered="{!if( projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True' , true , false)}"/> </td>  
+
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Planned_End_Date__c}" rendered="{!if( (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation'  && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), false, true)}"/>
+  <apex:outputText value="{!steplanenddate}" rendered="{!if( projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True' , true , false)}"/> </td>  
+
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Planned_Financial_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Financial Savings' && isManual = true) && !(projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Planned_Financial_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Financial Savings' && isManual = true) && (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), TRUE , FALSE)}"/>  
+  <apex:inputField value="{!benifit.Planned_Operational_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Operational Savings' && isManual = true) && !(projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Planned_Operational_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Operational Savings' && isManual = true) && (projectinfo!= null && projectinfo.DI_State__c == 'DI 3 - Measure Accepted for Implementation' && projectinfo.TriggerForDI3ApprovalProcess__c == 'True'), TRUE , FALSE)}"/>  
+
+  <apex:outputText value="{!benifit.Planned_Financial_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = false , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Planned_Operational_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = false , TRUE , FALSE)}"/>  
+  </td> 
+</tr>
+<tr>
+  <td width = "250px" align="left"><apex:outputText value="{!TypeOfAchievedSaving }"/></td>
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Achieved_Quantity__c}"  rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , false, true)}"/>
+          <apex:outputfield value="{!benifit.Achieved_Quantity__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}" />  
+  </td>      
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Achieved_Start_Date__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , false, true)}"/>
+      <apex:outputText value="{!steAchevedStartDate}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}" />  
+  </td>  
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Achieved_End_Date__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , false, true)}" />
+        <apex:outputText value="{!steAchevedEndDate}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}" />  
+  </td>
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Achieved_Financial_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Financial Savings' && isManual = true) && !(projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible'), TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Financial_Manual_Amount__c}" rendered="{!if((Benefit_Type = 'Financial Savings' && isManual = true && projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}"/>  
+  <apex:inputField value="{!benifit.Achieved_Operational_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Operational Savings' && isManual = true) && !(projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible'), TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Operational_Manual_Amount__c}" rendered="{!if((Benefit_Type = 'Operational Savings' && isManual = true && projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}"/>  
+
+  <apex:outputText value="{!benifit.Achieved_Financial_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = false , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Operational_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = false , TRUE , FALSE)}"/>  
+  </td>
+</tr>
+<tr>
+  <td width = "250px" align="left"><apex:outputText value="{!TypeOfFutureSaving }"/></td>
+  <td width = "200px" align="LEFT"><apex:inputField value="{!benifit.Future_Quantity__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , false, true)}"/>
+        <apex:outputfield value="{!benifit.Future_Quantity__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}" />  
+  </td>      
+  <td width = "200px" align="LEFT"><apex:inputField value="{!benifit.Future_Start_Date__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , false, true)}"/>
+    <apex:outputText value="{!steFutureStartDate}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}" />  
+  </td>
+  <td width = "200px" align="LEFT"><apex:inputField value="{!benifit.Future_End_Date__c}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , false, true)}"/>
+      <apex:outputText value="{!steFutureEndDate}" rendered="{!if((projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}"/>  
+  </td>
+  <td width = "200px" align="LEFT">
+  <apex:inputField value="{!benifit.Future_Financial_Manual_Amount__c}" rendered="{!IF((Benefit_Type = 'Financial Savings' && isManual = true) && !(projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible'), TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Future_Financial_Manual_Amount__c}" rendered="{!if((Benefit_Type = 'Financial Savings' && isManual = true && projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}"/>  
+  <apex:inputField value="{!benifit.Future_Operational_Manual_Amount__c}" rendered="{!if((Benefit_Type = 'Operational Savings' && isManual = true) && !(projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}"/>
+  <apex:outputText value="{!benifit.Future_Operational_Manual_Amount__c}" rendered="{!if((Benefit_Type = 'Operational Savings' && isManual = true && projectinfo!= null && ConversionIDFound == False && projectinfo.TriggerForDI3ApprovalProcess__c == 'False' && projectinfo.DI_State__c == 'DI 5 - Initiative is implemented, impact visible') , true, false)}"/>  
+    
+  <apex:outputText value="{!benifit.Future_Financial_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = false , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Future_Operational_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = false , TRUE , FALSE)}"/>
+  </td>
+</tr>
+</table>
+
+-->
+
+<!------ Starting new section 2 ------------>
+
+      <apex:pageblockSection columns="1" id="BnrepAdd" title="Benefit - Line Items" collapsible="False">
+      <apex:variable var="rowNum" value="{!0}"  />               
+
+            <apex:pageBlockTable value="{!Bn_rep_AddList}" var="Bnrep" columnsWidth="5%,15%,15%,15%,15%,15%,10%,10%">
+                 <apex:facet name="footer">
+                    <apex:commandButton value="Add Row" action="{!addRow}" reRender="BnrepAdd" rendered="{!if( projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete', false, true)}"/>
+                 </apex:facet>
+               
+                 <apex:column headerValue="No." style="width:20px; text-align:center;" headerClass="centertext">
+                  <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                        <apex:param value="{!rowNum+1}" />   
+                    </apex:outputText>
+                 </apex:column>
+                
+                
+                
+                <apex:column headerValue="Condition" style="width:120px">
+                    <!-----for Helper Text----->
+                    <apex:facet name="header">Condition
+                        <span class="helpButton" id="example-title4-_help">
+                            <img src="/s.gif" class="helpOrb"/>
+                            <script type="text/javascript">
+                            sfdcPage.setHelp('example-title4', '“Planned” savings are estimated at the beginning of the project (e.g. as estimated at the Define Phase). “Achieved” savings are savings realized so far and “Future” savings are yet to be realized as estimated after the Quality Improvements have been made.');
+                            </script>
+                        </span>
+                    </apex:facet>
+                    <apex:inputField value="{!Bnrep.Benefit_Condition__c}" rendered="{!if(((Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete')) || (projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}"/>
+                    <apex:outputfield value="{!Bnrep.Benefit_Condition__c}" rendered="{!if(((Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete')) || (projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), true , false)}"/>
+                </apex:column> 
+
+                <apex:column headerValue="Year" style="width:120px">
+                <apex:inputField value="{!Bnrep.Years__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}"/>
+
+                <apex:outputfield value="{!Bnrep.Years__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), true , false)}"/>
+                </apex:column>
+
+                <apex:column headerValue="Quarter" style="width:120px">
+                <apex:inputField value="{!Bnrep.Quarters__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}"/>
+
+                <apex:outputfield value="{!Bnrep.Quarters__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), true , false)}"/>
+                </apex:column>
+
+                <apex:column headerValue="Month" style="width:120px">
+                <apex:inputField value="{!Bnrep.Months__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}"/>
+
+                <apex:outputfield value="{!Bnrep.Months__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), true , false)}"/>
+                </apex:column>
+
+                <apex:column headerValue="Savings Amount (k€)" style="width:120px">
+                    <!-----for Helper Text----->
+                    <apex:facet name="header">Savings Amount (k€)
+                        <span class="helpButton" id="example-title5-_help">
+                            <img src="/s.gif" class="helpOrb"/>
+                            <script type="text/javascript">
+                            sfdcPage.setHelp('example-title5', 'The financial benefit amount as a result of the Quality Improvement, input in thousands of Euro.');
+                            </script>
+                        </span>
+                    </apex:facet>
+                    <apex:inputField value="{!Bnrep.Benefit_Savings_Amount__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}"/>
+                    <apex:outputfield value="{!Bnrep.Benefit_Savings_Amount__c}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), true , false)}"/>
+                </apex:column>
+                 
+                 
+                 
+                 <apex:column headerValue="      " style="width:90px">  
+                    <apex:commandLink style="font-size:15px; font-weight:bold; text-align:center;color:green;" value="Clone" action="{!cloneRow}" reRender="BnrepAdd" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}">
+                        <apex:param value="{!rowNum}" name="index" />
+                    </apex:commandLink>
+                 </apex:column>
+                 <apex:column headerValue="Delete" style="width:90px" >
+                    <apex:commandLink style="font-size:15px; font-weight:bold; text-align:center;color:red;" value="X" action="{!delRow}" rendered="{!if(((Bnrep.Benefit_Condition__c == 'Planned' && Bnrep.DI3DI5_Flag__c == 'True') &&(projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete'))||(projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete'), false, true)}">
+                        <apex:param value="{!rowNum}" name="index" />
+                    </apex:commandLink>
+                    <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                 </apex:column>  
+              
+              </apex:pageBlockTable>                    
+        </apex:pageblockSection>     
+
+<!------ Ending new section 2 ------------>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

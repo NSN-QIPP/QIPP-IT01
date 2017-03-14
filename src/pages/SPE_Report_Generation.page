@@ -1,0 +1,45 @@
+<apex:page standardController="SPE_Report_Parameter__c" extensions="SPE_ReportHelperExt">
+    <apex:form >
+        <apex:commandLink value="Go To Main Page" action="{!mainPage}"/>
+        <apex:pageBlock >
+            <apex:actionPoller rerender="msg,displayReportsId" interval="5"/>
+            <apex:outputLabel value="{!Message}" id="msg" style="text-wight:bold;"/>
+        </apex:pageBlock>
+        
+      <apex:pageBlock id="displayReportsId" title="Reports and Dashboards">
+            
+            <apex:pageBlockSection title="Dashboards" rendered="{!displayReports}">            
+                <apex:outputPanel >
+                    <apex:commandLink action="{!speSupplierCoverageDashboard}" value="SPE Supplier Coverage" target="_blank"/><br/>
+                    <apex:commandLink action="{!speSupplierIndexDashboard}" value="Supplier Performance Index" target="_blank"/><br/>
+                    <apex:commandLink action="{!speGlobalDashboard}" value="SPE Global" target="_blank"/><br/>
+                    <apex:commandLink action="{!speCatGroupDashboard}" value="SPE CategoryGroup" target="_blank"/><br/>
+                    <apex:commandLink action="{!speMarketUnitDashboard}" value="SPE MarketUnit" target="_blank"/><br/>
+                    <apex:commandLink action="{!speMarketDashboard}" value="SPE Market" target="_blank"/><br/>
+                    <apex:outputText rendered="{!IF(SPEParameter.Region__c == 'All Markets',true,false)}">
+                        <u><b>SPE Market CategoryGroup</b></u>
+                    </apex:outputText>
+                    <apex:outputLabel value="(Please Select a Market to View this Report.)" rendered="{!IF(SPEParameter.Region__c == 'All Markets',true,false)}" style="color:red"/>
+                    <apex:commandLink action="{!speRegionCatGroupDashboard}" value="SPE Market CategoryGroup" target="_blank" rendered="{!IF(SPEParameter.Region__c == 'All Markets',false,true)}"/><br/>
+                    
+                    <apex:outputText rendered="{!IF(SPEParameter.SubRegion__c == 'All Market Units',true,false)}">
+                        <u><b>SPE MarketUnit CategoryGroup</b></u>
+                    </apex:outputText>
+                    <apex:outputLabel value="(Please Select a Market Unit to View this Report.)" rendered="{!IF(SPEParameter.SubRegion__c == 'All Market Units',true,false)}" style="color:red"/>
+                    <apex:commandLink action="{!speSubRegionCatGroupDashboard}" value="SPE MarketUnit CategoryGroup" target="_blank" rendered="{!IF(SPEParameter.SubRegion__c == 'All Market Units',false,true)}"/><br/>
+                  
+              
+                </apex:outputPanel>           
+            </apex:pageBlockSection>
+             <apex:pageBlockSection title="Reports" rendered="{!displayReports}">            
+                <apex:outputPanel >
+                    <apex:commandLink action="{!speCountryReport}" value="SPE Country Report" target="_blank"/><br/>
+                    <apex:commandLink action="{!speRegionReport}" value="SPE Region Report" target="_blank"/><br/>
+                    <apex:commandLink action="{!speRegionCatReport}" value="SPE Region Category Report" target="_blank"/><br/>
+                    <apex:commandLink action="{!speGlobalReport}" value="SPE Global Report" target="_blank"/><br/>
+                    <apex:commandLink action="{!speGlobalCatReport}" value="SPE Global Category Report" target="_blank"/><br/>
+                </apex:outputPanel>           
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+      </apex:form>
+</apex:page>

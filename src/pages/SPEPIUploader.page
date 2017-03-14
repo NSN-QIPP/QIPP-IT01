@@ -1,0 +1,1203 @@
+<apex:page id="pageId" standardController="SPE_PIDefinition__c"
+    extensions="SPEPIUploaderExtension" showHeader="false" sidebar="false" action="{!deleteTestData}">
+
+    <head>
+<apex:includeScript value="{!$Resource.JqueryMin}" />
+
+<apex:includeScript value="{!$Resource.SPE_blockui}"/>
+<apex:includeScript value="{!$Resource.SPE_JqueryWizard}" />
+<apex:includeScript value="{!$Resource.SPE_Shim}"/>
+<apex:includeScript value="{!$Resource.SPE_jszip}"/>
+<apex:includeScript value="{!$Resource.SPE_Ods}"/>
+<apex:includeScript value="{!$Resource.SPE_xlsx}"/>
+<!--apex:includeScript value="{!$Resource.SPE_Connection}"/>
+<apex:includeScript value="{!$Resource.SPE_ApexJs}"/-->
+            
+<style>
+.navbar-default1 {
+    background-color: #1485a9;
+}
+#drop{
+    border:2px dashed #bbb;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    padding:25px;
+    text-align:center;
+    font:20pt bold,"Vollkorn";color:#bbb
+}
+
+.chkOutBtn{
+    border-radius: 5px;
+    height: 30px;
+    color: white;
+    background-color: #1485a9;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.screen1{
+    padding-left: 10%;
+    background-color: #1485a9;
+    width: 50%;
+    border-radius: 10px;
+    height: 50px;
+    font-size: initial;
+    color: white;
+    font-weight: bold;
+}
+
+.resultsDiv{
+    margin-top: 10px;
+    overflow-x:auto;
+    overflow-y:auto;
+    width:inherit;
+    height:180px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width:100%;
+}
+
+.navigationBtn{
+    cursor:pointer;
+    border-radius:5px;
+    height: 30px;
+    width: 70px;
+}
+.overlay {
+    position:absolute;
+    display:none; 
+
+    /* color with alpha transparency */
+    background-color: rgba(0, 0, 0, 0.7);
+
+    /* stretch to screen edges */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.overlay1 {
+    position:absolute;
+    display:none; 
+
+    /* color with alpha transparency */
+    background-color: rgba(0, 0, 0, 0.7);
+
+    /* stretch to screen edges */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.popup {
+    position: absolute;
+    display: none;
+    background-color: white;
+    text-align: center;
+
+    /* center it ? */
+    top: 50%;
+    left: 50%;
+    
+    width: 50%;
+    margin-left: -25%;
+    height: 92%;
+    margin-top: -23%;
+    border-radius: 10px;
+}
+.popup1 {
+    position: absolute;
+    display: none;
+    background-color: white;
+    text-align: center;
+
+    /* center it ? */
+    top: 50%;
+    left: 50%;
+    
+    width: 50%;
+    margin-left: -25%;
+    height: 92%;
+    margin-top: -23%;
+    border-radius: 10px;
+}
+.popupNew{
+    position: absolute;
+    display: none;
+    background-color: white;
+    text-align: center;
+
+    /* center it ? */
+    top: 50%;
+    left: 50%;
+    
+    width: 50%;
+    margin-left: -25%;
+    height: 92%;
+    margin-top: -23%;
+    border-radius: 10px;
+}
+.yesNoBtn{
+    width: 10%;
+    padding-top: 3px;
+    text-align: center;
+    padding-bottom: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.selCls{
+    height: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+    </head>
+    <body>
+        
+        <apex:form id="theForm">
+            
+            <!-- Fixed navbar -->
+            <div class="navbar-default1" style="height: 50px;">
+                <div>
+                    <div>
+                        <div align="center" style="padding-top: 10px;">
+                            <apex:outputText value="PI Uploader"
+                                style="color:white;font-weight:bold;font-size: x-large;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  end fixed nav -->
+            <br/>
+            <div style="width: 80%;border: 1px solid #ddd;border-radius: 10px;margin-left: 10%;">
+                <!-- First tab -->
+                <div id="piSelection-tab" style="margin-left: 30%;height: 240px;">
+                    <br/>
+                    <div class="screen1">
+                        <br/>
+                        <label style="padding-left: 15%;">PI Data Selection Screen</label>
+                    </div>
+                    <br/><br/><br/><br/>
+                    <div style="float:left;padding-top: 5px;">
+                    <label style="font-weight:bold;font-family:sans-serif;">Select PI Data &nbsp;&nbsp;</label>
+                    </div>
+                    <div style="float:left;">
+                        <apex:inputField value="{!objSPEPIValues.PIDefination__c}"
+                            style="border-radius:5px;height: 20px;" id="lookUpFldId"/>
+                    </div>
+                    <br/><br/>
+                    <label id="errMsg" style="color: red;font-weight: bold;padding-left:11%;display:none;">*Please Select a PI Data to Proceed</label>
+                    <br/><br/><br/><br/>
+                    <input type="button" class="navigationBtn" value="Next" style="float:right;margin-right: 5%;" onclick="showDiv2();" id="nxtBtn"/>
+                    
+                </div>
+                
+                
+                
+                <!-- Second Screen -->
+                <div id="fileUploader" style="padding: 1%;display:none;height: 540px;">
+                    <br/>
+                    <div class="screen1" style="margin-left: 20%;">
+                        <br/>
+                        <label style="padding-left: 25%;">File Upload Screen - I</label>
+                    </div>
+                        <br/>
+                        <div id="drop">Drop an .xlsx file here to see sheet data</div>
+                        <p>
+                            <input type="file" name="xlfile" id="xlf" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        </p>
+                        <div style="display:none">
+                            <textarea id="b64data">... or paste a base64-encoding here</textarea>
+                            <input type="button" id="dotext" value="Click here to process the base64 text" onclick="b64it();"/><br />
+                            Advanced Demo Options: <br />
+                            Use Web Workers: (when available) <input type="checkbox" name="useworker" /><br />
+                            Use Transferrables: (when available) <input type="checkbox" name="xferable" /><br />
+                            Use readAsBinaryString: (when available) <input type="checkbox" name="userabs" /><br />
+                        </div>
+                        <br/>
+                        <div style="height:30px;">
+                            <div id="dynamicInput" style="float: left;display:none;">
+                                <b>Please Select a worksheet : </b>
+                                <select id="selectID" style="border-radius:5px;height:25px;cursor:pointer;">
+                                </select>
+                            </div><div style="width:30px;float: left;">&nbsp;&nbsp;</div>
+                            <div id="showRawData" style="display:none;">
+                                <input type="button" value="Show Raw Data Preview" class="navigationBtn" onclick="showNewTable(document.getElementById('selectID').innerText,'Raw');" style="width:18%;"/>
+                                <label style="color: red;font-weight: bold;">*Please ensure that there are no blank columns in the file's raw data preview</label>
+                            </div><br/>
+                            <div id="dateFormat" style="display:none;float: left;">
+                                <b>Please select date format for the file : </b>
+                                <select id="dateSel" class="selCls" onchange="setDtFormat();">
+                                    <option value="None">--None--</option>
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="DD/MM/YYYY">DD-MM-YYYY</option>
+                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                    <option value="MM/DD/YYYY">MM-DD-YYYY</option>
+                                    <option value="PMMYYYY">PMMYYYY</option>
+                                </select>
+                            </div><br/><br/>
+                            <div id="mappingFiles" style="display:none;float: left;">
+                                <b>Please provide means of mapping : </b>
+                                <select id="selectID1" class="selCls">
+                                    <option value="None">--None--</option>
+                                    <option value="Create a new mapping file">Create a new mapping file</option>
+                                    <option value="Edit an existing mapping file">Edit an existing mapping file</option>
+                                    <option value="Choose an existing mapping file">Choose an existing mapping file</option>
+                                </select>&nbsp;&nbsp;
+                                <input type="button" value="Go!!!" onclick="selectPopUp();" class="navigationBtn"/>
+                            </div>
+                            <div style="display:none;float: left;" id="selMappingTem">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText value="Select the mapping template" style="font-weight:bold;"/>&nbsp;&nbsp;
+                                <apex:inputField id="popUpLkFld1" value="{!objSPEMV.Mapping_Template__c}" style="border-radius: 5px;height: 20px;" onchange="setHiddenFldVals();"/>
+                                <input type="button" value="Preview" onclick="fetchTemplateDetails()" class="navigationBtn"/>
+                                <apex:inputHidden value="{!rowSkipExistingTemp}" id="rowSkipTempHid"/>
+                                <apex:inputHidden value="{!colSkipExistingTemp}" id="colSkipTempHid"/>
+                            </div>
+                        </div>
+                        <pre id="out" style="display:none"></pre>
+                        <div id="metric_results" class="resultsDiv"></div><br/>
+                    <div style="width:100%;">
+                        <input type="button" class="navigationBtn" value="Previous" style="float:left;" onclick="showDiv1();" id="prevBtn1"/>
+                        <input type="button" class="navigationBtn" value="Next" style="float:right;" onclick="showNewTable(document.getElementById('selectID').innerText,'Existing');" id="nxtBtn1"/>
+                    </div>
+                </div>
+                <!-- Third Screen -->
+                <div id="fileUploader1" style="padding: 1%;display:none;height: 540px;">
+                    <br/>
+                    <div class="screen1" style="margin-left: 20%;">
+                        <br/>
+                        <label style="padding-left: 25%;">File Upload Screen - II</label>
+                    </div><br/><br/>
+                    <apex:pagemessages id="err3"/>
+                    <div id="defValsDiv">
+                        <b>Provide default Values / Check Preview :</b>&nbsp;&nbsp;
+                        <input type="button" value="Default Values / Check Preview" class="navigationBtn" onclick="showDefPopUp();" style="width:20%;"/><br/><br/>
+                        
+                    </div>
+                    
+                    <br/>
+                    <div id="metric_resultsFinal" class="resultsDiv" style="height:240px;"></div><br/><br/>
+                    <input type="button" class="navigationBtn" value="Previous" style="float:left;" onclick="showDiv2();" id="prevBtn2"/>
+                    <input id="validateRecId" type="button" value="Validate Data" class="navigationBtn" onclick="pushRecords()" style="width:10%;padding: 1%;float:right;display:none;"/><br/><br/>
+                    <div id="showStatus" style="display:none;padding-left: 95%;">
+                        Validating...
+                    </div>
+                </div>
+                <div class="overlay"></div>
+                <div class="popup1" id="DefPopUp" style="background-color: #1483B5;color: white;font-weight: bold;">
+                    <div style="float:right;color:red;font-weight:bold;font-size:large;cursor:pointer;padding:1%;" onclick="closePopUpDivDef('{!isDefaultFieldsValidated}');">
+                        X
+                    </div>
+                    <br/>
+                    <div style="overflow-y:auto;height:350px;" align="center" id="defList">
+                        <apex:datatable var="lstDef" value="{!lstFillData}" columnsWidth="140px;" id="defTblId">
+                            <apex:column style="padding: 8px;">
+                                <apex:facet name="header"><apex:outputText value="File Column" style="padding: 8px;"/></apex:facet>
+                                       <apex:outputText value="{!lstDef.headerAPINames}" style="font-weight:bold;color:white;"/>
+                                       <apex:outputText value="**" style="font-weight:bold;color:red;" rendered="{!lstDef.isRequiredDef}"/>
+                            </apex:column>
+                            
+                            <apex:column style="padding: 8px;">
+                                <apex:facet name="header"><apex:outputText value="Default Values" style="padding: 8px;"/></apex:facet>
+                                       <apex:inputText value="{!lstDef.defaultValue}" style="font-weight:bold;" onkeypress="return isNumberDef(event,'{!lstDef.isNumberValue}')" onchange="checkBooleanVal('{!lstDef.isBooleanValue}',this.id)"/>
+                            </apex:column>
+                        </apex:datatable>
+                    </div>
+                    <br/>
+                    <input type="button" id="confirmDef" class="yesNoBtn" style="width:25%;" value="Confirm" onclick="callsetDefValues();"/>
+                </div> 
+                <div class="popup" id="popUpBox" style="background-color: #1483B5;color: white;font-weight: bold;">
+                    <div style="float:right;color:red;font-weight:bold;font-size:large;cursor:pointer;" onclick="closePopUpDiv('Edit');">
+                        X
+                    </div>
+                    <br/>
+                    <apex:pagemessages id="err1"/>
+                    <div style="float:left;">
+                        <apex:outputText value="Select the mapping template" style="font-weight:bold;"/>&nbsp;&nbsp;
+                        <apex:inputField id="popUpLkFld" value="{!objSPEMVEditPopUp.Mapping_Template__c}" style="border-radius: 5px;height: 20px;" onchange="callSetHdFldVals();"/>
+                        <input type="button" id="goBtnId" value="Go!!!" onclick="showNewTable(document.getElementById('selectID').innerText,'Modify');" class="navigationBtn"/>
+                    </div>
+                    <br/><br/>
+                    <apex:outputpanel id="popUpDivPanel">
+                        <br/><br/>
+                        <apex:outputpanel id="templateId1" rendered="{!isTemplateSectionShown}" style="float:left;">
+                            <apex:outputText value="Number of Rows to skip" style="font-weight:bold;"/> &nbsp;&nbsp;
+                            <apex:inputfield value="{!objSPEMT.Number_Of_Rows_to_Skip__c}" id="rowsSkip" style="border-radius: 5px;height: 20px;" onkeypress="return isNumber(event)"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <apex:outputText value="Number of Columns to skip" style="font-weight:bold;"/>&nbsp;&nbsp;
+                            <apex:inputfield value="{!objSPEMT.Number_Of_Columns_to_Skip__c}" id="colsSkip" style="border-radius: 5px;height: 20px;" onkeypress="return isNumber(event)"/><br/><br/>
+                            <br/><br/><br/><br/>
+                            <div style="overflow-y:auto;height:350px;" align="center" id="mappingValsTbl">
+                                <apex:datatable var="lstMV" value="{!updateMappingRecords}" columnsWidth="140px;" id="editTable">
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="Salesforce Field" style="padding: 8px;"/></apex:facet>
+                                               <apex:outputText value="{!lstMV.fileNames}" style="font-weight:bold;color:white;"/>
+                                               <apex:outputText value="**" style="font-weight:bold;color:red;" rendered="{!lstMV.isRequiredUpdate}"/>
+                                    </apex:column>
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="Saved Mapping" style="padding: 8px;"/></apex:facet>
+                                               <apex:outputText value="{!IF(lstMV.savedMapping != '',lstMV.savedMapping,'Not Mapped')}" style="font-weight:bold;color:white;"/>
+                                    </apex:column>
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="File Column" style="padding: 8px;"/></apex:facet>
+                                        <apex:SelectList value="{!lstMV.selectedStringInFile}" size="1" styleclass="selCls" disabled="{!IF(lstMV.isScreenInputUW == true,true,false)}" id="editSelectOption" onchange="callSelectValidation(this.value,{!updateMappingRecords.size},this.id,'Edit');">
+                                          <apex:selectOptions value="{!lstMV.optionItemsofFile}"></apex:selectOptions>
+                                        </apex:SelectList>
+                                    </apex:column>
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="Is Screen Input" style="padding: 8px;"/></apex:facet>
+                                               <apex:inputCheckbox value="{!lstMV.isScreenInputUW}" onclick="callDisableFn(this.id,'Edit');" id="editCheckBox"/>
+                                    </apex:column>
+                                </apex:datatable>
+                            </div>
+                            <br/>
+                            <div id="mappingTblId">
+                            <input type="button" id="saveMT" class="yesNoBtn" style="width:25%;" value="Save Mapping Template" onclick="saveNclosePopUp();"/>
+                            </div>
+                        </apex:outputpanel>
+                    </apex:outputpanel>
+                </div>
+                <br/>
+                <div class="popupNew" id="popUpBoxNew" style="background-color: #1483B5;color: white;font-weight: bold;">
+                    <div style="float:right;color:red;font-weight:bold;font-size:large;cursor:pointer;padding:1%;" onclick="closePopUpDiv('New');">
+                        X
+                    </div>
+                    <br/>
+                    <apex:pagemessages id="err2"/>
+                    <div style="float:left;">
+                        <apex:outputText value="Mapping Template Name" style="font-weight:bold;"/>&nbsp;&nbsp;
+                        <apex:inputField id="popUpLkFldNew" value="{!objSPEMTNew.Name}" style="border-radius: 5px;height: 20px;"/><br/><br/>
+                    </div>
+                    <apex:outputpanel id="popUpDivPanelNew">
+                        <apex:outputpanel id="templateId1New">
+                            <div style="float:left;">
+                                <apex:outputText value="Number of Rows to skip" style="font-weight:bold;"/> &nbsp;&nbsp;
+                                <apex:inputfield value="{!objSPEMTNew.Number_Of_Rows_to_Skip__c}" id="rowsSkipNew" style="border-radius: 5px;height: 20px;" onkeypress="return isNumber(event)"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <apex:outputText value="Number of Columns to skip" style="font-weight:bold;"/>&nbsp;&nbsp;
+                                <apex:inputfield value="{!objSPEMTNew.Number_Of_Columns_to_Skip__c}" id="colsSkipNew" style="border-radius: 5px;height: 20px;" onkeypress="return isNumber(event)"/><br/><br/>
+                            </div>
+                            <br/><br/><br/><br/>
+                            <input type="button" value="Create Mapping Table" onclick="showNewTable(document.getElementById('selectID').innerText,'New');" class="chkOutBtn" id="generateMpTbl"/>
+                            <br/>
+                            
+                            
+                            <div style="overflow-y:auto;height:350px;" align="center" id="mappingValsTblNew">
+                                <br/>
+                                <apex:datatable var="lstWrap" value="{!createMappingRecords}" columnsWidth="140px;" id="createDataTbl">
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="Salesforce Field" style="padding: 8px;"/></apex:facet>
+                                                <apex:outputText value="{!lstWrap.colNames}" style="font-weight:bold;color:white;"/>
+                                                <apex:outputText value="**" style="font-weight:bold;color:red;" rendered="{!lstWrap.isRequiredCreate}"/>
+                                    </apex:column>
+                                    
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="File Column" style="padding: 8px;"/></apex:facet>
+                                        <apex:SelectList value="{!lstWrap.selectedString}" size="1" styleclass="selCls" id="newSelectOption" onchange="callSelectValidation(this.value,{!createMappingRecords.size},this.id,'New');">
+                                          <apex:selectOptions value="{!lstWrap.optionItems}"></apex:selectOptions>
+                                        </apex:SelectList>
+                                    </apex:column>
+                                    <apex:column style="padding: 8px;">
+                                        <apex:facet name="header"><apex:outputText value="Is Screen Input" style="padding: 8px;"/></apex:facet>
+                                               <apex:inputCheckbox value="{!lstWrap.isScreenInput}" onclick="callDisableFn(this.id,'New');" id="newCheckBox"/>
+                                    </apex:column>
+                                </apex:datatable>
+                            </div>
+                            <br/>
+                            <div id="mappingTblIdNew">
+                            <input type="button" id="saveMT1" class="yesNoBtn" style="width:25%;" value="Save Mapping Template" onclick="saveNclosePopUpNew();"/>
+                            </div>
+                        </apex:outputpanel>
+                    </apex:outputpanel>
+                </div> 
+                <div id="ptext" style="display:none">
+                <img src="/img/loading32.gif" />
+                <div style="font-size:150%;padding:5px">Processing....</div>
+                </div>
+            
+            </div>
+            
+            <apex:actionFunction name="createMappingTable" id="createMappingTable" action="{!createNewMT}" rerender="popUpDivPanelNew,templateId1New">
+                <apex:param name="passHeader" id="passHeader" value="" assignTo="{!headerVals}"/>
+            </apex:actionFunction>
+            <apex:actionFunction name="UpdateMappingTable" id="UpdateMappingTable" action="{!updateNewMT}" rerender="err3"  oncomplete="showChangedTable('{!strFinalHeaders}','{!strHeadersToAppend}','{!defVals}');">
+                <apex:param name="passHeader1" id="passHeader1" value="" assignTo="{!headerValsFinal}"/>
+            </apex:actionFunction>
+            <apex:actionFunction name="callSaveApex" id="callSaveApex" action="{!saveNClose}" rerender="err1" oncomplete="closePopUp('{!isValidatedUpdate}','{!erroredFieldsUpdate}')"/>
+            <apex:actionFunction name="callNewSavingFn" id="callNewSavingFn" action="{!saveNewTemplate}" oncomplete="closeNewPopUp('{!isValidated}','{!erroredFields}');" rerender="err2"/>
+           <apex:actionFunction name="fetchTemplateDetails11" id="fetchTemplateDetails11" action="{!fetchTemplateDetails}" rerender="rowSkipTempHid,colSkipTempHid"/>
+            <apex:actionFunction name="fetchTemplateDetails1" id="fetchTemplateDetails1" action="{!fetchTemplateDetails}" rerender="rowSkipTempHid,colSkipTempHid" oncomplete="generatePreview()"/>
+            <apex:actionFunction name="fetchTemplateDetails2" id="fetchTemplateDetails2" action="{!fetchTemplateDetailsPopUp}" rerender="popUpDivPanel">
+                <apex:param name="passHeader11" id="passHeader11" value="" assignTo="{!headerVals}"/>
+            </apex:actionFunction>
+            <apex:actionFunction name="callSetHdFldVals" id="callSetHdFldVals" action="{!setHiddenFldVals}" rerender="rowSkipTempHid,colSkipTempHid" oncomplete="document.getElementById('goBtnId').style.display='';"/>
+            <apex:actionFunction name="showDefPopUp" id="showDefPopUp" action="{!fillData}" oncomplete="renderPopUp('{!isDefaultFieldsAvailable}');" rerender="defTblId"/>
+            <apex:actionFunction name="callsetDefValues" id="callsetDefValues" action="{!setDefValues}" oncomplete="closePopUpDivDef('{!isDefaultFieldsValidated}');" rerender="none"/>
+            <apex:actionFunction name="callValidateHeaders" id="callValidateHeaders" action="{!validateFileHeaders}" oncomplete="showDiv3('{!isExistingHeadersValidated}');" rerender="none">
+                <apex:param name="passHeader12" id="passHeader12" value="" assignTo="{!existingHeaders}"/>
+            </apex:actionFunction>
+            <apex:actionFunction name="callInsertBulk" id="callInsertBulk" action="{!uploadBulkData}" rerender="none">
+                <apex:param name="sendValues" id="sendValues" value="" assignTo="{!strDataInsert}"/>
+                <apex:param name="dateFormatNew" id="dateFormatNew" value="" assignTo="{!strDateFormat}"/>
+            </apex:actionFunction>
+            <apex:actionFunction name="callMoveValidate" id="callMoveValidate" action="{!moveToValidate}"/>
+            
+            </apex:form>
+            <script>
+                var headerCols = [];
+                var newTableFinal;
+                var headerFinal = [];
+                var headerFinalOutput = [];
+                var outputFinalTable="";
+                var lasttable='';
+                var sheetSize = 0;
+                var dtFrmat;
+                function setDtFormat(){
+                    dtFrmat = document.getElementById('dateSel').value;
+                }
+                function checkBooleanVal(a,b){
+                    if(a == 'true' && (document.getElementById(b).value != 'true' || document.getElementById(b).value != 'false')){
+                        alert('Please enter either "true" or "false" as value');
+                    }
+                }
+                function callSelectValidation(a,b,c,d){
+                    if(document.getElementById(c).value != ''){
+                        var rowNum;
+                        var selectOpId;
+                        if(d == 'New')
+                            rowNum = c.replace('pageId:theForm:createDataTbl:','').replace(':newSelectOption','');
+                        if(d == 'Edit')
+                            rowNum = c.replace('pageId:theForm:editTable:','').replace(':editSelectOption','');
+                        for(var s = 0;s < rowNum; s++){
+                            if(d == 'New')
+                                selectOpId = 'pageId:theForm:createDataTbl:' + s + ':newSelectOption';
+                            if(d == 'Edit')
+                                selectOpId = 'pageId:theForm:editTable:' + s + ':editSelectOption';
+                            if(a == document.getElementById(selectOpId).value){
+                                document.getElementById(c).value = '';
+                                alert('The column you just tried to map has already been mapped');
+                            }
+                        }
+                        for(var s = (parseInt(rowNum) + 1);s < b; s++){
+                            if(d == 'New')
+                                selectOpId = 'pageId:theForm:createDataTbl:' + s + ':newSelectOption';
+                            if(d == 'Edit')
+                                selectOpId = 'pageId:theForm:editTable:' + s + ':editSelectOption';
+                            
+                            if(a == document.getElementById(selectOpId).value){
+                                document.getElementById(c).value = '';
+                                alert('The column you just tried to map has already been mapped');
+                            }
+                        }
+                   } 
+                }
+                function isNumber(evt) {
+                    evt = (evt) ? evt : window.event;
+                    var charCode = (evt.which) ? evt.which : evt.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                    return true;
+                }
+                function isNumberDef(evt,a){
+                    if(a == 'true'){
+                        evt = (evt) ? evt : window.event;
+                        var charCode = (evt.which) ? evt.which : evt.keyCode;
+                        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                function callDisableFn(a,b){
+                    var selId;
+                    if(b == 'Edit')
+                        selId = a.replace('editCheckBox','editSelectOption');
+                    if(b == 'New')
+                        selId = a.replace('newCheckBox','newSelectOption');
+                    if(document.getElementById(a).checked){
+                        document.getElementById(selId).disabled = true;
+                        document.getElementById(selId).value = '';
+                    }
+                    else{
+                        document.getElementById(selId).disabled = false;
+                        document.getElementById(selId).value = '';
+                    }
+                }
+                
+                function setHiddenFldVals(){
+                    if(document.getElementById('pageId:theForm:popUpLkFld1').value !=''){
+                        fetchTemplateDetails11();                       
+                    }
+                }
+                function renderPopUp(a){
+                    if(a == 'true'){
+                        $(".overlay, .popup1").fadeToggle();
+                    }
+                    else{
+                        showFinalTable(document.getElementById('selectID').innerText);
+                    }
+                }
+                function pushRecords() {                  
+                    document.getElementById('showStatus').style.display = '';
+                    document.getElementById('validateRecId').disabled = true;
+                    var j=1;
+                    var recordRows=outputFinalTable.split('</tr>');
+                    var updateRecords = [];
+                    var insertrow='';
+                    var p=0; 
+                    for(k=1;k<recordRows.length-1;k++){
+                    updateRecords = [];
+                    var currentRows= recordRows[k].split('</td>');
+                        if(currentRows.length==headerFinalOutput.length) {
+                        currentRows[0]=currentRows[0].replace("<tr style='border: 1px solid #ddd;'>",'');
+                        //sforce.connection.sessionId = '{!$Api.Session_ID}'; 
+                        //var oppty = new sforce.SObject("SPE_PiValueTemp__c");
+                        for(i=0;i<headerFinalOutput.length-1;i++)
+                        {
+                       
+                        var rowval=currentRows[i].replace("<td style='border: 1px solid #ddd;'>",'');
+                        rowval=rowval.replace('"','').replace('"','');
+                        //oppty.set(headerFinalOutput[i],rowval);
+                        insertrow=insertrow+headerFinalOutput[i]+'$$$'+rowval+'@@@';
+                        } 
+                        
+                        //oppty.PIDefination__c= '{!objSPEPIValues.PIDefination__c}';
+                        //oppty.DateFormat__c = document.getElementById('dateSel').value;
+                        //updateRecords.push(oppty);
+                        insertrow=insertrow+'###';
+                        
+                        p=p+1;
+                        
+                        if(p=198)
+                        {
+                            //sforce.connection.sessionId = '{!$Api.Session_ID}'; 
+                            //var result = sforce.connection.create(updateRecords);
+                            p=0;
+                            updateRecords=[];
+                            
+                        }
+                    }
+                        }
+                        if(p<198){
+                        //sforce.connection.sessionId = '{!$Api.Session_ID}'; 
+                        //var result = sforce.connection.create(updateRecords);
+                        
+                        //call apex and pass insertrow and debug what you get.
+                        callInsertBulk(insertrow,dtFrmat);
+                    }
+                    //document.getElementById('validateRecId').style.display = 'none'; 
+                    document.getElementById('showStatus').style.display = 'none';                  
+                    //window.location.href = '/apex/SPE_intermediateUpload';
+                    callMoveValidate();
+                    
+                }
+                function showChangedTable(x,y,z){
+                    var newDiv1 = document.createElement('div');
+                    var headerFinalT =[];
+                    headerFinal = [];
+                    alert('x---' + x);
+                    alert('y---' + y);
+                    alert('z---' + z);
+                    headerFinalOutput = [];
+                    headerFinalT = x.split(',');
+                    for(var t3=0;t3< headerFinalT.length;t3++){
+                        if(headerFinalT[t3] != '')
+                            headerFinal.push(headerFinalT[t3]);
+                    }
+                    alert('headerFinal---' + headerFinal);
+                    var tableTemp=[];
+                    var defValues=[];
+                    var headerAppend=[];
+                    var colNum = [];
+                    defValues = z.split(',');
+                    headerAppend = y.split(',');
+                    headerFinal = headerFinal.concat(headerAppend);
+                    alert('headerFinal-after concat--' + headerFinal);
+                    for(var tk=0;tk< headerFinal.length;tk++){
+                        if(headerFinal[tk] != '' && headerFinal[tk] == 'Not Mapped'){
+                            colNum.push(tk);
+                        }
+                        else{
+                            if(headerFinal[tk] != '')
+                                headerFinalOutput.push(headerFinal[tk]);
+                        }
+                    }
+                    alert('headerFinalOutput---' + headerFinalOutput);
+                    tableTemp = newTableFinal.split('</tr>');
+                    tableTemp[0] = "<table id='tableIDFinal' style='border: 1px solid #ddd;><tr style='border: 1px solid #ddd;'>";
+                    for(var t1=0;t1< headerFinal.length;t1++){
+                        if(headerFinal[t1] != '' && headerFinal[t1] != 'Not Mapped')
+                            tableTemp[0] += "<td style='border: 1px solid #ddd;'>" + headerFinal[t1] + '</td>';
+                    }
+                    tableTemp[0] += '</tr>';
+                    lasttable='';
+                    lasttable=lasttable+tableTemp[0];
+                    alert('colNum--' + colNum);
+                    alert('defValues---' + defValues);
+                    for(var k=1;k<tableTemp.length-1;k++)
+                    {
+                        lasttable += tableTemp[k];
+                        for(var a =0;a<defValues.length-1;a++){
+                            //var locVar = 0;
+                            //for(var j = 0;j < colNum.length; j++){
+                                //if(a == colNum[j])
+                                    //locVar = 1; 
+                            //}
+                            
+                            //if(locVar == 0)
+                                lasttable += "<td style='border: 1px solid #ddd;'>" + defValues[a] + '</td>';
+                        }
+                        lasttable +='</tr>';
+                    }
+                    lasttable +='</table>';
+                    var lastTableSplit=lasttable.split("</tr>");
+                    outputFinalTable="";
+                    outputFinalTable+=lastTableSplit[0]+"</tr>";
+                    for(var p=1;p<lastTableSplit.length-1;p++){
+                      var tdblock=lastTableSplit[p].split("</td>");
+                      //alert('tdblock--' + tdblock);
+                        for(var l=0;l<tdblock.length-1;l++) {
+                           //alert(colNum + 'sssss' + tdblock[l]);
+                           if(colNum.indexOf(l) == -1)
+                            outputFinalTable+=tdblock[l]+'</td>';
+                        }
+                        outputFinalTable+="</tr>";
+                    }            
+                    
+                    outputFinalTable+="</table>";
+                    newDiv1.innerHTML = outputFinalTable;
+                    //newDiv1.innerHTML = lasttable;
+                    if('{!isHeaderColMissing}' == 'false'){
+                        document.getElementById("metric_resultsFinal").appendChild(newDiv1);
+                        document.getElementById("metric_resultsFinal").style.display ='';
+                    }
+                    document.getElementById('validateRecId').style.display = '';
+                }
+                function closePopUpDiv(a){
+                    if(a== 'Edit')
+                        $(".overlay, .popup").fadeToggle();
+                    if(a=='New')
+                        $(".overlay, .popupNew").fadeToggle();
+                }
+                
+                function closePopUpDivDef(a){
+                    if(a == 'true'){
+                        $(".overlay, .popup1").fadeToggle();
+                        showFinalTable(document.getElementById('selectID').innerText);
+                    }
+                    else
+                        alert('Please provide values for the asterik marked fields');
+                }
+                function generatePreview() {
+                    showNewTable(document.getElementById('selectID').innerText,'ExistingP');
+                }
+                
+                function fetchTemplateDetails(){
+                    if(document.getElementById('pageId:theForm:popUpLkFld1').value !=''){
+                        fetchTemplateDetails1();                        
+                    }
+                    else{
+                        alert('Please select a Mapping Template');
+                    }
+                }
+                function saveNclosePopUp(){
+                    callSaveApex(); 
+                }
+                function closePopUp(a,b){
+                    if(a == 'true')
+                        $(".overlay, .popup").fadeToggle();
+                    else
+                        alert('Please map the ' + b + 'fields');
+                }
+                function saveNclosePopUpNew(){
+                    callNewSavingFn();
+                }
+                function closeNewPopUp(a,b){
+                    if(a == 'true')
+                        $(".overlay, .popupNew").fadeToggle();
+                    else
+                        alert('Please map the ' + b + 'fields');
+                }
+                function showMappingVals(){
+                    document.getElementById('mappingValsTbl').style.display='';
+                    document.getElementById('mappingTblId').style.display='';
+                }
+                function selectPopUp(){
+                    document.getElementById("metric_results").innerHTML = '';
+                    if(document.getElementById("selectID1").value == 'Create a new mapping file'){
+                        document.getElementById('pageId:theForm:popUpLkFldNew').value='';
+                        document.getElementById('pageId:theForm:rowsSkipNew').value='';
+                        document.getElementById('pageId:theForm:colsSkipNew').value='';
+                        document.getElementById('mappingValsTblNew').style.display='none';
+                        document.getElementById('mappingTblIdNew').style.display='none';
+                        if(document.getElementById('selMappingTem').style.display =='')
+                            document.getElementById('selMappingTem').style.display='none';
+                        document.getElementById('pageId:theForm:popUpLkFld').value='';
+                        
+                        //document.getElementById('pageId:theForm:popUpDivPanelNew').style.display='none';
+                        $(".overlay, .popupNew").fadeToggle();                        
+                    }
+                    if(document.getElementById("selectID1").value == 'Edit an existing mapping file'){
+                        document.getElementById('selMappingTem').style.display='none';
+                        document.getElementById('pageId:theForm:popUpLkFld1').value='';
+                        document.getElementById('pageId:theForm:popUpLkFld').value='';
+                        document.getElementById('pageId:theForm:popUpDivPanel').style.display='none';
+                        document.getElementById('goBtnId').style.display='none';
+                        $(".overlay, .popup").fadeToggle();                        
+                    }
+                    if(document.getElementById("selectID1").value == 'Choose an existing mapping file'){
+                        document.getElementById('pageId:theForm:popUpLkFld').value='';
+                        document.getElementById('selMappingTem').style.display='';
+                    }
+                    if(document.getElementById("selectID1").value == 'None'){
+                        document.getElementById('selMappingTem').style.display='none';
+                        document.getElementById('pageId:theForm:popUpLkFld').value='';
+                        document.getElementById('pageId:theForm:popUpDivPanel').style.display='none';
+                    }
+                }
+                
+                var sheetinexcel = [];
+                //document.getElementById('generateTbl').disabled ='true';
+                function showDiv2(){
+                    if(document.getElementById('pageId:theForm:lookUpFldId').value !=''){
+                        document.getElementById('errMsg').style.display='none';
+                        document.getElementById('fileUploader').style.display='';
+                        document.getElementById('piSelection-tab').style.display='none';
+                        document.getElementById('fileUploader1').style.display='none';
+                    }
+                    else{
+                        document.getElementById('errMsg').style.display='';
+                    }
+                }
+                function showDiv1(){
+                    document.getElementById('fileUploader').style.display='none';
+                    document.getElementById('piSelection-tab').style.display='';
+                    document.getElementById('nxtBtn').disabled=false;
+                }
+                // Validate Errors
+                function showDiv3(a){
+                    if(document.getElementById('pageId:theForm:popUpLkFld1').value !=''){
+                        if(a == 'true'){
+                            if(document.getElementById('dateSel').value !='None'){
+                                document.getElementById('fileUploader').style.display='none';
+                                document.getElementById('fileUploader1').style.display='';
+                            }
+                            else{
+                                alert('Please select a valid date format');
+                            }
+                        }
+                        else{
+                            alert('Either the file does not contain headers which are mapped in the selected template OR The mandatory field mapping is missing in the selected template. Please select the correct template.');
+                        }
+                    }
+                    else{
+                        alert('A File and a mapping template should be selected to proceed');
+                    }
+                }
+                function addInput(divName) {
+                    var pp = document.getElementById('selectID').options.length;
+                    sheetSize += pp; 
+                    document.getElementById('selectID').options.length = 0;
+                    for(var ai = sheetSize; ai < sheetinexcel.length; ai = ai + 1) {
+                        var ppj = 0;
+                        document.getElementById('selectID').options.add(new Option(sheetinexcel[ai],sheetinexcel[ai],false,false), ppj);
+                        ppj++;
+                    }
+                    document.getElementById('dynamicInput').style.display = '';
+                    document.getElementById('mappingFiles').style.display='';
+                    document.getElementById('showRawData').style.display='';
+                    document.getElementById('dateFormat').style.display='';
+                }
+                
+                function showFinalTable(a){
+                    rowIdVal = document.getElementById('pageId:theForm:rowSkipTempHid').value;
+                    colIdVal = document.getElementById('pageId:theForm:colSkipTempHid').value;
+                    document.getElementById("metric_resultsFinal").innerHTML = '';
+                    if(rowIdVal >=0 && colIdVal >=0){
+                        var finalarray=[];
+                        var arraynew=[];
+                        var arrayTemp=[];
+                        var arrayToFormTbl=[];
+                        headerCols1 = [];
+                        a=document.getElementById("selectID").value;
+                        var newDiv = document.createElement('div');
+                        var k=(document.getElementById('out').innerText).split("SHEET: " +a);
+                        newTableFinal = "";
+                        newTableFinal="<table id='tableIDFinal' style='border: 1px solid #ddd;'>";
+                        finalarray=k[1].split("SHEET:");
+                        arraynew = finalarray[0]; // finalarray[0] is the actual data of the selected sheet
+                        arrayTemp = arraynew.split("!@#$%^&*()");
+                        var arrayLength = arrayTemp.length;
+                        // skipping the rows and columns provided by user
+                        for (var i = 0; i < arrayLength; i++) {
+                             if(i>rowIdVal) {
+                               var c=arrayTemp[i].split(",");
+                               var colarray=[];
+                               newTableFinal += "<tr style='border: 1px solid #ddd;'>";
+                                for(var m = 0;m < c.length;m++) {
+                                    if(m>=colIdVal) {
+                                       newTableFinal += "<td style='border: 1px solid #ddd;'>" + c[m] + "</td>";
+                                    }
+                                    
+                                }     
+                                newTableFinal += "</tr>";
+                            }
+                            
+                        }
+                        newTableFinal += "</table>";
+                        newDiv.innerHTML = newTableFinal;
+                        var s1 =[];
+                        var desiredStr1 = newTableFinal.substring(newTableFinal.indexOf("<td style='border: 1px solid #ddd;'>"), newTableFinal.indexOf('</tr>'));
+                        s1=desiredStr1.split('</td>');
+                        for(var t=0;t< s1.length;t++){
+                            headerCols1 += s1[t].replace("<td style='border: 1px solid #ddd;'>",'').replace('"','').replace('"','');
+                            headerCols1 += ',';
+                        }
+                        UpdateMappingTable(headerCols1);
+                    }
+                }
+                function showNewTable(a,b){
+                        var rowIdVal;
+                        var colIdVal;
+                        if(b=='Modify' || b=='Existing' || b=='ExistingP'){
+                            rowIdVal = document.getElementById('pageId:theForm:rowSkipTempHid').value;
+                            colIdVal = document.getElementById('pageId:theForm:colSkipTempHid').value;
+                        }
+                        if(b=='New'){
+                            rowIdVal = document.getElementById('pageId:theForm:rowsSkipNew').value;
+                            colIdVal = document.getElementById('pageId:theForm:colsSkipNew').value;
+                        }
+                        if(b=='Raw'){
+                            rowIdVal = parseInt("0");
+                            colIdVal = parseInt("0");
+                        }
+                        if(rowIdVal >=0 && colIdVal >=0){
+                            
+                            document.getElementById("metric_results").innerHTML = '';
+                            var finalarray=[];
+                            var arraynew=[];
+                            var arrayTemp=[];
+                            var arrayToFormTbl=[];
+                            headerCols = [];
+                            a=document.getElementById("selectID").value;
+                            var newDiv = document.createElement('div');
+                            var k=(document.getElementById('out').innerText).split("SHEET: " +a);
+                            var newTable = "";
+                            newTable="<table id='tableID' style='border: 1px solid #ddd;'>";
+                            finalarray=k[1].split("SHEET:");
+                            arraynew = finalarray[0]; // finalarray[0] is the actual data of the selected sheet
+                            arrayTemp = arraynew.split("!@#$%^&*()");
+                            var arrayLength = arrayTemp.length;
+                            // skipping the rows and columns provided by user
+                            for (var i = 0; i < arrayLength; i++) {
+                                 if(i>rowIdVal) {
+                                   var c=arrayTemp[i].split(",");
+                                   var colarray=[];
+                                   newTable += "<tr style='border: 1px solid #ddd;'>";
+                                    for(var m = 0;m < c.length;m++) {
+                                        if(m>=colIdVal) {
+                                           if(b=='Raw'){
+                                               newTable += "<td style='border: 1px solid #ddd;'>" + '&nbsp;'+ c[m] + "</td>";
+                                           }
+                                           else{
+                                               newTable += "<td style='border: 1px solid #ddd;'>" + c[m] + "</td>";
+                                           }
+                                        }
+                                        
+                                    }     
+                                    newTable += "</tr>";
+                                }
+                                
+                            }
+                            newTable += "</table>";
+                            newDiv.innerHTML = newTable;
+                            document.getElementById("metric_results").appendChild(newDiv);
+                            document.getElementById("metric_results").style.display ='';  
+                            var s =[];
+                            var desiredStr = newTable.substring(newTable.indexOf("<td style='border: 1px solid #ddd;'>"), newTable.indexOf('</tr>'));
+                            s=desiredStr.split('</td>');
+                            for(var t=0;t< s.length;t++){
+                                headerCols += s[t].replace("<td style='border: 1px solid #ddd;'>",'').replace('"','').replace('"','');
+                                headerCols += ',';
+                            }
+                            document.getElementById('mappingValsTblNew').style.display =='';
+                            if(b=='New'){
+                                createMappingTable(headerCols);
+                            }
+                            if(b=='Modify'){
+                                fetchTemplateDetails2(headerCols);
+                            }
+                            if(b=='Existing'){
+                                callValidateHeaders(headerCols);
+                            }
+                            document.getElementById('mappingTblIdNew').style.display =='';
+                        }
+                        else{
+                            if(rowIdVal =='' || colIdVal ==''){
+                                if(rowIdVal == '')
+                                    alert('Please provide a valid Row number');
+                                if(colIdVal == '')
+                                    alert('Please provide a valid Column number');
+                            }
+                        }
+                    
+                }
+                                
+            </script>
+            
+            <script type="text/javascript">
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-36810333-1']);
+                _gaq.push(['_trackPageview']);
+            
+                (function() {
+                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+            </script>
+            
+            <script>
+var X = XLSX;
+var XW = {
+    
+    msg: 'xlsx',
+    
+    rABS: './xlsxworker2.js',
+    norABS: './xlsxworker1.js',
+    noxfer: './xlsxworker.js'
+};
+
+var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
+if(!rABS) {
+    document.getElementsByName("userabs")[0].disabled = true;
+    document.getElementsByName("userabs")[0].checked = false;
+}
+
+var use_worker = typeof Worker !== 'undefined';
+if(!use_worker) {
+    document.getElementsByName("useworker")[0].disabled = true;
+    document.getElementsByName("useworker")[0].checked = false;
+}
+
+var transferable = use_worker;
+if(!transferable) {
+    document.getElementsByName("xferable")[0].disabled = true;
+    document.getElementsByName("xferable")[0].checked = false;
+}
+
+var wtf_mode = false;
+
+function fixdata(data) {
+    var o = "", l = 0, w = 10240;
+    for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+    o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+    return o;
+}
+
+function ab2str(data) {
+    var o = "", l = 0, w = 10240;
+    for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint16Array(data.slice(l*w,l*w+w)));
+    o+=String.fromCharCode.apply(null, new Uint16Array(data.slice(l*w)));
+    return o;
+}
+
+function s2ab(s) {
+    var b = new ArrayBuffer(s.length*2), v = new Uint16Array(b);
+    for (var i=0; i != s.length; ++i) v[i] = s.charCodeAt(i);
+    return [v, b];
+}
+
+function xw_noxfer(data, cb) {
+    var worker = new Worker(XW.noxfer);
+    worker.onmessage = function(e) {
+        switch(e.data.t) {
+            case 'ready': break;
+            case 'e': console.error(e.data.d); break;
+            case XW.msg: cb(JSON.parse(e.data.d)); break;
+        }
+    };
+    var arr = rABS ? data : btoa(fixdata(data));
+    worker.postMessage({d:arr,b:rABS});
+}
+
+function xw_xfer(data, cb) {
+    var worker = new Worker(rABS ? XW.rABS : XW.norABS);
+    worker.onmessage = function(e) {
+        switch(e.data.t) {
+            case 'ready': break;
+            case 'e': console.error(e.data.d); break;
+            default: xx=ab2str(e.data).replace(/\n/g,"\\n").replace(/\r/g,"\\r"); console.log("done"); cb(JSON.parse(xx)); break;
+        }
+    };
+    if(rABS) {
+        var val = s2ab(data);
+        worker.postMessage(val[1], [val[1]]);
+    } else {
+        worker.postMessage(data, [data]);
+    }
+}
+
+function xw(data, cb) {
+    transferable = document.getElementsByName("xferable")[0].checked;
+    if(transferable) xw_xfer(data, cb);
+    else xw_noxfer(data, cb);
+}
+
+function get_radio_value( radioName ) {
+    var radios = document.getElementsByName( radioName );
+    for( var i = 0; i < radios.length; i++ ) {
+        if( radios[i].checked || radios.length === 1 ) {
+            return radios[i].value;
+        }
+    }
+}
+
+function to_json(workbook) {
+    var result = {};
+    workbook.SheetNames.forEach(function(sheetName) {
+        var roa = X.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        if(roa.length > 0){
+            result[sheetName] = roa;
+        }
+    });
+    return result;
+}
+
+function to_csv(workbook) {
+    var result = [];
+   
+    workbook.SheetNames.forEach(function(sheetName) {
+    
+        var csv = X.utils.sheet_to_csv(workbook.Sheets[sheetName]);
+
+        if(csv.length > 0){
+            result.push("SHEET: " + sheetName);
+            result.push("");
+            result.push(csv);
+            sheetinexcel.push(sheetName);
+            //sheetinexcel.push("\n");
+        }
+    });
+    addInput("dynamicInput");
+    return result.join("!@#$%^&*()");
+    
+}
+
+function to_formulae(workbook) {
+    var result = [];
+    workbook.SheetNames.forEach(function(sheetName) {
+        var formulae = X.utils.get_formulae(workbook.Sheets[sheetName]);
+        if(formulae.length > 0){
+            result.push("SHEET: " + sheetName);
+            result.push("");
+            result.push(formulae.join("!@#$%^&*()"));
+        }
+    });
+    return result.join("!@#$%^&*()");
+}
+
+var tarea = document.getElementById('b64data');
+function b64it() {
+    if(typeof console !== 'undefined') console.log("onload", new Date());
+    var wb = X.read(tarea.value, {type: 'base64',WTF:wtf_mode});
+    process_wb(wb);
+}
+
+function process_wb(wb) {
+    var output = "";
+    switch(get_radio_value("format")) {
+        case "json":
+            output = JSON.stringify(to_json(wb), 2, 2);
+            break;
+        case "form":
+            output = to_formulae(wb);
+            break;
+        default:
+        output = to_csv(wb);
+    }
+    if(out.innerText === undefined) out.textContent = output;
+    else out.innerText = output;
+    if(typeof console !== 'undefined') console.log("output", new Date());
+}
+
+var drop = document.getElementById('drop');
+function handleDrop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    rABS = document.getElementsByName("userabs")[0].checked;
+    use_worker = document.getElementsByName("useworker")[0].checked;
+    var files = e.dataTransfer.files;
+    var f = files[0];
+    {
+        var reader = new FileReader();
+        var name = f.name;
+        reader.onload = function(e) {
+            if(typeof console !== 'undefined') console.log("onload", new Date(), rABS, use_worker);
+            var data = e.target.result;
+            if(use_worker) {
+                xw(data, process_wb);
+            } else {
+                var wb;
+                if(rABS) {
+                    wb = X.read(data, {type: 'binary'});
+                } else {
+                var arr = fixdata(data);
+                    wb = X.read(btoa(arr), {type: 'base64'});
+                }
+                process_wb(wb);
+            }
+        };
+        if(rABS) reader.readAsBinaryString(f);
+        else reader.readAsArrayBuffer(f);
+    }
+}
+
+function handleDragover(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+}
+
+if(drop.addEventListener) {
+    drop.addEventListener('dragenter', handleDragover, false);
+    drop.addEventListener('dragover', handleDragover, false);
+    drop.addEventListener('drop', handleDrop, false);
+}
+
+
+var xlf = document.getElementById('xlf');
+function handleFile(e) {
+    rABS = document.getElementsByName("userabs")[0].checked;
+    use_worker = document.getElementsByName("useworker")[0].checked;
+    var files = e.target.files;
+    var f = files[0];
+    {
+        var reader = new FileReader();
+        var name = f.name;
+        reader.onload = function(e) {
+            if(typeof console !== 'undefined') console.log("onload", new Date(), rABS, use_worker);
+            var data = e.target.result;
+            if(use_worker) {
+                xw(data, process_wb);
+            } else {
+                var wb;
+                if(rABS) {
+                    wb = X.read(data, {type: 'binary'});
+                } else {
+                var arr = fixdata(data);
+                    wb = X.read(btoa(arr), {type: 'base64'});
+                }
+                process_wb(wb);
+            }
+        };
+        if(rABS) reader.readAsBinaryString(f);
+        else reader.readAsArrayBuffer(f); 
+    }
+}
+
+if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
+</script>
+        
+</body>
+</apex:page>

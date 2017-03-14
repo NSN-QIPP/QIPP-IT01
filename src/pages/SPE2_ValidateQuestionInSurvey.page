@@ -1,0 +1,266 @@
+<apex:page standardController="SPE2Survey__c" extensions="SPE2_ValidateQuestionInSurveyExt">
+<c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE />
+  <style>
+  a.alpha-link {
+   font-weight: normal;
+   font-size: 91%;
+   padding: 0 4px;
+   color: #015BA7 !important;
+}
+
+a.alpha-link+a.alpha-link {
+   border-left: 1px solid #CFCECE;
+}
+
+a.alpha-link:hover {
+   background-color: #e0f5fc !important;
+}
+
+a.alpha-select {
+   font-weight: bold;
+   text-decoration: none;
+   background-color: #C6E1FF;
+   color: #000000 !important;
+}
+ 
+.foo {   
+    float: Left;
+    width: 7px;
+    height: 4px;
+    margin: 5px 5px 5px 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,2);
+}
+.tablecls{
+    margin-top:15px;
+    border-top: 27px solid #00A4E4 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-left: 1px solid #e0e3e5;
+    border-bottom: 1px solid #e0e3e5;
+    border-right: 1px solid #e0e3e5;
+}
+.pageNoInput{
+    width: 2em;
+    margin: 0 3px;
+    font-size: 98%;
+    text-align: center;
+    vertical-align: middle;
+}
+.even { 
+    background-color: #FCF7F7 !important;
+}
+.odd {
+    background-color: #E3DCDB !important;
+}
+.paginationArrwCls{
+    background-image: url(/img/paginationArrows.gif);
+    background-repeat: no-repeat;
+    background-position:0 0px;
+    width: 9px;
+    height: 10px;
+}
+</style>
+<script type="text/javascript">
+        if ('{!CurrentUserId}' != '{!RecordOwnerId}')
+            {
+              alert('You can only validate questions for the record under your ownership or shared ownership');
+              window.location.href="/{!SPE2Survey__c.Id}";
+                
+            }   
+        else if('{!hasRecords}'== 'false'){
+            alert('All questions are validated.');
+           // window.top.close();
+           window.location.href='/'+'{!RecordId}';
+        }
+        else if('{!SPE2Survey__c.Stage__c}' == 'Obsolete'){
+            alert('You cannot validate questions in a Obsolete Survey');
+             window.location.href="/{!SPE2Survey__c.Id}";
+            }
+        function setFocusOnLoad() {}
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");
+            for(var i=0; i<inputCheckBox.length; i++){
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        function onEnterprs(thisElem,e)
+         {
+            
+            if(e.keyCode==13)
+            {
+                if(e.preventDefault) 
+                    e.preventDefault();
+                else
+                    e.returnValue = false;
+                
+                //e.preventDefault();
+                
+                goToPage(thisElem.value);
+                return null;
+            }
+            
+         }
+         //method to call for main checkbox
+function checkAll(cb)
+ {
+     var inputElem = document.getElementsByTagName("input");
+     for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                inputElem[i].checked=cb.checked;
+            }
+      }
+ }
+
+//method to call for each checkbox
+ function checkheader(thisElem)
+ {
+    if(thisElem.checked==false)
+    document.getElementById('headerCheckId').checked=false;
+   
+    else
+    {
+        checkAndUpdate();
+    }
+ } 
+
+//to update the main checkbox
+function checkAndUpdate()
+{
+      var inputElem = document.getElementsByTagName("input");
+      var flag=0;
+      var totalCheckBox=0;
+      for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                totalCheckBox=totalCheckBox+1;
+                if(inputElem[i].checked==true)
+                {
+                    flag=flag+1;
+                }
+            }
+      }
+      if(flag==totalCheckBox)
+      document.getElementById('headerCheckId').checked=true;
+      else
+      document.getElementById('headerCheckId').checked=false;
+                 
+}
+
+function cnvtToPidataJS(surveyId,QuesID){
+   
+  
+    cnvtToPidata(surveyId,QuesID);
+
+}
+
+</script>
+
+  <apex:form id="fm">
+      <apex:pageBlock >
+       
+         <apex:actionFunction action="{!redirectPg}" id="f1" name="refreshPg"/> 
+          <apex:actionStatus id="StatusChange12">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+        <br></br>
+        <apex:outputPanel id="pagn" rendered="{!hasRecords}">
+          <apex:pageblockSection title="Selected Questions" columns="1" collapsible="false">
+            
+              <apex:pageBlockTable value="{!subwrapperList2}" var="sp" id="resultTableId">
+                    <apex:column headerValue=" ">
+                        <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this,'LPanel')" id="headerCheckId2"/></apex:facet>
+                        <apex:inputCheckbox value="{!sp.isSelected}" styleClass="messageCheckbox2" onclick="checkheader(this);" />
+                       </apex:column>
+                        <apex:column headerValue="Question ID">
+                           <apex:outputText value="{!sp.quesSurvey.Question_Bank__r.Name}"/>
+                        </apex:column>
+                        <apex:column headerValue="Question Label">
+                           <apex:outputText value="{!sp.quesSurvey.Question_Bank__r.QuestionLabel__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Survey Question">
+                           <apex:outputText value="{!sp.quesSurvey.Question_Bank__r.SurveyQuestion__c}"/>
+                        </apex:column>
+                        <apex:column >
+                      <!--  <apex:commandButton title="Convert" Value="Convert to PI Data" onclick="cnvtToPidataJS('{!sp.quesSurvey.Survey__c}','{!sp.quesSurvey.Question_Bank__c}');" /> --> 
+                        <apex:commandButton title="Convert" Value="Convert to PI Data" onclick="window.open('/apex/SPE2_ConvertQuestionToPIData?sid={!sp.quesSurvey.Survey__c}&QID={!sp.quesSurvey.Question_Bank__c}','_blank');window.top.close();"/> 
+                        </apex:column>
+               </apex:pageBlockTable>    
+               </apex:pageBlockSection>
+        <apex:actionFunction id="cnvtToPI" name="cnvtToPidata" action="{!convertToadhocPI}" reRender="none">
+            <apex:param value="" id="parm1Id" name="parm1name"/>
+            <apex:param value="" id="parm2Id" name="parm2name"/>
+            
+         </apex:actionfunction>
+         <apex:outputPanel id="paginationPanelId">
+         <apex:outputPanel id="paginationPand" rendered="{!hasRecords}">
+         <span style="float:left">&nbsp; {!startRecNo2} - {!endRecNo2} of {!lstQuesSurveyWrapper.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick2}" id="FirstLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showfirst2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst2==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick2}" id="previousLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showprevoius2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius2==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius2)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext2)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext2==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick2}" id="nextLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!shownext2}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick2}" id="lastLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showlast2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast2==true,'none','inline')}" />
+            
+            <apex:actionStatus id="StatusChange">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber2}" onchange="goToPage(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId" value="of {!maxPages2}" />
+            </span>
+        </apex:outputPanel> 
+        </apex:outputPanel>
+        <br/><br/>
+         <apex:commandButton title="Delete" value="Delete" action="{!delQuestion}"  status="loadStatus" oncomplete="refreshPg();"/> &nbsp;&nbsp;&nbsp;
+         <apex:commandButton value="Cancel" action="{!cancel}"/> 
+        </apex:outputPanel>
+        
+      </apex:pageBlock>
+      <div align="center">
+<br/>
+    <!--apex:commandLink value="Extend Generator" action="{!returnToScorecardListView}" styleclass="btn" style="text-decoration:none;" rerender="frmId" status="StatusChange1" oncomplete="redirectPage();">
+       
+    </apex:commandLink>&nbsp;&nbsp;---->
+    <apex:actionStatus id="StatusChange1">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+    
+</div>
+  </apex:form>    
+</apex:page>

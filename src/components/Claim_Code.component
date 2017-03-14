@@ -1,0 +1,9 @@
+<apex:component access="global" controller="Claim_Code_Quantity">
+    <apex:attribute name="claimId" assignTo="{!claimids}" description="This is the value for the component." type="String"/>
+    
+   
+    Code(s) &nbsp;<apex:outputText value="{!MeterialDevaitionCode}" ></apex:outputText>
+       
+   
+     
+</apex:component>

@@ -1,0 +1,221 @@
+<apex:page controller="spe_verifyBUExt" showHeader="false" sidebar="false" standardStylesheets="false">
+  <apex:stylesheet value="{!URLFOR($Resource.Bootstrap_min)}"/> 
+  <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        
+    }
+    th, td {
+        padding: 5px;
+        text-align: center;    
+    }
+    .navigationBtn{
+    cursor:pointer;
+    border-radius:5px;
+    height: 30px;
+    width: 160px;
+}
+</style>
+  
+  <script>
+      function BUfunction()
+     {
+         BUfunc();
+     }
+     function insertfunction()
+     {
+         insfunc();
+         
+         alert("Data Uploading has begun, email confirmation will be sent to you post completion. In case you do not receive any confirmation in 24 Hours, please contact support team to investigate the issue.");
+         window.close();
+     }
+     function skipfunction()
+     {
+         skifunc();
+     }
+  </script>
+  
+  <apex:form >
+   <apex:actionFunction name="BUfunc" action="{!updateBU}" reRender="BU" status="statusChange1"/>
+   <apex:actionFunction name="insfunc" action="{!BatchUpload}" reRender="BU" status="statusChange2"/>
+   <apex:actionFunction name="skifunc" action="{!skipVal}" reRender="BU" status="statusChange3"/>
+  
+  
+  
+  
+      <div class="container">
+
+     <!--- Panel Heading --->
+    <div class="panel panel-primary" style="border-color:#1485a9;">
+        <div class="panel-heading" style="height: 50px;background-color:#1485a9;"> 
+            <center> <b style="color:white;font-weight:bold;font-size: x-large;" >Validate BU</b></center>
+        </div>
+        <apex:outputPanel rendered="{!If(BUList1.size>0,true,false)}">
+            <center>{!Sizei} Records out of {!totalCount} are found Faulty</center>
+        </apex:outputPanel><br/>    
+        <div style="float:right">
+          <apex:outputPanel rendered="{!If(BUList1.size>0,true,false)}">
+            <input type="button" class="navigationBtn" style="margin-right: 10px;" value="Skip All Validation" onclick="skipfunction();"/>
+            <apex:actionStatus id="statusChange3">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+              </apex:outputPanel>      
+        </div>
+        <div >
+            <br/>
+            
+        </div>
+        
+    <!-- Panel heading Ends Here -->
+    
+    <div class="panel-body">
+            <apex:outputPanel id="BU">
+            <apex:outputPanel id="check44" rendered="{!If(BUList1.size>0,true,false)}"  style="overflow:auto" layout="block">
+             
+             
+            <table class="table table-hover">
+                 
+                 <th style="background-color:#93D7EA">Business Unit</th>
+                 <th style="background-color:#93D7EA">Business Line</th> 
+                 <th style="background-color:#93D7EA">Product</th>
+                 
+                 
+                 <th style="background-color:#93D7EA">EnterpriseID</th>
+                 <th style="background-color:#93D7EA">SPE PIValuesTempId</th>
+                 <th style="background-color:#93D7EA">PIDefination</th>
+                 <th style="background-color:#93D7EA">NumberValue</th> 
+                 <th style="background-color:#93D7EA">Period</th>
+                 
+                 <th style="background-color:#93D7EA">Market</th>
+                 <th style="background-color:#93D7EA">Market Unit</th>
+                 <th style="background-color:#93D7EA">Country</th>
+                 <th style="background-color:#93D7EA">Project</th>
+                 
+                 <th style="background-color:#93D7EA">CategoryArea</th>
+                 <th style="background-color:#93D7EA">CategoryGroup</th>
+                 <th style="background-color:#93D7EA">Category</th>
+                 
+                 
+                 
+                 
+                 
+                 
+                 <th style="background-color:#93D7EA">Product</th>
+                 
+                 
+    
+                 <apex:repeat value="{!BUList1}" var="ci"> 
+                     <tr>
+                         <td>
+                             <apex:outputPanel rendered="{!BUunt}">
+                                 <apex:inputtext value="{!ci.BusinessUnit__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!BUunt}">
+                                 {!ci.BusinessUnit__c}
+                             </apex:outputPanel>
+                         </td>
+                         <td>
+                             <apex:outputPanel rendered="{!BUline}">
+                                 <apex:inputtext value="{!ci.BusinessLine__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!BUline}">
+                                 {!ci.BusinessLine__c}
+                             </apex:outputPanel>
+                         </td>
+                         <td>
+                             <apex:outputPanel rendered="{!Product}">
+                                 <apex:inputtext value="{!ci.Product__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!Product}">
+                                 {!ci.Product__c}
+                             </apex:outputPanel>
+                         </td>
+                         
+                        
+                         
+                         
+                         <td> {!ci.EnterpriseID__c}</td>
+                         <td>{!ci.name}</td>
+                         
+             <!--*****************Changes For Encryption******************-->  
+                         <!--<td>{!ci.PIDefination__r.name}</td>-->
+                         <td>{!ci.PIDefination__r.PI_Title__c}</td>
+             <!--*****************END******************-->
+             
+                         <td>{!ci.NumberValue__c}</td>
+                         <td>
+                             {!ci.Period__c}
+                         </td>
+                         
+                         <td>{!ci.Market__c}</td>
+                         <td>{!ci.MarketUnit__c}</td>
+                         <td>{!ci.Country__c}</td>
+                         <td>{!ci.Project__c}</td>
+                         
+                         <td>{!ci.Cluster__c}</td>
+                         <td>{!ci.CategoryGroup__c}</td>
+                         <td>{!ci.Category__c}</td>
+                         
+                     </tr>
+                 </apex:repeat>   
+                   
+             </table>
+             
+         </apex:outputPanel>   
+        </apex:outputPanel>
+        </div>
+        <apex:outputPanel id="categoryvalidate" rendered="{!If(BUList1.size>0,true,false)}">
+            <div class="btn-group">
+                     
+                     <input type="button" class="btn btn-primary btn-lg" value="Validate BU" onclick="BUfunction();"/>
+                     <apex:actionStatus id="statusChange1">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+            </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="cat1" rendered="{!If(BUList1.size=0,true,false)}">
+            <div class="btn-group" style="margin-left:2%;">
+                     
+                     <b style="margin-left:1%">No more records to validate on BU</b><br/><br/>
+                     <b>Please click on "Insert" to data upload!</b>
+            </div><br/><br/>
+            <table style="width:96%;margin:2%;">
+                      <tr>
+                        <th style="background-color:#93D7EA">Features</th>
+                        <th colspan="2" style="background-color:#93D7EA">Impacts</th>
+                      </tr>
+                      <tr>
+                        <td>Enterprise ID</td>
+                        <td><b>{!EID}</b> Enterprise ID's out of <b>{!totalCount}</b> are faulty </td>
+                      </tr>
+                      <tr>
+                        <td>Category</td>
+                        <td><b>{!cat}</b> Category values out of <b>{!totalCount}</b> are faulty </td>
+                      </tr>
+                      <tr>
+                        <td>Geography</td>
+                        <td><b>{!geo}</b> Geography values out of <b>{!totalCount}</b> are faulty </td>
+                      </tr>
+                      <tr>
+                        <td>BU</td>
+                        <td><b>{!Sizei}</b> BU values out of <b>{!totalCount}</b> are faulty </td>
+                      </tr>
+                    </table><br/><br/>
+            <input type="button" class="btn btn-primary btn-lg" value="Insert" onclick="insertfunction();" style="margin-left: 1%; margin-bottom: 1%"/>
+            <apex:actionStatus id="statusChange2">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+        </apex:outputPanel>
+        </div>
+        </div>
+  </apex:form>
+  
+</apex:page>

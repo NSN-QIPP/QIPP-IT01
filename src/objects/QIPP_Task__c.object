@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Object &quot;Task&quot; for the QIPP Application</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>KPI_Actual_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Actual Value</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KPI_Target_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Target Value</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_ID__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project ID</label>
+        <referenceTo>QIPP_Project__c</referenceTo>
+        <relationshipLabel>Tasks</relationshipLabel>
+        <relationshipName>Tasks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Lead_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Project Lead Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Name__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Project Name</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Number__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Project_ID__r.Project_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_Completion_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Task Completion Date - Target</inlineHelpText>
+        <label>Target Completion Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>TaskImplementorEmail__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>TaskImplementorEmail</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Age__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>CASE( Task_State__c , 
+
+&quot;In Progress&quot;, TEXT(today()- Task_Created_Date__c) +&quot; days&quot;,
+
+&quot;Complete&quot;, TEXT(Task_Completion_Date_Actual__c -  Task_Created_Date__c) +&quot; days&quot;,
+
+&quot;Canceled&quot;, TEXT(Task_Completion_Date_Actual__c -  Task_Created_Date__c) +&quot; days&quot;,
+
+TEXT(today()- Task_Created_Date__c) +&quot; days&quot;
+
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Automatically calculated based on task creation and forecast completion date.  Expressed in calendar days.</inlineHelpText>
+        <label>Task Age</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Completion_Date_Actual__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Actual completion date of the task</inlineHelpText>
+        <label>Actual</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Task_Completion_Date_Forecast__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the task is expected to complete</inlineHelpText>
+        <label>Forecast</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Task_Created_Date__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically populated - Today.</inlineHelpText>
+        <label>Task Created Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Task_Description_Detailed__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Task Description - Detailed</label>
+        <length>500</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Task_Implementer__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Resource assigned to complete the task</inlineHelpText>
+        <label>Task Implementer</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipName>Tasks1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Task_Initiator__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>The user creating the task</inlineHelpText>
+        <label>Task Initiator</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipName>Tasks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Task_KPI__c</fullName>
+        <externalId>false</externalId>
+        <label>Task KPI</label>
+        <picklist>
+            <picklistValues>
+                <fullName># BTS conf.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Closed AI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Eme Cases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Engage AP exec</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Escaped Defects</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># F2F mtg</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Faulty PIUs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Major Issues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># New Offer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># of esc A and B faults</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># of Events</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># of Patches</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Open SW Defects</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># OPR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Outages</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Reslution t</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># Return HW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># SW Errors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName># SW Patches per release, # Tickets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>% Trained</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Agreed sales targets</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AP and Close the Loop</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call drop rate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call Setup Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Case Run Time Reduction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cash Flow</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cell Availability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CORR. LT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cost Saving</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coverage Hole On Air</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cycle Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DA Mitigation Plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Delivery Accurracy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DoA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EBCS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ERI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ESFR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ESFR major # pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HW Fault Rate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incoming Q</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inventory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lower Sub Cost Margin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Major SW Workaround DA %</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MRR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Quality Index (NQI)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NFF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NW Avail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NW Avail MOP Succ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OCDR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Open Major + Critical Cases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OTDr</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Out Rest</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PARD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proj Schedule</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P-SQI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Receivables</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Restoration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Roadmap  compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rollout %</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SILT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Spare Shortage (Y/N)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SW Q</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Test Cases</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TILT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Task_Name_Succinct__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Top level task name</inlineHelpText>
+        <label>Task Name - Succinct</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Notes__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Any other relevant notes not already captured in the detail task description.</inlineHelpText>
+        <label>Task Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Task_Number__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/&quot;&amp; Id, TEXT(Project_ID__r.Project_Type__c )+&quot;-&quot; + Project_ID__r.Project_No__c +&quot;-&quot;+ RIGHT( Name , 4), &quot;_self&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Task Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Percent_Complete__c</fullName>
+        <externalId>false</externalId>
+        <label>Task Percent Complete</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Task_Schedule_Status__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>IF ( OR( ISPICKVAL( Task_State__c , &apos;Complete&apos;), ISPICKVAL( Task_State__c , &apos;Canceled&apos;)),  TEXT(Task_State__c),
+	IF( Task_Completion_Date_Forecast__c  =   Target_Completion_Date__c , &quot;On Plan&quot;,
+ 		
+ 		IF( Task_Completion_Date_Forecast__c  &gt;   Target_Completion_Date__c , &quot;Behind&quot;,
+ 			
+ 			IF( Task_Completion_Date_Forecast__c  &lt;   Target_Completion_Date__c , &quot;Ahead&quot;,
+ 				
+ 				IF(  OR(ISBLANK( Task_Completion_Date_Forecast__c ), ISBLANK( Target_Completion_Date__c ) ) , &quot;TBD&quot;, &quot;&quot;
+ 					 				
+ 				)
+ 			)
+ 		) 
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Read-only field determined by Target and Forecast dates</inlineHelpText>
+        <label>Task Schedule Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Start_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Task Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Task_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Task State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Task_Type_Description__c</fullName>
+        <description>Task Type Description</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Task Type Description</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Task Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Milestone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Activity</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>QIPP Task</label>
+    <nameField>
+        <displayFormat>TSK-{0000}</displayFormat>
+        <label>Task Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Tasks</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Validation_for_Task_Percent_Complete</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR( Task_Percent_Complete__c &gt; 1.0, Task_Percent_Complete__c &lt; 0.0 )</errorConditionFormula>
+        <errorDisplayField>Task_Percent_Complete__c</errorDisplayField>
+        <errorMessage>Percentage must be between 0 and 100%.</errorMessage>
+    </validationRules>
+</CustomObject>

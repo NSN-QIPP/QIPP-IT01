@@ -1,0 +1,225 @@
+<apex:page standardController="SPE_ScorecardGenerator__c" recordsetvar="absbs" extensions="SPE_ScoreGenerator_BulkExtension_1" sidebar="false" id="pgId">
+<style>
+.foo {   
+    float: Left;
+    width: 7px;
+    height: 4px;
+    margin: 5px 5px 5px 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,2);
+}
+.tablecls{
+    margin-top:15px;
+    border-top: 27px solid #00A4E4 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-left: 1px solid #e0e3e5;
+    border-bottom: 1px solid #e0e3e5;
+    border-right: 1px solid #e0e3e5;
+}
+.pageNoInput{
+    width: 2em;
+    margin: 0 3px;
+    font-size: 98%;
+    text-align: center;
+    vertical-align: middle;
+}
+.even { 
+    background-color: #FCF7F7 !important;
+}
+.odd {
+    background-color: #E3DCDB !important;
+}
+.paginationArrwCls{
+    background-image: url(/img/paginationArrows.gif);
+    background-repeat: no-repeat;
+    background-position:0 0px;
+    width: 9px;
+    height: 10px;
+}
+</style>
+
+<script type="text/javascript">
+        function setFocusOnLoad() {}
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");
+            for(var i=0; i<inputCheckBox.length; i++){
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        function onEnterprs(thisElem,e)
+         {
+            
+            if(e.keyCode==13)
+            {
+                if(e.preventDefault) 
+                    e.preventDefault();
+                else
+                    e.returnValue = false;
+                
+                //e.preventDefault();
+                
+                goToPage(thisElem.value);
+                return null;
+            }
+            
+         }
+         //method to call for main checkbox
+function checkAll(cb)
+ {
+     var inputElem = document.getElementsByTagName("input");
+     for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                inputElem[i].checked=cb.checked;
+            }
+      }
+ }
+
+//method to call for each checkbox
+ function checkheader(thisElem)
+ {
+    if(thisElem.checked==false)
+    document.getElementById('headerCheckId').checked=false;
+   
+    else
+    {
+        checkAndUpdate();
+    }
+ } 
+
+//to update the main checkbox
+function checkAndUpdate()
+{
+      var inputElem = document.getElementsByTagName("input");
+      var flag=0;
+      var totalCheckBox=0;
+      for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                totalCheckBox=totalCheckBox+1;
+                if(inputElem[i].checked==true)
+                {
+                    flag=flag+1;
+                }
+            }
+      }
+      if(flag==totalCheckBox)
+      document.getElementById('headerCheckId').checked=true;
+      else
+      document.getElementById('headerCheckId').checked=false;
+                 
+}
+
+function redirectPage()
+{
+    var d = document.getElementById('pgId:frmId:hdFld').value;
+    var d1 = document.getElementById('pgId:frmId:hdFld1').value;
+    if(d == 'false'){
+        alert('Generator extended successfully');
+        window.location.href = '/'+d1;
+    }
+
+}
+</script>
+<apex:form id="frmId">
+<apex:pageMessages id="messageId"/>
+<apex:inputHidden value="{!isError}" id="hdFld"/>
+<apex:inputHidden value="{!strRedirectID}" id="hdFld1"/>
+<b> Enter a text to search &nbsp; </b><apex:inputText value="{!searchString}" style="border-radius:3px;"/>&nbsp;&nbsp; 
+
+<apex:commandButton value="Search" action="{!serachRecords}"/><br/><br/>
+
+ <apex:outputPanel rendered="{!isError}">
+      <div class="errorMsg"><strong>Error:</strong>&nbsp;the following records have error {!addmsg}</div>
+  </apex:outputPanel>
+<apex:pageBlock id="Details">
+         <apex:pageblocksection title="Bulk Scorecard Generator Extend" collapsible="false" columns="1">
+             <apex:actionFunction name="goToPage" action="{!goToPage}" rerender="resultTableId,paginationPanelId" status="StatusChange">
+                <apex:param name="crntPageNum" value=""/>
+             </apex:actionFunction>
+             <apex:pageBlockTable value="{!subwrapperList}" var="subwrap" 
+                    columns="5" border="2" width="100px" id="resultTableId" rowClasses="even,odd" >
+                    <apex:column style="padding: 4px 2px 4px 5px;">
+                        <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this)" id="headerCheckId"/></apex:facet>
+                        <apex:inputCheckbox value="{!subwrap.isSelected}" id="checkedone" styleClass="checkedone" onclick="checkheader(this);">
+                        </apex:inputCheckbox>
+                    </apex:column>
+                    
+                    <apex:column headerValue="Name"><a href="/{!subwrap.scorecardRec.ID}">{!subwrap.scorecardRec.Name}</a></apex:column>
+                    <apex:column headerValue="Stage" value="{!subwrap.scorecardRec.Stage__c}"/>
+                    <apex:column headerValue="Start Date">
+                        <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                            <apex:param value="{!subwrap.scorecardRec.StartDate__c}" /> 
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="End Date" id="ED">
+                 <apex:inputField value="{!subwrap.scorecardRec.EndDate__c}"/>
+                <apex:outputPanel rendered="{!subwrap.Error}">
+                     <div class="errorMsg"><strong>Error:</strong>&nbsp;End Date should be a future date</div>
+                 </apex:outputPanel> 
+                 </apex:column>
+                </apex:pageBlockTable>
+          </apex:pageblocksection>
+          <apex:outputPanel id="paginationPanelId" rendered="{!hasRecords}">
+                        
+            <span style="float:left">&nbsp; {!startRecNo} - {!endRecNo} of {!scorecardWrapperList.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick}" id="FirstLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showfirst}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick}" id="previousLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showprevoius}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick}" id="nextLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!shownext}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick}" id="lastLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showlast}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast==true,'none','inline')}" />
+            
+            <apex:actionStatus id="StatusChange">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber}" onchange="goToPage(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/><apex:outputText id="maxPageId" value="of {!maxPages}" /></span>
+        </apex:outputPanel>
+</apex:pageBlock>
+<div align="center">
+<br/>
+    <apex:commandLink value="Extend Generator" action="{!returnToScorecardListView}" styleclass="btn" style="text-decoration:none;" rerender="frmId" status="StatusChange1" oncomplete="redirectPage();">
+       
+    </apex:commandLink>&nbsp;&nbsp;
+    <apex:actionStatus id="StatusChange1">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+    
+</div>
+
+</apex:form>
+</apex:page>

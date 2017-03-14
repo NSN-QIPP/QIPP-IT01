@@ -1,0 +1,173 @@
+<apex:page controller="SPE_BulkUpdation" sidebar="false" docType="html-5.0">
+  <apex:form >
+  <apex:pageMessages />
+  <apex:pageBlock title="Bulk Update" mode="edit">
+ 
+  <table width="100%" border="0">
+  <tr>  
+    <td width="200" valign="top">
+ 
+      <apex:pageBlock title="Parameters" mode="edit" id="criteria">
+ 
+      <script type="text/javascript">
+          function doSearch() {
+            searchServer(
+              document.getElementById("kpiName").value,
+              document.getElementById("speTracker").value,
+              document.getElementById("supplier").value
+              );
+            
+          }
+      </script>
+      <script>
+        function checkAll(cb)
+        {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++)
+            {
+                if(inputElem[i].id.indexOf("checkedone")!=-1)
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    </script>
+ 
+      <apex:actionFunction name="searchServer" action="{!bulkDataSearch}" rerender="results" status="actStatusId">
+          <apex:param name="kpiName" value="" />
+          <apex:param name="speTracker" value="" />
+          <apex:param name="supplier" value="" />
+      </apex:actionFunction>
+      
+      <apex:actionStatus id="actStatusId" >
+                <apex:facet name="start" >
+                  <img src="/img/loading.gif" />                    
+                </apex:facet>
+      </apex:actionStatus>
+     
+ 
+      <table cellpadding="2" cellspacing="2">
+      <tr>
+        <td style="font-weight:bold;">KPI Name<br/>
+        <input type="text" id="kpiName" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">SPE Tracker Name<br/>
+        <input type="text" id="speTracker" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Supplier<br/>
+        <input type="text" id="supplier" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+    <!--  <tr>
+         <td style="font-weight:bold;">Open Date<br/>  
+             <apex:inputfield value="{!conManagement.OpenDate__c}"  id="openDate"  onchange="doSearch();"/>
+         </td>
+      </tr> -->
+      <tr>
+         <td style="font-weight:bold;">
+             <apex:commandButton action="{!save}" value="Take Off the Watchlist" id="sv" />
+             <!-- <apex:inputfield value="{!conManagement.OpenDate__c}"  id="opemDate"  onchange="doSearch();"/> -->
+         </td>
+      </tr>
+       </table>
+      </apex:pageBlock>
+    </td>
+    <td valign="top">
+ 
+    <apex:pageBlock mode="edit" id="results">
+        
+         <apex:pageBlockTable value="{!CMWrapperList}" var="cm">
+            <apex:column >
+               <apex:facet name="header"> 
+                    <apex:inputCheckbox >
+                        <apex:actionSupport event="onclick" action="{!getSelected}" onsubmit="checkAll(this)" rerender="results"/>
+                    </apex:inputCheckbox>
+               </apex:facet>
+                    <apex:inputCheckbox value="{!cm.isSelected}" id="checkedone">
+                    <apex:actionSupport event="onclick" action="{!getSelected}" rerender="results"/></apex:inputCheckbox>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Consequence Management ID" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPE_ConsequenceManagement__c.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputLink value="/{!cm.scm.Id}">{!cm.scm.Name}</apex:outputLink>
+                <!-- <apex:outputField value="{!cm.scm.Name}"/> -->
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                
+                <!--*************************************Changes For Encryption*******************************-->
+                    <!--<apex:commandLink value="KPI Name" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="KPIDefinition__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>-->
+                    
+                    <apex:commandLink value="KPI Name" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="KPIDefinition__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>                
+                    
+                </apex:facet>
+                <!--<apex:outputField value="{!cm.scm.KPIName__c}"/>-->
+                <a href="/{!cm.scm.KPIName__c}"><apex:outputField value="{!cm.scm.KPIName__r.KPI_Title__c}"/></a>
+              <!--*************************************END*******************************-->
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Supplier" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="Supplier__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!cm.scm.Supplier__r.Name}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="SPE Tracker" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!cm.scm.SPETracker__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Stage" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="TicketStatus__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!cm.scm.TicketStatus__c}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:pageBlock mode="edit" id="resultss">
+        
+        <apex:pageBlockTable value="{!selectedCMWrapperList}" var="s">
+               <!-- <apex:dataTable value="{!trackerWrapperListRequested}" var="s" columnswidth="50px,50px" cellpadding="4" border="1"> -->
+                   
+                    <apex:column headervalue="Consequence Management ID" >
+                    
+                        <apex:outputLink value="/{!s.Id}">{!s.Name}</apex:outputLink>
+                    </apex:column>
+                  <!--*******************************Changes For Encryption********************************-->   
+                     <apex:column headervalue="KPI Name" value="{!s.KPIName__c}" />
+                     <!--<apex:column headervalue="KPI Name" value="{!s.KPIName__r.KPI_Title__c}" />-->
+                  <!--*******************************END********************************--> 
+                   
+                    <apex:column headervalue="Supplier Number" value="{!s.Supplier__r.Name}" />
+                    <apex:column headervalue="SPE Tracker" value="{!s.SPETracker__c}" />
+                    <apex:column headervalue="Stage" value="{!s.TicketStatus__c}" />
+                    
+               <!-- </apex:dataTable> -->
+         </apex:pageBlockTable>
+ 
+    </apex:pageBlock>
+ 
+    </td>
+  </tr>
+  </table>
+  </apex:pageBlock>
+ 
+  </apex:form>
+ 
+</apex:page>

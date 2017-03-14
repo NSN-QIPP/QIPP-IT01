@@ -1,0 +1,3 @@
+<apex:page controller="TraceEmailStatus" showHeader="false" sidebar="false" action="{!TraceEmail}">
+ 
+</apex:page>

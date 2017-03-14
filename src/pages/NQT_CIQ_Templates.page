@@ -1,0 +1,21 @@
+<apex:page tabStyle="CIQ_Template__c">
+<apex:form >
+<b>
+<font face="times" size="4">CIQ Templates</font></b><font face="times" size="3">(For MTX Ericsson Product)</font><br/><br/>
+<b>
+<a href='{!$Resource.NQT_ISA_HWCIQ_v5_1}'> <font color="blue" face="verdana">ISA_HWCIQ_v5.1</font></a><br/><br/>
+<a href='{!$Resource.NQT_C2P_HWCIQ_v1_1}'> <font color="blue" face="verdana">C2P_HWCIQ_v1.1</font></a><br/><br/>
+<a href='{!$Resource.NQT_MRV_HWCIQ_v9_2}'> <font color="blue" face="verdana">MRV_HWCIQ_v9_2</font></a><br/><br/>
+<a href='{!$Resource.NQT_TrFO2_HWCIQ_v1_1}'> <font color="blue" face="verdana">TrFO2_HWCIQ_v1_1</font></a><br/><br/>
+<a href='{!$Resource.NQT_VSE_HWCIQ_V1_1}'> <font color="blue" face="verdana">VSE_HWCIQ_V1.1</font></a><br/><br/>
+</b>
+<br/><br/>
+<b>
+<font face="times" size="4">Ship Card Template</font></b><br/><br/>
+<b>
+<!-- This line commented by kishore on 12/04/2012 <a href='{!$Resource.NQT_Equipment_Ship_Card}'> <font color="blue" face="verdana" size="2">Equipment Ship Card</font></a><br/><br/> -->
+<!-- New static resource linked in below line by kishore on 12/04/2012 -->
+<a href='{!$Resource.NQT_Equipment_Ship_Card_Latest}'> <font color="blue" face="verdana" size="2">Equipment Ship Card</font></a><br/><br/>
+</b>
+</apex:form>
+</apex:page>

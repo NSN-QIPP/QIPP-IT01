@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>PIData__c</fullName>
+        <externalId>false</externalId>
+        <label>PI Data</label>
+        <referenceTo>SPE_PIDefinition__c</referenceTo>
+        <relationshipLabel>Standalone Survey</relationshipLabel>
+        <relationshipName>PI_Survey_Associations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Question__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Question Bank</label>
+        <referenceTo>SPE_SurveyQuestion__c</referenceTo>
+        <relationshipLabel>PI Survey Associations</relationshipLabel>
+        <relationshipName>PI_Survey_Associations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SPE2_Survey__c</fullName>
+        <externalId>false</externalId>
+        <label>Survey</label>
+        <referenceTo>SPE2Survey__c</referenceTo>
+        <relationshipLabel>PI Data</relationshipLabel>
+        <relationshipName>PI_Survey_Associations</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>PI Survey Association</label>
+    <nameField>
+        <displayFormat>PI-{0000}</displayFormat>
+        <label>PI Survey Association Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PI Survey Associations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>SPE2_Extended_View_Survey</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;PI Survey Report&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id + &quot;?pv0={!PI_Survey_Association__c.PIData__c}&quot;; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+</CustomObject>

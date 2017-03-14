@@ -1,0 +1,371 @@
+<apex:page standardController="SPE_PIDefinition__c" extensions="SPE2_PI_edit_or_new_page_controller" id="pgId">
+    <c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE ></c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE>
+  <!--<meta charset="utf-8"></meta>
+  <title>jQuery UI Datepicker - Animations</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></link>
+  <link rel="stylesheet" href="/resources/demos/style.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
+<!---------------------------------------------Javascript --------------------------------------------------------------------------------------->
+<style type="text/css">
+    .custPopup{
+        background-color: white;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        left: 50%;
+        padding:10px;
+        position: absolute;
+        /* These are the 3 css properties you will need to change so the popup 
+        displays in the center of the screen. First set the width. Then set 
+        margin-left to negative half of what the width is. You can add 
+        the height property for a fixed size pop up if you want.*/
+        height: 20%;
+        width: 500px;
+        margin-left: -200px;
+        top:310px;
+    }
+    .popupBackground{
+        background-color:black;
+        opacity: 0.20;
+        filter: alpha(opacity = 20);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+    }
+
+</style> 
+<script>
+if ('{!CurrentUserId}' != '{!RecordOwnerId}')
+            {
+                
+                alert('You can only edit the record under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_PIDefinition__c .Id}";
+                
+            }
+window.onload = function firsttimeload(){
+        //alert('{!selectedFrequency}');       
+        displayFrequencyBlock('{!selectedFrequency}');
+   }
+         
+function displayradiobutton(){
+    //alert('{!RecurrencePattern}');
+    if('{!RecurrencePattern}' == 'DayPerMonth'){
+        document.getElementById("MonthlyFirstRadio").checked = 'true';
+      }
+    else if('{!RecurrencePattern}' == 'WeekPerMonth'){
+        document.getElementById("MonthlySecondRadio").checked = 'true';
+     }
+    else if('{!RecurrencePattern}' == 'DayPerYear'){
+        document.getElementById("YearlyFirstRadio").checked = 'true';
+     }
+    else if('{!RecurrencePattern}' == 'WeekPerYear'){
+        document.getElementById("YearlySecondRadio").checked = 'true';
+     }
+}
+    
+function displayFrequencyBlock(val){
+        
+    if(val === 'Monthly'){
+        document.getElementById('sh2').style.display = 'none';
+        document.getElementById('sh1').style.display = 'block';
+        displayradiobutton();
+    }
+    if (val ==='Yearly'){
+        document.getElementById('sh2').style.display = 'block';
+        document.getElementById('sh1').style.display = 'none';
+        displayradiobutton();  
+    }
+}
+       
+function changeValue(input, textid) {
+    document.getElementById(textid).value = input.value;
+} 
+
+
+</script>
+<!------------------------------------------------------------End of Javascript -------------------------------------------------------------> 
+
+<apex:sectionHeader title="PI Data" subtitle="Create/Edit PI Data"/>
+<apex:form id="frmId">
+<apex:pageMessages id="myMsg"/>
+<apex:pageBlock id="infoPanelBlkId">
+    
+    <apex:outputPanel id="pgBlkBtnId_btm">
+<div align="centre" id="saveBtnDiv_btm" style="margin-left: 400px;">
+ <apex:commandButton action="{!SaveCustom}" value="Save" rendered="{!displaySaveButton}"/>
+ <!--<apex:commandButton onclick="saveBtnNameFn();" value="Save" rendered="{!displaySaveButton}"/>
+ <apex:actionFunction action="{!SaveCustom}" name="saveBtnName" id="saveBtnId"/>-->
+ <!--<apex:commandButton action="{!CountinueCustom}" value="Continue" rendered="{!displayContinueButton}"/>-->
+ <apex:commandButton action="{!cancel}" value="Cancel" rendered="{!displaySaveButton}"/>
+</div>
+</apex:outputPanel>
+    
+    
+<apex:pageBlockSection title="Information" collapsible="false" columns="2" id="infoPanelId">
+<apex:inputField value="{!customerObj.PI_Title__c}" id="titleId" style="width: 400px; height:15px"/>
+<apex:pageblockSectionItem >
+<apex:outputLabel value="Owner"></apex:outputLabel>
+<apex:outputField value="{!customerObj.ownerID}"/>
+</apex:pageblockSectionItem>
+<apex:pageblockSectionItem ></apex:pageblockSectionItem>
+<apex:outputField value="{!customerObj.LifecycleStage__c}"/>
+  
+    
+    
+<apex:inputField value="{!customerObj.PIAbbreviation__c}" id="abbrId" required="true"/>
+    <!--
+<apex:inputField value="{!customerObj.Business__c}" rendered="{!isDisablePublished}"/>
+<apex:outputField value="{!customerObj.Business__c}" rendered="{!!isDisablePublished}"/>
+    
+<apex:inputField value="{!customerObj.Type__c}" rendered="{!isDisablePublished}"/>    
+<apex:outputField value="{!customerObj.Type__c}" rendered="{!!isDisablePublished}"/> -->
+    <apex:inputField value="{!customerObj.Business__c}" />
+    <apex:inputField value="{!customerObj.Type__c}"/>
+    
+    <!--
+<apex:inputField value="{!customerObj.ValuesType__c}" id="valId" required="true" rendered="{!isDisablePublished}"/>
+<apex:outputField value="{!customerObj.ValuesType__c}" id="valId1" rendered="{!!isDisablePublished}"/>
+    
+<apex:inputField value="{!customerObj.SurveyQuestion__c}" rendered="{!isDisablePublished}"/>
+<apex:outputField value="{!customerObj.SurveyQuestion__c}" rendered="{!!isDisablePublished}"/>
+
+<apex:inputField value="{!customerObj.OperationalType__c}" rendered="{!isDisablePublished}"/>
+<apex:outputField value="{!customerObj.OperationalType__c}" rendered="{!!isDisablePublished}"/>
+-->
+    <apex:inputField value="{!customerObj.ValuesType__c}" id="valId" required="true" />
+    <apex:inputField value="{!customerObj.SurveyQuestion__c}" />
+    <apex:inputField value="{!customerObj.OperationalType__c}" />    
+    
+    <!--
+<apex:inputField value="{!customerObj.UoM__c}" id="uomId" required="true" rendered="{!isDisablePublished}"/>
+<apex:outputField value="{!customerObj.UoM__c}" id="uomId1" rendered="{!!isDisablePublished}"/>-->
+    <apex:inputField value="{!customerObj.UoM__c}" id="uomId" required="true" />
+    
+<apex:inputField value="{!customerObj.PurposeAndObjective__c}"/>
+</apex:pageblocksection>
+<apex:pageblockSection title="Scope Map" collapsible="false" columns="2">
+ <apex:inputField value="{!customerObj.GeoScope__c}" required="true" rendered="{!!isDisablePublished}"/>
+ <!--<apex:outputField value="{!customerObj.GeoScope__c}" rendered="{!isDisablePublished}"/> -->
+ <apex:inputField value="{!customerObj.GeoScope__c}" rendered="{!isDisablePublished}"/>
+ <apex:inputField value="{!customerObj.CategoryScope__c}" required="true" rendered="{!!isDisablePublished}"/>
+ 
+ <!--<apex:outputField value="{!customerObj.CategoryScope__c}" rendered="{!isDisablePublished}"/> -->
+ <apex:inputField value="{!customerObj.CategoryScope__c}" rendered="{!isDisablePublished}"/>
+ <apex:inputField value="{!customerObj.BUScope__c}" required="true" rendered="{!!isDisablePublished}"/>
+ <!--<apex:outputField value="{!customerObj.BUScope__c}" rendered="{!isDisablePublished}"/> -->
+ <apex:inputField value="{!customerObj.BUScope__c}" rendered="{!isDisablePublished}"/>
+</apex:pageblockSection>
+<div align="centre" id="saveBtnDiv2" style="margin-left: 400px;">
+<apex:commandButton value="Press For Data Acquisition Entry" action="{!DisplaySaveCancelButton}" reRender="infoPanelId,dataAcPanel,pgBlkBtnId,myMsg" rendered="{!displayButton}"/>
+</div>
+<apex:outputPanel id="dataAcPanel">
+<apex:pageBlockSection title="Data Acquisition Method (Please select Data Load method for the recurrence pattern.)" collapsible="false" columns="1" rendered="{!displaySaveButton}" id="dataAcqSec">
+      
+    <apex:inputField value="{!customerObj.DataAcquisitionMethod__c}" required="true" id="inDataAc">   
+        <apex:actionSupport event="onchange" action="{!displayRecurrence}" reRender="infoPanelId,opPanel,myMsg,standalonesurveytype" status="loadStatus" oncomplete="displayradiobutton();"/> 
+    </apex:inputField> 
+        <apex:outputPanel id="standalonesurveytype">
+        <table><tr><td>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <apex:outputLabel value="PI Upload Due Date" rendered="{!StandaloneSUrveyType}" style="color: #4a4a56;font-weight:bold;padding-left: 30px;" ></apex:outputLabel>&nbsp;&nbsp;</td>
+        <td>
+        <apex:inputField value="{!customerObj.PIUploadDuedate__c}" rendered="{!StandaloneSUrveyType}" required="true"/></td>
+        <td>
+        <apex:outputLabel value="Frequency" style="color: #4a4a56;font-weight:bold;padding-left: 300px;" rendered="{!StandaloneSUrveyType}" ></apex:outputLabel></td>
+        
+        <td>
+           <apex:inputField value="{!customerObj.Frequency__c}" rendered="{!StandaloneSUrveyType}" required="true"/>
+        </td>
+       </tr> 
+       <tr>
+        <td style="padding-left: 12%;">
+        <apex:outputLabel value="Buffer Days" style="color: #4a4a56;font-weight:bold;" rendered="{!StandaloneSUrveyType}" ></apex:outputLabel></td>
+        
+         <td>
+        <apex:inputField value="{!customerObj.Additional_Days__c}" rendered="{!StandaloneSUrveyType}" style="width: 20%;"/>
+        </td>
+        </tr>
+        </table>
+      </apex:outputPanel>
+           
+
+</apex:pageblockSection>
+</apex:outputPanel>
+
+<apex:outputPanel id="opPanel">
+    <apex:outputPanel layout="block" style="" rendered="{!RenderRecurrence}">
+        <apex:pageBlockSection title="PI Upload Recurrence" columns="1" id="pgBlockSection" collapsible="false">                
+            <apex:outputText value="" />
+            <apex:selectRadio value="{!selectedFrequency}" label="Please select a recurrence frequency type" onchange="displayFrequencyBlock(this.value);" id="radioButtons">
+                <apex:selectOptions value="{!FrequencyTypes}"></apex:selectOptions>
+            </apex:selectRadio>
+            <apex:outputPanel rendered="{!isError9}">
+                <div class="errorMsg"><strong>Error:&nbsp;Please select atleast one recurrence frequency type.</strong></div>
+            </apex:outputPanel><br/>                
+         </apex:pageBlockSection>           
+                        
+    <div id="sh1">
+        <table>
+        <apex:outputPanel rendered="{!isError7}">
+            <div class="errorMsg"><strong>Error:&nbsp;Please select atleast one Recurrence Pattern.</strong></div>
+        </apex:outputPanel>            
+          <tr>                                    
+              <td>              
+              <input id="MonthlyFirstRadio" type="radio" name="Frequency" value="DayPerMonth"  class="freqRadio" onclick="changeValue(this,'{!$Component.RadioButtonValue}');">Day</input>&nbsp;
+              <apex:inputHidden value="{!RecurrencePattern}" id="RadioButtonValue"/>
+              <apex:inputField id="upId" value="{!customerObj.Upload_Day__c}" label="" style="width:30px" styleClass="disableDay" rendered="{!!isError}"/><apex:inputField id="upId1" value="{!customerObj.Upload_Day__c}" label="" style="width:30px" styleClass="error" rendered="{!isError}"/>             
+              +&nbsp;<apex:inputField value="{!customerObj.Additional_Days__c}" style="width:30px" styleClass="disableDay"/>&nbsp;additional days of every &nbsp; 
+              <apex:inputText value="{!MonthFrequency1}" size="1" styleClass="disableDay" rendered="{!!isError3}"/><apex:inputText value="{!MonthFrequency1}" size="1" styleClass="error" rendered="{!isError3}"/> Month(s) </td> 
+              <tr><td><apex:outputPanel rendered="{!isError3}">
+                  <div class="errorMsg">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <strong>Error:&nbsp;Frequency should not be blank.</strong></div>
+              </apex:outputPanel></td></tr>
+              <tr><td><apex:outputPanel rendered="{!isError5}">
+                     <div class="errorMsg"><strong>Error:&nbsp;Given Date should not be greater than of total days of Current Month.</strong></div>
+              </apex:outputPanel></td></tr><br/>
+              <tr><td><apex:outputPanel rendered="{!isError}">
+                     <div class="errorMsg">
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <strong>Error:&nbsp;Day should not be blank.</strong></div>
+              </apex:outputPanel></td></tr><br/>                
+          </tr>
+          
+          <tr>
+              <td><input id="MonthlySecondRadio" type="radio" name="Frequency" value="WeekPerMonth" class="freqRadio" onclick="changeValue(this,'{!$Component.RadioButtonValue}');">The</input>&nbsp;
+              
+              <apex:selectList value="{!selectedWeekInMonth}" multiselect="false" size="1" styleClass="disableWeek">
+                  <apex:selectOptions value="{!WeekCountList}"></apex:selectOptions>
+              </apex:selectList>&nbsp;
+            
+              
+              <apex:selectList value="{!selectedDayInMonth}" multiselect="false" size="1" styleClass="disableWeek">
+                  <apex:selectOptions value="{!weekDays}"></apex:selectOptions>
+              </apex:selectList>
+            
+              +&nbsp;<apex:inputField value="{!customerObj.Additional_Days_for_week__c}" style="width:30px" styleClass="disableWeek"/>&nbsp;additional days of every&nbsp;  
+              <apex:inputText value="{!MonthFrequency2}" size="1" styleClass="disableWeek" rendered="{!!isError4}"/><apex:inputText value="{!MonthFrequency2}" size="1" styleClass="error" rendered="{!isError4}"/>&nbsp;Month(s)</td>
+              <tr><td><apex:outputPanel rendered="{!isError4}">
+                     <div class="errorMsg">
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <strong>Error:&nbsp;Frequency should not be blank.</strong></div>
+              </apex:outputPanel></td></tr><br/>    
+          </tr>
+        </table> 
+
+    </div>
+    
+
+ <div id="sh2" style="display:none;">
+
+ <table>
+ <apex:outputPanel rendered="{!isError8}">
+    <div class="errorMsg"><strong>Error:&nbsp;Please select atleast one Recurrence Pattern.</strong></div>
+ </apex:outputPanel>
+  <tr>
+    <td>     
+    Recur every <apex:inputText value="{!YearFrequency}" size="1" rendered="{!!isError1}"/><apex:inputText value="{!YearFrequency}" size="1" styleClass="error" rendered="{!isError1}"/> Year(s)<br/></td></tr>
+    <tr><td><apex:outputPanel rendered="{!isError1}">
+             <div class="errorMsg">
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <strong>Error:&nbsp;Frequency should not be blank.</strong></div>
+      </apex:outputPanel></td></tr><br/>
+  <tr><td>
+      <input id="YearlyFirstRadio" type="radio" name="Frequency" value="DayPerYear"  class="freqRadio" onclick="changeValue(this,'{!$Component.RadioButtonValue}');"> On: </input>
+     <apex:selectList value="{!selectedMonthinYear}" multiselect="false" size="1" id="onMonths" styleClass="disableYearOption1">
+       <apex:selectOptions value="{!MonthList}"></apex:selectOptions>
+    </apex:selectList>&nbsp;
+            
+  
+   <apex:inputField id="yMonth" value="{!customerObj.Month_Upload_Day__c}" style="width:30px" styleClass="disableYearOption1" rendered="{!!isError2}"/><apex:inputField id="yMonth1" value="{!customerObj.Month_Upload_Day__c}" style="width:30px" styleClass="error" rendered="{!isError2}"/><br/></td></tr>&nbsp;
+   <tr><td><apex:outputPanel rendered="{!isError2}">
+       <div class="errorMsg">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <strong>Error:&nbsp;Day should not be blank.</strong></div>
+   </apex:outputPanel></td></tr>
+   <tr><td><apex:outputPanel rendered="{!isError6}">
+                 <div class="errorMsg"><strong>Error:&nbsp;Given Date should not be greater than of total days of Selected Month.</strong></div>
+          </apex:outputPanel></td></tr><br/>
+   <tr><td>
+   <input id="YearlySecondRadio" type="radio" name="Frequency" value="WeekPerYear"  class="freqRadio" onclick="changeValue(this,'{!$Component.RadioButtonValue}');"> On the: </input>
+     <apex:selectList value="{!selectedWeekInYear}" multiselect="false" size="1" styleClass="disableYearOption2">
+                  <apex:selectOptions value="{!WeekCountList}"></apex:selectOptions>
+              </apex:selectList>&nbsp;
+            
+    
+     <apex:selectList value="{!selectedDayInYear}" multiselect="false" size="1" styleClass="disableYearOption2">
+                  <apex:selectOptions value="{!weekDays}"></apex:selectOptions>
+              </apex:selectList>&nbsp;of&nbsp;
+     
+       
+    
+     <apex:selectList value="{!selectedMonthinYear2}" multiselect="false" size="1" id="yrlyMonth" styleClass="disableYearOption2">
+       <apex:selectOptions value="{!MonthList}"></apex:selectOptions>
+    </apex:selectList>
+   
+   
+    
+    </td>
+    </tr>
+  
+</table> 
+
+</div>
+
+ </apex:outputPanel>
+</apex:outputPanel>
+<br/><br/><br/>
+<apex:outputPanel id="pgBlkBtnId">
+<div align="centre" id="saveBtnDiv" style="margin-left: 400px;">
+ <apex:commandButton action="{!SaveCustom}" value="Save" rendered="{!displaySaveButton}"/>
+ <!--<apex:commandButton onclick="saveBtnNameFn();" value="Save" rendered="{!displaySaveButton}"/>
+ <apex:actionFunction action="{!SaveCustom}" name="saveBtnName" id="saveBtnId"/>-->
+ <!--<apex:commandButton action="{!CountinueCustom}" value="Continue" rendered="{!displayContinueButton}"/>-->
+ <apex:commandButton action="{!cancel}" value="Cancel" rendered="{!displaySaveButton}"/>
+</div>
+</apex:outputPanel>
+
+</apex:pageBlock>
+
+<apex:outputPanel id="tstpopup">
+    <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayContinueButton}"/>
+    <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayContinueButton}"><br/><br/>
+        The PI Upload Due Date: <b><apex:outputText style="color:green;" value="{!displaydate}"/></b> is a past date.<br/><br/>System will automatically change the date into future date on pressing <b><apex:outputText style="color:green;" value="Continue"/></b> button.<br/><br/><br/><br/>
+        <apex:commandButton style="color:black;background-color:#33ff33;background-image:none" action="{!CountinueCustom}" value="Continue" reRender="myMsg,tstpopup"/>&nbsp;
+        <apex:commandButton style="color:black;background-color: #ff1a1a;background-image:none" value="Cancel" action="{!closePopup}" reRender="tstpopup"/>
+    </apex:outputPanel>
+</apex:outputPanel>
+<!--<script>
+    function saveBtnNameFn(){
+        if(document.getElementById('pgId:frmId:infoPanelBlkId:dataAcqSec:inDataAc').value == 'Data Load'){
+            if(document.getElementById('pgId:frmId:infoPanelBlkId:pgBlockSection:radioButtons:1').checked == true || document.getElementById('pgId:frmId:infoPanelBlkId:pgBlockSection:radioButtons:0').checked == true){
+                saveBtnName();
+            }
+            else{
+                alert('Please select a recurrence frequency type');
+            }
+        }
+    }
+</script>-->
+</apex:form>  
+</apex:page>

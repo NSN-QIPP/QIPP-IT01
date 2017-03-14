@@ -1,0 +1,115 @@
+<apex:component controller="riskSummaryController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Risk Summary</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+
+    table {
+      border: 0;
+    }
+
+    table thead {
+      display: none;
+    }
+
+    table tr {
+      margin-bottom: 10px;
+      display: block;
+      border-bottom: 2px solid #ddd;
+    }
+
+    table td {
+      display: block;
+      text-align: right;
+      font-size: 13px;
+      border-bottom: 1px dotted #ccc;
+    }
+
+    table td:last-child {
+      border-bottom: 0;
+    }
+
+    table td:before {
+      content: attr(data-label);
+      float: left;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+</style>
+        </head>   
+        <body>    
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <p class="slds-text-heading--label">Risk Summary</p>
+                        </div>
+                    </div>
+                </div>    
+      
+                <div class="myapp">    
+                    <table class="slds-table slds-table--bordered">
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Score
+                                </th>    
+                                <th scope="col">
+                                    <span class="slds-truncate">Min Score</span>
+                                </th>    
+                                <th scope="col">
+                                    <span class="slds-truncate">Avg Score</span>
+                                </th> 
+                                 <th scope="col">
+                                    <span class="slds-truncate">Max Score</span>
+                                </th>  
+                            </tr>   
+                        </thead>
+                        <apex:repeat value="{!SummaryData}" var="risk" id="theRepeat">
+                            <tr>
+                                <td data-label="Score">
+                                    <span class="slds-truncate"><b>{!risk.leadType}</b></span>
+                                </td>
+                                <td data-label="Min Score">
+                                    <span  class="slds-truncate">  {!risk.minScore}</span>
+                                </td>
+                                 <td data-label="Avg Score">
+                                    <span class="slds-truncate">  {!risk.avgScore}</span>
+                                </td>
+                                <td data-label="Max Score">
+                                    <span class="slds-truncate">  {!risk.maxScore}</span>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:component>

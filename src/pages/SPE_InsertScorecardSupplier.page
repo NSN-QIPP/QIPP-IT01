@@ -1,0 +1,207 @@
+<apex:page standardController="SPE_ScorecardGenerator__c" extensions="SPE_InsertScorecardSupplierExt" sidebar="false" id="pg">
+    <script>
+        function enterPress(e){
+            if(e.keyCode==13){
+                searchFunction();
+                return false;
+            }
+            else 
+            {
+            return true;
+            }
+            
+      }
+   
+    //method to call for main checkbox
+function checkAll(cb,panelVal)
+ {
+     if(panelVal == "UPanel"){
+         var inputElem = document.getElementsByClassName('messageCheckbox');
+         for(var i=0; i<inputElem.length; i++)
+          {
+                if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='messageCheckbox')
+                {
+                    inputElem[i].checked=cb.checked;
+                }
+          }
+     } 
+     
+     else{
+          var inputElem = document.getElementsByClassName('messageCheckbox2');
+         for(var i=0; i<inputElem.length; i++)
+          {
+                if(inputElem[i].id!='headerCheckId2' && inputElem[i].className=='messageCheckbox2')
+                {
+                    inputElem[i].checked=cb.checked;
+                }
+          }
+         }
+ }
+
+//method to call for each checkbox
+ function checkheader(thisElem,panelVal)
+ {
+     if(panelVal == "UPanel"){ 
+        if(thisElem.checked==false)
+        document.getElementById('headerCheckId').checked=false;
+       
+        else
+        {
+            checkAndUpdate(panelVal);
+        }
+    }
+    else{
+        if(thisElem.checked==false)
+        document.getElementById('headerCheckId2').checked=false;
+       
+        else
+        {
+            checkAndUpdate(panelVal);
+        }
+    }
+ } 
+
+//to update the main checkbox
+function checkAndUpdate(panelVal)
+{
+      if(panelVal == "UPanel"){
+          var inputElem = document.getElementsByClassName('messageCheckbox');
+          var flag=0;
+          var totalCheckBox=0;
+          for(var i=0; i<inputElem.length; i++)
+          {
+                if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='messageCheckbox')
+                {
+                    totalCheckBox=totalCheckBox+1;
+                    if(inputElem[i].checked==true)
+                    {
+                        flag=flag+1;
+                    }
+                }
+          }
+          if(flag==totalCheckBox)
+          document.getElementById('headerCheckId').checked=true;
+          else
+          document.getElementById('headerCheckId').checked=false;
+   }
+   else{
+          var inputElem = document.getElementsByClassName('messageCheckbox2');
+          var flag=0;
+          var totalCheckBox=0;
+          for(var i=0; i<inputElem.length; i++)
+          {
+                if(inputElem[i].id!='headerCheckId2' && inputElem[i].className=='messageCheckbox2')
+                {
+                    totalCheckBox=totalCheckBox+1;
+                    if(inputElem[i].checked==true)
+                    {
+                        flag=flag+1;
+                    }
+                }
+          }
+          if(flag==totalCheckBox)
+          document.getElementById('headerCheckId2').checked=true;
+          else
+          document.getElementById('headerCheckId2').checked=false;
+   
+   }              
+}   
+    
+      
+    </script>
+    <style>
+        .navBtnCSS{
+            height: 30px;
+            width: 60px;
+            font-size: initial;
+            border-radius: 5px;
+            cursor:pointer;
+        }
+    </style>
+    <apex:form id="fm">
+        <div align="right">
+            <apex:commandButton styleclass="navBtnCSS" value="Next" action="{!showNextPanel}" rendered="{!isShowSuppliers}" rerender="fm" status="statusChange"/>&nbsp;&nbsp;
+            <apex:commandButton styleclass="navBtnCSS" value="Cancel" rendered="{!isShowSuppliers}" action="{!cancel}"/>
+            <apex:actionStatus id="statusChange">
+                <apex:facet name="start">
+                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                </apex:facet>
+            </apex:actionStatus>
+        </div><br/>
+        <apex:pageMessages id="msgId"/>
+        <apex:outputPanel id="supplierPanel" rendered="{!isShowSuppliers}">
+            <apex:pageBlock id="supplier" title="Select Supplier">
+           
+                <span class="helpButtonOn" id="showicon-_help">
+                    <img src="/s.gif" alt="" class="helpOrb" title="Please provide atleast one character for the wild card search *"/>
+                </span>
+                
+                <apex:inputText value="{!supplierName}" id="supplierName" onkeypress="return enterPress(event)"/> 
+                <apex:commandButton value="Search"  action="{!searchSuppliers}" reRender="searchPanel,msgId" status="myStatus" />
+                <apex:actionStatus id="myStatus" startText="Searching..."   stopText=""   startStyleClass="statusStyle"/>
+                <apex:actionFunction name="searchFunction" action="{!searchSuppliers}" reRender="searchPanel" status="myStatus"/>
+                <apex:outputpanel rendered="{!IF(SupplierWrapperList.size > 0,true,false)}">
+                <apex:pageBlockTable value="{!SupplierWrapperList}" var="sp" id="pgt">
+                    <apex:column headerValue=" ">
+                    <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this,'UPanel')" id="headerCheckId"/></apex:facet>
+                        <apex:inputCheckbox value="{!sp.isChecked}" id="upperPanel" styleClass="messageCheckbox" onclick="checkheader(this,'UPanel');"/>
+                    </apex:column>
+                    <apex:column headerValue="Enterprise Id">
+                        <apex:outputText value="{!sp.strEnterpriseName}" />
+                    </apex:column>
+                    <apex:column headerValue="Supplier">
+                        <apex:outputText value="{!sp.strSupplierName}" />
+                    </apex:column>
+                </apex:pageBlockTable></apex:outputpanel>
+            </apex:pageBlock>
+            <apex:outputPanel id="searchPanel">
+            <apex:outputPanel rendered="{!isSearch}">
+            <apex:pageblock title="Search Results">
+                <apex:pageblockbuttons rendered="{!IF(SupplierWrapperListSelected.size > 0,true,false)}">
+                    <apex:commandButton value="Add"  action="{!addToMainList}" reRender="supplier,searchPanel,msgId" status="myStatus1" />
+                    <apex:actionStatus id="myStatus1" startText="Adding..."   stopText=""   startStyleClass="statusStyle"/>
+                </apex:pageblockbuttons>
+                <apex:pageBlockTable value="{!SupplierWrapperListSelected}" var="sp" rendered="{!IF(SupplierWrapperListSelected.size > 0,true,false)}">
+                    <apex:column headerValue=" ">
+                <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this,'LPanel')" id="headerCheckId2"/></apex:facet>
+                        <apex:inputCheckbox value="{!sp.isChecked}" styleClass="messageCheckbox2" onclick="checkheader(this,'LPanel');"/>
+                    </apex:column>
+                    <apex:column headerValue="Enterprise Id">
+                        <apex:outputText value="{!sp.strEnterpriseName}" />
+                    </apex:column>
+                    <apex:column headerValue="Supplier">
+                        <apex:outputText value="{!sp.strSupplierName}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                <apex:outputPanel rendered="{!IF(SupplierWrapperListSelected.size > 0,false,true)}">
+                    Either the Enterprise Id is already added OR it does not exist in the system
+                </apex:outputPanel>
+            </apex:pageblock></apex:outputPanel></apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel id="addScorecardSupplierMap" rendered="{!!isShowSuppliers}">
+            <apex:pageBlock id="scorecardSupMap" title="Fill Details">
+                <apex:pageBlockButtons >
+                   <apex:commandButton value="Save" action="{!gotoDetailPage}"/>
+                    <apex:commandButton value="Cancel" action="{!cancel}"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockTable value="{!lstSSM}" var="ssm" style="width:100%;">
+                    <apex:column headerValue="Supplier">
+                        <apex:inputfield value="{!ssm.Supplier__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Supplier Contact">
+                        <apex:inputfield value="{!ssm.SupplierContact__c}" required="true"/>
+                    </apex:column>
+                    <apex:column headerValue="CC Contact1">
+                        <apex:inputfield value="{!ssm.CC_Contact1__c}" />
+                    </apex:column>
+                    <apex:column headerValue="CC Contact2">
+                        <apex:inputfield value="{!ssm.CC_Contact2__c}" />
+                    </apex:column>
+                    <apex:column headerValue="Approver">
+                        <apex:inputfield value="{!ssm.Approver__c}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

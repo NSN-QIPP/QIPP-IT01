@@ -1,0 +1,1396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>SPE2_NewKPIThreshold</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>SPE2_KPIThresholdView</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>BusinessLine__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Line</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CARE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NETWORK IMPLEMENTATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SYSTEMS INTEGRATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUSINESS SUPPORT SYSTEMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MEDIA AND ENTERTAINMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3G CORE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ARCHITECTURE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CDMA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEM AND OSS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FDD LTE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GSMR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LIQUID CORE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MATURE PRODUCTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM PRODUCTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PERFECT VOICE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SECURITY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SINGLE RAN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SMALL CELL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TD LTE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AGGREGATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>BusinessUnit__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GLOBAL SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MATURE SOFTWARE PRODUCTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL NETWORKS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryCluster__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INDIRECT PROCUREMENT OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PRODUCT PROCUREMENT OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SERVICES PROCUREMENT OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UNREPORTED SPEND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryGroup__c</fullName>
+        <externalId>false</externalId>
+        <label>Category Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FACILITY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT PROCUREMENT &amp; TELECOMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LOGISTICS SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PROFESSIONAL SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRAVEL &amp; FLEET</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUSINESS INCUBATION &amp; E2E SOLUTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ELECTRONIC MANUFACTURING SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INTERCONNECT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL COMPONENTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SEMICONDUCTOR AND RF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>STANDARD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EXTERNAL WORKFORCE SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NI MATERIALS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DISCONTINUED BUSINESS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EXPENDITURES REPORTED ERRONEOUSLY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NON-MANAGED EXPENDITURES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NOT ASSIGNED SPEND GROUP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UNREPORTED SPEND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D SOLUTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TESTING AND MANUFACTURING EQUIPMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HW &amp; SW SOLUTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MECHANICS &amp; RF PRODUCTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TELECOM OEM/ODM/JDM AND EMBEDDED POWER</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BASESTATION ANTENNAS &amp; ECOSYSTEM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CARE SERVICES &amp; SI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GSD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>REPAIR &amp; SPARES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SUBCONTRACTING MS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SUBCONTRACTING NI SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SUBCONTRACTING NPO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Category_Hierarchy__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Text(CategoryCluster__c)+&apos;--&gt;&apos;+Text(CategoryGroup__c)+&apos;--&gt;&apos;+Text(Category__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Category Hierarchy</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUILDING INVESTMENT/CAPEX WITHOUT RENTS AND LEASES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FACILITY MANAGEMENT SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RENTAL/LEASE/TRANSACTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UTILITIES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>APPLICATION MAINTENANCE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WORKPLACE DEVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASSOCIATED SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRANSPORT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WAREHOUSE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUSINESS SERVICES OTHERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>COACHING &amp; OTHER CONSULTING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CONSULTING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FINANCIAL TAX &amp; INSURANCES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LEGAL &amp; INTELLECTUAL PROPERTY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MARKETING &amp; COMMUNICATIONS SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OFFICE SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TEST SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRAINING SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FUNCTIONAL TEST EQUIPMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT PERIPHERAL DEVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MANUFACTURING AUXILIARIES AND CONSUMABLES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MANUFACTURING EQUIPMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PERFORMANCE TEST EQUIPMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FLEET</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TRAVEL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUSINESS INCUBATION OTHER</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IOT SOLUTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PUBLIC SAFETY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>REVENUE SHARING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>COMPLETE PRODUCT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - CORE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - ENGINEERING SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - MATURE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - MULTIRADIO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - OTHER</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - RRH</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - RECONCILIATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - SMALL CELL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - SYSTEM MODULE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS SUPPLY CHAIN COST</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INTERHOUSE ASSEMBLIES (MFG)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NPI &amp; OTHER SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PBA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>REPAIR &amp; SPARES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CABLE ASSEMBLIES - RF FO OTHER</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CABLES - CORE NETWORKS + I/O &amp; POWER CABLES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CONNECTORS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PCB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CABINET/ENCLOSURE ASSY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NON-FILTER CASTINGS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PLASTICS RUBBER &amp; GASKETS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; MICROWAVE MECHANICAL PARTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RAW MATERIALS &amp; OTHERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SHEET METAL PARTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>STANDARD MECHANICS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>THERMAL MANAGEMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TOOLING FOR MECHANICS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BASESTATION ANTENNAS &amp; ECOSYSTEM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM &amp; ODM TELECOM EQPMT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM IT HW &amp; HW SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW APPLICATIONS &amp; DATABASES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW MGMT &amp; SECURITY SOLUTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM SW OS &amp; SW STACK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>POWER SUPPLY UNIT &amp; MODULES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF &amp; MICROWAVE OEM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF PASSIVE &amp; ACTIVE MODULES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SMALL CELLS EQUIPMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SPECIFIC OEM FOR STRATEGIC INDUSTRIES MARKET</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SWITCHING &amp; ROUTING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SYSTEM BOARDS &amp; SHELVES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL ACTIVE DISCRETES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL PASSIVE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL TRANSCEIVERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASIC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ANALOG IC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIRCULATORS / ISOLATORS / TERMINATORS / RESONATORS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>COMMUNICATION &amp; TELECOM IC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DSP / NP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPGA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FREQUENCY CONTROL PRODUCTS (FCP)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LINEAR &amp; LOGIC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MICROPROCESSORS / MICROCONTROLLERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF&amp;MW COMPONENTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAPACITORS &amp; RESISTORS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DISCRETES PROTECTION DEVICES &amp; SWITCHES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INDUCTIVES &amp; TRANSFORMERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LSP &amp; OTHER ADDERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MEMORIES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CARE &amp; MAINTENANCE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DIRECT TEMPORARY LABOR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INDIRECT TEMPORARY LABOR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BATTERIES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CABLE &amp; FEEDER SYSTEMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RA ACCESSORIES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RENEWABLE ENERGY SYSTEMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SITE CONSTRUCTION MATERIALS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SITE INSTALLATION MATERIALS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>STAND ALONE POWER SYSTEMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DESIGN INTEGRATE VERIFY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GLOBAL SERVICE DELIVERY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MANAGED SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NETWORK PLANNING SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SUBCONTRACTING SI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MARINE SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SITE ACQUISITION &amp; CIVIL WORKS FIXED</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SITE ACQUISITION &amp; CIVIL WORKS WIRELESS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INSTALLATION &amp; COMMISSIONING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DEACTIVATED 2H2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DEACTIVATED ALU</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CABINET&amp;SHEET METAL - ON</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL LINE / INTERFACE MODULES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL MODULES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TOOLING FOR NON-CASTINGS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CUSTOMER BUSINESS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ERRONEOUS DOCUMENTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EXCLUSIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INTERNAL EXPENDITURES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ASSET TRANSFER</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CHARITABLE CONTRIBUTIONS AND MEMBERSHIP FEES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CHARITY ORGANIZATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CUSTOM AND RELATED FEES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMPLOYEE BENEFITS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FACILITY MANAGEMENT SPACE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HARDWARE REPAIR SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INTELLECTUAL PROPERTY RIGHTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>KABA EXPENDITURES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MISCELLANEOUS EXPENSES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NETWORK SOLUTION HARDWARE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NON-VAT TAXES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NON-MANAGED BY AGREEMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NON-MANAGED PENALTIES AND LEGAL FEES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NOT ASSIGNED SPEND CATEGORY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UNIDENTIFIED</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UNREPORTED SPEND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>APPLICATION DEVELOPMENT AND IT CONSULTING</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT HARDWARE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INFRA SERVICES AND SECURITY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MOBILE VOICE AND TELCO SERVICE PROVIDERS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SW (IT &amp; R&amp;D) AND SAAS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4PL/LLP AND VALUE ADDED SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CUSTOMS BROKERAGE &amp; IMPORT/EXPORT COMPLIANCE SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PACKAGING MATERIALS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUSINESS SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR BENEFITS PENSIONS &amp; HSSE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR SERVICES-OPERATIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TME COMPONENTS AND CONSUMABLES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PUBLIC SECTOR OTHER</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - COMPLETE PRODUCT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - NRE NPI OTHER CLAIM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - PBA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS - PPV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AIRFRAME</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CABLES ASSEMBLIES - CORE NETWORKS + I/O &amp; POWER CABLES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FILTER CASTINGS &amp; FALU RF CASTINGS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>METAL PARTS &amp; SUB ASSY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ODM FILTERS - A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ODM FILTERS/DIPLEXER/COMBINERS/AAS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RRH/MHA-N</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RRH/PA/TRDU-A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SUB RACKS / ENCLOSURE /CABINET ASSY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TOOLINGS/NRE/CLAIMS FOR MECHANICS &amp; RF PRODUCTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CLOCK AND TIMING IC&apos;S</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CRYSTAL OSCILLATORS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NPI NRE &amp; OTHER CLAIMS SEMICONDUCTOR &amp; RF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PROCESSORS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF POWER TRANSISTORS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF&amp;MW ACTIVE COMPONENTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF&amp;MW PASSIVE COMPONENTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GPS TIMING SOLUTIONS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MICROWAVE OEM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TELECOM OEM/ODM/JDM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DIRECT TEMPORARY LABOR - FIELD FORCE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FEEDER &amp; HYBRID SYSTEMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>POWER CABLES AND FIBER OPTICS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AUTOMATION SECURITY VIRTUALIZATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FIELD MAINTENANCE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>INTEGRATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SITE ACQUISITION &amp; CIVIL WORKS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Geo_Hierarchy__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>TEXT(Region__c)+&apos;--&gt;&apos;+ Text(SubRegion__c)+&apos;--&gt;&apos;+ Text(Country__c)+&apos;--&gt;&apos;+Text(Project__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Geo Hierarchy</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>High_Better__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>High Better?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>KPI_Attrribute__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>KPI Attrribute</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KPI_ID__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>KPI ID</label>
+        <referenceTo>SPE_KPIDefinition__c</referenceTo>
+        <relationshipName>SPE_KPI_Threshold</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>KPI_Title__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <label>KPI Title</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Hierarchy__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Text(BusinessUnit__c)+&apos;--&gt;&apos;+Text(BusinessLine__c)+&apos;--&gt;&apos;+Text(Product__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product Hierarchy</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Market</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pilot</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obsolete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SubRegion__c</fullName>
+        <externalId>false</externalId>
+        <label>Market Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>--None--</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Thr_External_ID__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>true</externalId>
+        <label>Thr External ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Threshold_Boundary__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Threshold Boundary</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Threshold_Title__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Threshold Title</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weightage__c</fullName>
+        <externalId>false</externalId>
+        <label>Weightage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>KPI Threshold</label>
+    <nameField>
+        <displayFormat>Thr-{000000}</displayFormat>
+        <label>Threshold Sequential Id</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>KPI Thresholds</pluralLabel>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Threshold_Title__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Geo_Hierarchy__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Category_Hierarchy__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Product_Hierarchy__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Threshold_Boundary__c</lookupDialogsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>ExtendedView</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;SPE KPI Thresholds&quot;; 
+
+/*Restrict Unauthorized Changes After This Line*/ 
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id + &quot;?pv0={!SPE_KPIDefinition__c.Name}&quot;; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+</CustomObject>

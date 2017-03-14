@@ -1,0 +1,38 @@
+<!-- Purpose: VisualForce Page to show welcome message and Projects related to logged in user
+     Autor: Manish Tyagi/ Haripriya
+     Date: 17/05/2016 -->
+<apex:page sidebar="false" controller="loggedInUser" showHeader="false" standardStylesheets="true">
+<style>
+.pbSubheader{
+background-color:transparent;
+color:black!important;
+}
+.bPageBlock{
+border-top:3px solid #1797c0;
+}
+.bPageBlock .detailList .dataCol{
+width:100%}
+</style>
+    <apex:form >
+            <apex:pageBlock >
+                <apex:pageblockSection id="m" title="Recently Modified Projects" collapsible="0">
+                <apex:outputPanel rendered="{!projectstate.size!=0}">
+                    <apex:pageBlockTable value="{!projectstate}" var="item">
+                        <apex:column headerValue="Project Number">
+                        <apex:outputLink target="_parent" value="/{!item['Id']}">{!item.Project_Number__c}</apex:outputLink>
+                        </apex:column>
+                        <apex:column value="{!item.Project_Lead__r.Name}" headerValue="Project Lead" style="width:150px"/>
+                        <apex:column value="{!item.Portfolio_Name__r.Name}" headerValue="Portfolio Name"/>
+                        <apex:column value="{!item.Project_Name_Succinct__c}" headerValue="Project Name"/>
+                        <apex:column value="{!item.Project_Type__c}" headerValue="Methodology"/>
+                        <apex:column value="{!item.Project_State__c}" headerValue="Project State"/>  
+                        <apex:column value="{!item.Project_Created_Date__c}" headerValue="Project Created Date"/> 
+                    </apex:pageBlockTable>
+                </apex:outputPanel>  
+                <apex:outputPanel rendered="{!projectstate.size==0}">
+                    <apex:outputText value="No records to display"></apex:outputText>
+                </apex:outputPanel>  
+                </apex:pageblockSection>    
+            </apex:pageBlock>
+        </apex:form>    
+</apex:page>

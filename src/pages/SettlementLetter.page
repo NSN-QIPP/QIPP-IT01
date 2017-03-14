@@ -1,0 +1,165 @@
+<apex:page extensions="ClaimEmailController" standardController="MCAR_Claim_Management__c" sidebar="false" showHeader="false" renderAs="pdf" >    
+<html>
+<head>
+    <style>
+    body {
+        height: 842px;
+        width: 595px;
+        /* to centre page on screen*/
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+  </head>
+<body>
+    <br/><br/>
+<center>SETTLEMENT AGREEMENT</center>
+    <br/><br/>
+
+This Settlement Agreement (hereinafter the “Settlement Agreement”) is entered into by and between:
+    <br/><br/>
+
+NOKIA SOLUTIONS AND NETWORKS OY, a corporation validly organised and existing under the laws of Finland, having its principal place of business at Karaportti 3, P.O.Box 1, FI-02022 Nokia Networks, Espoo, Finland (hereinafter “Nokia Networks”, which expression shall also include its affiliated entities as applicable); and
+
+<br/><br/>
+
+{!MCAR_Claim_Management__c.Manufacturer__r.Name}, a company incorporated in {!MCAR_Claim_Management__c.Manufacturer__r.MCAR_HQ_Country__c} with its principal offices at {!MCAR_Claim_Management__c.Manufacturer__r.MCAR_HQ_Street__c}, registration number: [To Be Determined] (hereinafter the "Supplier").
+
+    <br/><br/>
+
+Hereinafter individually referred to as “Party” and jointly as the “Parties” respectively. 
+
+    <br/><br/>
+
+WHEREAS:
+
+    <br/><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   (A)&nbsp;{!MCAR_Claim_Management__c.Root_Cause_Summary__c} (hereinafter the “Dispute”);
+
+    <br/><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  (B)&nbsp;The Parties desire to finally settle the above Dispute in an amicable manner.
+    <br/><br/>
+
+NOW THEREFORE IT IS HEREBY AGREED:
+    <br/>
+<ol style="number">
+
+<li>The Supplier hereby commits and undertakes to:
+    <br/><br/>
+    • 
+      {!MCAR_Claim_Management__c.Payment_Summary__c}
+    
+    <br/><br/>
+    </li>
+    
+<li>Subject to the terms and conditions of this Settlement Agreement and in consideration for the Supplier’s above commitments and undertakings, Nokia Networks hereby agrees to: 
+    <br/><br/>
+    • {!MCAR_Claim_Management__c.Nokia_Action_Summary__c} 
+    <br/><br/>
+</li>
+    
+<li>Upon fulfillment of the terms of this Settlement Agreement, no further claims of financial or commercial nature or other such demands raised by either Party will be considered in relation to the matters settled  in this Settlement Agreement, and each Party, acting also on behalf of its any of its parents, subsidiaries, and such other affiliated companies, agrees waive the right to claim, and to release and forever discharge, the other Party and any of its parents, subsidiaries, and such other affiliated companies from (i) any legal, equitable or other obligation or duty; (ii) any and all claims or demands under any written, oral or implied agreement, obligation or understanding; and (iii) any damages or other compensation whatsoever, known or unknown related to matters settled under this Settlement Agreement.
+    <br/><br/></li>
+
+
+<li>In entering into this Settlement Agreement, the Parties represent that the terms of this Settlement Agreement are fully understood and voluntarily accepted by the Parties without duress or coercion, economic or otherwise.
+   <br/><br/></li>
+
+<li>
+Nothing contained in this Settlement Agreement is to be construed as or relied on as an admission of any liability on the part of either Party. Nokia Networks expressly reserves all rights under any existing agreements between Nokia Networks and the Supplier, and nothing contained herein shall be construed to prevent Nokia Networks from exercising any such rights under such agreements in the future, or be construed to mean that Nokia Networks would make similar concessions or agreements in any similar circumstances.
+<br/><br/></li>
+
+<li>
+The Parties agree to hold the contents of this Settlement Agreement and any related correspondence and discussions strictly confidential and not to disclose any such contents to any third party whomsoever.
+<br/><br/></li>
+
+<li>
+This Settlement Agreement contains the entire understanding between the Parties with respect to the subject matter hereof. If any provision of the Settlement Agreement is held to be invalid or unenforceable in whole or in part the validity of the other provisions of the Settlement Agreement and the remainder of the provision in question shall not be affected thereby.
+<br/><br/></li>
+
+
+<li>
+This Settlement Agreement shall be governed by the laws of Finland, excluding its rules for choice of laws. 
+<br/><br/></li>
+
+
+<li>
+All disputes arising out of or in connection with this Settlement Agreement, including any question regarding its existence or validity shall, unless amicably settled between the Parties, be finally settled by arbitration under the Rules of Arbitration of the International Chamber of Commerce by one or more arbitrators appointed in accordance with the said Rules. The arbitration proceedings shall be conducted in English. The award shall be final and binding on the Parties hereto and enforceable in any court of competent jurisdiction. The arbitration shall be held in Helsinki, Finland. 
+<br/></li>
+    </ol>    
+    
+<br/><br/>
+
+IN WITNESS whereof the Parties hereto have caused this Settlement Agreement to be duly executed on the last date set forth below. 
+
+<br/><br/>
+
+<b>NOKIA SOLUTIONS AND NETWORKS OY</b>
+
+<table width="800" cellspacing="10">
+
+<tr>
+<td>By</td>
+<td>By</td>
+</tr>
+
+<tr>
+<td>Name: {!categoryManager} </td>
+<td>Name: {!SQM }</td>
+</tr>
+
+<tr>
+<td>Title: CATEGORY MANAGER</td>
+<td>Title: SUPPLIER QUALITY MANAGER</td>
+</tr>
+
+<tr>
+    <td>Date: {!DAY(today())}/{!MONTH(today())}/{!YEAR(today())}</td>
+<td>Date: {!DAY(today())}/{!MONTH(today())}/{!YEAR(today())}</td>
+</tr>
+
+<tr>
+<td>Place: [CONTACT LOCATION]</td>
+<td>Place: [CONTACT LOCATION]</td>
+</tr>
+
+<br/>
+<tr>
+<td>[_________________________]</td>
+<td></td>
+</tr>
+<br/>
+</table>
+    
+<table width="800" cellspacing="10">    
+<tr>
+<td>By</td>
+<td>By</td>
+</tr>
+
+<tr>
+<td>Name:</td>
+<td>Name:</td>
+</tr>
+    
+<tr>
+<td>Title:</td>
+<td>Title:</td>
+</tr>
+    
+<tr>
+<td>Date:</td>
+<td>Date:</td>
+</tr>
+    
+    <tr>
+        <td>Place:</td>
+        <td>Place:</td>
+    </tr>
+</table>
+</body>
+</html>
+
+</apex:page>

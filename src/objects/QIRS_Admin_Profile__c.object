@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>This is used to store QIRS Admin profile ID which is going to refer in code.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>QIRS_Admin_Profile_ID__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>QIRS Admin Profile ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>QIRS Admin Profile</label>
+    <visibility>Public</visibility>
+</CustomObject>

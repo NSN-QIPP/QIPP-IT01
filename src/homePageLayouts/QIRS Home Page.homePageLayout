@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <narrowComponents>standard-StandardSearch</narrowComponents>
+    <narrowComponents>Quality Issue Resolution System</narrowComponents>
+    <narrowComponents>Home</narrowComponents>
+    <narrowComponents>QIRS - Instructions for Creating New Records</narrowComponents>
+    <narrowComponents>Administrator</narrowComponents>
+    <narrowComponents>Originator</narrowComponents>
+    <narrowComponents>Management</narrowComponents>
+    <narrowComponents>Reports</narrowComponents>
+    <narrowComponents>My Tasks</narrowComponents>
+    <narrowComponents>Task Settings</narrowComponents>
+    <narrowComponents>Manuals</narrowComponents>
+    <narrowComponents>Administrators Info</narrowComponents>
+    <wideComponents>standard-ProcessWorkitems</wideComponents>
+    <wideComponents>standard-Calendar</wideComponents>
+    <wideComponents>standard-Tasks</wideComponents>
+    <wideComponents>standard-Dashboard</wideComponents>
+</HomePageLayout>

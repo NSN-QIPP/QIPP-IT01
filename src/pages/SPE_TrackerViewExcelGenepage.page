@@ -1,0 +1,253 @@
+<apex:page standardController="SPE_SPETracker__c"   contenttype="application/vnd.ms-excel#{!SPE_SPETracker__c.Name}.xls" extensions="SPE_TrackerViewPDFExt"  showHeader="false">
+   <html>
+   <head> 
+   <style>
+   @page 
+     {
+        /* Landscape orientation */
+        size:landscape;
+        @bottom-right {
+         content: "Page " counter(page) " of " counter(pages);
+       }
+   }
+   .myBlock {
+    position: absolute;
+    border: 3px solid #6FEC79;
+    background-color: #FFF;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 999;
+    width:20;
+    margin: -102px 19px 0 0;
+}
+.ct{
+    text-align:center;
+    width: 20%;
+}
+   </style>
+   </head> 
+   <!--<style>
+    .tarckerHeader
+     {
+        border:1px solid black;
+        background-color:#1797c0 ;
+        color:White;
+        text-align:left;
+        padding:5px;
+        height:70px;
+        font-family: "Times New Roman";
+     }
+    .tableStyle
+     {
+        width: 100%;
+        table-layout: fixed;
+        margin-left: 20px;
+        margin-top: 20px;
+        border: 1.7px solid black;
+        border-collapse: collapse;
+        cellpadding="10"
+        
+    }
+    .backgroungColor
+     {
+        background-color:#1797c0;
+     }
+     .fontColor
+     {
+        font-family: "Times New Roman";
+        color:#FFFFFF;
+        font-weight: 600;
+     }
+     tableBorder
+     {
+     border:1px solid black;
+     border-collapse: collapse;
+     }
+     table.widget1 td 
+     {
+        border:1px solid black;
+        
+        
+     }
+     table.widget2 td
+     {
+        color:inherit;
+        padding:13px;
+     }
+     hr{
+        border-color: black;
+        border-width: 1px;
+        -webkit-margin-start: 1.5em;
+        -webkit-margin-end: 1.5em;
+        }
+    </style>-->
+   
+ <body>    
+   <apex:form >
+   
+    <div style="text-align: center;margin-top: 71px;margin-bottom: 42px;">
+            <font Color="#1797c0" size="6"> &nbsp;
+            <apex:outputText value="{!SPE_SPETracker__c.Name}" />
+            </font>
+    </div>
+    <div style ="width: 96%;">
+        
+        <div >
+            <table class="tableStyle backgroungColor fontColor widget2 tableBorder" border="1" >
+               <tr>
+                    <td Style="" width="8%">
+                            SPE Plan: 
+                    </td>
+                    <td width="27%">
+                            <apex:outputField value="{!speTracker.SPEPlan__r.name}"/>
+                    </td>
+                    <td Style="" width="8%">
+                            SPE Template: 
+                    </td>
+                    <td width="27%">
+                            <apex:outputField value="{!speTracker.SPETemplate__r.name}"/>
+                    </td>
+                 </tr>
+               
+                <tr> 
+                    <td width="8%">
+                        Status:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Status__c}"/>
+                    </td>
+                    
+                    <td width="15%">
+                        Date Of Execution: 
+                    </td>
+                    <td width="15%">
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                              <apex:param value="{!speTracker.DateOfExecution__c}" /> 
+                        </apex:outputText>
+                    </td>
+                    
+                  </tr>
+                  <tr> 
+                    <td  width="8%">
+                        Market: 
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Region__c}"/>
+                    </td>  
+                    <td width="8%">
+                       Market Unit:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.SubRegion__c}"/>
+                    </td>
+                 </tr>
+                 
+                 <tr> 
+                    <td width="8%">
+                        Country: 
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!speTracker.Country__c}"/>
+                    </td>   
+                  <td Style="padding:10px" width="8%">
+                        Project:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Project__c}"/>
+                    </td>  
+                    
+                    
+                </tr>
+                <tr> 
+                    <td width="8%">
+                        Business Unit:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.BusinessUnit__c}"/>
+                    </td>
+                    <td width="8%">
+                        Business Line:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.BusinessLine__c}"/>
+                    </td> 
+               </tr>
+               
+               <tr> 
+                    
+                   
+                   <td width="8%">
+                        Product:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Product__c}"/>
+                    </td>
+                    <td width="8%">
+                       Category Area:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.CategoryCluster__c}"/>
+                    </td>    
+               </tr>
+               <tr> 
+                   <td width="8%">
+                       Category Group:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.CategoryGroup__c}"/>
+                    </td>
+                   <td width="8%">
+                        Category:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Category__c}"/>
+                    </td>
+                 </tr>
+            </table>
+        </div>
+        <br></br>
+       <apex:variable var="oldKey" value="{!0}" /> 
+       
+           <!-- <apex:pageBlock >
+             <table width="100%" border="1">
+                 <tr>
+                     <td width="20%"><b>Supplier</b></td>  
+                     <td width="20%"><b>KPI</b></td>
+                     <td width="15%"><b>Value</b></td>
+                     <td width="15%"><b>Score</b></td>
+                     <td width="15%"><b>Group</b></td>
+                     <td width="15%"><b>Weight</b></td>  
+                 </tr>
+                </table>-->
+                 
+                <apex:pageBlock >
+              <apex:pageBlockTable value="{!trackerWrapperList}" var="listItem" width="100%" border="1" >
+                    <apex:column headerValue="Supplier" width="20%">
+                    <apex:outputtext value="{!listItem.trackerValue.Supplier__r.Name}"/>
+                    </apex:column>
+                    <apex:column headerValue="KPI" width="20%">
+                    <apex:outputText value="{!listItem.trackerValue.KPIDefinition__r.KPI_Title__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Value" width="15%">
+                    <apex:outputText value="{!listItem.trackerValue.Value__c}"/>
+                    </apex:column>
+                    <apex:column headerValue="Score" width="15%" style="text-align: center;vertical-align: middle;background-color:{!listItem.color}">
+                    <apex:outputText value="{!listItem.score}" />
+                    </apex:column>
+                    <apex:column headerValue="Pillar" width="15%">
+                    <apex:outputText value="{!listItem.trackerValue.KPIDefinition__r.Group1__c}"/>
+                    </apex:column>
+                    <apex:column width="15%" headerValue="Weight">
+                    <apex:outputText value="{!listItem.trackerValue.Weight__c}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+             </apex:pageBlock>
+        
+      </div>
+    
+    </apex:form>
+    </body>
+    </html>
+    
+</apex:page>

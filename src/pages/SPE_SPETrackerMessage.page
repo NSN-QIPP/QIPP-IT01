@@ -1,0 +1,26 @@
+<apex:page standardController="SPE_SPETracker__c" extensions="SPE_TrackerExecutionExt" >
+    <apex:variable var="count1" value="{!0}" />
+    
+    <apex:repeat value="{!SPE_SPETracker__c.Tracker_Value__r}" var="row">
+        <apex:variable var="count1" value="{!count1+1}" />
+    </apex:repeat>
+    
+    <apex:variable var="count2" value="{!0}" />
+    
+    <apex:repeat value="{!SPE_SPETracker__c.Tracker_Scores__r}" var="row">
+        <apex:variable var="count2" value="{!count2+1}" />
+    </apex:repeat>
+    
+         <marquee BEHAVIOR="ALTERNATE"> 
+            <font Color="red"> 
+            <apex:outputPanel rendered="{!(count1==0)}" > &nbsp; &nbsp; &nbsp; &nbsp; {!$Label.SPE_TrackerValueMissing}
+             </apex:outputPanel>
+             <br></br>
+            <apex:outputPanel rendered="{!AND(count2==0)}"> {!$Label.SPE_TrackerScoreMissing}
+             </apex:outputPanel>
+              
+            </font> 
+         </marquee>
+   
+
+</apex:page>

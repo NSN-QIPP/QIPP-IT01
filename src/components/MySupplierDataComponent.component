@@ -1,0 +1,70 @@
+<apex:component controller="MySupplierDataController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+        <head>
+            <title>My Supplier Records</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>   
+        <body>    
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <apex:outputPanel rendered="{!IF($User.UITheme == 'Theme3' || $User.UIThemeDisplayed == 'Theme3' ,true,false)}">
+                                <p class="slds-text-heading--label" >My Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="showsupplierDetails()" href="javascript:;" class="slds-button slds-button--brand">View Supplier Details</a></p>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF($User.UITheme == 'Theme4t' || $User.UIThemeDisplayed == 'Theme4t' ,true,false)}">
+                                <p class="slds-text-heading--label" >My Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="showsupplierDetails()" href="javascript:;" class="slds-button slds-button--brand">View Supplier Details</a></p>
+                            </apex:outputPanel>
+                            </div>
+                    </div>
+                     
+                </div>
+                <div class="myapp">    
+                    <table class="slds-table slds-table--bordered">
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Supplier Name
+                                </th>
+                                 <th class="slds-cell-shrink" scope="col">
+                                    Risk Assessment Total Score
+                                </th>  
+                                <th class="slds-cell-shrink" scope="col">
+                                    SPE Total Score
+                                </th>
+                            </tr>
+                           
+                        </thead>
+                        <apex:repeat value="{!mySuppliers}" var="acc" id="theRepeat">
+                            <tr>
+                            
+                            <td>    
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                                </td>
+                                <td>    
+                                   <center><apex:outputField value="{!acc.Total_Score__c}"/>
+                                 </center>                              
+                                </td>
+                                <td> <center>   
+                                    <apex:outputField value="{!acc.Total_SPE_score__c}"/>
+                                    </center> 
+                                </td>
+                       <!--     <apex:outputPanel rendered="{!IF($User.UITheme == 'Theme3' || $User.UIThemeDisplayed == 'Theme3' ,true,false)}">
+                                <td>
+                                    
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                                </td>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF($User.UITheme == 'Theme4t' || $User.UIThemeDisplayed == 'Theme4t' ,true,false)}">
+                                <td>    
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                                </td>
+                            </apex:outputPanel> -->
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div> 
+        </body>
+    </html>    
+</apex:component>

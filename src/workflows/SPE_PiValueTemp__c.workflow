@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>SPE_VerifyCheckbox_for_PI_upload</fullName>
+        <field>Verified__c</field>
+        <literalValue>1</literalValue>
+        <name>SPE_VerifyCheckbox_for_PI_upload</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <rules>
+        <fullName>SPE_VerifyCheckbox_for_PI_upload</fullName>
+        <actions>
+            <name>SPE_VerifyCheckbox_for_PI_upload</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>SPE_PiValueTemp__c.ValidateCategory__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_PiValueTemp__c.Verified_BU__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_PiValueTemp__c.Verified_Geo__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_PiValueTemp__c.VerrifiedEnterpriseID__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>check the Verfiy check box to true if all the Scopes Checkbox are all true</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

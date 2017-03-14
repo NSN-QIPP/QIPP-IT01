@@ -1,0 +1,192 @@
+<apex:page standardController="SPE2Survey__c"  extensions="SPE2AddQuestionToSurveyExt"  showHeader="true">
+
+<style>
+    .pageNoInput{
+    width: 2em;
+    margin: 0 3px;
+    font-size: 98%;
+    text-align: center;
+    vertical-align: middle;
+}
+.even { 
+    background-color: #FCF7F7 !important;
+}
+.odd {
+    background-color: #E3DCDB !important;
+}
+.paginationArrwCls{
+    background-image: url(/img/paginationArrows.gif);
+    background-repeat: no-repeat;
+    background-position:0 0px;
+    width: 9px;
+    height: 10px;
+}
+</style>
+ <script type="text/javascript">
+        function setFocusOnLoad() {}
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");
+            for(var i=0; i<inputCheckBox.length; i++){
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+        function onEnterprs(thisElem,e)
+         {
+            
+            if(e.keyCode==13)
+            {
+                if(e.preventDefault) 
+                    e.preventDefault();
+                else
+                    e.returnValue = false;
+                
+                //e.preventDefault();
+                
+                goToPage(thisElem.value);
+                return null;
+            }
+            
+         }
+         //method to call for main checkbox
+function checkAll(cb)
+ {
+     var inputElem = document.getElementsByTagName("input");
+     for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                inputElem[i].checked=cb.checked;
+            }
+      }
+ }
+
+//method to call for each checkbox
+ function checkheader(thisElem)
+ {
+    if(thisElem.checked==false)
+    document.getElementById('headerCheckId').checked=false;
+   
+    else
+    {
+        checkAndUpdate();
+    }
+ } 
+
+//to update the main checkbox
+function checkAndUpdate()
+{
+      var inputElem = document.getElementsByTagName("input");
+      var flag=0;
+      var totalCheckBox=0;
+      for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                totalCheckBox=totalCheckBox+1;
+                if(inputElem[i].checked==true)
+                {
+                    flag=flag+1;
+                }
+            }
+      }
+      if(flag==totalCheckBox)
+      document.getElementById('headerCheckId').checked=true;
+      else
+      document.getElementById('headerCheckId').checked=false;
+                 
+}
+
+</script>
+ <apex:form >
+    
+  <apex:pageBlock >
+  <apex:pageblocksection id="selectedQues" title="Selected Questions">
+      
+  
+  </apex:pageblocksection>
+  </apex:pageBlock>
+      
+       <apex:pageBlock >
+      
+       Enter Question Label to Search:  <apex:inputText value="{!searchQue}"  style="border-radius:5px;font-size: Medium;"/>&nbsp;&nbsp; 
+         <apex:commandButton action="{!Search}" value="Search" rerender="searchPanel,op1,paginationPanelId"/>
+        
+       <apex:pageblockSection id="pbsec" title="Display Questions" >
+         <apex:outputPanel id="op1">
+        <apex:outputPanel rendered="{!firstdefaultSec}"> 
+         
+         <apex:PageBlocktable value="{!subwrapperList}" var="subwrap" columns="2" border="2" width="100px" id="resultTableId" rowClasses="even,odd" >
+            <apex:column >
+                <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this)" id="headerCheckId"/></apex:facet>
+                <apex:inputCheckbox value="{!subwrap.isSelected}" id="checkedone" styleClass="checkedone" onclick="checkheader(this);">
+                </apex:inputCheckbox>
+            </apex:column>
+            <apex:column headerValue="Question Label" value="{!subwrap.surveyQue.QuestionLabel__c}" style="font-size: small;"/>
+         
+         </apex:PageBlocktable>
+         </apex:outputPanel>
+        </apex:outputPanel>
+     </apex:pageblockSection>
+     <apex:outputPanel id="paginationPanelId">
+     <apex:outputPanel id="paginationPanel" rendered="{!IF(hasRecords == true && firstdefaultSec == true,true,false)}">
+           <span style="float:left">&nbsp; {!startRecNo} - {!endRecNo} of {!lstQuestionWrapper.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick}" id="FirstLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showfirst}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick}" id="previousLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showprevoius}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick}" id="nextLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!shownext}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick}" id="lastLink" reRender="resultTableId,paginationPanelId,messageId" status="StatusChange" rendered="{!showlast}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast==true,'none','inline')}" />
+            
+            <apex:actionStatus id="StatusChange">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber}" onchange="goToPage(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId" value="of {!maxPages}" />
+            </span>
+        </apex:outputPanel>
+       </apex:outputPanel> 
+         <apex:outputPanel id="searchPanel">
+        <apex:outputPanel id="op2" rendered="{!searchRecords}"> 
+       
+        <apex:PageBlocktable value="{!subwrapperList2}" var="subwrap" columns="2" border="2" width="100px" id="resultTableId" rowClasses="even,odd" >
+            <apex:column >
+                <apex:facet name="header"><apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this)" id="headerCheckId"/></apex:facet>
+                <apex:inputCheckbox value="{!subwrap.isSelected}" id="checkedone" styleClass="checkedone" onclick="checkheader(this);">
+                </apex:inputCheckbox>
+            </apex:column>
+            <apex:column headerValue="Question Label" value="{!subwrap.surveyQue.QuestionLabel__c}" style="font-size: small;"/>
+         </apex:PageBlocktable>
+        </apex:outputPanel>
+        </apex:outputPanel> 
+     </apex:pageBlock>  
+     
+  </apex:form>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:component controller="DMAICProjectCompleted" access="global">
+<apex:attribute name="DMAICProject" type="id" description="Id of the project" assignTo="{!projectId}" />
+    <apex:datatable value="{!benftreps}" var="bef">
+    
+        <apex:column value="{!bef.KPIS}">
+            <apex:facet name="header"></apex:facet>
+        </apex:column>
+        
+    </apex:datatable> 
+</apex:component>

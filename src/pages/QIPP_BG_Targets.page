@@ -1,0 +1,185 @@
+<apex:page controller="QIPP_BG_Targets_Cntr" tabStyle="QIPP_BG_Targets__tab" sidebar="false" >
+    <!--
+https://developer.salesforce.com/forums?id=906F0000000963NIAQ
+https://prats23.wordpress.com/2014/04/27/salesforce-dynamically-addingdeleting-rows-in-visualforce/
+http://sfdcsrini.blogspot.com/2014/12/adding-and-deleting-rows-dynamically-in.html
+http://salesforce-walker.blogspot.in/2013/12/row-edit-and-save-using-wrapper-class.html
+-->   
+<style>
+
+
+.myCustomMessage .message {
+    background: none  !important;
+    border: none !important;
+}
+
+</style>    
+    <apex:form id="form">
+        <apex:outputpanel >
+            <apex:actionstatus id="StatusId">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;height: 100%;opacity:0.65;width:100%;"> 
+                        <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                            <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Please Wait....</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputpanel>
+        <apex:pageBlock title="Business Group Targets" id="year">
+            <apex:pageBlockSection columns="3" id="yearsection">
+                <apex:outputPanel > </apex:outputPanel>
+                <apex:outputPanel id="yearpanal" >
+                    <apex:outputLabel value="Select Year = "> </apex:outputLabel> 
+                    <apex:selectList id="yearselect" value="{!selectedYear}"  size="1" title="Select Year" disabled="{!if( issave == true, true, false)}">
+                        <apex:selectOptions value="{!Years}"/> 
+                        <apex:actionSupport event="onchange" action="{!getbgtargets}"  status="StatusId" reRender="savetargets,msg,year"/>                       
+                    </apex:selectList>
+                </apex:outputPanel>
+                <apex:outputPanel styleClass="myCustomMessage">
+                   <!-- <apex:pageMessage id="warn" title="Note: Don't Enter Cumulative Values"  severity="warning" strength="1" rendered="{!if( issave == true, true, false)}"/>
+                   -->
+                </apex:outputPanel>
+            </apex:pageBlockSection>   
+        </apex:pageBlock> 
+        
+        <apex:pageMessages id="msg" ></apex:pageMessages>
+        <apex:pageBlock id="savetargets" title="{!selectedYear} Business Group Targets">
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="Save"  status="StatusId" action="{!save}" reRender="savetargets,msg,year" rendered="{!if( issave == true, true, false)}"/> 
+                <apex:commandButton value="Edit" status="StatusId"  action="{!Edit}" reRender="savetargets,year" rendered="{!if( and(currentyear==true,isedit == true,(BGtargets.size != 0)), true, false)}"/> 
+                <apex:commandButton value="ADD"  status="StatusId" action="{!Edit}" reRender="savetargets,year" rendered="{!if( and(currentyear==true,isedit == true,( BGtargets.size == 0)), true, false)}"/> 
+                <apex:commandButton value="Cancel" immediate="true" status="StatusId"  action="{!Cancel}" reRender="savetargets,msg,year" rendered="{!if( issave == true, true, false)}"/> 
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection collapsible="false" id="emptyblock" rendered="{!if( or(BGtargets == null,BGtargets.size == 0), true, false)}" columns="1">
+                <apex:pageMessage id="warn"   detail="{!selectedYear} Business Group/Business Unit Target entries not found" severity="warning" strength="1" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection collapsible="false" id="editblock" rendered="{!if(and(BGtargets != null,BGtargets.size != 0,editblock == true), true, false)}" columns="1">
+                <apex:variable var="rowNum" value="{!0}"  />   
+                <apex:pageBlockTable value="{!BGtargets}" var="BGtrg" style="width: 100%" >
+                    <apex:facet name="footer">
+                        <apex:commandButton value="Add Row" action="{!addRow}" status="StatusId" reRender="savetargets" />
+                    </apex:facet>
+                    <apex:column headerValue="No." style="width:20px; text-align:center;" headerClass="centertext">
+                        <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                            <apex:param value="{!rowNum+1}" />   
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="Business Group/Business Unit" >
+                        <apex:inputField value="{!BGtrg.Business_Group__c}" />
+                    </apex:column>
+                    <apex:column headerValue="P1  k€" >
+                        <apex:inputField value="{!BGtrg.P1__c}" style="width:50px" />
+                    </apex:column>
+                    <apex:column headerValue="P2  k€" >
+                        <apex:inputField value="{!BGtrg.P2__c}"  style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P3  k€" >
+                        <apex:inputField value="{!BGtrg.P3__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P4  k€" >
+                        <apex:inputField value="{!BGtrg.P4__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P5  k€" >
+                        <apex:inputField value="{!BGtrg.P5__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P6  k€" >
+                        <apex:inputField value="{!BGtrg.P6__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P7  k€" >
+                        <apex:inputField value="{!BGtrg.P7__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P8  k€" >
+                        <apex:inputField value="{!BGtrg.P8__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P9  k€" >
+                        <apex:inputField value="{!BGtrg.P9__c}" style="width:50px" />
+                    </apex:column>
+                    <apex:column headerValue="P10  k€" >
+                        <apex:inputField value="{!BGtrg.P10__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P11  k€" >
+                        <apex:inputField value="{!BGtrg.P11__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P12  k€" >
+                        <apex:inputField value="{!BGtrg.P12__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="Total Target  k€" >
+                    <apex:inputField value="{!BGtrg.Total_Target__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="Year" >
+                        <apex:outputField value="{!BGtrg.Year__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="Delete" style="width:90px" >
+                        <apex:commandLink style="font-size:15px; font-weight:bold; text-align:center;color:red;" value="X" action="{!deltraget}" >
+                            <apex:param value="{!rowNum}" name="index" />
+                        </apex:commandLink>
+                        <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                    </apex:column> 
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockSection collapsible="false" id="Viewblock" rendered="{!if(and(BGtargets != null,BGtargets.size != 0, editblock != true), true, false)}" columns="1">
+                <apex:variable var="rowNum" value="{!0}"  />   
+                <apex:pageBlockTable value="{!BGtargets}" var="BGtrg" style="width: 100%" >
+                    <apex:column headerValue="No." style="width:20px; text-align:center;" headerClass="centertext">
+                        <apex:outputText value="{0,number, ###}" style="text-align:center;">   
+                            <apex:param value="{!rowNum+1}" />   
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="Business Group/Business Unit" >
+                        <apex:outputField value="{!BGtrg.Business_Group__c}" />
+                    </apex:column>
+                    <apex:column headerValue="P1  k€" >
+                        <apex:outputField value="{!BGtrg.P1__c}" style="width:50px" />
+                    </apex:column>
+                    <apex:column headerValue="P2  k€" >
+                        <apex:outputField value="{!BGtrg.P2__c}"  style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P3  k€" >
+                        <apex:outputField value="{!BGtrg.P3__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P4  k€" >
+                        <apex:outputField value="{!BGtrg.P4__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P5  k€" >
+                        <apex:outputField value="{!BGtrg.P5__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P6  k€" >
+                        <apex:outputField value="{!BGtrg.P6__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P7  k€" >
+                        <apex:outputField value="{!BGtrg.P7__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P8  k€" >
+                        <apex:outputField value="{!BGtrg.P8__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P9  k€" >
+                        <apex:outputField value="{!BGtrg.P9__c}" style="width:50px" />
+                    </apex:column>
+                    <apex:column headerValue="P10  k€" >
+                        <apex:outputField value="{!BGtrg.P10__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P11  k€" >
+                        <apex:outputField value="{!BGtrg.P11__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="P12  k€" >
+                        <apex:outputField value="{!BGtrg.P12__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="Total Target  k€" >
+                        <apex:outputField value="{!BGtrg.Total_Target__c}" style="width:50px"/>
+                    </apex:column>
+                    <apex:column headerValue="Year" >
+                        <apex:outputField value="{!BGtrg.Year__c}" style="width:50px"/>
+                        <apex:variable var="rowNum" value="{!rowNum+1}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+    </apex:form>    
+    
+</apex:page>

@@ -1,0 +1,105 @@
+<apex:page standardController="SPE_ConsequenceManagement__c" extensions="SPE_CMTicketLinkageExt">
+  <script>
+    function checkAll(cb)
+    {
+        var inputElem = document.getElementsByTagName("input");
+        for(var i=0; i<inputElem.length; i++)
+        {
+            if(inputElem[i].id.indexOf("checkedone")!=-1)
+            inputElem[i].checked = cb.checked;
+        }
+    }
+    
+    (function()
+    {
+        if ('{!cm.MasterCM__c}')
+        {
+            alert('This Ticket is already Linked !!!');
+            window.location.href = '/'+'{!cm.Id}';
+        }
+        
+        if ('{!isParent}' == 'true')
+        {
+            alert('This Master Ticket cannot be child of other Ticket.');
+            window.location.href = '/'+'{!cm.Id}';
+        }
+    })();
+  </script>
+  
+  <apex:sectionHeader title="Consequence Management" subtitle="CM Linkage" rendered="{!If(cm.MasterCM__c == null, true, false)}"/>
+  <apex:form rendered="{!If(cm.MasterCM__c == null, true, false)}">
+      <apex:pageMessages id="err"/>
+      <apex:pageBlock >
+          <apex:pageBlockButtons location="top" >
+              <apex:outputPanel id="button">
+                  <apex:commandButton action="{!linkToParent}" value="Link AS Parent" reRender="matchingCMChild, matchingParent, err, button" status="actStatusId" rendered="{!If(AND(matchingCMChildWrapList.size > 0, relType == 'parent'), true, false)}"/>
+                  <apex:commandButton action="{!cancel}" value="Cancel"/>
+              </apex:outputPanel>
+          </apex:pageBlockButtons>
+          
+          <apex:pageBlockSection >
+              <apex:pageBlockSectionItem >
+                  <apex:outputText value="KPI Name"/>
+                  <apex:inputText value="{!kpiName}">
+                      <apex:actionSupport event="onkeyup" action="{!searchMatchingTicket}" reRender="matchingCMChild, matchingParent, button" />
+                  </apex:inputText>
+              </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+                  <apex:outputText value="Supplier Name"/>
+                  <apex:outputText value="{!supplierName}"/>
+                  <!-- <apex:actionSupport event="onkeyup" action="{!searchMatchingTicket}" reRender="matchingCMChild, matchingParent , button" />
+                  </apex:inputText> -->
+              </apex:pageBlockSectionItem>
+              <br />
+          </apex:pageBlockSection>
+          <apex:outputPanel id="matchingParent">
+              <apex:pageBlockSection columns="1" title="Similar Master Tickets" collapsible="false" rendered="{!If(AND (matchingCMParent.size > 0, relType == 'Child'), true, false)}">
+                  <apex:pageBlockTable value="{!matchingCMParent}" var="matchParent" width="100%" id="matchingCM">
+                          <apex:column headerValue="Action">
+                              <apex:commandButton value="Link" action="{!link}" reRender="matchingParent">
+                                  <apex:param name="masterId" value="{!matchParent.Id}"/>
+                              </apex:commandButton>
+                          </apex:column>
+                          <apex:column headerValue="Consequence Management ID">
+                              <apex:outputLink value="{!URLFOR($Action.SPE_ConsequenceManagement__c.View, matchParent.id)}" target="_blank">{!matchParent.Name}</apex:outputLink>
+                          </apex:column>
+                          <apex:column value="{!matchParent.Title__c}"/>
+                          <apex:column value="{!matchParent.SPETracker__c}"/>
+                          <apex:column value="{!matchParent.KPIName__r.KPI_Title__c}"/>
+                          <apex:column value="{!matchParent.Supplier__c }"/>
+                  </apex:pageBlockTable>
+              </apex:pageBlockSection>
+          </apex:outputPanel>
+          <apex:outputPanel id="matchingCMChild">
+              <apex:pageBlockSection columns="1" title="Tickets to Be Linked" collapsible="false" rendered="{!If(AND (matchingCMChildWrapList.size > 0, relType == 'parent'), true, false)}">
+                  <apex:pageBlockTable value="{!matchingCMChildWrapList}" var="match" width="100%" id="matchingCM">
+                           <apex:column >
+                                
+                            <apex:inputCheckbox value="{!match.isSelected}" disabled="{!match.isSelected}">
+                                <apex:actionSupport event="onclick" rerender="results"/>
+                            </apex:inputCheckbox>
+                          </apex:column>
+                          <apex:column headerValue="Consequence Management ID">
+                              <apex:outputLink value="{!URLFOR($Action.SPE_ConsequenceManagement__c.View, match.cm.id)}" target="_blank">{!match.cm.Name}</apex:outputLink>
+                          </apex:column>
+                          <apex:column value="{!match.cm.Title__c}"/>
+                          <apex:column value="{!match.cm.SPETracker__c}"/>
+                          <apex:column value="{!match.cm.KPIName__r.KPI_Title__c}"/>
+                          <apex:column value="{!match.cm.Supplier__c }"/>
+                  </apex:pageBlockTable>
+              </apex:pageBlockSection>
+          </apex:outputPanel>
+      </apex:pageBlock>
+  </apex:form>
+  <apex:actionstatus id="actStatusId">
+    <apex:facet name="start">
+        <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;
+               height: 100%;opacity:0.65;width:100%;"> 
+            <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                <span class="waitingDescription">Searching...</span>
+            </div>
+        </div>
+    </apex:facet>
+  </apex:actionstatus>
+</apex:page>

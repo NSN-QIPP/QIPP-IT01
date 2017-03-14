@@ -1,0 +1,6 @@
+<apex:page standardController="QIPP_Project__c" extensions="QIPP_Project_Edit_Redirect_cntr" action="{!redirect}" >
+   <!-- <apex:variable value="{!QIPP_Project__c.RecordType.Name}" var="recTypeName"/>  -->
+   
+   <apex:pagemessages id="errorblock"/>
+ 
+</apex:page>

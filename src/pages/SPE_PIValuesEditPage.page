@@ -1,0 +1,272 @@
+<apex:page standardcontroller="SPE_PIValues__c" extensions="SPE_PIValuesEditPageExt,SPE_MasterDataExt" id="pgId" tabStyle="SPE_PIValues__c">
+    <script>
+        if ('{!Flag}' == 'true')
+        {
+            
+            if('{!isSurveyPI}' == 'true')
+            {
+                alert('PI Value Upload is not available for SurveyQueation PIs ');
+                //window.open('/' + '{!piValues.PIDefination__c}','_self');
+                window.location.href="/{!piValues.PIDefination__c}";
+            }
+             if('{!StageValues}'=='Draft')
+            {
+                alert('PI Value Upload is not available for Draft PIs');
+                window.open('/' + '{!piValues.PIDefination__c}','_self');
+            }
+            if('{!StageValues}'=='Obsolete')
+            {
+                alert('PI Value Upload is not available for Obsolete PIs');
+                window.open('/' + '{!piValues.PIDefination__c}','_self');
+            }
+            
+        }
+    </script>
+    <apex:form id="frmId" rendered="{!!flag}">
+        <apex:outputPanel id="panelId" rendered="{!!isDraftPI}">
+            <apex:sectionHeader title="PI Values Edit" subtitle="New PI Values"/>
+            <apex:inputHidden value="{!strSaveNNew}" id="hdFld"/>
+            <apex:pageBlock title="PI Values Edit" mode="edit"> 
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{!savePIVal}" />
+                      <!--<apex:commandButton value="Save & New" action="{!savePIVal}" onclick="setHiddenFldVal();"/>--> 
+                    <apex:commandButton value="Cancel" action="{!cancel}"/>
+                </apex:pageBlockButtons>
+                <apex:pageMessages id="myMsg"/>
+                <apex:pageBlockSection collapsible="false" title="Information">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="PI Defination"/>
+                        <apex:inputField value="{!piValues.PIDefination__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Enterprise ID"/>
+                        <apex:inputField value="{!piValues.EnterpriseID__c}" required="true"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="Section A">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Market"/>
+                        <apex:outputPanel id="marketPanel">
+                            <apex:selectList id="chooseMarket" value="{!marketVal}" size="1" onchange="callMarketUnit(this.value);">
+                                <apex:selectOptions value="{!MarketValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChange">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Business Unit"/>
+                        <apex:outputPanel id="buPanel">
+                            <apex:selectList id="chooseBu" value="{!buVal}" size="1" onchange="callBl(this.value);">
+                                <apex:selectOptions value="{!BuValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeBu">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Market Unit"/>
+                        <apex:outputPanel id="muPanel">
+                            <apex:selectList id="chooseMarketUnit" value="{!marketUnitVal}" size="1" onchange="callCountry(this.value);">
+                                <apex:selectOptions value="{!MarketUnitValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeC">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Business Line"/>
+                        <apex:outputPanel id="blPanel">
+                            <apex:selectList id="chooseBl" value="{!blVal}" size="1" onchange="callProduct(this.value);">
+                                <apex:selectOptions value="{!BlValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangePrd">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Country"/>
+                        <apex:outputPanel id="countryPanel">
+                            <apex:selectList id="chooseCountry" value="{!countryVal}" size="1" onchange="callProject(this.value);">
+                                <apex:selectOptions value="{!CountryValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeP">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Product"/>
+                        <apex:outputPanel id="prdPanel">
+                            <apex:selectList id="chooseProduct" value="{!prdVal}" size="1">
+                                <apex:selectOptions value="{!ProductValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Project"/>
+                        <apex:outputPanel id="prjPanel">
+                            <apex:selectList id="chooseProject" value="{!projectVal}" size="1">
+                                <apex:selectOptions value="{!ProjectValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>              
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="Section B">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Category Area"/>
+                        <apex:outputPanel id="caPanel">
+                            <apex:selectList id="chooseCa" value="{!caVal}" size="1" onchange="callCg(this.value);">
+                                <apex:selectOptions value="{!CaValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCa">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Category Group"/>
+                        <apex:outputPanel id="cgPanel">
+                            <apex:selectList id="chooseCg" value="{!cgVal}" size="1" onchange="callCt(this.value);">
+                                <apex:selectOptions value="{!CgValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCg">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Category"/>
+                        <apex:outputPanel id="ctPanel">
+                            <apex:selectList id="chooseCategory" value="{!ctVal}" size="1">
+                                <apex:selectOptions value="{!CategoryValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="Section C">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Period"/>
+                        <apex:inputField value="{!piValues.Period__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <!--<apex:outputText value="IsConverted"/>
+                        <apex:inputField value="{!piValues.IsConverted__c}"/>-->
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="Values">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Number Value" rendered="{!If (piValuesType == 'Number', true, false)}"/>
+                        <apex:inputField value="{!piValues.NumberValue__c}" rendered="{!If (piValuesType == 'Number', true, false)}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Boolean Value" rendered="{!If (piValuesType == 'Boolean', true, false)}"/>
+                        <apex:inputField value="{!piValues.BooleanValue__c}" rendered="{!If (piValuesType == 'Boolean', true, false)}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="String Value" rendered="{!If (piValuesType == 'String', true, false)}"/>
+                        <apex:inputField value="{!piValues.StringValue__c}" rendered="{!If (piValuesType == 'String', true, false)}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="DateValue" rendered="{!If (piValuesType == 'Date', true, false)}"/>
+                        <apex:inputField value="{!piValues.DateValue__c}" rendered="{!If (piValuesType == 'Date', true, false)}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="Filtering Values">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter1"/>
+                        <apex:inputField value="{!piValues.Filter1__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter2"/>
+                        <apex:inputField value="{!piValues.Filter2__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter3"/>
+                        <apex:inputField value="{!piValues.Filter3__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter4"/>
+                        <apex:inputField value="{!piValues.Filter4__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter5"/>
+                        <apex:inputField value="{!piValues.filter5__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter6"/>
+                        <apex:inputField value="{!piValues.Filter6__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter7"/>
+                        <apex:inputField value="{!piValues.Filter7__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter8"/>
+                        <apex:inputField value="{!piValues.Filter8__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter9"/>
+                        <apex:inputField value="{!piValues.Filter9_del__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Filter10"/>
+                        <apex:inputField value="{!piValues.Filter10__c}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <apex:actionFunction id="callMarketUnit" name="callMarketUnit" action="{!fillMarketUnit}" immediate="true" reRender="muPanel, myMsg" status="statusChange" >
+                <apex:param value="" name="marketVal" />
+            </apex:actionFunction>
+            <apex:actionFunction id="callCountry" name="callCountry" action="{!fillCountry}" immediate="true" reRender="countryPanel,myMsg" status="statusChangeC" >
+                <apex:param value="" name="marketUnitVal" />
+            </apex:actionFunction>
+            <apex:actionFunction id="callProject" name="callProject" action="{!fillProject}" immediate="true" reRender="prjPanel,myMsg" status="statusChangeP" >
+                <apex:param value="" name="countryVal" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction id="callBl" name="callBl" action="{!fillBusinessLines}" immediate="true" reRender="blPanel,myMsg" status="statusChangeBu">
+                <apex:param value="" name="buVal" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction id="callProduct" name="callProduct" action="{!fillProduct}" immediate="true" reRender="prdPanel,myMsg" status="statusChangePrd">
+                <apex:param value="" name="blVal" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction id="callCg" name="callCg" action="{!fillCategoryGroups}" immediate="true" reRender="cgPanel,myMsg" status="statusChangeCa">
+                <apex:param value="" name="caVal" />
+            </apex:actionFunction>
+            <apex:actionFunction id="callCt" name="callCt" action="{!fillCategory}" immediate="true" reRender="ctPanel,myMsg" status="statusChangeCg">
+                <apex:param value="" name="cgVal" />
+            </apex:actionFunction>
+        </apex:outputPanel>
+    </apex:form>
+    <script>
+    function setHiddenFldVal(){
+        document.getElementById('pgId:frmId:hdFld').value="SVN";
+    }
+    </script>
+</apex:page>

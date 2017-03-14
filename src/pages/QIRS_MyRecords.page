@@ -1,0 +1,141 @@
+<apex:page tabStyle="QIRS__c" Controller="QIRSMyRecordsController" showHeader="true" sidebar="true">
+<br></br>
+<style type="text/css">
+.l1{font-size:large;}
+</style>
+
+
+<apex:form >
+
+    <table >   
+        <tr bgcolor="skyblue">
+            <b><apex:outputLabel value="MY RECORDS" styleClass="l1"></apex:outputLabel></b>
+        </tr>
+        <br></br>
+        <tr>
+            <td valign="top" width="10%">
+                &nbsp;&nbsp;<h1>Status:</h1>
+            </td>
+                <td width="40%"> 
+                <apex:selectList value="{!Status}" size="1">
+                <apex:selectOptions value="{!Item}"/>
+                <apex:actionSupport event="onchange"/>
+                </apex:selectList> 
+            </td>
+            
+               <td align="right">
+                <b><apex:outputLabel value="Access Stop Ship Code:"></apex:outputLabel></b>
+                &nbsp;
+                <apex:inputText value="{!Stop_Ship_Code}">
+                <apex:actionSupport event="onchange" rerender="Codetable"/>
+                </apex:inputText>
+            </td>
+
+            <td>
+                <apex:commandButton action="{!getPageDetails}" value="Go" style="width:60px;"/>
+            </td>   
+        </tr>
+       
+            <tr> 
+                <td colspan="12">
+
+
+                <div id="Record_code_table">
+                    <apex:pageBlock >
+                        <apex:panelGrid columns="6"  columnClasses="left,none" width="100%" cellpadding="5" cellspacing="0" border="1"  styleClass="infobox">
+                            <tr>
+                                <th bgcolor="skyblue">Record Code</th>
+                                <th bgcolor="skyblue">Alert Type</th>
+                                <th bgcolor="skyblue">Lock Type</th>
+                                <th bgcolor="skyblue">Item(s)</th>                                
+                                <th bgcolor="skyblue">Problem</th>
+                                <th bgcolor="skyblue">Creation Date</th> 
+                                <th bgcolor="skyblue">Originator</th> 
+                                <th bgcolor="skyblue">Closed Date</th> 
+                                <th bgcolor="skyblue">Process Status</th> 
+                                <th bgcolor="skyblue">MCAR</th> 
+                                <th  bgcolor="skyblue">
+                                    <div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Action Plan Details                
+                                    </div>
+                                    <table valign="top" width="100%" border="1">
+                                        <tr>
+                                            <td align="center" width="33.33%">
+                                            Action Code
+                                            </td>
+                                            <td align="center" width="33.33%">
+                                            Action Type                        
+                                            </td>
+                                            <td align="center" width="33.33%">
+                                            Status
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </th>                                                                       
+                            </tr>
+                        <apex:repeat id="RowA" value="{!showQIRS}" var="k" >
+                            <tr>                         
+                                <td><a href="/{!k.id}"><font color="#5F9EA0">{!k.Name}</font>
+                                </a></td>
+                                <td><apex:outputField value="{!k.Alert_Type__c}"/></td>
+                                <td><apex:outputText rendered="{!k.Lock_Points_SH_Shipping__c}" value="SH-Shipping"> </apex:outputText></td> 
+                                
+                                 <td> 
+                                     <table>
+                                         <tr>
+                                             <td>
+                                                 <apex:outputField value="{!k.Process_to_Stop__c}"/> 
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td> <apex:outputText value="{!k.Product_PN__c}" style="color:Red;"/> 
+                                                 <apex:outputText value="{!k.View_Release_Product__c}" style="color:Green;"/> 
+                                                
+                                                  
+                                             </td>
+                                         </tr> 
+                                                                          
+                                     </table>
+                                 </td> 
+                                
+                                <td><apex:outputField value="{!k.Problem_Description1__c }"/></td> 
+                                <td>
+                                    <apex:outputText value="{0,date, dd/MMM/yyyy}" id="createdate">
+                                    <apex:param value="{!k.CreatedDate}"  /> 
+                                    </apex:outputText>
+                                </td>
+                                <td><apex:outputField value="{!k.CreatedBy.Name}"/></td>
+                                <td>
+                                    <apex:outputText value="{0,date, dd/MMM/yyyy}" id="closeddate">
+                                    <apex:param value="{!k.Closed_Date1__c}"  /> 
+                                    </apex:outputText>
+                                </td>
+                                <td> <apex:outputField value="{!k.Process_to_Stop__c}"/> </td>  
+                                <td><apex:outputField value="{!k.MCAR__c}"/></td>                                
+                                <td  style ="background-color:{!k.View_AP_Color__c}" > 
+                                   <apex:outputText rendered="{!if((k.View_AP_Color__c ='red'),true,false)}"> No Action </apex:outputText>
+                                    <table width="100%">
+                                        <apex:repeat id="RowA" value="{!k.QIRS_Action_Plan__r}" var="tm" >
+                                            <tr>
+                                                <td width="33.33%"><apex:outputField value="{!tm.Name}"/></td>
+                                                <td width="33.33%"><apex:outputField value="{!tm.Action_Type__c}"/></td>
+                                                <td width="33.33%" style="background-color:{!tm.StatusColor__c}"><apex:outputField value="{!tm.Status__c}"/></td>
+                                            </tr>
+                                        </apex:repeat>  
+                                    </table>
+                                </td> 
+                            </tr>
+                        </apex:repeat>                    
+                    </apex:panelgrid>                                      
+                </apex:pageBlock> 
+            </div>
+            </td>
+        </tr>
+    </table> 
+</apex:form>
+<!--</apex:define>
+
+</apex:composition>-->
+
+</apex:page>

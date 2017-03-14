@@ -1,0 +1,157 @@
+<apex:page cache="false" expires="0" sidebar="false" showHeader="true" tabStyle="QIRS__c"  controller="QIRScycletimereport">
+
+<apex:composition template="QIRS_Template_site">
+
+   <apex:define name="body">
+ 
+    <table border="0" width="100%">
+        
+   <tr bgcolor="skyblue">
+   <b><font size="4"><apex:outputLabel value="Cycle Time Report" styleClass="l1"></apex:outputLabel></font></b>
+   </tr>           
+      
+        <tr>
+            <td width = "8%">
+            &nbsp;&nbsp;&nbsp;<h1>Business:</h1> 
+            </td>
+              <td width = "8%">
+              <apex:selectList id="webform" value="{!Business}" size="1" title="Filter On Business">
+                 <apex:selectOptions value="{!itemsBusiness}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+              </apex:selectList>
+              </td>          
+                <td width = "8%">
+                &nbsp;&nbsp;&nbsp;<h1>Business Group:</h1> 
+                </td>
+                  <td width = "8%">
+                  <apex:selectList id="webform1" value="{!BusinessGroup}" size="1" title="Filter On Businessgroup">
+                  <apex:selectOptions value="{!itemsBG}"/>
+                  <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                  </apex:selectList>
+                  </td>
+                 
+                 <td width = "8%">
+                 &nbsp;&nbsp;&nbsp;<h1>Site:</h1> 
+                 </td>
+                  <td width = "8%">
+                  <apex:selectList id="webform2" value="{!Site}" size="1" title="Filter On Site">
+                  <apex:selectOptions value="{!itemsSite}"/>
+                  <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                  </apex:selectList>
+                  </td>
+                 
+                 <td width = "8%">
+                 &nbsp;&nbsp;&nbsp;<h1>Alert Type:</h1> 
+                 </td>
+                  <td width = "8%">
+                  <apex:selectList id="webform3" value="{!AlertType}" size="1" title="Alert Type">
+                  <apex:selectOptions value="{!itemsAT}"/>
+                  <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                  </apex:selectList>
+                  </td>
+                 
+                 <td width = "8%">
+                 &nbsp;&nbsp;&nbsp;<h1>Status:</h1> 
+                 </td>
+                 <td width = "8%">
+                 <apex:selectList id="webform4" value="{!Status}" size="1" title="Status">
+                 <apex:selectOptions value="{!itemsStatus}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                 </apex:selectList> 
+                 </td>
+                 
+                 <td width = "8%">
+                 &nbsp;&nbsp;&nbsp;<h1>Month/Year:</h1> 
+                 </td>
+                 <td width = "8%">
+                 <apex:selectList id="webform5" value="{!Year}" size="1" title="Month/Year">
+                 <apex:selectOptions value="{!ItemsYear}"/>
+                 <apex:actionSupport event="onchange" rerender="reports" status="update"/>
+                 </apex:selectList>                            
+                </td>
+        </tr> 
+   
+     
+      </table>
+         
+       
+                <table >
+                 <apex:panelGrid id="reports" columns="6"  columnClasses="left,none" width="100%" cellpadding="5" cellspacing="0" border="1"  styleClass="infobox">
+                <tr>
+                        <th bgcolor="skyblue">Record Code</th>
+                        <th bgcolor="skyblue">Alert Type</th>
+                        <th bgcolor="skyblue">Business</th>
+                        <th bgcolor="skyblue">Business Group</th>
+                        <th bgcolor="skyblue">Site</th>
+                        <th bgcolor="skyblue">Product Name</th>  
+                        <th bgcolor="skyblue">Issue</th>             
+                        <th bgcolor="skyblue">Open Date</th>
+                        <th bgcolor="skyblue">Close Date</th> 
+                        <th bgcolor="skyblue">Release Aging</th>
+                        <th bgcolor="skyblue">Close Aging</th> 
+                        <th bgcolor="skyblue">Status</th>
+                        <th  bgcolor="skyblue">
+                      <div>
+                     <center>Action Plan Details</center>
+                      </div>
+                        <table valign="top" width="100%" border="1">
+                      
+                       <tr>
+                        <td align="center" width="33.33%">
+                            Action Code
+                        </td>
+                        <td align="center" width="33.33%">
+                            Action Type                        
+                        </td>
+                        <td align="center" width="33.33%">
+                            Status
+                        </td>
+                        <td align="center" width="33.33%">
+                            Aging
+                        </td>
+                        </tr>
+                        
+                        </table>
+                        </th>
+                    </tr>
+                      <apex:repeat id="RowA" value="{!Query_Cycle_Time_Report}" var="k" >
+                    <tr>
+                        <td><apex:outputLink value="/apex/QIRS_record_site?id={!k.Id}"><font color="#5F9EA0">{!k.Name}</font></apex:outputLink></td>
+                    
+                       
+                         <td><apex:outputField value="{!k.Alert_Type__c}"/></td>
+                          <td><apex:outputField value="{!k.Business__c}"/></td>
+                         <td><apex:outputField value="{!k.Business_Group__c}"/></td>
+                         <td><apex:outputField value="{!k.Site1__c}"/></td>
+                         <td><apex:outputField value="{!k.View_Product_Name__c}"/></td>
+                          <td><apex:outputField value="{!k.Problem_Description1__c}"/></td>
+                         <td><apex:outputField value="{!k.CreatedDate}"/></td>
+                            <td><apex:outputField value="{!k.Closed_Date1__c}"/></td> 
+                         <td><apex:outputField value="{!k.Lifted_Aging__c}"/></td>
+                         <td><apex:outputField value="{!k.Closed_Aging__c}"/></td>   
+                          <td><apex:outputField value="{!k.Status__c}"/></td>                            
+                      <td style ="background-color:{!k.View_AP_Color__c}"  >
+                         <apex:outputText rendered="{!if((k.View_AP_Color__c ='white'),false,true)}"> No Action </apex:outputText>
+                        <table id="homegrid" border ="0" width="100%">
+                        
+                          <apex:repeat id="RowA" value="{!k.QIRS_Action_Plan__r}" var="tm" >
+                       
+                         <tr border="1" >
+                         <td width="33.33%"><apex:outputField value="{!tm.Name}"/></td>
+                         <td width="33.33%"><apex:outputField value="{!tm.Action_Type__c}"/></td>
+                         <td width="33.33%" style="background-color:{!tm.StatusColor__c}"><apex:outputField value="{!tm.Status__c}"/></td>
+                         <td width="33.33%"><apex:outputField value="{!tm.Action_Plan_Aging__c}"/></td>                        
+                         </tr>
+                         </apex:repeat>  
+                         </table>  
+                         </td> 
+                     
+                    </tr>
+                      </apex:repeat>
+                 </apex:panelgrid> 
+                   </table>         
+       
+     
+ </apex:define>   
+  </apex:composition>
+</apex:page>

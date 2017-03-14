@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>MCAR_CR_Approved_or_Rejected_Alert</fullName>
+        <description>MCAR_CR_Approved_or_Rejected_Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>MCAR_Email_Templates/MCAR_CR_Approval_VF</template>
+    </alerts>
+    <alerts>
+        <fullName>New_MCAR_CR_Creation_Alert</fullName>
+        <description>New_MCAR_CR_Creation_Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>MCAR_NSN_Superuser</recipient>
+            <type>role</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>MCAR_Email_Templates/New_MCAR_CR_Creation</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_MCAR_Code_CR_Creation_Email</fullName>
+        <description>Send MCAR Code CR Creation Email</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>MCAR_NSN_Superuser</recipient>
+            <type>role</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>MCAR_Email_Templates/MCAR_Code_CR_Creation</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_MCAR_Facility2_CR_Creation_Email</fullName>
+        <description>Send MCAR Facility2 CR Creation Email</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>MCAR_NSN_Superuser</recipient>
+            <type>role</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>MCAR_Email_Templates/MCAR_Facility_CR_Creation</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_MCAR_Facility_CR_Creation_Email</fullName>
+        <description>Send MCAR Facility CR Creation Email</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>MCAR_NSN_Superuser</recipient>
+            <type>role</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>MCAR_Email_Templates/MCAR_CR_Creation_VF</template>
+    </alerts>
+    <rules>
+        <fullName>MCAR CR Approved or Rejected</fullName>
+        <actions>
+            <name>MCAR_CR_Approved_or_Rejected_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 or 2</booleanFilter>
+        <criteriaItems>
+            <field>MCAR_Change_Request__c.MCAR_CR_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>MCAR_Change_Request__c.MCAR_CR_Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </criteriaItems>
+        <description>Rule fired when MCAR CR is Approved or Rejected</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify_MCAR_Super_User_Code_CR_Creation</fullName>
+        <actions>
+            <name>Send_MCAR_Code_CR_Creation_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>MCAR_Change_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>MCAR Manufacturer Contact,MCAR Facility,MCAR NSN Part</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify_MCAR_Super_User_Contact_CR_Creation</fullName>
+        <actions>
+            <name>Send_MCAR_Facility_CR_Creation_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>true</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify_MCAR_Super_User_Facility_CR_Creation</fullName>
+        <actions>
+            <name>Send_MCAR_Facility2_CR_Creation_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>MCAR_Change_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>MCAR Manufacturer Contact,MCAR Facility</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Action Plan custom object for Findings</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Action_Initiator_CA__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Search by the *First Name* (or) *Last Name* - append * at the beginning and at the end - and you will be provided with a list of contacts to choose from.</inlineHelpText>
+        <label>Action Initiator (CA)</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Action Plans (Action Initiator (CA))</relationshipLabel>
+        <relationshipName>Action_Plans2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action_Initiator_PA__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Search by the *First Name* (or) *Last Name* - append * at the beginning and at the end - and you will be provided with a list of contacts to choose from.</inlineHelpText>
+        <label>Action Initiator (PA)</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Action Plans (Action Initiator (PA))</relationshipLabel>
+        <relationshipName>Action_Plans3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action_Initiator__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Search by the *First Name* (or) *Last Name* - append * at the beginning and at the end - and you will be provided with a list of contacts to choose from.</inlineHelpText>
+        <label>Action Initiator</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Action Plans (Action Initiator)</relationshipLabel>
+        <relationshipName>Action_Plans</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action_Owner_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Owner Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Action Owner</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Action Plans (Action Owner)</relationshipLabel>
+        <relationshipName>Action_Plans1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Actual_Completion_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Closing Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Age__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>CASE(  Action_Plan_State__c  , 
+
+&quot;In Progress&quot;, TEXT(today()-  Action_Plan_Start_Date__c ) +&quot; days&quot;, 
+
+&quot;Complete&quot;, TEXT( Action_Plan_Actual_Completion_Date__c  - Action_Plan_Start_Date__c) +&quot; days&quot;, 
+
+&quot;Canceled&quot;, TEXT(Action_Plan_Actual_Completion_Date__c - Action_Plan_Start_Date__c) +&quot; days&quot;, 
+
+TEXT(today()- Action_Plan_Start_Date__c) +&quot; days&quot; 
+
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Plan Age</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Created_Date__c</fullName>
+        <defaultValue>today()</defaultValue>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Created Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Forecast_Completion_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Forecast</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Name__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Notes_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Notes_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Notes__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Number__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/&quot;&amp; Id,    TEXT(  Finding_ID__r.Finding_Type__c ) +&quot;-&quot;+ Finding_ID__r.Name +&quot;-&quot; +  Name , &quot;_self&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Action Plan Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Percent_Complete__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Plan Percent Complete</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Start_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Action Plan Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_State_CA__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Plan State (CA)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_State_PA__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Plan State (PA)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_State_RCA__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Plan State (RCA)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analyzed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Plan State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Target_Completion_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Target Completion Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Action Plan Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Corrective Action</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Preventive Action</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Root Cause Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_URL_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CA Action Plan URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_URL_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>PA Action Plan URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Action_Plan_URL__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>RCA Action Plan URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Completion_Date_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Closing Date - CA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Completion_Date_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Closing Date - PA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Analyzed_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Analyzed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CapEx_Required_CA__c</fullName>
+        <externalId>false</externalId>
+        <label>CapEx Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CapEx_Required_PA__c</fullName>
+        <externalId>false</externalId>
+        <label>CapEx Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CapEx_Required__c</fullName>
+        <externalId>false</externalId>
+        <label>CapEx Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CapEx_Requirement_Description_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CapEx Requirement Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>CapEx_Requirement_Description_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CapEx Requirement Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>CapEx_Requirement_Description__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CapEx Requirement Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Date_RCA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Closing Date - RCA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Description_Detailed_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Corrective Action:The Correction to correct the known problem.</inlineHelpText>
+        <label>Description - Detailed (CA)</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Description_Detailed_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Preventive Action:The correction to prevent recurrence.</inlineHelpText>
+        <label>Description - Detailed (PA)</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Description_Detailed__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>NC RCA: 8D or other methodology (5Whys, DMAIC) can be utilized as long as required steps are taken to determine the root cause.
+OFI: Record the OFI analysis &amp; decision for next steps to be taken. Use CA/PA fields for the actual change to be implemented.</inlineHelpText>
+        <label>Description - Detailed</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Finding_Auditor_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Finding Auditor Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finding_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Finding ID</label>
+        <referenceTo>Finding__c</referenceTo>
+        <relationshipName>Action_Plans</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Finding_Number__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Finding_ID__r.Finding_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Finding Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Forecast_Completion_Date_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Forecast</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Forecast_Completion_Date_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Forecast</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Notes_Cancellation__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>If Action is cancelled, please provide the details regarding the reason for cancellation</inlineHelpText>
+        <label>NOTES</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>OpEx_Required_CA__c</fullName>
+        <externalId>false</externalId>
+        <label>OpEx Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OpEx_Required_PA__c</fullName>
+        <externalId>false</externalId>
+        <label>OpEx Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OpEx_Required__c</fullName>
+        <externalId>false</externalId>
+        <label>OpEx Required</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OpEx_Requirement_Description_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>OpEx Requirement Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>OpEx_Requirement_Description_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>OpEx Requirement Description_PA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>OpEx_Requirement_Description__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>OpEx Requirement Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Action_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Secondary Action Owner</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Action Plans (Secondary Action Owner)</relationshipLabel>
+        <relationshipName>Action_Plans4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Target_Completion_Date_CA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Target Completion Date (CA)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Target_Completion_Date_PA__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Target Completion Date (PA)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>QIPP Action Plan</label>
+    <nameField>
+        <displayFormat>{0000}</displayFormat>
+        <label>Action Plan</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Action Plans</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Action_Plan_Record_Type</fullName>
+        <active>true</active>
+        <label>Action Plan Record Type</label>
+        <picklistValues>
+            <picklist>Action_Plan_State_CA__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_State_PA__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_State_RCA__c</picklist>
+            <values>
+                <fullName>Analyzed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_State__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_Type__c</picklist>
+            <values>
+                <fullName>Corrective Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Preventive Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Root Cause Analysis</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CapEx_Required_CA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CapEx_Required_PA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CapEx_Required__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OpEx_Required_CA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OpEx_Required_PA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OpEx_Required__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New_Action_Plan_Record_Type</fullName>
+        <active>true</active>
+        <label>New Action Plan Record Type</label>
+        <picklistValues>
+            <picklist>Action_Plan_State_CA__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_State_PA__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_State_RCA__c</picklist>
+            <values>
+                <fullName>Analyzed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_State__c</picklist>
+            <values>
+                <fullName>Canceled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not started</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On hold</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Action_Plan_Type__c</picklist>
+            <values>
+                <fullName>Corrective Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Preventive Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Root Cause Analysis</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CapEx_Required_CA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CapEx_Required_PA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CapEx_Required__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OpEx_Required_CA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OpEx_Required_PA__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OpEx_Required__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Uncertain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Validate_Action_Plan_Start_Date</fullName>
+        <active>true</active>
+        <description>Actual Date should always be GREATER than Action Plan Start Date.</description>
+        <errorConditionFormula>Action_Plan_Start_Date__c &gt;  Action_Plan_Actual_Completion_Date__c</errorConditionFormula>
+        <errorDisplayField>Action_Plan_Actual_Completion_Date__c</errorDisplayField>
+        <errorMessage>Action Plan Closing Date should always be GREATER than Action Plan Start Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Action_Plan_State</fullName>
+        <active>true</active>
+        <description>Cannot change Action Plan State  to completed unless Corrective action and Preventive actions are also complete.</description>
+        <errorConditionFormula>AND(
+ ISPICKVAL(   Action_Plan_State__c , &quot;Complete&quot;),
+
+  OR( NOT(ISPICKVAL(Action_Plan_State_CA__c, &quot;Complete&quot;)),
+      NOT(ISPICKVAL(Action_Plan_State_PA__c, &quot;Complete&quot;)) )
+
+)</errorConditionFormula>
+        <errorDisplayField>Action_Plan_State__c</errorDisplayField>
+        <errorMessage>Cannot change Action Plan State  to &quot;Complete&quot; unless Corrective action and Preventive actions are also complete.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Analyzed_Date</fullName>
+        <active>true</active>
+        <description>Cannot change Action Plan (RCA) State  to Analyzed unless an Analyzed Date is entered</description>
+        <errorConditionFormula>AND(
+ ISPICKVAL( Action_Plan_State_RCA__c , &quot;Analyzed&quot;),
+
+ISBLANK(Analyzed_Date__c) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Action_Plan_State_RCA__c</errorDisplayField>
+        <errorMessage>Action Plan State (RCA) cannot be set to &quot;Analyzed&quot; unless Analyzed Date is populated.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Corrective_Action_Plan_State</fullName>
+        <active>false</active>
+        <description>Cannot change Correction Action Plan State  to completed unless an ACTUAL date is entered for Corrective Action.</description>
+        <errorConditionFormula>AND(
+ ISPICKVAL( Action_Plan_State_CA__c , &quot;Complete&quot;),
+
+ISBLANK(Actual_Completion_Date_CA__c) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Action_Plan_State_CA__c</errorDisplayField>
+        <errorMessage>Action Plan State cannot be set to &quot;Complete&quot; unless Actual completion date is populated.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Preventive_Action_Plan_State</fullName>
+        <active>false</active>
+        <description>Cannot change Preventive Action Plan State  to completed unless an ACTUAL date is entered for Corrective Action.</description>
+        <errorConditionFormula>AND(
+ ISPICKVAL(  Action_Plan_State_PA__c  , &quot;Complete&quot;),
+
+ISBLANK(Actual_Completion_Date_PA__c) 
+
+)</errorConditionFormula>
+        <errorDisplayField>Action_Plan_State_PA__c</errorDisplayField>
+        <errorMessage>Action Plan State cannot be set to &quot;Complete&quot; unless Actual completion date is populated.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>New_Action_Plan</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Action Plan</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+
+var classification = &apos;{!Finding__c.Classification__c}&apos;; 
+var findingId = &apos;{!Finding__c.Id}&apos;; 
+var findingname = &apos;{!Finding__c.Name}&apos;; 
+
+if(classification == &apos;Opportunity For Improvement&apos; || classification == &apos;Strength&apos;){ 
+var urlAP= &apos;/a15/e?RecordType=012U00000001eag&amp;CF00NU0000003NgtS={!Finding__c.Name}&amp;CF00NU0000003NgtS_lkid={!Finding__c.Id}&amp;retURL=%2F{!Finding__c.Id}&apos;; 
+} 
+else if(classification == &apos;Non-Conformance Major&apos; || classification == &apos;Non-Conformance Minor&apos;){ 
+var urlAP= &apos;/a15/e?RecordType=012U00000001eaf&amp;CF00NU0000003NgtS={!Finding__c.Name}&amp;CF00NU0000003NgtS_lkid={!Finding__c.Id}&amp;retURL=%2F{!Finding__c.Id}&apos;; 
+} 
+navigateToUrl(urlAP);</url>
+    </webLinks>
+</CustomObject>

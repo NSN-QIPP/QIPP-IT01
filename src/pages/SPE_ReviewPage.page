@@ -1,0 +1,474 @@
+<apex:page controller="SPE_ReviewPageController"  sidebar="false" docType="html-5.0" id="pg">
+ 
+  <style>
+  table.equalDevide tr td { width:25%; }
+  </style>
+  
+  
+  <apex:includeScript value="{!$Resource.SPEReviewPage_CustomPicklist}"></apex:includeScript>
+ <script type="text/javascript">
+          /*function doSearch() {
+           searchServer(
+              document.getElementById("pg:fm:pb:criteria:kpiName").value,
+              document.getElementById("pg:fm:pb:criteria:speTracker").value,
+              document.getElementById("pg:fm:pb:criteria:supplier").value
+              );
+            
+          }*/
+      </script>  
+   <apex:form id="fm">
+   <apex:pageBlock title="Review Page" mode="edit" id="pb">
+ 
+  <table width="100%" border="0">
+  <tr>  
+    <td width="200" valign="top">
+ 
+      <apex:pageBlock title="Parameters" mode="edit" id="criteria">
+    
+      <script>
+        function checkAll(cb)
+        {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++)
+            {
+                if(inputElem[i].id.indexOf("checkedone")!=-1)
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    </script>
+ 	
+ 	 <apex:actionFunction name="searchServer" action="{!runSearch}" rerender="results" status="actStatusId">
+          <apex:param name="kpiName" value="" />
+          <apex:param name="speTracker" value="" />
+          <apex:param name="supplier" value="" />
+      </apex:actionFunction>
+
+      <apex:actionFunction name="removeTrackerValue" action="{!removeTrackerValue}" rerender="results">
+          <apex:param name="tarckerValueId" value="" />
+      </apex:actionFunction>
+      
+    <apex:outputpanel >
+       
+        <apex:actionstatus id="actStatusId">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Saving...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputpanel>
+ 
+      <table cellpadding="2" cellspacing="2" style='table-layout:fixed;width: 373px;'>
+      <tr>
+        <td style="font-weight:bold;">KPI Name
+        <apex:inputText id="kpiName" value="{!kpiName}"/>
+        </td>
+        <td>
+         <apex:CommandLink action="{!next}" value="Next"></apex:CommandLink>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <apex:Commandbutton action="{!runSearch}" value="Search" status="actStatusId" rerender="results"></apex:CommandButton>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">SPE Tracker Name<br/>
+        <apex:inputText id="speTracker" value="{!speTrackerName}" />
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Supplier<br/>
+        <apex:inputText id="supplier" value="{!supplierName}"/>
+        </td>
+      </tr>
+      <tr>
+         <td style="font-weight:bold;">Tracker Execution Start Date<br/>  
+             <apex:inputfield value="{!plan.StartDate__c}"  id="startDate" />
+         </td>
+         <td style="font-weight:bold;">Tracker Execution End Date<br/>    
+            <apex:inputfield value="{!plan.EndDate__c}"  id="endDate"  /> 
+         </td> 
+      </tr>
+      <tr>
+         <td style="font-weight:bold;">Min Score<br/>  
+              <apex:inputText value="{!minNumber}" size="2" id="minNumber" />
+         </td>
+         <td style="font-weight:bold;">Max Score<br/>    
+              <apex:inputText value="{!maxNumber}" size="2" id="maxNumber" />
+         </td> 
+      
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Market<br/>
+        <apex:outputPanel id="MarketPanel">
+        <apex:selectList id="chooseMarket" value="{!marketVal}" size="1" onchange="populateMarketUnitJS(this.value)">
+        <apex:selectOptions value="{!MarketValues}"/>
+         </apex:selectList>
+          <apex:actionStatus id="statusChangeC1">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+         </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Market Unit<br/>
+        <apex:outputPanel id="MarketUnitoutputId">
+       <apex:selectList id="chooseMarketUnit" value="{!marketUnitVal}" size="1" onchange="populateCountryJS(this.value);">
+       <apex:selectOptions value="{!MarketUnitValues}"/>
+       </apex:selectList>
+       <apex:actionStatus id="statusChangeMU">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Country<br/>
+        <apex:outputPanel id="countryPanel">
+        <apex:selectList id="chooseCountry" value="{!countryVal}" size="1" onchange="populatePrjJS(this.value);">
+         <apex:selectOptions value="{!CountryValues}"/>
+         </apex:selectList>
+         <apex:actionStatus id="statusChangeCountry">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Project<br/>
+        <apex:outputPanel id="projectPanel">
+       <apex:selectList id="chooseProject" value="{!projectVal}" size="1">
+         <apex:selectOptions value="{!ProjectValues}"/>
+         </apex:selectList>
+         <apex:actionStatus id="statusChangeProject">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Category Area<br/>
+          <apex:outputPanel id="CAPanel">
+        <apex:selectList id="chooseCatArea" value="{!caVal}" size="1" onchange="populateCatGroupJS(this.value)">
+        <apex:selectOptions value="{!CategoryAreaValues}"/>
+         </apex:selectList>
+         <apex:actionStatus id="statusChangeCatArea">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Category Group<br/>
+        <apex:outputPanel id="CGPanel">
+       <apex:selectList id="chooseCatGroup" value="{!cgVal}" size="1" onchange="populateCatJS(this.value)">
+       <apex:selectOptions value="{!CategoryGroupValues}"/>
+       </apex:selectList>
+       <apex:actionStatus id="statusChangeCatGroup">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Category<br/>
+        <apex:outputPanel id="CPanel">
+       <apex:selectList id="chooseCategory" value="{!ctVal}" size="1">
+       <apex:selectOptions value="{!CategoryValues}"/>
+       </apex:selectList>
+       <apex:actionStatus id="statusCategory">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr id='row'>
+        <td style="font-weight:bold;">Business Unit<br/>
+        <apex:outputPanel id="BUPanel">
+        <apex:selectList id="chooseBU" value="{!buVal }" size="1" onchange="populateBLJS(this.value);">
+        <apex:selectOptions value="{!BusinessUnitValues}"/>
+       </apex:selectList>
+        <apex:actionStatus id="statusChangeBU">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Business Line<br/>
+        <apex:outputPanel id="BLPanel">
+        <apex:selectList id="chooseBL" value="{!blVal}" size="1" onchange="populateProductJS(this.value)">
+        <apex:selectOptions value="{!BusinesLineValues}"/>
+        </apex:selectList>
+        <apex:actionStatus id="statusChangeBL">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Product<br/>
+        <apex:outputPanel id="ProductPanel">
+        <apex:selectList id="chooseProduct" value="{!prdVal}" size="1" onchange="setPrdval();">
+        <apex:selectOptions value="{!ProductValues}"/>
+        </apex:selectList>
+        <apex:actionStatus id="statusProduct">
+           <apex:facet name="start"> 
+               <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+           </apex:facet>
+       </apex:actionStatus>
+       </apex:outputPanel>
+        </td>
+      </tr>
+      <tr>
+          <td style="font-weight:bold;align:right"> 
+                  <apex:CommandLink action="{!next}" value="Next"></apex:CommandLink>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <apex:Commandbutton action="{!runSearch}" value="Search" status="actStatusId" rerender="results"></apex:CommandButton>
+          </td>
+      </tr>
+      </table>
+      </apex:pageBlock>
+ 
+    </td>
+    <td valign="top">
+    
+    <apex:pageBlock mode="edit" id="results">
+        
+        <apex:pageBlockTable value="{!trackerWrapperListRequested}" var="s">
+       
+               <!-- <apex:dataTable value="{!trackerWrapperListRequested}" var="s" columnswidth="50px,50px" cellpadding="4" border="1"> -->
+                    <apex:column headerValue="Remove">
+                        <input type="button" value="-" onclick="removeTrackerValue('{!s.Id}')"/>
+                    </apex:column>
+                    
+                <!--*******************************Changes For Encryption********************************-->    
+                    <!--<apex:column headervalue="KPI Name" value="{!s.KPIDefinition__c}" />-->
+                    <apex:column headervalue="KPI Name" value="{!s.KPIDefinition__r.KPI_Title__c}" />
+                <!--*******************************END********************************-->    
+                    
+                    <apex:column headervalue="Supplier Number" value="{!s.Supplier__r.Name}" />
+                    <apex:column headervalue="SPE Tracker" value="{!s.SPETracker__c}" />
+                    <apex:column headervalue="SPE Plan" value="{!s.SPETracker__r.SPEPlan__r.Name}" />
+                    <apex:column headervalue="Values" value="{!s.Value__c}" />
+                    <apex:column headervalue="Score" value="{!s.Score1__c}" />
+               <!-- </apex:dataTable> -->
+            </apex:pageBlockTable>
+        
+        <apex:pageBlockTable value="{!trackerWrapperList}" var="speTrackers">
+           
+            <apex:column >
+               <apex:facet name="header"> 
+                    <apex:inputCheckbox >
+                        <apex:actionSupport event="onclick" action="{!getSelected}" onsubmit="checkAll(this)" rerender="results"/>
+                        </apex:inputCheckbox>
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!speTrackers.isSelected}" id="checkedone">
+                    <apex:actionSupport event="onclick" action="{!getSelected}" rerender="results"/></apex:inputCheckbox>
+                </apex:column>
+           <!-- <apex:column >
+                <apex:inputCheckbox value="{!speTrackers.isSelected}"/>
+            </apex:column> -->
+            
+            <apex:column >
+                <apex:facet name="header">
+                
+               <!--**********************************Changes for Encryption**************************************-->
+                    <!--<apex:commandLink value="KPI Name {!IF(sortField == 'KPIDefinition__r.Name', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results" > 
+                        <apex:param name="sortField" value="KPIDefinition__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>-->
+                    
+                    <apex:commandLink value="KPI Name {!IF(sortField == 'KPIDefinition__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results" > 
+                        <apex:param name="sortField" value="KPIDefinition__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>                
+                   
+                </apex:facet>
+                
+                <!--<apex:outputField value="{!speTrackers.stv.KPIDefinition__c}"/>-->
+                <a href="/{!speTrackers.stv.KPIDefinition__c}"><apex:outputField value="{!speTrackers.stv.KPIDefinition__r.KPI_Title__c}"/></a>
+              <!--**********************************END**************************************-->  
+              
+            </apex:column>
+ 
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Supplier {!IF(sortField == 'Supplier__r.Name', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="Supplier__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.Supplier__r.Name}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="SPE Tracker {!IF(sortField == 'SPETracker__r.Name', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="SPE Plan {!IF(sortField == 'SPETracker__r.SPEPlan__r.Name', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.SPEPlan__r.Name" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.SPEPlan__r.Name}"/>
+            </apex:column>
+             <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Values {!IF(sortField == 'Value__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="Value__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.Value__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Score {!IF(sortField == 'Score1__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="Score1__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.Score1__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Market {!IF(sortField == 'SPETracker__r.Region__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Region__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.Region__c}"/>
+            </apex:column>
+            
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Market Unit {!IF(sortField == 'SPETracker__r.SubRegion__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.SubRegion__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.SubRegion__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Country {!IF(sortField == 'SPETracker__r.Country__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Country__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.Country__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Project {!IF(sortField == 'SPETracker__r.Project__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Project__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.Project__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Category Area {!IF(sortField == 'SPETracker__r.CategoryCluster__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.CategoryCluster__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.CategoryCluster__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Category Group {!IF(sortField == 'SPETracker__r.CategoryGroup__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.CategoryGroup__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.CategoryGroup__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Category {!IF(sortField == 'SPETracker__r.Category__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Category__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.Category__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Business Unit {!IF(sortField == 'SPETracker__r.BusinessUnit__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.BusinessUnit__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.BusinessUnit__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Business Line {!IF(sortField == 'SPETracker__r.BusinessLine__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.BusinessLine__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.BusinessLine__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Product {!IF(sortField == 'SPETracker__r.Product__c', IF(sortDir ='desc','▼','▲'),'')}" action="{!toggleSort}" rerender="results">
+                        <apex:param name="sortField" value="SPETracker__r.Product__c" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPETracker__r.Product__c}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+ 
+    </apex:pageBlock> 
+ 
+    </td>
+  </tr>
+  </table>
+  </apex:pageBlock>
+       <!-----action function for custom picklist starts--------------------- -->
+	<apex:actionFunction id="populateMarketUnit" name="populateMarketUnit" action="{!fillMarketUnit}"  immediate="true" reRender="MarketUnitoutputId,countryPanel,projectPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeC1" oncomplete="populateMarketUnitJS1();">
+                <apex:param value="" name="marketVal"  assignTo="{!marketVal}"/> 
+     </apex:actionFunction> 
+     
+      
+     <apex:actionFunction id="populateCountry" name="populateCountry" action="{!fillCountry}" immediate="true" reRender="MarketPanel,countryPanel,projectPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeMU" >
+         <apex:param value="" name="marketUnitVal"  assignTo="{!marketUnitVal}"/>
+     </apex:actionFunction> 
+     
+     <apex:actionFunction id="populatePrj" name="populatePrj" action="{!fillProject}" immediate="true" reRender="projectPanel,MarketUnitoutputId,MarketPanel,countryPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeCountry" >
+         <apex:param value="" name="countryVal"  assignTo="{!countryVal}"/>
+     </apex:actionFunction>
+     
+     <apex:actionFunction id="populateBL" name="populateBL" action="{!fillBusinessLine}" immediate="true" reRender="projectPanel,MarketUnitoutputId,MarketPanel,countryPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeBU" >
+                <apex:param value="" name="buVal"  assignTo="{!buVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateProduct" name="populateProduct" action="{!fillProduct}" immediate="true" reRender="projectPanel,MarketUnitoutputId,MarketPanel,countryPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeBL" >
+                <apex:param value="" name="blVal"  assignTo="{!blVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateCatGroup" name="populateCatGroup" action="{!fillCategoryGroup}" immediate="true" reRender="projectPanel,MarketUnitoutputId,MarketPanel,countryPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeCatArea" >
+                <apex:param value="" name="caVal"  assignTo="{!caVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateCat" name="populateCat" action="{!fillCategory}" immediate="true" reRender="projectPanel,MarketUnitoutputId,MarketPanel,countryPanel,CGPanel,CAPanel,CPanel,BUPanel,BLPanel,ProductPanel" status="statusChangeCatGroup" >
+                <apex:param value="" name="cgVal"  assignTo="{!cgVal}"/>
+     </apex:actionFunction> 
+     
+      <!--  Action function for custom picklist ends ---------  --> 
+ 
+  </apex:form>
+ 
+</apex:page>

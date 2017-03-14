@@ -1,0 +1,90 @@
+<apex:page standardController="SPE2Survey__c" extensions="SPE2_SurveyCreateNewExt,SPE_MasterDataExt">
+   
+    <apex:form id="fm">
+        <apex:actionFunction id="af" name="GenerateTracker" action="{!generateTracker}"/>
+    </apex:form>
+    <script>
+         
+        var stage = '{!objSpeSurvey.Stage__c}';
+        var surStDate = '{!isPastDate}';
+        var isTrackerCreated = '{!isTrackerCreated}';
+            if('{!SPE2Survey__c.Stage__c}' == 'Obsolete'){
+            alert('You cannot publish a Obsolete Survey');
+             window.location.href="/{!SPE2Survey__c.Id}";
+            }
+         
+         else if ('{!CurrentUserId}' != '{!RecordOwnerId}')
+            {
+                
+                alert('You can only publish the record under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE2Survey__c.Id}";
+                
+            }       
+        
+        else if('{!SPE2Survey__c.Stage__c}' == 'Published'){
+             alert('Survey already published');
+             window.location.href = '/{!SPE2Survey__c.Id}';
+        }
+        else if(('{!SPE2Survey__c.Supplier_Count__c}' == 0) || ('{!SPE2Survey__c.Respondent_Count__c}' == 0)){
+            alert('Please add Supplier and Respondent before publishing the survey');
+            window.location.href = '/{!SPE2Survey__c.Id}';
+        }
+        
+       else if('{!validateQues}' == 'true'){
+             alert('Please validate questions before publishing');
+             window.location.href = '/{!SPE2Survey__c.Id}';
+        }
+        else if('{!strPIPublished}' == 'true'){
+             alert('Please publish the associated PI\'s before publishing');
+             window.location.href = '/{!SPE2Survey__c.Id}';
+        }
+        else if('{!strNoPI}' == 'true'){
+            alert('Please Add Questions before publishing');
+            window.location.href = '/{!SPE2Survey__c.Id}';
+        }
+        else if ('{!isUserHaveAccessToRecord}' == 'false')
+        {
+                
+                alert('You can only edit SPE under your ownership or shared ownership');
+                window.location.href="/{!SPE2Survey__c.Id}";
+                
+        }
+        else
+        {
+            if (stage == 'Draft')
+            {   
+                if (isTrackerCreated == 'true')
+                {
+                    alert($Label.alertMsg);
+                    
+                    window.location.href='/{!objSpeSurvey.Id}';
+                }
+                else
+                {
+                    
+                    if('{!validateQues}' == 'false'){
+                    if(surStDate == 'true'){
+                        var r = confirm("You have selected to launch this Survey immediately on Publish.  If you wish to defer launching, please input a future date for survey launch.  Immediate launch of survey OK?");
+                        if (r == true) {
+                            GenerateTracker();  
+                            
+                        }
+                        else{
+                            window.location.href="/{!SPE2Survey__c.Id}";
+                        }
+                    }
+                    
+                    GenerateTracker(); 
+                   } 
+                }
+            }
+            else 
+            {
+                alert($Label.alertMsg);
+                window.location.href='/{!objSpeSurvey.Id}';
+                
+            }
+        }   
+    </script>
+</apex:page>

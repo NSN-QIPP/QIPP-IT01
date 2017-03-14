@@ -1,0 +1,10 @@
+<apex:page controller="QIRSInstructionforNewRecord">
+<apex:form >
+
+<!-- <br>1. Click on <apex:commandLink action="{!reDirect}" target="_blank" value="Create New Record" id="theButton"/>, fill in all the "required" fields and save the record.</br> -->
+<br>1. Click on <apex:outputLink value="{!$Page.QIRS}" target="_blank">Create New Record </apex:outputLink>, fill in all the "required" fields and save the record.</br>
+<br>2. Click on "New Product Identification" link to add products.</br>
+<br>3. Click on "New Record Notification" button in order to complete the record creation and send out notifications.</br>
+<br>4. At this point, the record is complete and action plans can be created.</br>
+</Apex:form>
+</apex:page>

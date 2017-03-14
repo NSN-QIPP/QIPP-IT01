@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>AnswerType__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Answer Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PIData__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>PI Data</label>
+        <referenceTo>SPE_PIDefinition__c</referenceTo>
+        <relationshipLabel>Survey</relationshipLabel>
+        <relationshipName>SPE2_Question_Survey_Association</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PIFrequency__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>PI Frequency</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PI_Data_Sequential_ID__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/&apos;+ PIData__r.Id , PIData__r.Name )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PI Data Sequential ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PI_Stage__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(PIData__r.LifecycleStage__c,&quot;Draft&quot;),&quot;Draft&quot;,
+IF(ISPICKVAL(PIData__r.LifecycleStage__c,&quot;Published&quot;),&quot;Published&quot;,			IF(ISPICKVAL(PIData__r.LifecycleStage__c,&quot;Pilot&quot;),&quot;Pilot&quot;,&quot;Obsolete&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PI Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuestionID__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Question ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuestionLabel__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Question Label</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_Bank__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Question Bank</label>
+        <referenceTo>SPE_SurveyQuestion__c</referenceTo>
+        <relationshipName>SPE2_Question_Survey_Association</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Supplier__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Supplier</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>SPE2_Question_Survey_Association</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SurveyQuestion__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Survey Question</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SurveyRespondent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SPE2_Survey Respondent</label>
+        <referenceTo>SPE2_Survey_Respondents__c</referenceTo>
+        <relationshipName>SPE2_Question_Survey_Association</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Survey_Question__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Question_Bank__r.SurveyQuestion__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SurveyQuestion</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Sequential_ID__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/&apos;+ Survey__r.Id , Survey__r.Name )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Sequential ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Stage__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Survey__r.Stage__c ,&quot;Draft&quot;),&quot;Draft&quot;,
+   IF(ISPICKVAL(Survey__r.Stage__c ,&quot;Published&quot;),&quot;Published&quot;,&quot;Obsolete&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_Title__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>Survey__r.Survey_Title__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Title</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Survey</label>
+        <referenceTo>SPE2Survey__c</referenceTo>
+        <relationshipLabel>PI Data</relationshipLabel>
+        <relationshipName>SPE2_Question_Survey_Association</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ordernumber__c</fullName>
+        <externalId>false</externalId>
+        <label>ordernumber</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>SPE2_Question_Survey_Association</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Survey-Ques-{0000}</displayFormat>
+        <label>SPE2 Question Survey Association Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Questions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Extended_View</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;Survey Under PI Data&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id + &quot;?pv0={!  SPE_PIDefinition__c.Name}&quot;; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Extended_View_SurveyPI</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;SPE2 PI Data Under Survey&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id + &quot;?pv0={! SPE2Survey__c.Name }&quot;; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,40 @@
+<apex:page controller="SPEGlobalDashboardController" readOnly="true" sidebar="false">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg .tg-nl5m{font-weight:bold;font-size:13px}
+.tg .tg-r8vz{font-weight:bold;font-size:11px;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+
+</style>
+<table class="tg">
+    <tr>
+    <th class="tg-nl5m" colspan="6">
+    <apex:outputLabel value="SPE Supplier Coverage"/>
+    </th>
+    </tr>
+    <tr>
+       <td>
+        <apex:outputLabel value="Total Suppliers" rendered="{!showDashboard}" styleClass="totalSupplierClass"/>
+        </td>
+        <td>      
+        <apex:outputText value="{!totalCount}" rendered="{!showDashboard}"/>
+        </td>
+        
+        <td>
+        <apex:outputLabel value="Suppliers Evaluated" rendered="{!showDashboard}"/>
+        </td>
+        <td>
+        <apex:outputText value="{!uniqueCount}" rendered="{!showDashboard}"/>
+        </td>
+       <td>
+        <apex:outputLabel value="SPE Supplier Coverage" rendered="{!showDashboard}"/>
+        </td>
+        <td>
+        <apex:outputText value="{!SpeSupplierCoverage}%" rendered="{!showDashboard}"/>
+        </td>
+        
+   </tr>     
+  </table>   
+</apex:page>

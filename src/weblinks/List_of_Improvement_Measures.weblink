@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <description>List of Improvement Measures</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>List of Improvement Measures</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://sharenet-ims.inside.nokiasiemensnetworks.com/livelink/livelink?func=ll&amp;objId=529601415&amp;objAction=Open&amp;nexturl=%2Flivelink%2Flivelink%3Ffunc%3Dll%26objId%3D529584653%26objAction%3Dbrowse%26viewType%3D1</url>
+</CustomPageWebLink>

@@ -1,0 +1,39 @@
+<apex:page tabStyle="QIRS_Action_Plan__c" StandardController="QIRS_Action_Plan__c" extensions="QIRS_AP_MA_PendingTask_Controller" sidebar="true">
+	<apex:form >
+		<apex:sectionHeader title="Action Plan" subtitle="Open Task to Review"/>
+		
+		<apex:outputPanel rendered="{!!isNokiaQIRSAdminprofileUser}">
+			<b> No Open task to review.</b>
+		</apex:outputPanel>
+		
+		<apex:outputPanel rendered="{!isNokiaQIRSAdminprofileUser}">
+			<h1><apex:outputLabel value="Record Status: "></apex:outputLabel></h1>
+			<apex:selectList value="{!actionPlanStatus}" size="1">
+           <apex:selectOptions value="{!MA_APStatus}"/>
+           <apex:actionSupport event="onchange" reRender="QIRSActionplangrid"/>
+           </apex:selectList>
+		</apex:outputPanel>
+		
+		<apex:pageBlock id="QIRSActionplangrid" rendered="{!isNokiaQIRSAdminprofileUser}">
+          
+           <apex:pageBlockTable width="500%" value="{!OpenQIRSActionPlanForMA}" var="q">
+                <apex:column headerValue="Record Code" >  
+                  <apex:outputLink value="/{!q.id}" >{!q.Name}
+                  </apex:outputLink>
+                </apex:column>     
+              <apex:column value="{!q.QIRS__c}"/> 
+              <apex:column value="{!q.QIRS__r.Alert_Type__c}"/> 
+              <apex:column value="{!q.Action_Type__c}"/> 
+              <apex:column value="{!q.CreatedBy.Name}" headerValue="Originator"/>
+              <apex:column value="{!q.QIRS__r.Process_Owner1__c}"/>
+
+              <apex:column value="{!q.Required_date__c}"/>
+              <apex:column value="{!q.Implementation_Date__c}"/>
+              <apex:column value="{!q.Implementation_Comment__c}"/>
+              <apex:column value="{!q.Status__c}"/>
+
+          </apex:pageBlockTable> 
+
+       </apex:pageBlock>
+	</apex:form>
+</apex:page>

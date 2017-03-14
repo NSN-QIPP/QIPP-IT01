@@ -1,0 +1,17 @@
+<apex:page >
+
+<span style="background-color: rgb(0, 153, 0);" class="Apple-style-span"><font class="Apple-style-span" color="#ffffff">1st Jul 2013</font></span>
+<n><br> </br></n>
+<br>Please be advised that the MCAR tool is under maintenance right now:</br>
+<style type="text/css">
+        p { font-weight: bold; }
+    </style>
+
+<ul>
+<li><span style="background-color: rgb(153, 0, 0);" class="Apple-style-span"><font class="Apple-style-span" color="#FF0000"><p>Please avoid creating a new MCAR</p></font></span></li>
+<li><span style="background-color: rgb(153, 0, 0);" class="Apple-style-span"><font class="Apple-style-span" color="#FF0000"><p>Also, please avoid modifying an existing MCAR</P></font></span></li>
+
+</ul>
+<br>This message will be updated once the maintenance is done and the tool is ready to be used.</br>
+
+</apex:page>

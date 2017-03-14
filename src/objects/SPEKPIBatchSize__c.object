@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>To set the size of the KPI Batch</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Size__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the Batch size in number . It should be less than 2000</inlineHelpText>
+        <label>Size</label>
+        <precision>4</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>SPE KPI Batch Size</label>
+    <visibility>Public</visibility>
+</CustomObject>

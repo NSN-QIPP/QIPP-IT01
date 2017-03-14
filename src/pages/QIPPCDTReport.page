@@ -1,0 +1,117 @@
+<apex:page ShowHeader="FALSE"  showChat="false" controller="QIPPCDTReport" >
+<apex:form >
+<apex:PageBlock >
+
+   <table>
+   <TR>
+   <TD align="right" width="150px"></TD>
+  <TD align="right" width="150px"></TD>
+   <TD align="right" width="150px"></TD>
+   <TD align="right" width="250px"></TD>
+   <TD align="right" width="600px"></TD>
+      <TD align="right" width="100px"></TD>
+    <TD align="right" width="100px"></TD>
+   <TD align="right" width="100px"></TD>
+   <TD align="right" width="120px"><B><apex:commandLink target="_blank" value="Print Preview" Title="Print Preview"  action="{!getFromCDTReport}"/></B> </TD>
+   </TR>
+   
+    <tr>
+   <th bgcolor="#7F10A2" align="center"><font color="white">Regional Market (Portfolio)</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Top Customer</font></th>
+   <th bgcolor="#7F10A2"  align="center"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPV</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Improvement Area</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action/Status</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Progress</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KPI</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Target</font></th>
+   <th bgcolor="#7F10A2"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actual</font></th>
+   </tr>
+          <apex:Repeat value="{!custom}" var="wrap">
+             <tr>
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.PortRegionalMarket}</td>  
+
+             
+              <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                         <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" ><apex:image url="{!wrap.ImagePath}"  width="80" height="50" rendered="{!wrap.ForImageDisplay}" /></td>
+                     </tr>
+                     <tr>   
+                         <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.PortName}</td>
+                     </tr>
+                 </table>
+             </td> 
+             
+
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                     <td>
+                         <table>
+                             <tr>
+                                                               
+                                 <apex:image url="{!wrap.PortTrendImage}"  width="20" height="20"  />
+                                 <BR></BR>
+                                 <th rowspan="2" VALIGN="CENTER" ALIGN="CENTER" bgcolor="WHITE" width="70px" >{!wrap.PortCPVInterviewDate}</th>
+                                 
+                                <td colspan="2" VALIGN="CENTER" ALIGN="CENTER"  width="40px" height="30px">
+                                    <apex:outputText style="background-color:{!IF(wrap.PortCPViComposite != 'N/A','ORANGE', 'WHITE')}" value="{!wrap.PortCPViComposite}"></apex:outputText>
+                                    <BR></BR>
+                                    <font color="white" size = "1"><apex:outputText style="background-color:#7F10A2" value="{!IF(wrap.PortCPViComposite != NULL,'Composite', '')}"></apex:outputText>
+                                    </font>
+                                </td>  
+                                                               
+                                
+                             </tr>   
+                            <tr>
+                            
+                            <td VALIGN="CENTER" ALIGN="CENTER" width="60px" height="60px">
+                                  <apex:outputText style="background-color:{!IF(wrap.PortCPViPast != 'N/A','ORANGE', 'WHITE')}" value="{!wrap.PortCPViPast}"></apex:outputText>
+                                    <BR></BR>
+                                    <font color="white" size = "1"><apex:outputText style="background-color:#7F10A2" value="{!IF(wrap.PortCPViPast != NULL,'Experience', '')}"></apex:outputText>
+                                    </font>
+                            </td>
+                            
+                            <td VALIGN="CENTER" ALIGN="CENTER" width="40px" height="30px">
+                                 <apex:outputText style="background-color:{!IF(wrap.PortCPViFuture != 'N/A','ORANGE', 'WHITE')}" value="{!wrap.PortCPViFuture}"></apex:outputText>
+                                    <BR></BR>
+                                    <font color="white" size = "1"><apex:outputText style="background-color:#7F10A2" value="{!IF(wrap.PortCPViFuture != NULL,'Expectation', '')}"></apex:outputText>
+                                    </font>
+                            </td>
+                            </tr>
+                            </table>
+                        </td> 
+                     </tr>
+                 </table>
+             </td>  
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.ProjectName}</td> 
+             
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                         <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.TaskName} </td>
+                         <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.TaskNotes}</td>
+                     </tr>
+                 </table>
+             </td> 
+             
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                         <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.TaskComplete}</td>
+                         <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" ><apex:image url="{!wrap.ChartImageName}"  width="40" height="40"  /></td>
+                     </tr>
+                 </table>
+             </td>  
+              
+            <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.ProjectKPI}</td> 
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.ProjectTarget}</td> 
+              <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.ProjectActual}</td> 
+              
+             </tr> 
+         </apex:Repeat>
+      </table>
+
+</apex:PageBlock>
+</apex:form>
+</apex:page>

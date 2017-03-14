@@ -1,0 +1,9 @@
+<apex:page standardController="QIRS__c" >
+  <Body>
+    <table bgcolor="red" border="1" width="200%">
+        <tr>
+            <td><h1><FONT COLOR="white">Please click on "New Product Identification" button to add products, and then click on the "New Record Notification" button in order to complete the record creation.<br/>You will not be able to create "Action Plans" until this step is completed.</FONT></h1></td>
+        </tr>
+    </table>
+  </body>
+</apex:page>

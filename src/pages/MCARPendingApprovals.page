@@ -1,0 +1,133 @@
+<apex:page tabStyle="MCAR__c" showHeader="true"  Controller="MCARPendingApprovalsController" sidebar="true">
+<apex:form >
+<apex:pageBlock ><H1>Open MCARs with pending Approvals in next 5 days</H1>
+</apex:pageBlock>
+<apex:outputPanel >
+
+</apex:outputPanel>
+<apex:outputpanel id="table_records" rendered="true" >
+<apex:pageBlock id="records"  >
+<apex:pageBlockSection title="MCARs with 3D Approval Due in next 5 days" columns="1">
+    <apex:pageBlockTable value="{!query}" var="nsn" >
+        <!--apex:actionSupport event="onchange"/-->
+            <apex:column headerValue="MCAR #" >
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Owner" value="{!nsn.OwnerId}"></apex:column>
+            <apex:column headerValue="Due Date" value="{!nsn.MCAR_3D_Due_Date__c}"></apex:column>
+            <apex:column headerValue="Code"  value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+            <apex:column headerValue="Manufacturer" value="{!nsn.MCAR_Manufacturer__r.Name}"></apex:column> 
+            <apex:column headerValue="3D - Containment Action(s)" width="30%" value="{!nsn.MCAR_Containment_Action__c}"></apex:column> 
+            
+            
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+
+<apex:pageBlockSection title="MCARs with 4D Approval Due in next 5 days" columns="1">
+    <apex:pageBlockTable value="{!Query4d}" var="nsn" >
+            <apex:column headerValue="MCAR #" >
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Owner" value="{!nsn.OwnerId}"></apex:column> 
+            <apex:column headerValue="Due Date" value="{!nsn.MCAR_4D_Due_Date__c}"></apex:column> 
+            <apex:column headerValue="Code"  value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+            <apex:column headerValue="Manufacturer" value="{!nsn.MCAR_Manufacturer__r.Name}"></apex:column> 
+            <apex:column headerValue="4D - Root Cause(s)" value="{!nsn.MCAR_4D_Root_Cause__c }"></apex:column> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+
+
+<apex:pageBlockSection title="MCARs with 5D Approval Due in next 5 days" columns="1">
+    <apex:pageBlockTable value="{!Query5d}" var="nsn" >
+            <apex:column headerValue="MCAR #" >
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Owner" value="{!nsn.OwnerId}"></apex:column> 
+            <apex:column headerValue="Due Date" value="{!nsn.MCAR_5D_Due_Date__c}"></apex:column> 
+            <apex:column headerValue="Code"  value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+            <apex:column headerValue="Manufacturer" value="{!nsn.MCAR_Manufacturer__r.Name}"></apex:column> 
+            <apex:column headerValue="5D - Permanent Corrective Action(s)"  value="{!nsn.MCAR_5D_Permanent_Corrective_Action__c }"></apex:column> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+
+
+
+<apex:pageBlockSection title="MCARs with 6D Approval Due in next 5 days" columns="1">
+    <apex:pageBlockTable value="{!Query6d}" var="nsn" >
+            <apex:column headerValue="MCAR #" >
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Owner" value="{!nsn.OwnerId}"></apex:column> 
+            <apex:column headerValue="Due Date" value="{!nsn.MCAR_6D_Due_Date__c}"></apex:column> 
+            <apex:column headerValue="Code"  value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+            <apex:column headerValue="Manufacturer" value="{!nsn.MCAR_Manufacturer__r.Name}"></apex:column> 
+            <apex:column headerValue="6D - Verify Corrective Action Effectiveness" value="{!nsn.MCAR_6D_Ver_Corr_Action_Eff__c }"></apex:column> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+ 
+
+<apex:pageBlockSection title="MCARs with 7D Approval Due in next 5 days" columns="1">
+    <apex:pageBlockTable value="{!Query7d}" var="nsn" >
+            <apex:column headerValue="MCAR #" >
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Owner" value="{!nsn.OwnerId}"></apex:column> 
+            <apex:column headerValue="Due Date" value="{!nsn.MCAR_7D_Due_Date__c}"></apex:column> 
+            <apex:column headerValue="Code"  value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+            <apex:column headerValue="Manufacturer" value="{!nsn.MCAR_Manufacturer__r.Name}"></apex:column> 
+            <apex:column headerValue="7D - Actions Taken to Prevent Recurrence"  value="{!nsn.MCAR_7D_Preventive_Actions__c }"></apex:column> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+ 
+
+<apex:pageBlockSection title="MCARs 8D Completed and yet to be Closed" columns="1">
+    <apex:pageBlockTable value="{!mcarListopen}" var="nsn" >
+            <apex:column headerValue="MCAR #" >
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Owner" value="{!nsn.OwnerId}"></apex:column> 
+            <apex:column headerValue="Open Date" value="{!nsn.MCAR_Creation_Date_Status_Open__c}"></apex:column> 
+            <apex:column headerValue="Days Open" value="{!nsn.MCAR_Days_MCAR_Open__c}"></apex:column>             
+            <apex:column headerValue="Code"  value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+            <apex:column headerValue="Manufacturer" value="{!nsn.MCAR_Manufacturer__r.Name}"></apex:column> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>
+</apex:pageBlock> 
+
+
+
+    
+</apex:outputPanel>
+</apex:form>
+
+</apex:page>

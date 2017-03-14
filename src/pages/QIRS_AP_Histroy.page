@@ -1,0 +1,20 @@
+<!--<apex:page controller="QIRS_AP_HistroyController">-->
+<apex:page standardController="QIRS_Action_Plan__c" extensions="QIRS_AP_HistroyController" >
+<apex:pageBlock > 
+<apex:pageBlockTable value="{!History}" var="h" >
+               
+              <apex:column headerValue="Action Type"  value="{!ActionType}"/>
+             <apex:column headerValue="Date"  value="{!h.CreatedDate}"/>
+             <apex:column headerValue="Status"  value="{!h.StepStatus}"/>             
+             <apex:column headerValue="Assigned To"  value="{!h.OriginalActorId}"/>                          
+             <apex:column headerValue="Actual Approver"  value="{!h.ActorId}"/>  
+             <apex:column headerValue="Comment"  value="{!h.Comments}"/>               
+                        
+             <!--<apex:column headerValue="Status"  value="{!h.ProcessSteps[0].StepStatus}"/>
+              <apex:column headerValue="Assigned To"  value="{!h.ProcessSteps[0].ActorId}"/>
+             <apex:column headerValue="Actual Approver"  value="{!h.ProcessSteps[0].OriginalActorId}"/>
+             <apex:column headerValue="Action Type"  value="{!h.Action_Type__c}"/>
+             <apex:column headerValue="Comments"  value="{!h.ProcessSteps[0].Comments}"/>-->
+            </apex:pageBlockTable>
+       </apex:pageBlock>      
+</apex:page>

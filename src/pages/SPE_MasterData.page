@@ -1,0 +1,48 @@
+<apex:page >
+
+
+<style type="text/css">
+input.groovybutton
+{
+/*background-color:#317992;*/
+ background-color: #C6E1FF;
+ border: 2px solid #99CCFF;
+ background-image:none; 
+ //width:270px;
+ width:300px;
+ height:60px;
+ font-size: 1.000em;
+/* font-size: 1.000em;*/
+ 
+
+ }
+</style>
+
+<apex:form >  
+ 
+    <br></br>
+
+
+<center>
+<table>
+<tr><td colspan="3" align="center"><h1><font size="5">Master Data</font></h1></td></tr>
+<tr height="20"><td></td></tr>
+ <tr>
+ <!--   <td > <apex:commandButton styleClass="groovybutton" onclick="window.open ('{!URLFOR($Action.SPE_RegionMaster__c.List, $ObjectType.SPE_RegionMaster__c)}')"   id="button1" value="Region Master" >
+    </apex:commandButton>
+</td> -->
+    <td > <apex:commandButton styleClass="groovybutton" onclick="window.open ('{!URLFOR($Action.SPE_ProjectMaster__c.List, $ObjectType.SPE_ProjectMaster__c)}')" id="button2" value="Project Master" >
+</apex:commandButton>
+</td>
+    <td > <apex:commandButton styleClass="groovybutton" onclick="window.open ('{!URLFOR($Action.SPE_CategoryMaster__c.List, $ObjectType.SPE_CategoryMaster__c)}')" id="button3" value="Category master" >
+</apex:commandButton>
+</td>
+    <td > <apex:commandButton styleClass="groovybutton" onclick="window.open ('{!URLFOR($Action.SPE_BUBL__c.List, $ObjectType.SPE_BUBL__c)}')" id="button4" value="Product Master" >
+</apex:commandButton>
+</td>
+  </tr>
+  </table>
+</center>       
+ </apex:form>
+ 
+</apex:page>

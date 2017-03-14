@@ -1,0 +1,257 @@
+<apex:page standardController="SPE_SPETemplate__c" extensions="SPE2_SPETemplateScopeInlineExt">
+    <style>
+       .GreenColor
+       {
+           background: Green; 
+       }
+       
+       .GreyColor
+       {
+           background: rgb(200, 186, 186); 
+       }
+       
+       th
+       {
+        border-color: Black;
+        text-align: center;
+       }
+       
+       .table1 td
+       {
+        height:5px;
+        border-color: Black;
+       }
+       
+       .table2 td
+       {
+        height:5px;
+        border-color: Black;
+       }
+             
+       hr 
+       { 
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        border-color: #6b3021;
+        border-width: 1.5px;
+       }
+   </style>
+    <apex:pageBlock >        
+        <apex:pageBlockSection id="ScopePgbSection" columns="2" rendered="{!isScope}">
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Geography Scope" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.GeoScope__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Category Scope" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.Categoryscope__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Product Scope" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.BUScope__c }"/>
+            </apex:pageblocksectionItem>              
+        </apex:pageBlockSection>       
+        <apex:pageBlockSection id="AttributePgbSection" columns="2" rendered="{!isAttribute}">
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Market" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.Region__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Category Area" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.CategoryCluster__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Market Unit" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.SubRegion__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Category Group" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.CategoryGroup__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Country" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.Country__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Category" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.Category__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Project" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.Project__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Business Unit" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.BusinessUnit__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem ></apex:pageblocksectionItem>
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Business Line" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.BusinessLine__c}"/>
+            </apex:pageblocksectionItem>
+            <apex:pageblocksectionItem ></apex:pageblocksectionItem>
+            
+            <apex:pageblocksectionItem >
+                <apex:outputText value="Product" style="font-weight:bold;"/>
+                <apex:outputField value="{!spetemplateList.Product__c }"/>
+            </apex:pageblocksectionItem>
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+
+    <apex:pageBlock rendered="{!isScope}">
+        <apex:pageBlockSection columns="3">
+        <apex:pageBlockSectionItem >
+        <table border="1" cellspacing="1" cellpadding="1" class="table1">
+           <tr>
+               <th>
+                   Geography
+               </th>
+               <th>
+                   Indication
+               </th>
+           </tr>
+           
+           <tr>
+               <td>
+                   All Markets
+               </td>
+               <td class="{!If(spetemplateList.GeoScope__c == 'All Markets' || spetemplateList.GeoScope__c == 'Market' 
+                                || spetemplateList.GeoScope__c == 'Market Unit' || spetemplateList.GeoScope__c == 'Country' 
+                                    || spetemplateList.GeoScope__c == 'Project', 'GreenColor', 'GreyColor')}">
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   Market
+               </td>
+               <td class="{!If(spetemplateList.GeoScope__c == 'Market' || spetemplateList.GeoScope__c == 'Market Unit' 
+                                || spetemplateList.GeoScope__c == 'Country' 
+                                    || spetemplateList.GeoScope__c == 'Project','GreenColor', 'GreyColor' ) }">
+               </td>
+            </tr>
+            <tr>
+               <td>
+                   Market Unit
+               </td>
+               <td class="{!If(spetemplateList.GeoScope__c == 'Market Unit' || spetemplateList.GeoScope__c == 'Country' 
+                                    || spetemplateList.GeoScope__c == 'Project', 'GreenColor', 'GreyColor' ) }">
+               </td>
+             </tr>
+             <tr>
+               <td>
+                   Country
+               </td>
+               <td class="{!If(spetemplateList.GeoScope__c == 'Country'
+                                 || spetemplateList.GeoScope__c == 'Project', 'GreenColor', 'GreyColor' ) }">
+               </td>
+             </tr>
+             <tr> 
+               <td>
+                   Project
+               </td>
+               <td class="{!If(spetemplateList.GeoScope__c == 'Project', 'GreenColor', 'GreyColor' )}">
+               </td>
+             </tr>
+            </table>
+           </apex:pageblocksectionItem>
+           
+           <apex:pageblocksectionItem >
+            <table border="1" cellspacing="1" cellpadding="1" class="table2">
+               <tr>
+                  <th>
+                      Categories
+                  </th>
+                  <th>
+                      Indication
+                  </th>
+               </tr>
+               <tr>
+                  <td>
+                      All Categories
+                  </td>
+                  <td class="{!If(spetemplateList.CategoryScope__c== 'All Categories' || spetemplateList.CategoryScope__c== 'Category Area'
+                                     || spetemplateList.CategoryScope__c== 'Category Group' || spetemplateList.CategoryScope__c == 'Category', 'GreenColor', 'GreyColor')}">
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                      Category Area
+                  </td>
+                  <td class="{!If(spetemplateList.CategoryScope__c== 'Category Area' || spetemplateList.CategoryScope__c== 'Category Group' 
+                                    || spetemplateList.CategoryScope__c == 'Category','GreenColor', 'GreyColor' ) }">
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                      Category Group
+                  </td>
+                  <td class="{!If(spetemplateList.CategoryScope__c== 'Category Group' 
+                                    || spetemplateList.CategoryScope__c == 'Category', 'GreenColor', 'GreyColor' ) }">
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     Category
+                  </td>
+                  <td class="{!If(spetemplateList.CategoryScope__c == 'Category', 'GreenColor', 'GreyColor' ) }">
+                  </td>
+               </tr>
+           </table>
+           </apex:pageblocksectionItem>  
+           
+           <apex:pageblocksectionItem > 
+           <table border="1" cellspacing="1" cellpadding="1" class="table2">
+               <tr>
+                   <th>
+                       Products
+        
+                   </th>
+                   <th>
+                       Indication
+                   </th>
+                   
+               </tr>
+               
+               <tr>
+                   <td>
+                        All Products
+        
+                   </td>
+                   <td class="{!If(spetemplateList.BUScope__c== 'All Products' || spetemplateList.BUScope__c== 'Business Unit' 
+                                    || spetemplateList.BUScope__c== 'Business Line' || spetemplateList.BUScope__c== 'Product', 'GreenColor', 'GreyColor')}">
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       Business Unit
+        
+        
+                   </td>
+                   <td class="{!If(spetemplateList.BUScope__c== 'Business Unit' || spetemplateList.BUScope__c== 'Business Line' 
+                                    || spetemplateList.BUScope__c== 'Product','GreenColor', 'GreyColor' ) }">
+                   </td>
+                </tr>
+                <tr>
+                   <td>
+                       Business Line
+        
+        
+                   </td>
+                   <td class="{!If(spetemplateList.BUScope__c== 'Business Line' 
+                                    || spetemplateList.BUScope__c== 'Product', 'GreenColor', 'GreyColor' ) }">
+                   </td>
+                 </tr>
+                 <tr>
+                   <td>
+                      Product
+        
+                   </td>
+                   <td class="{!If(spetemplateList.BUScope__c== 'Product', 'GreenColor', 'GreyColor' ) }">
+                   </td>
+                 </tr>
+           </table>
+           </apex:pageblocksectionItem>
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+</apex:page>

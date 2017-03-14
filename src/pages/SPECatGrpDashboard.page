@@ -1,0 +1,43 @@
+<apex:page controller="SPEGlobalDashboardController" readOnly="true" standardStylesheets="false" sidebar="false">
+<style> 
+.headerStyle123{background-color:#0099ff} 
+.goodCol{background-color:#33cc33}
+.meetCol{background-color:#99ff99}
+.needCol{background-color:#ff9933}
+.poorCol{background-color:#ff3300}
+</style>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#6666ff;}
+.tg th{font-family:Arial, sans-serif;font-size:22px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg .tg-nl5m{font-weight:bold;font-size:13px}
+.tg .tg-r8vz{font-weight:bold;font-size:11px;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+.tg .goodCol{background-color:red;font-size:18px;}
+.tg .meetCol{background-color:#b3d1ff;font-weight:bold;font-size:18px;}
+
+</style>
+<apex:pageBlock title="Category Group Dashboard">
+   <apex:pageBlockTable value="{!CatGWrapperlist}" var="cprf">
+            <apex:column value="{!cprf.CatgrpName}" headerValue="Category Group"/>
+            <apex:column value="{!cprf.totalEval}" headerValue="Total Evaluated" styleClass="headerStyle123"/>
+            <apex:column value="{!cprf.gperf}" headerValue="Good Performance" styleClass="goodCol"/>
+            <apex:column value="{!cprf.mperf}" headerValue="Meets Requirement" styleClass="meetCol"/>
+            <apex:column value="{!cprf.nperf}" headerValue="Needs Improvement" styleClass="needCol"/>
+            <apex:column value="{!cprf.pPerf}" headerValue="Poor Performance" styleClass="poorCol"/>
+            <apex:column value="{!cprf.SPI}" headerValue="SPI"/>
+            <apex:column value="{!cprf.SPIpercent}%" headerValue="SPI %"/>
+        </apex:pageBlockTable>
+        <br/><br/>
+        <table class="tg">
+            <tr>
+                <th class="tg-nl5m">
+                    <apex:outputLabel value="Suppliers Without Weight"/>
+                </th>
+                <th class="goodCol">
+                    <apex:outputText value="{!suppliersWithoutSpend}"/>
+                </th>
+            </tr>
+        </table>
+ </apex:pageBlock>       
+</apex:page>

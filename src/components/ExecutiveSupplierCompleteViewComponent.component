@@ -1,0 +1,134 @@
+<apex:component controller="ExecutiveSupplierDataController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+        <head>
+            <title>My Supplier Records</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>   
+        <body>    
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <p  class="slds-text-heading--label">SIM Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="backhome" href="javascript:;" class="slds-button slds-button--brand" onclick="hidesupplierDetails()">Back to Home</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="myapp">    
+                    <!--<apex:repeat value="{!businessGroups}" var="bg" >
+                      <br/>  <apex:outputText >Business Group : {!bg}  </apex:outputText> 
+                   
+                      <table class="slds-table slds-table--bordered" >
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Supplier Name
+                                </th>    
+                               
+                                <th scope="col">
+                                    <span class="slds-truncate">Classification</span>
+                                </th> 
+                                <th scope="col">
+                                    <span class="slds-truncate">My Role</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Contacts</span>
+                                </th>  
+                            </tr>   
+                        </thead>
+                           <apex:repeat value="{!mySuppliers}" var="acc" id="theRepeat" >
+                             <apex:outputPanel rendered="{!(bg == acc.Business_Groups__c)}">
+                                <tr>
+                                    <td data-label="Supplier Name">
+                                        <apex:outputLink styleClass="slds-truncate"  value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                                    </td>
+                                    <td data-label="Classification">
+                                        <span class="slds-truncate">{!acc.Classification__c}</span>
+                                    </td> 
+                                    <td data-label="Role">
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.LSM__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.LSM__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Supplier_Governance_Manager__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Supplier_Governance_Manager__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Business_Owner__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Business_Owner__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.SAM_Innovation_Manager__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.SAM_Innovation_Manager__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Sponsor__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Sponsor__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                    </td>
+                                    <td data-label="Contacts">
+                                        <apex:outputLink styleClass="slds-truncate"  value="/apex/ExecutiveSupplierContactsViewPage?Id={!acc.Id}" >View Contacts</apex:outputLink>
+                                    </td>
+                                </tr>
+                              </apex:outputPanel>
+                             </apex:repeat>
+                            
+                            </table>
+                     
+                    </apex:repeat>-->
+                    <table class="slds-table slds-table--bordered" >
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Supplier Name
+                                </th>    
+                                <th scope="col">
+                                    <span class="slds-truncate">Business Group</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Classification</span>
+                                </th> 
+                                <th scope="col">
+                                    <span class="slds-truncate">My Role</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="slds-truncate">Contacts</span>
+                                </th>  
+                            </tr>   
+                        </thead>
+                           <apex:repeat value="{!mySuppliers}" var="acc" id="theRepeat" >
+                             
+                                <tr>
+                                    <td data-label="Supplier Name">
+                                        <apex:outputLink styleClass="slds-truncate"  value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                                    </td>
+                                    <td data-label="Business Group">
+                                        <span class="slds-truncate">{!acc.Business_Groups__c}</span>
+                                    </td>
+                                    <td data-label="Classification">
+                                        <span class="slds-truncate">{!acc.Classification__c}</span>
+                                    </td> 
+                                    <td data-label="Role">
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.LSM__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.LSM__c.Label}</span>
+                                        </apex:outputPanel><br/>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Supplier_Governance_Manager__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Supplier_Governance_Manager__c.Label}</span>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Business_Owner__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Business_Owner__c.Label}</span>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.SAM_Innovation_Manager__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.SAM_Innovation_Manager__c.Label}</span>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Sponsor__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Sponsor__c.Label}</span>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td data-label="Contacts">
+                                        <apex:outputLink styleClass="slds-truncate"  value="/apex/ExecutiveSupplierContactsViewPage?Id={!acc.Id}" >View Contacts</apex:outputLink>
+                                    </td>
+                                </tr>
+                             </apex:repeat>
+                            
+                            </table>
+                </div>
+            </div> 
+        </body>
+    </html>      
+</apex:component>

@@ -1,0 +1,61 @@
+<apex:page controller="ClaimMaterialDeviation"  showHeader="false" sidebar="false" >  
+    <apex:sectionHeader subtitle="Lookup"  />
+    <apex:form >                       
+    <apex:pageBlock id="pb" >    
+      <apex:pageBlockSection >                     
+            <apex:outputText >Search              
+                <apex:inputText value="{!searchValue}" />                           
+                <apex:commandButton value="Go!" action="{!searchMCAR}" reRender="pbs2" />                        
+            </apex:outputText>
+        </apex:pageBlockSection>   
+        <br/><br/>          
+        
+        
+       <apex:pageBlockSection columns="1" id="pbs2" >              
+             
+            <apex:pageBlockTable value="{!mcars}" var="mcar">
+                 
+                <apex:column headerValue="MCAR ID">
+                    <apex:outputLink value="#" onclick="fillIn('{!mcar.Name}', '{!mcar.id}')">{!mcar.Name}</apex:outputLink>      
+                </apex:column> 
+                 <apex:column headerValue="MCAR Status" value="{!mcar.MCAR_Status__c}" />
+                  <apex:column headerValue="Manufacturer" value="{!mcar.MCAR_Manufacturer__c}" />
+                  <apex:column headerValue="Code" value="{!mcar.MCAR_NSN_Code__c }" />
+                
+
+               </apex:pageBlockTable>  
+          </apex:pageBlockSection>        
+        
+      
+        
+        </apex:pageBlock>
+    
+    <script>
+        
+ 
+          function fillIn(name, id)
+    {                          
+      var winMain=window.opener;
+      if (null==winMain)
+      {          
+         winMain=window.parent.opener;
+      }                               
+      var ele=winMain.document.getElementById('{!$CurrentPage.parameters.mcarname}');            
+      ele.value=name;                
+      ele=winMain.document.getElementById('{!$CurrentPage.parameters.mcarid}');
+      ele.value=id;
+      CloseWindow();
+   }
+ 
+   function CloseWindow()
+   {
+      var winMain=window.opener;
+      if (null==winMain)
+      {
+         winMain=window.parent.opener;
+      }
+      winMain.closeLookupPopup();
+   }
+    </script>
+        </apex:form>
+</apex:page>

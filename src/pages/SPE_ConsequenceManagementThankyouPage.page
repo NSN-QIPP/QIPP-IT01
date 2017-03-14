@@ -1,0 +1,18 @@
+<apex:page showHeader="false" standardController="Contact">
+  <apex:form > 
+  
+    
+  <c:SPE_HeaderforSite />
+  <apex:pageBlock >
+      <apex:pageBlockSection >
+      
+         <!--apex:image url="{!URLFOR($Resource.SPE_Images,'Images/SPE_NokiaLogo.jpg')}" width="50" height="50"/>-->
+         <span style="font-size:20px;line-height:10px">
+         <apex:outputText style="font-style:italic"> <b>{!$Label.SPE_ThankYou}</b></apex:outputText>
+         </span> 
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+   
+  <c:SPE_FooterforSite />
+</apex:page>

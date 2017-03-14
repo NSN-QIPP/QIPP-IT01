@@ -1,0 +1,53 @@
+<apex:component controller="MySupplierActionsComponentController">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+        <head>
+            <title>My Supplier Actions</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>   
+        <body>    
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <apex:outputPanel rendered="{!IF($User.UITheme == 'Theme3' || $User.UIThemeDisplayed == 'Theme3' ,true,false)}">
+                                <p class="slds-text-heading--label" >My Suppliers Open Actions &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="showactiondetails()" class="slds-button slds-button--brand">View Actions</a></p>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!IF($User.UITheme == 'Theme4t' || $User.UIThemeDisplayed == 'Theme4t' ,true,false)}">
+                                <p class="slds-text-heading--label" >My Suppliers Open Actions &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a  href="javascript:;" onclick="showactiondetails()" class="slds-button slds-button--brand">View Actions</a></p>
+                            </apex:outputPanel>
+                            </div>
+                    </div>
+                     
+                </div>
+                <div class="myapp">    
+                    <table class="slds-table slds-table--bordered">
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Supplier Name
+                                </th>
+                                <th class="slds-cell-shrink" scope="col">
+                                    Due Date
+                                </th>
+                            </tr>   
+                        </thead>
+                        <apex:repeat value="{!actionList}" var="action" id="theRepeat">
+                            <tr>
+                                <td data-label="Supplier Name">
+                                    <apex:outputLink styleClass="slds-truncate"  value="/{!action.Supplier_Name__c}" target="_blank">{!action.Supplier_Name__r.Name}</apex:outputLink>
+                                </td>
+                                 <td data-label="Due Date">
+                                    <span class="slds-truncate">
+                                        <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                                            <apex:param value="{!action.Due_Date__c}"></apex:param>
+                                        </apex:outputText>
+                                    </span>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </div>
+            </div> 
+        </body>
+    </html>    
+</apex:component>

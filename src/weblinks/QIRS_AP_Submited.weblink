@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <description>QIRS Action plan Link - This link will displayed list of Action plan record which is created by logged in user which are in pending for champion.</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Submitted Tasks</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/QIRS_Action_Plan_SubmitedTask?type=stask</url>
+</CustomPageWebLink>

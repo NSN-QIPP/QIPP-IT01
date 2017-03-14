@@ -1,0 +1,247 @@
+<apex:page standardController="SPE_ScoreCard__c" extensions="SPE2_Aggregate_NowExt_bckup" sidebar="false">
+    <c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE ></c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE>
+ <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+        .tg td{font-family:Arial, sans-serif;font-size:12px;padding:4px 2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:6px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#4b67a1;}
+        .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+</style>        
+        <style>
+ a.alpha-link {
+   font-weight: normal;
+   font-size: 91%;
+   padding: 0 4px;
+   color: #015BA7 !important;
+}
+
+a.alpha-link+a.alpha-link {
+   border-left: 1px solid #CFCECE;
+}
+
+a.alpha-link:hover {
+   background-color: #e0f5fc !important;
+}
+
+a.alpha-select {
+   font-weight: bold;
+   text-decoration: none;
+   background-color: #C6E1FF;
+   color: #000000 !important;
+}
+ 
+.foo {   
+    float: Left;
+    width: 7px;
+    height: 4px;
+    margin: 5px 5px 5px 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,2);
+}
+.tablecls{
+    margin-top:15px;
+    border-top: 27px solid #00A4E4 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-left: 1px solid #e0e3e5;
+    border-bottom: 1px solid #e0e3e5;
+    border-right: 1px solid #e0e3e5;
+}
+.pageNoInput{
+    width: 2em;
+    margin: 0 3px;
+    font-size: 98%;
+    text-align: center;
+    vertical-align: middle;
+}
+.even { 
+    background-color: #FCF7F7 !important;
+}
+.odd {
+    background-color: #E3DCDB !important;
+}
+.duplicate{
+    background-color: #FFF933 !important;
+}
+.paginationArrwCls{
+    background-image: url(/img/paginationArrows.gif);
+    background-repeat: no-repeat;
+    background-position:0 0px;
+    width: 9px;
+    height: 10px;
+}
+.displayWarning {
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+    border: solid thin;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    clear: both;
+    color: #acbf40;
+    border-color: #acbf40;
+}
+    </style>
+    <style>
+        .orangeClass {
+            background-color: #ffd699;            
+        }
+        .greenClass {
+            background-color: #99ff99;            
+        }
+        .yellowClass {
+            background-color: #ffff99;            
+        }
+    </style>
+    <apex:form >
+        <apex:pageMessages id="pgMsgId"></apex:pageMessages>
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:outputField value="{!scrdTrcker.Scorecard_Tracker_Id__c}" label="Scorecard from Scorecard Tracker"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection collapsible="false" title="Simple Average Algorithm for Overall, individual Scores for each SPE Templates">
+                
+            </apex:pageBlockSection>
+            <table class="tg" style="width: 95%;">
+              <tr>
+                <td class="tg-6k2t"><b>Scorecard ID</b></td>
+                <td class="tg-6k2t"><apex:outputField value="{!scrdTrcker.ScorecardGenerator__c}"/></td>               
+                <td class="tg-6k2t"></td>
+                <td class="tg-6k2t"></td>                 
+                <td class="tg-6k2t"></td>
+                <td class="tg-6k2t"></td>    
+              </tr>
+              <tr>
+                <td class="tg-6k2t"><b>Supplier</b></td>
+                <td class="tg-6k2t">
+                    <apex:selectList value="{!selectedSupplier}" size="1" multiselect="false" title="Supplier">
+                        <apex:actionSupport event="onchange" action="{!fetchAggregateScore}" reRender="aggrTableId,SearchResultPagn" status="loadStatus"/>
+                        <apex:selectOptions value="{!ScorecardSuppliers}"/>                            
+                    </apex:selectList>
+                </td>                
+                <td class="tg-6k2t"><b>ScoreCard Title</b></td>
+                <td class="tg-6k2t"><apex:outputText >{!scrdTrcker.ScorecardGenerator__r.AdhocScorecardName__c}</apex:outputText></td>                 
+                <td class="tg-6k2t"><b>Period</b></td>
+                <td class="tg-6k2t">{!scrdTrcker.Name}</td>       
+              </tr>
+            </table> <br/>
+            <apex:outputPanel id="aggrTableId">
+                <apex:outputPanel rendered="{!IF(planWrapperlist.size > 0,true,false)}">
+                    <apex:commandButton value="Refresh" action="{!refreshAggregation}" reRender="pgMsgId,aggrTableId" status="loadStatus" />
+                    <apex:commandLink value="Generate Scorecard" Action="{!generateScorecardPage}" styleClass="btn" style="text-decoration:none;padding:4px;color:black" target="_blank">
+                    </apex:commandLink>
+                   <!-- <apex:commandButton value="Generate Scorecard" action="{!generateScorecardPage}" />-->
+                    <br></br><br></br>
+                    <table class="tg" style="width: 30%;">
+                          <tr>
+                            <th class="tg-031e" colspan="2">Aggregation Method</th>
+                            <th class="tg-031e">{!scrdTrcker.ScorecardGenerator__r.AggregationType__c}</th>                            
+                          </tr>
+                          <tr>
+                            <td>SPE Scores</td>
+                            <td>Overall</td>
+                            <td class="{!templateColorMap['Overall']}">                        
+                                <b><apex:outputText value="{0, number, 0.00}" style="font-size:12px;">
+                                   <apex:param value="{!overallScore}" />
+                                </apex:outputText></b>
+                            </td>                            
+                          </tr>
+                          <apex:repeat value="{!templatetoScoreMap}" var="p">
+                              <tr>
+                                <td >SPE Scores</td>
+                                <td >{!p}</td>
+                                <td class="{!templateColorMap[p]}"> 
+                                   <b><apex:outputText value="{0, number, 0.00}">
+                                       <apex:param value="{!templatetoScoreMap[p]}" />
+                                   </apex:outputText></b>
+                                </td>
+                              </tr>
+                         </apex:repeat> 
+                    </table>       <br/>
+                    <!-- Table to display SPE Plan-->    
+                    <apex:pageBlockTable value="{!planWrapperlist}" var="plan">
+                        <apex:column headerValue="Remove">
+                            <apex:inputCheckbox value="{!plan.isSelected}"/>
+                        </apex:column>
+                        <apex:column value="{!plan.spePlan.Name}" headerValue="SPE Plan"/>
+                        <apex:column value="{!plan.spePlan.SPETemplate__r.Name}"/>
+                        <apex:column value="{!plan.spePlan.Vintage__c}"/>
+                        <apex:column value="{!plan.spePlan.Active__c}"/>
+                        <apex:column value="{!plan.spePlan.CategoryCluster__c}"/>
+                        <apex:column value="{!plan.spePlan.CategoryGroup__c}"/>
+                        <apex:column value="{!plan.spePlan.Category__c}"/>
+                        <apex:column value="{!plan.spePlan.Region__c}"/>
+                        <apex:column value="{!plan.spePlan.SubRegion__c}"/>
+                        <apex:column value="{!plan.spePlan.Country__c}"/>
+                        <apex:column value="{!plan.spePlan.Project__c}"/>
+                        <apex:column value="{!plan.spePlan.BusinessUnit__c}"/>
+                        <apex:column value="{!plan.spePlan.BusinessLine__c}"/>
+                        <apex:column value="{!plan.spePlan.Product__c}"/>
+                        <apex:column headerValue="SPE Score" styleClass="{!plan.colorCode}" width="1px;">
+                           <!-- <b>{!plan.speScore}</b>-->
+                            <b><apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!plan.speScore}" />
+                            </apex:outputText></b>
+                        </apex:column>
+                        <!--<apex:column headerValue="Aggregation Type">
+                            {!scrdTrcker.ScorecardGenerator__r.AggregationType__c}
+                        </apex:column> -->
+                    </apex:pageBlockTable>
+                </apex:outputPanel>                     
+            
+             <apex:outputPanel id="SearchResultPagn">
+    <apex:outputPanel id="SearchResultPagnPanel" rendered="{!IF(planWrapperlist.size > 0,true,false)}">
+  
+        <span style="float:left">&nbsp; {!startRecNo} - {!endRecNo} of {!planWrapperlist.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick}" id="FirstLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!showfirst}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick}" id="previousLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!showprevoius}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick}" id="nextLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!shownext}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick}" id="lastLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!showlast}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast==true,'none','inline')}" />
+            
+            <apex:actionStatus id="StatusChange">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber}" onchange="goToPage(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId" value="of {!maxPages}" />
+            </span>
+            <apex:actionStatus id="StatusChangeGoToPage">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:1000px;"/>
+               </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel>
+        </apex:outputPanel>
+        </apex:outputPanel>
+                       
+        </apex:pageBlock>        
+    </apex:form>
+      
+</apex:page>

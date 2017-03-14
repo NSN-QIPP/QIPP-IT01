@@ -1,0 +1,123 @@
+<apex:page standardController="SPE_ScorecardTemplate__c" extensions="SPE_AdhocScorecardPageEXT" sidebar="false" action="{!submitAdhocScorecard}" id="pgId">
+   
+    <apex:form id="frmId">
+        <apex:pageBlock id="pgBlkId">
+           <apex:PageBlockSection title="Adhoc Scorcard Generator" collapsible="false" columns="2" id="scorecardSection" >
+               <apex:inputField value="{!scoreCardgenerator.Name}" label="ScoreCard Generator" required="true"/>
+               <apex:inputField value="{!scoreCardgenerator.ScorecardTemplate__c}" label="ScoreCard Template" required="true"/>
+               <apex:inputField value="{!scoreCardgenerator.IsAutoApproved__c}" label="Is AutoApproved" required="true"/>
+               <apex:inputField value="{!scoreCardgenerator.isAutoDistributionON__c}" label="Is AutoDistributed" required="true"/>
+               <apex:inputField value="{!scoreCardgenerator.AggregationType__c}" label="Aggregation Type" required="true" />
+               <apex:inputField value="{!scoreCardgenerator.AdhocScorecardName__c}" label="Scorecard Title" />
+           </apex:pageBlockSection>
+           
+           <apex:pageBlockSection collapsible="false" title="{!$Label.SPE_SectionA}">
+                 <apex:pageBlockTable value="{!supplierPlanMap}" var="lstPlan" >
+                    <apex:column headerValue="SPE Plan Name">
+                        <apex:outputText value="{!supplierPlanMap[lstPlan].SPEPlan__r.name}"/>
+                    </apex:column>
+                    <apex:column headerValue="SPE Template">
+                        <apex:outputText value="{!supplierPlanMap[lstPlan].SPEPlan__r.SPETemplate__r.Name}"/>
+                    </apex:column>
+                     <apex:column headerValue="Supplier EID">
+                        <apex:outputText value="{!supplierPlanMap[lstPlan].Supplier__r.EnterpriseId__c}"/>
+                    </apex:column>
+                 </apex:pageBlockTable>
+            </apex:pageBlockSection>
+           <apex:pageBlockSection title="Adhoc Scorcard Scheduling Detials" collapsible="false" columns="2" id="schedulingSection" >
+               <apex:inputfield value="{!scoreCardgenerator.StartDate__c}" required="true"/>
+               <apex:inputfield value="{!scoreCardgenerator.EndDate__c}" required="true"/>
+               <apex:inputfield value="{!scoreCardgenerator.FrequencyInMonths__c}"  required="true" id="freqId" />
+               <apex:inputfield value="{!scoreCardgenerator.TimeFrame__c}"  required="true" id="aggrId" />
+           </apex:pageBlockSection>
+           
+           <apex:pageBlockSection title="Supplier Plan Map" columns="1">
+               <apex:pageBlockTable value="{!scorecardSupplierList}" var="supplier" >
+                 <apex:column headerValue="SPE Supplier Name">
+                    <apex:outputField value="{!supplier.Supplier__c}"/>
+                </apex:column>
+                <apex:column headerValue="Approver">
+                    <apex:inputField value="{!supplier.Approver__c}"/>
+                </apex:column>                
+                <apex:column headerValue="Supplier Contact">
+                    <apex:inputField value="{!supplier.SupplierContact__c}"/>
+                </apex:column>
+                
+             </apex:pageBlockTable>
+           </apex:pageBlockSection>
+           
+           <!--<apex:pageBlockSection title="SPE Scorecard Plans">
+               <apex:pageBlockTable value="{!scloreCardPlans}" var="plan1" >
+                 <apex:column headerValue="SPE Plan Name">
+                    <apex:inputField value="{!plan1.SPE_Plan__c}"/>
+                </apex:column>
+                
+             </apex:pageBlockTable>
+           </apex:pageBlockSection> -->
+           <apex:PageBlockSection title="Scope Details (The below scopes are just for viewing in the scorecard. This does not affect the tracker selection)" collapsible="false" columns="2" id="scorecardSectionScope" >
+               <apex:pageBlockSectionItem id="pgSectionItem1Id">
+        <apex:outputText value="{!$Label.SPE_Market}"/>
+            <apex:inputText id="chooseMarket" value="{!marketVal}"/ >
+     </apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem id="pgSectionItem11Id">
+    <apex:outputText value="{!$Label.SPE_CategoryArea}"/>
+        <apex:inputText id="chooseCatArea" value="{!caVal}"/>
+  </apex:pageBlockSectionItem>
+ 
+ 
+ <apex:pageBlockSectionItem id="pgSectionItem2Id">
+    <apex:outputText value="{!$Label.SPE_MarketUnit}"/>
+           <apex:inputText id="chooseMarketUnit" value="{!marketUnitVal}"/>
+    </apex:pageBlockSectionItem>
+ 
+<apex:pageBlockSectionItem id="pgSectionItem12Id">
+    <apex:outputText value="{!$Label.SPE_CategoryGroup}"/>
+           <apex:inputText id="chooseCatGroup" value="{!cgVal}"/>
+ </apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem id="pgSectionItem3Id">
+    <apex:outputText value="{!$Label.SPE_Country}"/>
+           <apex:inputText id="chooseCountry" value="{!countryVal}"/>
+</apex:pageBlockSectionItem>
+
+  <apex:pageBlockSectionItem id="pgSectionItem113Id">
+    <apex:outputText value="{!$Label.SPE_Category}"/>
+            <apex:inputText id="chooseCategory" value="{!ctVal}" />
+  </apex:pageBlockSectionItem> 
+
+<apex:pageBlockSectionItem id="pgSectionItem4Id">
+    <apex:outputText value="{!$Label.SPE_Project}"/>
+          <apex:inputText id="chooseProject" value="{!projectVal}"/>
+ </apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem id="pgSectionItem5Id">
+    <apex:outputText value="{!$Label.SPE_BusinessUnit}"/>   
+        <apex:inputText id="chooseBU" value="{!buVal }"/>
+ </apex:pageBlockSectionItem>
+            
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem> 
+
+<apex:pageBlockSectionItem id="pgSectionItem10Id">
+    <apex:outputText value="{!$Label.SPE_BusinessLine}"/>
+        <apex:inputText id="chooseBL" value="{!blVal}"/>
+     
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem ></apex:pageBlockSectionItem> 
+<apex:pageBlockSectionItem id="pgSectionItem7Id">
+    <apex:outputText value="{!$Label.SPE_Product}"/>
+       <apex:inputText id="chooseProduct" value="{!prdVal}"/>
+</apex:pageBlockSectionItem>
+
+           </apex:PageBlockSection>
+       </apex:pageBlock>
+       <apex:commandButton value="Submit" action="{!SaveAdhocScoreCardData}"/>
+       
+      <script>
+       document.getElementById('pgId:frmId:pgBlkId:schedulingSection:freqId').value = '1';
+        document.getElementById('pgId:frmId:pgBlkId:schedulingSection:aggrId').value = '1';
+      </script>
+    </apex:form>
+</apex:page>

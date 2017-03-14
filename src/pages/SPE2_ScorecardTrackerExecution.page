@@ -1,0 +1,6 @@
+<apex:page standardController="SPE_ScorecardTracker__c" extensions="SPE2_ScorecardTrackerExecutionExt" action="{!TrackerExecution}" readOnly="true">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>{!$Label.SPE_Congratulations}</h1>
+   {!$Label.SPE_NewPage}
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

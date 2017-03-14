@@ -1,0 +1,24 @@
+<apex:page Controller="UTDFileUploadController" showHeader="true" >
+
+  <apex:sectionHeader title="Data Import" subtitle="Import Product Data"/>
+
+  <apex:form enctype="multipart/form-data"> 
+  
+    <apex:pageMessages />
+    
+      <apex:pageBlock title="Product Data Import">
+
+         <apex:pageBlockSection showHeader="false" columns="1" id="block1">
+        <b><font size="2" color = "blue"> Please select csv file and click on "Import Data" button.</font></b><br/>
+      <apex:inputFile contentType="csv" accept="csv" value="{!contentFile}" filename="{!nameFile}" />
+         
+          <!--<apex:inputFile value="{!recs.body}" filename="{!nameFile}" id="file"/>-->
+        <center> <apex:commandButton action="{!Upload}" value="Import Data" /></center>
+           
+         </apex:pageBlockSection> 
+      
+      </apex:pageBlock>
+   
+  </apex:form>
+
+</apex:page>

@@ -1,0 +1,4 @@
+<apex:page standardController="SPE_ScorecardGenerator__c" extensions="SPE_ScoreCardAbandonedExt" action="{!abandoned}" >
+
+
+</apex:page>

@@ -1,0 +1,1149 @@
+<apex:page id="pg" extensions="SPE2_AdhocScorecardPageEXTNew" standardController="SPE_ScorecardTemplate__c" sidebar="false" showHeader="false">
+ <apex:includeScript value="{!$Resource.JqueryMin}" />
+ <c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE />
+ <style type="text/css">
+    .custPopup{
+        background-color: white;
+        border-width: 2px;
+        border-style: solid;
+        z-index: 9999;
+        left: 50%;
+        padding:10px;
+        position: absolute;
+        /* These are the 3 css properties you will need to change so the popup 
+        displays in the center of the screen. First set the width. Then set 
+        margin-left to negative half of what the width is. You can add 
+        the height property for a fixed size pop up if you want.*/
+        width: 500px;
+        margin-left: -250px;
+        top:100px;
+    }
+    .popupBackground{
+        background-color:black;
+        opacity: 0.20;
+        filter: alpha(opacity = 20);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+    }
+
+</style>
+ <style>
+ a.alpha-link {
+   font-weight: normal;
+   font-size: 91%;
+   padding: 0 4px;
+   color: #015BA7 !important;
+}
+
+a.alpha-link+a.alpha-link {
+   border-left: 1px solid #CFCECE;
+}
+
+a.alpha-link:hover {
+   background-color: #e0f5fc !important;
+}
+
+a.alpha-select {
+   font-weight: bold;
+   text-decoration: none;
+   background-color: #C6E1FF;
+   color: #000000 !important;
+}
+ 
+.foo {   
+    float: Left;
+    width: 7px;
+    height: 4px;
+    margin: 5px 5px 5px 5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,2);
+}
+.tablecls{
+    margin-top:15px;
+    border-top: 27px solid #00A4E4 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-left: 1px solid #e0e3e5;
+    border-bottom: 1px solid #e0e3e5;
+    border-right: 1px solid #e0e3e5;
+}
+.pageNoInput{
+    width: 2em;
+    margin: 0 3px;
+    font-size: 98%;
+    text-align: center;
+    vertical-align: middle;
+}
+.even { 
+    background-color: #FCF7F7 !important;
+}
+.odd {
+    background-color: #E3DCDB !important;
+}
+.duplicate{
+    background-color: #FFF933 !important;
+}
+.paginationArrwCls{
+    background-image: url(/img/paginationArrows.gif);
+    background-repeat: no-repeat;
+    background-position:0 0px;
+    width: 9px;
+    height: 10px;
+}
+.displayWarning {
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+    border: solid thin;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    clear: both;
+    color: #acbf40;
+    border-color: #acbf40;
+}
+body .bPageBlock, body #bodyCell .bResource .secondaryPalette,
+body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock,
+body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock,
+body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock,
+body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock,
+body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock
+{
+    background-color:white;
+}
+.popupNew{
+    position: absolute;
+    display: none;
+    background-color: white;
+    text-align: center;
+
+    /* center it ? */
+    top: 50%;
+    left: 50%;
+    
+    width: 50%;
+    margin-left: -25%;
+    height: 92%;
+    margin-top: -23%;
+    border-radius: 10px;
+}
+.overlayPopUp {
+    position:absolute;
+    display:none; 
+
+    /* color with alpha transparency */
+    background-color: rgba(0, 0, 0, 0.7);
+
+    /* stretch to screen edges */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.navigationBtn{
+    cursor:pointer;
+    border-radius:5px;
+    height: 30px;
+    width: 120px;
+}
+.closeIcon{
+    display:none;
+}
+</style>
+    <script type="text/javascript">
+    
+    var newWin=null;
+    function openLookupPopup(name, id, supplier , uidentify)
+    {       
+        var url="/apex/SPE2_scorecard_smartcontact_lookup?namefield=" + name + "&idfield=" + id +"&supplierParam="+ supplier + "&uIdParameter=" + uidentify;
+        newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        
+        if (window.focus) 
+        {
+            newWin.focus();
+        }
+            
+        return false;
+    }
+    
+     function openLookupPopup2(id2, supplier2 , uidentify2 , scSuppMapId)
+    {
+        var url="/apex/SPE2_scorecard_AddCcContact?&supplierParam2="+ supplier2 + "&uIdParameter2=" + uidentify2 + "&scSuppMapIdParam=" +scSuppMapId + "&idfield2=" + id2 ;
+        newWin=window.open(url, 'Popup','height=500,width=800,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }
+            
+        return false;
+    }
+    
+                  
+    function closeLookupPopup()
+    {
+       if (null!=newWin)
+       {
+          newWin.close();
+       }  
+    }
+
+    function selectAllCheckboxes(obj,receivedInputID){
+       var inputCheckBox = document.getElementsByTagName("input");                  
+         for(var i=0; i<inputCheckBox.length; i++){          
+             if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                  inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+ //method to call for main checkbox
+function checkAll(cb)
+ {
+     var inputElem = document.getElementsByTagName("input");
+     for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                inputElem[i].checked=cb.checked;
+            }
+      }
+ }
+
+//method to call for each checkbox
+ function checkheader(thisElem)
+ {
+    if(thisElem.checked==false)
+    document.getElementById('headerCheckId').checked=false;
+   
+    else
+    {
+        checkAndUpdate();
+    }
+ } 
+
+//to update the main checkbox
+function checkAndUpdate()
+{
+      var inputElem = document.getElementsByTagName("input");
+      var flag=0;
+      var totalCheckBox=0;
+      for(var i=0; i<inputElem.length; i++)
+      {
+            if(inputElem[i].id!='headerCheckId' && inputElem[i].className=='checkedone')
+            {
+                totalCheckBox=totalCheckBox+1;
+                if(inputElem[i].checked==true)
+                {
+                    flag=flag+1;
+                }
+            }
+      }
+      if(flag==totalCheckBox)
+      document.getElementById('headerCheckId').checked=true;
+      else
+      document.getElementById('headerCheckId').checked=false;
+                 
+}
+
+ function onEnterprs(thisElem,e)
+   {
+     if(e.keyCode==13)
+      {
+        if(e.preventDefault) 
+            e.preventDefault();
+        else
+            e.returnValue = false;
+                
+        goToPage(thisElem.value);
+          return null;
+        }
+            
+   }
+//------hiding section-------------
+function twistSection(twisty, sectionId) {
+   var parentDiv = twisty;
+   while (parentDiv.tagName != 'DIV') { parentDiv = parentDiv.parentNode; }
+   var div = parentDiv.nextSibling; 
+   var elemWasOn = false; 
+   if (div.style.display != 'none') { 
+       div.style.display = 'none'; 
+       twisty.className ='showListButton';
+       twisty.alt = twisty.title = 'Show Section - '+twisty.name;
+       elemWasOn = true; 
+   } else {
+       div.style.display = 'block'; 
+       twisty.className = 'hideListButton';
+       twisty.alt = twisty.title = 'Hide Section - '+twisty.name;
+   } 
+  return !elemWasOn;
+}
+
+    function uniquePlanSelector(){
+       var disp = {!proceedNext};
+       alert({!proceedNext});
+       return null;
+    
+    }
+    
+//--------------------------        
+    </script>
+    
+    <apex:form id="frmId">
+     
+    <apex:pagemessages id="msgId"></apex:pagemessages>
+   
+        <apex:outputpanel id="scopeSearchPanel">
+            <apex:pageblock rendered="{!isShowScopePanel}" title="Scope Filters">
+                <apex:pageBlockSection title="Scope Selection" >
+                    <apex:pageBlockSectionItem >
+                        <b>Geography Scope</b>
+                        <apex:selectList value="{!geoScope}" multiselect="false"  size="1">
+                          <apex:selectOptions value="{!GeographyScope}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                         Category Scope
+                        <apex:selectList value="{!catScope}" multiselect="false"  size="1">
+                          <apex:selectOptions value="{!categoryScope}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                         Product Scope
+                         <apex:selectList value="{!prodScope}" multiselect="false"  size="1">
+                           <apex:selectOptions value="{!productScope}"/>
+                         </apex:selectList>
+                    </apex:pageBlockSectionItem><br/>
+                    <apex:pageBlockSectionItem >
+                         From Date<apex:inputField value="{!spePlanforDate.StartDate__c}" label="Start Date"  style="border-radius:3px;font-size: Small;"/> 
+                          </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >  
+                        To Date <apex:inputField value="{!spePlanforDate.EndDate__c}" label="From Date"   style="border-radius:3px;font-size: Small;"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <div align="center">
+                    <apex:commandButton value="Proceed" action="{!showScopePlans}" rerender="scopeSearchPanel,errPanel,FilterAttbPanel" status="loadStatus"/>
+                </div>
+                 <apex:outputPanel id="errPanel">
+                <apex:outputPanel id="op1" rendered="{!IF(hasRecords == false && showFilter == false,true,false)}" >
+                   <div class="displayWarning" >
+                    <apex:image url="{!$Resource.Warning}" width="50" height="50"/>
+                     <p><b>Sorry, no records returned.</b></p>
+                     </div>
+                </apex:outputpanel>
+                </apex:outputPanel>
+               
+            </apex:pageblock>
+            <apex:outputPanel id="FilterAttbPanel"  style="width:90%;">
+            <apex:pageblock rendered="{!IF(isShowScopePanel == false && isSecondPage == true,true,false)}" title="Custom Filters" >
+                <apex:pageblockSection title="Scope Attributes" columns="3" id="customFiltersBlock"> 
+                 <apex:inputText value="{!Name}" label="SPE ID" title="SPE ID" style="border-radius:3px;font-size: Small;" onkeypress="return enterPress(event,'UPanel');" styleClass="clearable" /> 
+                 <apex:inputText value="{!SPEPlanName}" label="SPE Plan Name" title="SPE Plan Name" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputText value="{!speTemplateName}" label="SPE Template Name" title="SPE Template Name" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputtext value="{!organization}" label="Organization" title="Organization" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputtext value="{!vintage}" label="Vintage" title="vintage" style="border-radius:3px;font-size: Small;"/>
+                <!-- <apex:inputtext value="{!active}" label="Active" title="active" style="border-radius:3px;font-size: Small;"/> -->
+                <apex:inputCheckbox value="{!active}" label="Active"/>
+                 <apex:outputLabel value="separator" style="color: white;"/>
+                 <apex:outputLabel value="separator" style="color: white;"/>
+                 <apex:outputLabel value="separator" style="color: white;"/>
+                 <apex:inputText value="{!caVal}" label="Category Area" title="Category Area" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputText value="{!marketVal}" label="Market" title="Market" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputtext value="{!buVal}" label="Business Unit" title="Business Unit" style="border-radius:3px;font-size: Small;"/>
+                 
+                 <apex:inputtext value="{!cgVal}" label="Category Group" title="Category Group" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputText value="{!marketUnitVal}" label="Market Unit" title="Market Unit" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputtext value="{!blVal}" label="Business Line" title="Business Line" style="border-radius:3px;font-size: Small;"/>
+                 
+                 <apex:inputtext value="{!ctVal}" label="Category" title="Category" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputText value="{!countryVal}" label="Country" title="Country" style="border-radius:3px;font-size: Small;"/>
+                 <apex:inputtext value="{!prdVal}" label="Product" title="Product" style="border-radius:3px;font-size: Small;"/>
+                 
+                 <apex:outputLabel value="separator" style="color: white;"/>
+                 <apex:inputText value="{!projectVal}" label="Project" title="Project" style="border-radius:3px;font-size: Small;"/>
+                 <apex:outputLabel value="separator" style="color: white;"/>
+  
+                 <apex:selectList value="{!Stage}" multiselect="false"  size="1" title="Stage" label="Include Stage">
+                    <apex:selectOptions value="{!PlanStage}"/>
+                 </apex:selectList>
+                 <apex:outputLabel value="separator" style="color: white;"/>
+                  <apex:inputCheckbox value="{!applyValidation}" label="Apply Validation" selected="true"/>
+                  <apex:outputpanel id="errPanelId">
+                  <apex:outputpanel rendered="{!IF(proceedNext == 'false',true,false)}">
+                      <script>
+                          
+                              alert('You have selected Duplicate plans.');
+                          
+                      </script>
+                  </apex:outputpanel></apex:outputpanel>
+         </apex:pageblockSection><div align="center">
+         <apex:commandButton title="Cancel" value="Cancel" action="{!cancelFunction}" style="cursor:pointer;width:7%;"/>
+         <apex:commandButton title="Apply Filter" action="{!showPlans}" style="cursor:pointer;width:7%;" value="Apply Filter"  rerender="planListId,defaultScopeResultsPagination,SearchResultPagn" status="loadStatus"/>&nbsp;&nbsp;
+         <apex:commandButton title="Next" style="cursor:pointer;width:5%;" action="{!nextFunction}" value="Next" rerender="frmId,msgId,errPanelId" rendered="{!hasRecords}" status="loadStatus" /></div>
+         <br/><apex:pageBlockSection title="Search Results" id="planListId" >
+     <apex:outputPanel style="overflow: auto; height:400px;" rendered="{!IF(hasRecords == true && showScope == false,true,false)}">
+    <div style="overflow: auto; height:400px;width:75%;">
+    <apex:pageBlockTable value="{!subwrapperList}" var="subwrap" id="applyFiltersResult" rowClasses="even,odd" rendered="{!IF(hasRecords == true && showScope == false && isSecondPage == true,true,false)}">
+        <apex:column >
+                    <apex:facet name="header">
+                    <apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this)" id="headerCheckId"/>
+                    <!--<apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')" />--->
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!subwrap.selected}" id="checkedone" styleClass="checkedone" onclick="checkheader(this);"/>
+                </apex:column>
+        <apex:column headerValue="SPE ID"><apex:outputLink value="../{!subwrap.spePlan.Id}">{!subwrap.spePlan.Name}</apex:outputLink></apex:column>           
+        <apex:column value="{!subwrap.spePlan.Organization_Group__c}"/>
+        <apex:column value="{!subwrap.spePlan.StartDate__c}"/>
+        <apex:column value="{!subwrap.spePlan.EndDate__c}"/>
+        <apex:column value="{!subwrap.spePlan.SPEPlanName__c}"/>
+        <apex:column value="{!subwrap.spePlan.SPETemplate__r.name}" width="5%"/>
+        <apex:column value="{!subwrap.spePlan.Region__c}"/>
+        <apex:column value="{!subwrap.spePlan.SubRegion__c}"/>
+        <apex:column value="{!subwrap.spePlan.Country__c}"/>
+        <apex:column value="{!subwrap.spePlan.Project__c}"/>
+        <apex:column value="{!subwrap.spePlan.CategoryCluster__c}"/>
+        <apex:column value="{!subwrap.spePlan.CategoryGroup__c}"/>
+        <apex:column value="{!subwrap.spePlan.Category__c}"/>
+        <apex:column value="{!subwrap.spePlan.BusinessUnit__c}"/>
+        <apex:column value="{!subwrap.spePlan.BusinessLine__c}"/>
+        <apex:column value="{!subwrap.spePlan.Product__c}"/>
+        <apex:column value="{!subwrap.spePlan.SPEScoringTemplate__r.name}"/>
+        <apex:column value="{!subwrap.spePlan.Vintage__c}"/>
+        <apex:column value="{!subwrap.spePlan.Active__c}"/>
+        <apex:column value="{!subwrap.spePlan.owner.name}"/>
+        <apex:column value="{!subwrap.spePlan.Stage__c}"/> 
+     <!--   <apex:column value="{!subwrap.isDuplicate}" headerValue="Is Duplicate"/> -->
+        <apex:column value="{!subwrap.duplicatePlan}" headerValue="Duplicate Plan"/>
+        
+    </apex:pageBlockTable></div>
+    </apex:outputPanel>
+    <apex:outputPanel style="overflow: auto; height:400px;" rendered="{!IF(hasRecords == true && showScope == true && isSecondPage == true,true,false)}">
+    <div style="overflow: auto; height:400px;width:70%;">
+      <apex:actionfunction action="{!blankmethod}" id="refreshmsg" name="refreshmsg" rerender="msgId"/>
+    <apex:pageBlockTable value="{!subwrapperList2}" var="subwrap" id="defaultScopeResults" rowClasses="even,odd" rendered="{!IF(hasRecords == true && showScope == true,true,false)}">
+        <apex:column >
+                    <apex:facet name="header">
+                    <apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this)" id="headerCheckId"/>
+                    <!--<apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')" />--->
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!subwrap.selected}" id="checkedone" styleClass="checkedone" onclick="checkheader(this);" onchange="refreshmsg();"/>
+                </apex:column>
+          
+        <apex:column headerValue="SPE ID"><apex:outputLink value="../{!subwrap.spePlan.Id}">{!subwrap.spePlan.Name}</apex:outputLink></apex:column>           
+        <apex:column value="{!subwrap.spePlan.Organization_Group__c}"/>
+        <apex:column value="{!subwrap.spePlan.StartDate__c}"/>
+        <apex:column value="{!subwrap.spePlan.EndDate__c}"/>
+        <apex:column value="{!subwrap.spePlan.SPEPlanName__c}"/>
+        <apex:column value="{!subwrap.spePlan.SPETemplate__r.name}"/>
+        <apex:column value="{!subwrap.spePlan.Region__c}"/>
+        <apex:column value="{!subwrap.spePlan.SubRegion__c}"/>
+        <apex:column value="{!subwrap.spePlan.Country__c}"/>
+        <apex:column value="{!subwrap.spePlan.Project__c}"/>
+        <apex:column value="{!subwrap.spePlan.CategoryCluster__c}"/>
+        <apex:column value="{!subwrap.spePlan.CategoryGroup__c}"/>
+        <apex:column value="{!subwrap.spePlan.Category__c}"/>
+        <apex:column value="{!subwrap.spePlan.BusinessUnit__c}"/>
+        <apex:column value="{!subwrap.spePlan.BusinessLine__c}"/>
+        <apex:column value="{!subwrap.spePlan.Product__c}"/>
+        <apex:column value="{!subwrap.spePlan.SPEScoringTemplate__r.name}"/>
+        <apex:column value="{!subwrap.spePlan.Vintage__c}"/>
+        <apex:column value="{!subwrap.spePlan.Active__c}"/>
+        <apex:column value="{!subwrap.spePlan.owner.name}"/>
+        <apex:column value="{!subwrap.spePlan.Stage__c}"/>
+      <!--  <apex:column value="{!subwrap.isDuplicate}" headerValue="Is Duplicate"/> -->
+        <apex:column value="{!subwrap.duplicatePlan}" headerValue="Duplicate Plan"/>
+        
+    </apex:pageBlockTable></div>
+    
+    </apex:outputPanel>
+    <apex:outputPanel id="errPanel">
+    <apex:outputPanel id="op1" rendered="{!IF(hasRecords == false ,true,false)}" >
+       <div class="displayWarning" >
+        <apex:image url="{!$Resource.Warning}" width="50" height="50"/>
+         <p><b>Sorry, no records returned.</b></p>
+         </div>
+    </apex:outputpanel>
+    </apex:outputPanel>
+         </apex:pageBlockSection>
+    <apex:outputPanel id="defaultScopeResultsPagination">
+        <apex:outputPanel id="paginationPanelId" rendered="{!IF(hasRecords == true && showScope == true && isSecondPage == true,true,false)}">
+  
+        <span style="float:left">&nbsp; {!startRecNo2} - {!endRecNo2} of {!scopePlanwraperList.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick2}" id="FirstLink2" reRender="defaultScopeResults,defaultScopeResultsPagination,messageId" status="statuschange2" rendered="{!showfirst2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick2}" id="previousLink2" reRender="defaultScopeResults,defaultScopeResultsPagination,messageId" status="statuschange2" rendered="{!showprevoius2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius2==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius2)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext2)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext2==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick2}" id="nextLink2" reRender="defaultScopeResults,defaultScopeResultsPagination,messageId" status="statuschange2" rendered="{!shownext2}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick2}" id="lastLink2" reRender="defaultScopeResults,defaultScopeResultsPagination,messageId" status="statuschange22" rendered="{!showlast2}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast2==true,'none','inline')}" />
+            
+            <apex:actionStatus id="statuschange2">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber2}" onchange="goToPage2(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId2" value="of {!maxPages2}" />
+            </span>
+           <apex:actionStatus id="statuschange2GoToPage">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:1000px;"/>
+               </apex:facet>
+            </apex:actionStatus> 
+             <apex:actionFunction Id="goToPage" name="goToPage" action="{!goToPage2}" reRender="pgt,paginationPanelId,msgId" status="StatusChangeGoToPage">
+               <apex:param name="crntPageNum" value="{!pageNumber}"/>
+             </apex:actionFunction>
+        </apex:outputPanel>
+       </apex:outputPanel> 
+       
+     <apex:outputPanel id="SearchResultPagn">
+    <apex:outputPanel id="SearchResultPagnPanel" rendered="{!IF(hasRecords == true && showScope == false && isSecondPage == true,true,false)}">
+  
+        <span style="float:left">&nbsp; {!startRecNo} - {!endRecNo} of {!wrapperPlanList.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick}" id="FirstLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!showfirst}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick}" id="previousLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!showprevoius}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick}" id="nextLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!shownext}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick}" id="lastLink" reRender="applyFiltersResult,SearchResultPagn,messageId" status="StatusChange" rendered="{!showlast}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast==true,'none','inline')}" />
+            
+            <apex:actionStatus id="StatusChange">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+            <span style="float:right">Page<input type="text" value="{!pageNumber}" onchange="goToPage(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId" value="of {!maxPages}" />
+            </span>
+            <apex:actionStatus id="StatusChangeGoToPage">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:1000px;"/>
+               </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel>
+        </apex:outputPanel>
+
+            </apex:pageblock>
+        </apex:outputPanel>   
+        </apex:outputpanel>
+         <apex:outputPanel id="scId">
+            <apex:pageBlock id="SCGeneratorBlock" rendered="{!IF(isThirdPage == true && proceedNext == 'true',true,false)}">
+            <apex:PageBlockSection title="Adhoc Scorcard Generator" collapsible="false" columns="2" id="scorecardSection" >
+               <apex:pageblocksectionItem id="pgsec1">
+                     <apex:outputLabel value="Scorecard Generator Name" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.Name}" required="true" id="name"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="scTitle">
+                     <apex:outputLabel value="Scorecard Title" style="font-weight:bold;" ></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.AdhocScorecardName__c}" required="true" id="scTitleVal"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem >
+                     <apex:outputLabel value="Stage" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:outputText value="Draft"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="aggTypeItem">
+                     <apex:outputLabel value="Aggregation Type" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.AggregationType__c}" required="true" id="aggType"/>
+               </apex:pageblocksectionItem>
+               
+               <apex:pageblocksectionItem >
+                     <apex:outputLabel value="Auto Approved" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.IsAutoApproved__c}"/> 
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="aggTypePeriod">
+                     <apex:outputLabel value="Aggregation Period" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:outputpanel >
+                     <apex:inputField value="{!scoreCardgenerator.Aggregation_Period_Adhoc__c}" required="true" id="aggPeriod" onchange="refreshDateJS('{!scoreCardgenerator.AggregationType__c}');"/>
+                  
+                   </apex:outputpanel>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="distributesec" >
+                     <apex:outputLabel value="Auto Distributed" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.isAutoDistributionON__c}" id="distrib"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="descriptionId" >
+                     <apex:outputLabel value="Description" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.Description__c}" id="descib" style="width:55%;"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblockSectionItem >
+                   <apex:outputLabel value="Buffer Days" style="font-weight:bold;"></apex:outputLabel>
+                   <apex:inputField value="{!scoreCardgenerator.Additional_Days__c}" style="width:50px;" required="true"/>
+               </apex:pageblockSectionItem>
+               
+                <apex:pageblocksectionItem id="displayValue" >
+                     <apex:outputLabel value="KPI Values Layout" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputCheckbox value="{!scoreCardgenerator.DisplayValues__c}" id="distrib" disabled="{!IF(containerList.size == 1,false,true)}" />
+               </apex:pageblocksectionItem>
+               <apex:pageblockSectionItem >
+                   <apex:outputText value=""/>
+                   <apex:outputpanel >
+                       <apex:commandButton value="Display SPE Plans" reRender="showPlansThirdPage,planPagnPanel,SuppSection,SupplierPagnPanel,ScopePanel,dateSection" onclick="validatethrdPgSection();" status="loadStatus"/>&nbsp;
+                       <!--<apex:actionStatus id="statuschangeDateRefresh">
+                       <apex:facet name="start">
+                           <apex:image value="/img/loading.gif"  style="vertical-align:left;margin-left:2px;"/>
+                       </apex:facet>
+                       </apex:actionStatus>-->
+                       <apex:actionfunction id="popScop" name="popScope" action="{!populateScopeVals}" status="loadStatus"/>
+                   </apex:outputpanel>
+                   
+               </apex:pageblockSectionItem>
+              </apex:pageBlockSection>
+              <apex:pageBlockSection title="Time Period Entry" id="dateSection" collapsible="false" columns="2">
+                  <apex:pageblocksectionItem id="monthlyStart">
+                   
+               <apex:outputPanel id="datePanel" style="margin-right:350px;">
+               <apex:outputpanel rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Monthly',true,false)}"><br/>
+               <table style="width:40%;">
+                   <tr>
+                       <td>
+                           <apex:outputText value="Start:"  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDate" value="{!startDateYear}" multiselect="false" size="1" style="width:65%;">
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList> &nbsp;&nbsp;
+                            <apex:outputText value=" P " style="font-weight:bold;"> </apex:outputText>
+                       </td>
+                       <td>
+                           <apex:selectList id="startMonth" value="{!startDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateMonth}"/>
+                            </apex:selectList>
+                       </td>
+                   </tr>
+               </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="quarterPanel" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Quarterly',true,false)}">
+                <table style="width:40%;">
+                    <tr>
+                        <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDateQ" value="{!startDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList> &nbsp;&nbsp;
+                            <apex:outputText value=" Q " style="font-weight:bold;"> </apex:outputText>
+                       </td>
+                       <td>
+                           <apex:selectList id="startMonthQ" value="{!startDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateQuarter}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="halfYearlyPanel" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Half Yearly',true,false)}">
+                <table style="width:40%;">
+                    <tr>
+                        <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDateH" value="{!startDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList> &nbsp;&nbsp;
+                            <apex:outputText value=" H " style="font-weight:bold;"> </apex:outputText>
+                       </td>
+                       <td>
+                           <apex:selectList id="startMonthH" value="{!startDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateHalfYearly}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="YearlyPanel" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Annual',true,false)}">
+                <table style="width:40%;">
+                    <tr>
+                        <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDateY" value="{!startDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                </apex:outputPanel>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="monthlyEnd">
+               
+               <apex:outputPanel id="EnddatePanel" style="margin-right:350px;">
+               <apex:outputpanel rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Monthly',true,false)}" ><br/>
+               <table style="width:32%;">
+                    <tr>
+                        <td style="width:20%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td style="width:40%;">
+                           <apex:selectList id="endDate" value="{!EndDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>&nbsp;&nbsp;
+                            <apex:outputText value=" P " style="font-weight:bold;margin-left:20%;"> </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:selectList id="endMonth" value="{!endDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateMonth}"/>
+                            </apex:selectList>
+                       </td>
+                   </tr>
+               </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="quarterPanel2" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Quarterly',true,false)}">
+                <table style="width:32%;">
+                    <tr>
+                        <td style="width:20%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td style="width:40%;">
+                            <apex:selectList id="endDateQ" value="{!endDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>&nbsp;&nbsp;
+                            <apex:outputText value=" Q " style="font-weight:bold;margin-left:20%;"> </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:selectList id="endMonthQ" value="{!EndDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateQuarter}"/>
+                            </apex:selectList>
+                       </td>
+                   </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="halfYearlyPanel2" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Half Yearly',true,false)}">
+                <table style="width:32%;">
+                    <tr>
+                        <td style="width:20%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td style="width:40%;">
+                            <apex:selectList id="endDateH" value="{!endDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>&nbsp;&nbsp;
+                            <apex:outputText value=" H " style="font-weight:bold;margin-left:20%;"> </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:selectList id="endMonthH" value="{!endDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateHalfYearly}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="YearlyPanel2" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Annual',true,false)}">
+                <table style="width:32%;">
+                    <tr>
+                        <td style="width:20%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%;"/>
+                       </td>
+                       <td style="width:40%;">
+                           <apex:selectList id="EndDateY" value="{!endDateYear}" multiselect="false" size="1" >
+                         <apex:selectOptions value="{!populateYear}"/>
+                         </apex:selectList>
+                       </td>
+                   </tr>
+                </table>
+                </apex:outputpanel>
+             </apex:outputPanel>
+               </apex:pageblocksectionItem>
+               <apex:actionfunction name="refreshDate" id="refreshDateId" action="{!blankMethod}" rerender="datePanel,dateSection" status="loadStatus"/>
+
+           </apex:pageBlockSection>
+           
+           <apex:outputpanel id="showPlansThirdPage" >
+           <apex:inputHidden value="{!isShowPlansThirdPg}" id="hidFldId"/>
+           <apex:pageBlockSection title="Selected Plans" id="planDisplaySection" columns="1" rendered="{!IF(isShowPlansThirdPg == 'true',true,false)}" collapsible="false"> 
+              <apex:pageBlockTable value="{!containerList}" var="subwrap">
+              <apex:column >
+                    <apex:facet name="header">
+                    <apex:outputLabel value="Action" /><input type="checkbox" onclick="checkAll(this)" id="headerCheckId"/>
+                    <!--<apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')" />--->
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!subwrap.selected}" id="checkedone" styleClass="checkedone" onclick="checkheader(this);"/>
+                </apex:column>
+                <apex:column value="{!subwrap.spePlan.Name}"/>
+                <apex:column value="{!subwrap.spePlan.SPEPlanName__c}"/>
+                <apex:column value="{!subwrap.spePlan.SPETemplate__r.name}"/>
+                <apex:column value="{!subwrap.spePlan.Region__c}"/>
+                <apex:column value="{!subwrap.spePlan.SubRegion__c}"/>
+                <apex:column value="{!subwrap.spePlan.Country__c}"/>
+                <apex:column value="{!subwrap.spePlan.Project__c}"/>
+                <apex:column value="{!subwrap.spePlan.CategoryCluster__c}"/>
+                <apex:column value="{!subwrap.spePlan.CategoryGroup__c}"/>
+                <apex:column value="{!subwrap.spePlan.Category__c}"/>
+                <apex:column value="{!subwrap.spePlan.BusinessUnit__c}"/>
+                <apex:column value="{!subwrap.spePlan.BusinessLine__c}"/>
+                <apex:column value="{!subwrap.spePlan.Product__c}"/>
+                <apex:column value="{!subwrap.spePlan.Vintage__c}"/>
+                <apex:column value="{!subwrap.spePlan.Active__c}"/> 
+              </apex:pageBlockTable>
+          <apex:commandButton value="Delete Plan" action="{!deletePlan}" rerender="showPlansThirdPage,planPagnPanel,SuppSection,msgId"/>      
+        <script>
+            checkAndUpdate();
+        </script>
+        </apex:pageBlockSection>
+          
+        </apex:outputpanel>
+        
+        <apex:outputPanel id="planPagnPanel">
+        <apex:outputPanel id="PaginationPanel" rendered="{!IF(hasRecordsSG && isShowPlansThirdPg == 'true',true,false)}">
+  
+        <span style="float:left">&nbsp; {!startRecNo3} - {!endRecNo3} of {!containerList.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick3}" id="FirstLink3" reRender="scId,planPagnPanel,messageId" status="statuschange3" rendered="{!showfirst3}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick3}" id="previousLink3" reRender="scId,planPagnPanel,messageId" status="statuschange3" rendered="{!showprevoius3}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius3==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius3)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext3)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext3==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick3}" id="nextLink3" reRender="scId,planPagnPanel,messageId" status="statuschange3" rendered="{!shownext3}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick3}" id="lastLink2" reRender="scId,planPagnPanel,messageId" status="statuschange3" rendered="{!showlast3}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast3==true,'none','inline')}" />
+            
+            <apex:actionStatus id="statuschange3">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           
+         <!--  <span style="float:right">Page<input type="text" value="{!pageNumber3}" onchange="goToPage3(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId3" value="of {!maxPages3}" />
+            </span> -->
+           <apex:actionStatus id="statuschange3goToPage3">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:1000px;"/>
+               </apex:facet>
+            </apex:actionStatus> 
+        </apex:outputPanel>
+       </apex:outputPanel> 
+       
+       <!---   Supplier Section------->  
+       <apex:outputPanel id="SuppSection">
+     <apex:pageBlockSection title="Supplier Section" id="SuppDisplaySection" columns="1" rendered="{!IF(hasRecordsSG && isShowPlansThirdPg == 'true',true,false)}" collapsible="false">
+          <apex:pageBlockTable value="{!subwrapperSupplier}" var="scsupp" id="suppTable" >
+              <apex:column headerValue="Supplier EID">
+                    <apex:outputField value="{!scsupp.Supplier__c}"/>
+                </apex:column>
+                <!--
+                <apex:column headerValue="Parameter">
+                    <apex:outputField value="{!scsupp.Identifier_Param__c}"/>
+                </apex:column>
+                
+                -->
+                <apex:column headerValue="Earliest Date">
+                    <apex:outputField value="{!scsupp.Earliest_Date__c}"/>
+                </apex:column>
+                <apex:column headerValue="Latest Date">
+                    <apex:outputField value="{!scsupp.Latest_Data__c}"/>
+                </apex:column>
+                <apex:column headerValue="Approver">
+                    <apex:inputField value="{!scsupp.Approver__c}" id="approver" styleClass="approverclass"/>
+                </apex:column>                
+                <apex:column headerValue="Supplier Contact">
+                 <!--   <apex:inputField value="{!scsupp.SupplierContact__c}" id="suppContact" styleClass="approverclass"/>
+                    <apex:inputField value="{!scsupp.Supplier__c}" style="display:none;" label=""/>-->
+                    <apex:outputPanel >
+                        <apex:inputHidden value="{!scsupp.SupplierContact__c}" id="targetId" />
+                         
+                        <apex:inputText size="20" value="{!accountName}" onFocus="this.blur()"  id="targetName" disabled="false"/> 
+                        <a href="#" onclick="openLookupPopup('{!$Component.targetName}', '{!$Component.targetId}' ,'{!scsupp.Supplier__c}' ,'{!uidentify}'); return false">
+                            <apex:image value="{!$Resource.lookupGlass}"/>
+                        </a>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="">
+                  <apex:outputPanel >
+                  <apex:inputHidden value="{!scsupp.Identifier_Param__c}" id="targetId2" />
+                        <a href="#" onclick="openLookupPopup2('{!$Component.targetId2}','{!scsupp.Supplier__c}','{!uidentify}','{!scsupp.ID}'); return false">
+                            Add CC Contacts
+                        </a>
+                    </apex:outputPanel>
+                    </apex:column>
+                <!--<apex:column headerValue="Distribution List">
+                    <apex:commandButton value="Add CC Contacts" onclick="selectPopUp();" styleclass="navigationBtn" rerender="none">
+                        <apex:param id="paramId" name="paramName" value="{!scsupp.Supplier__c}" assignTo="{!supplierId}"/>
+                    </apex:commandButton>
+                </apex:column>-->
+            </apex:pageBlockTable>          
+         </apex:pageBlockSection>
+         </apex:outputPanel>
+       <apex:outputPanel id="SupplierPagnPanel">
+        <apex:outputPanel id="SupplierPagnPanelDisplay" rendered="{!IF(hasRecordsSG && isShowPlansThirdPg == 'true',true,false)}">
+  
+        <span style="float:left">&nbsp; {!startRecNo4} - {!endRecNo4} of {!subwrapperSupplier.size} &nbsp;<img class="selectArrow" src="/s.gif" onclick="showMultiOptionDiv(this);"/></span>
+            <!-- code for first link -->
+            <apex:commandLink action="{!firstBtnClick4}" id="FirstLink4" reRender="SuppSection,SupplierPagnPanel,messageId" status="statuschange4" rendered="{!showfirst4}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="FirstImgId" class="paginationArrwCls" style="background-position:0px -10px;display:{!IF(showfirst==true,'none','inline')}"/>
+            
+            <!-- code for Previous link -->
+            <apex:commandLink action="{!previousBtnClick4}" id="previousLink4" reRender="SuppSection,SupplierPagnPanel,messageId" status="statuschange4" rendered="{!showprevoius4}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px 1px"/>
+                <apex:outputText value="Previous" style="color:black;"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-10px -10px;display:{!IF(showprevoius4==true,'none','inline')}"/>
+            <apex:outputText value="Previous" rendered="{!NOT(showprevoius4)}" style="color:grey"/> &nbsp;&nbsp;
+            
+            <!-- code for Next link -->
+            
+            <apex:outputText value="Next" rendered="{!NOT(shownext4)}" style="color:grey"/>
+            <img src="/s.gif" id="PreviousImgId" class="paginationArrwCls" style="background-position:-17px -10px;display:{!IF(shownext4==true,'none','inline')}"/>
+            
+            <apex:commandLink action="{!nextBtnClick4}" id="nextLink4" reRender="SuppSection,SupplierPagnPanel,messageId" status="statuschange4" rendered="{!shownext4}" oncomplete="checkAndUpdate();">
+                <apex:outputText value="Next"  style="color:black;"/>
+                <img src="/s.gif" id="NextImgId" class="paginationArrwCls" style="background-position:-17px 1px;"/>
+            </apex:commandLink>
+            
+            
+            <apex:commandLink action="{!lastBtnClick4}" id="lastLink3" reRender="SuppSection,SupplierPagnPanel,messageId" status="statuschange4" rendered="{!showlast4}" oncomplete="checkAndUpdate();">
+                <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px 1px"/>
+            </apex:commandLink>
+            <img src="/s.gif" id="LastImgId" class="paginationArrwCls" style="background-position:-27px -10px;display:{!IF(showlast4==true,'none','inline')}" />
+            
+            <apex:actionStatus id="statuschange4">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+           <!--
+            <span style="float:right">Page<input type="text" value="{!pageNumber4}" onchange="goToPage4(this.value);" onkeypress="onEnterprs(this,event);" class="pageNoInput"/>
+                <apex:outputText id="maxPageId4" value="of {!maxPages4}" />
+            </span>
+           -->
+           <apex:actionStatus id="statuschangegoToPage4">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:1000px;"/>
+               </apex:facet>
+            </apex:actionStatus> 
+        </apex:outputPanel>
+       </apex:outputPanel> 
+       
+     <apex:outputPanel id="ScopePanel"> 
+     <apex:pageBlockSection title="Scope Attributes" rendered="{!IF(hasRecordsSG && isShowPlansThirdPg == 'true',true,false)}" columns="3" id="scopeSec" collapsible="false">
+      <apex:inputCheckbox label="All" onclick="setCatScopeVal();" id="catId"/>
+      <apex:inputCheckbox label="All" onclick="setGeoScopeVal();" id="GeoId"/>
+      <apex:inputCheckbox label="All" onclick="setBusinessScopeVal();" id="busId"/>
+      <apex:inputField value="{!scoreCardgenerator.CategoryCluster__c}" label="Category Area" id="ca"/>
+      <apex:inputField value="{!scoreCardgenerator.Region__c}" label="Market" id="mkt"/>
+     <apex:inputField value="{!scoreCardgenerator.BusinessUnit__c}" label="Business Unit" id="bu"/>
+     <apex:inputField value="{!scoreCardgenerator.CategoryGroup__c}" label="Category Group" id="cg"/>
+     <apex:inputField value="{!scoreCardgenerator.SubRegion__c}" label="Market Unit" id="mu"/>
+     <apex:inputText value="{!scoreCardgenerator.BusinessLine__c}" label="Business Line" id="bl"/>
+     <apex:inputField value="{!scoreCardgenerator.Category__c}" label="Category" id="ct"/>
+     <apex:inputField value="{!scoreCardgenerator.Country__c}" label="Country" id="cu"/>
+      <apex:inputField value="{!scoreCardgenerator.Product__c}" label="Product" id="pd"/>
+      <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+     <apex:inputField value="{!scoreCardgenerator.Project__c}" label="Project" id="prj"/>
+     <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+      <table><tr><td style="padding-top: 5px;">
+      <input type="button" onclick="validateApprover();" title="Submit" value="Submit" class="btn"/></td><td>
+      <apex:commandButton value="Cancel" action="{!cancelFunction}"/>
+      </td></tr></table>
+      </apex:pageBlockSection>
+      
+      <!--action="{!saveScorecardGen}"-->
+      <apex:actionFunction id="saveSc" name="saveScdGen" action="{!saveScorecardGen}" reRender="tstpopup,msgId"/>
+     
+     </apex:outputPanel>
+     
+         </apex:pageBlock>
+         
+       </apex:outputPanel>
+           <div class="overlayPopUp"></div>
+           <!--
+           <div class="popupNew" id="popUpBoxNew" style="background-color: #1483B5;color: white;font-weight: bold;">
+               <b>Search Contact &nbsp;: &nbsp;</b>
+               <apex:inputText value="{!strContactName}"/>
+               <apex:commandButton value="Search" action="{!contactSearch}" rerender="contactPanel" status="searchCon"/>
+               <apex:actionStatus id="searchCon">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:1000px;"/>
+               </apex:facet>
+            </apex:actionStatus> 
+               <br/><br/><br/>
+               <apex:outputpanel id="contactPanel">
+                   <apex:pageblock title="Search Results">
+                       <apex:pageblocksection columns="1">
+                           
+                           <apex:pageblocktable value="{!lstWrapperContact}" var="objCon">
+                               <apex:column headerValue="Select">
+                                   <apex:inputCheckbox value="{!objCon.isContactSelected}"/>
+                               </apex:column>
+                               <apex:column headerValue="Contact Name" value="{!objCon.objContactWrap.Name}"/>
+                               <apex:column headerValue="Contact Email" value="{!objCon.objContactWrap.Email}"/>
+                           </apex:pageblocktable>
+                       </apex:pageblocksection>
+                   </apex:pageblock>
+                   <apex:commandButton value="Add & Close" onclick="closePopUp();" rerender="none"/>
+               </apex:outputpanel>
+               <apex:actionfunction name="callApex" id="callApexId" action="{!addCCContactMap}" oncomplete="finishClosing();" rerender="none"/>
+               <apex:actionfunction name="callApex1" id="callApexId1" action="{!clearWrapperList}" rerender="none"/>
+           </div>
+           -->
+          <script>
+              function refreshDateJS(a){
+                  refreshDate();
+              }
+              function selectPopUp(){
+                  callApex1();
+                  $(".overlayPopUp, .popupNew").fadeToggle();
+              }
+              function closePopUp(){
+                  callApex();
+                  
+              }
+              function finishClosing(){
+                  $(".overlayPopUp, .popupNew").fadeToggle();
+              }
+              function validatethrdPgSection(){
+                  
+                  if(document.getElementById('pg:frmId:SCGeneratorBlock:scorecardSection:aggTypePeriod:aggPeriod').value != '' && document.getElementById('pg:frmId:SCGeneratorBlock:scorecardSection:aggTypeItem:aggType').value != '' && document.getElementById('pg:frmId:SCGeneratorBlock:scorecardSection:pgsec1:name').value != '' && document.getElementById('pg:frmId:SCGeneratorBlock:scorecardSection:scTitle:scTitleVal').value != '' ){
+                      document.getElementById('pg:frmId:SCGeneratorBlock:hidFldId').value = 'true';
+                  }
+                  else{
+                      document.getElementById('pg:frmId:SCGeneratorBlock:hidFldId').value = 'false';
+                  }
+                  if(document.getElementById('pg:frmId:SCGeneratorBlock:hidFldId').value == 'false'){
+                      alert('Please provide the mandatory field details');
+                      
+                  }
+                  popScope();
+              }
+              function validateYears(){
+              
+              }
+              
+              function validateApprover(){
+                  saveScdGen();                     
+                                  
+               }
+               
+               function setCatScopeVal(){
+                if(document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:catId').checked == true){
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:ca').value = 'All Category Areas';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:cg').value = 'All Category Groups';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:ct').value = 'All Categories';
+                }
+                
+                else{
+                 document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:ca').value ='';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:cg').value = '';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:ct').value = '';
+                 }
+               
+               }
+               
+               function setGeoScopeVal(){
+                if(document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:GeoId').checked == true){
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:mkt').value = 'All Markets';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:mu').value = 'All Market Units';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:cu').value = 'All Countries';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:prj').value = 'All Projects';
+                }
+                
+                else{
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:mkt').value = '';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:mu').value = '';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:cu').value = '';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:prj').value = '';
+                 }
+               
+               }
+               
+               
+               function setBusinessScopeVal(){
+                if(document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:busId').checked == true){
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:bu').value = 'All Business Units';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:bl').value = 'All Business Lines';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:pd').value = 'All Products';
+                }
+                
+                else{
+                 document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:bu').value = '';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:bl').value = '';
+                document.getElementById('pg:frmId:SCGeneratorBlock:scopeSec:pd').value = '';
+                 }
+               
+               }
+          </script>
+          
+       <apex:outputPanel id="tstpopup">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displaypopup}"/>
+        <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displaypopup}">
+            The Next Computed Day: <b><apex:outputText style="color:green;" value="{!displaydate}"/></b> is not in current month.<br/>For saving record please click on <b><apex:outputText style="color:green;" value="Continue"/></b> button.<br/><br/><br/>
+            <apex:commandButton style="color:black;background-color:#33ff33;background-image:none" value="Continue" action="{!ContinueScorecardGen}" reRender="tstpopup,msgId"/>&nbsp;
+            <apex:commandButton style="color:black;background-color: #ff1a1a;background-image:none" value="Cancel" action="{!closePopup}" rerender="tstpopup"/>
+        </apex:outputPanel>
+     </apex:outputPanel>
+    </apex:form> 
+   </apex:page>

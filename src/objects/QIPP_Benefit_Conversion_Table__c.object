@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Object &quot;Benefit Convesion Table&quot; for QIPP Application</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>To determine whether conversion table is active or not.</description>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Benefit_Type_Override__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefit Type - Override</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Financial Savings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operational Savings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Benefit_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefit Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Financial Savings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operational Savings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Brief_Description__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Brief Description</label>
+        <length>500</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Business_Line__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Line</label>
+        <picklist>
+            <picklistValues>
+                <fullName>SCC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LTE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GSM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PaCo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VIPT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WCDMA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OSS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VCM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PLATFORMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Business_Unit__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the appropriate Business Unit</inlineHelpText>
+        <label>Business Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Global</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CFOO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO Customer Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GCFO Group CFO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS Global Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Human Resources</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>L&amp;C Legal &amp; Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MBB Mobile Broadband</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MCA Marketing and Corporate Affairs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NET Quality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>T&amp;I Technology &amp; Innovation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CoPQ_Reduction_Conversion_Rate__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Output in k€</inlineHelpText>
+        <label>CoPQ Reduction Conversion Rate</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CoPQ_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Direct Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indirect Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Current_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Rate</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Directional_Indicator__c</fullName>
+        <externalId>false</externalId>
+        <label>Directional Indicator</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Lower is Favorable</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Higher is Favorable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Examples__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Examples</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Examples_del__c</fullName>
+        <description>Examples that demonstrate the usage of this particular Improvement Measure</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify examples that demonstrate the usage of this particular Improvement Measure</inlineHelpText>
+        <label>Examples</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Financial_Impact_Calculation_Driver__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Impact Calculation Driver</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NCDR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal Failures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Program Overrun due to Quality Issues</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Warranties</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retrofit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>E&amp;O</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Penalties</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NCC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Additional HW and/or SW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Financial_Type_Override__c</fullName>
+        <externalId>false</externalId>
+        <label>Financial Type - Override</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Direct Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indirect Financial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operational</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Quarter__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiscal Quarter</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Q1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiscal Year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Impacted_P_L_Line_Override__c</fullName>
+        <externalId>false</externalId>
+        <label>Impacted P/L Line - Override</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cost of Sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D Budget</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Impacted_P_L_Line__c</fullName>
+        <externalId>false</externalId>
+        <label>Impacted P/L Line</label>
+        <picklist>
+            <controllingField>CoPQ_Type__c</controllingField>
+            <picklistValues>
+                <fullName>R&amp;D Budget</fullName>
+                <default>false</default>
+                <controllingFieldValues>Direct Financial</controllingFieldValues>
+                <controllingFieldValues>Indirect Financial</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cost of Sales</fullName>
+                <default>false</default>
+                <controllingFieldValues>Direct Financial</controllingFieldValues>
+                <controllingFieldValues>Indirect Financial</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <controllingFieldValues>Non-Financial</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Improvement_Measure_Grouping__c</fullName>
+        <externalId>false</externalId>
+        <label>Improvement Measure Grouping</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CoPQ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS Care</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS DE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS GSD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS MS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS NI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS Overall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS SI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MBB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPS/GPR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Improvement_Measure_Short_Name__c</fullName>
+        <description>A short name or acronym for this Improvement Measure</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>A short name or acronym for this Improvement Measure</inlineHelpText>
+        <label>Improvement Measure – Short Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Improvement_Measure_Unique__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>This field is used to maintain uniqueness on the &quot;QIPP Benefit Conversion Table&quot; object</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Improvement Measure - Unique</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Monetization_Calculation_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Monetization Calculation Method</label>
+        <picklist>
+            <controllingField>Benefit_Type__c</controllingField>
+            <picklistValues>
+                <fullName>Automated</fullName>
+                <default>false</default>
+                <controllingFieldValues>Financial Savings</controllingFieldValues>
+                <controllingFieldValues>Operational Savings</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <controllingFieldValues>Operational Savings</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Related_CoPQ_Measure__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Most Impacted Measurement</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Active__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Benefit_Conversion_Table__c</referenceTo>
+        <relationshipName>Conversion_Table</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Unit_of_Measure__c</fullName>
+        <externalId>false</externalId>
+        <label>Unit of Measure</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Each</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>K Euro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Percentage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Integer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hours</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Parts per Million</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Improvement Measure</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Active__c</columns>
+        <columns>Unit_of_Measure__c</columns>
+        <columns>Benefit_Type__c</columns>
+        <columns>Brief_Description__c</columns>
+        <columns>CoPQ_Type__c</columns>
+        <columns>Monetization_Calculation_Method__c</columns>
+        <columns>Impacted_P_L_Line__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Improvement Measure (KPI)</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Improvement Measures</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Brief_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Benefit_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CoPQ_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Unit_of_Measure__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Impacted_P_L_Line__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Brief_Description__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Benefit_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CoPQ_Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Unit_of_Measure__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Impacted_P_L_Line__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Brief_Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Benefit_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CoPQ_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Unit_of_Measure__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Impacted_P_L_Line__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Rule_on_copq_reduction_conversion_rate</fullName>
+        <active>true</active>
+        <errorConditionFormula>NoT(ISPICKVAL(Financial_Impact_Calculation_Driver__c , &apos;NCDR&apos;) ||ISPICKVAL( Financial_Impact_Calculation_Driver__c , &apos;Internal Failures&apos;))&amp;&amp; CoPQ_Reduction_Conversion_Rate__c != 1.00</errorConditionFormula>
+        <errorDisplayField>CoPQ_Reduction_Conversion_Rate__c</errorDisplayField>
+        <errorMessage>Value for this field should be 1 - as there is no conversion required.</errorMessage>
+    </validationRules>
+</CustomObject>

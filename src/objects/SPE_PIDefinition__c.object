@@ -1,0 +1,1892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>SPE2_PI_edit_or_new_page</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>SPE2_PI_edit_or_new_page</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>SPE_PI_Definition_Help_Page</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>Additional_Days__c</fullName>
+        <description>Additional days for PI upload due date</description>
+        <externalId>false</externalId>
+        <label>Additional Days</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Days_for_week__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Days for week</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BUScope__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Scope</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business Unit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Line</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Products</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>BaseURL__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>LEFT($Api.Partner_Server_URL_260, FIND( &apos;/services&apos;, $Api.Partner_Server_URL_260))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Base URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Business__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Relevant org/group for this data</inlineHelpText>
+        <label>Organization/Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>INDIRECT PROCUREMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PRODUCT PROCUREMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SERVICES PROCUREMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PARTNERING ORGANIZATION</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryScope__c</fullName>
+        <externalId>false</externalId>
+        <label>Category scope</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Category Area</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Category Group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Categories</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>255 Character Limit</inlineHelpText>
+        <label>Comments</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DataAcquisitionMethod__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Identify how this data is acquired</inlineHelpText>
+        <label>Data Acquisition Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Data Load</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Survey</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Standalone Survey</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Day_name_of_upload_week__c</fullName>
+        <description>Set a day of any week for PI upload</description>
+        <externalId>false</externalId>
+        <label>Day name of upload week</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sunday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tuesday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wednesday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thursday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Friday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Saturday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DaysInactive__c</fullName>
+        <externalId>false</externalId>
+        <formula>Now()-  LastPIImportDate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Inactive</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <description>Till this date PI upload will recur.</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Frequency__c</fullName>
+        <description>Frequency with which the data is generally refreshed. Same as due date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Specifies how often the data is posted or updated, i.e. monthly, annually, etc.</inlineHelpText>
+        <label>Frequency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>7</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>11</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>12</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GeoScope__c</fullName>
+        <externalId>false</externalId>
+        <label>Geography Scope</label>
+        <picklist>
+            <picklistValues>
+                <fullName>All Markets</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market Unit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Country</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Project</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LastPIImportDate__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Last PI Import Date</label>
+        <summarizedField>SPE_PIValues__c.CreatedDate</summarizedField>
+        <summaryForeignKey>SPE_PIValues__c.PIDefination__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>LifecycleStage__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>PI can not be used until Published</inlineHelpText>
+        <label>Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obsolete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Max_Question_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>SurveyQuestion__r.MaxScore__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Max Question Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_Upload_Day__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Upload Day</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Value</label>
+        <picklist>
+            <picklistValues>
+                <fullName>January</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>February</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>March</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>April</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>May</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>June</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>July</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>August</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>September</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>October</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>November</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>December</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OperationalType__c</fullName>
+        <externalId>false</externalId>
+        <label>Operational Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Lagging KPI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leading KPI</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PIAbbreviation__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>10 Character Limit</inlineHelpText>
+        <label>PI Abbreviation</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PICode__c</fullName>
+        <displayFormat>PI-{0000}</displayFormat>
+        <externalId>false</externalId>
+        <label>PI Code</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>PITitle__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>80 Character Limit, Concise Description of PI</inlineHelpText>
+        <label>SYS PI  Title</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PIUploadDuedate__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>PI Upload Due date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PI_Title__c</fullName>
+        <description>This field will be replaced with Standard Name field of PI 
+(Standard Name field of PI is now auto number.)</description>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <label>PI Title</label>
+        <length>255</length>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PI_Upload_Due_date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>PI Upload Due date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PriorValue_Last_PI_Import_Date__c</fullName>
+        <description>This is use for internal purpose only.</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>PriorValue Last PI Import Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>PurposeAndObjective__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>250 Character Limit, provide additional details on this PI</inlineHelpText>
+        <label>Purpose and Objective</label>
+        <length>250</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recurrence_Pattern__c</fullName>
+        <description>This field holds the data for monthly/yearly child radio options to check which option is chosen.</description>
+        <externalId>false</externalId>
+        <label>Recurrence Pattern</label>
+        <picklist>
+            <picklistValues>
+                <fullName>DayPerMonth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WeekPerMonth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DayPerYear</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WeekPerYear</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Recurrence_frequency_type__c</fullName>
+        <description>Used in selection page of PI upload recurrence. It has two values- Monthly and Yearly.</description>
+        <externalId>false</externalId>
+        <label>Recurrence frequency type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SourceDataOwner__c</fullName>
+        <description>Name of the person who supplies the data</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Source of Input Data (80 Character Limit)</inlineHelpText>
+        <label>Source Data</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SurveyQuestion__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Required if Data Acquisition Method = Survey</inlineHelpText>
+        <label>Question ID</label>
+        <referenceTo>SPE_SurveyQuestion__c</referenceTo>
+        <relationshipLabel>PI Data</relationshipLabel>
+        <relationshipName>PI_Data</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify domain of this PI</inlineHelpText>
+        <label>PI Domain</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Operational</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UoM__c</fullName>
+        <encrypted>true</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>i.e. Days, Units, %, Euros, etc.</inlineHelpText>
+        <label>Unit of Measure</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Upload_Day__c</fullName>
+        <description>PI upload day of any month.</description>
+        <externalId>false</externalId>
+        <label>Upload Day</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ValuesType__c</fullName>
+        <description>To describe PI values data type</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Specify type of data values for this PI</inlineHelpText>
+        <label>Values Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>String</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Week_Count__c</fullName>
+        <description>It holds week of any month</description>
+        <externalId>false</externalId>
+        <label>Week Count</label>
+        <picklist>
+            <picklistValues>
+                <fullName>First</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Second</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Third</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fourth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Yearly_Day_Name_of_Upload_Week__c</fullName>
+        <externalId>false</externalId>
+        <label>Yearly Day Name of Upload Week</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Sunday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tuesday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wednesday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thursday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Friday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Saturday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Yearly_Week_Count__c</fullName>
+        <description>This field is used for Yearly Recurrence pattern.</description>
+        <externalId>false</externalId>
+        <label>Yearly Week Count</label>
+        <picklist>
+            <picklistValues>
+                <fullName>First</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Second</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Third</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fourth</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>PI Data</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>PI_Title__c</columns>
+        <columns>PIAbbreviation__c</columns>
+        <columns>LifecycleStage__c</columns>
+        <columns>DataAcquisitionMethod__c</columns>
+        <columns>Frequency__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UoM__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>PI-{000000}</displayFormat>
+        <label>PI Data Sequential ID</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>PI Data</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Draft_and_Pilot</fullName>
+        <active>true</active>
+        <label>Draft and Pilot</label>
+        <picklistValues>
+            <picklist>BUScope__c</picklist>
+            <values>
+                <fullName>All Products</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Business Line</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Business Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Business__c</picklist>
+            <values>
+                <fullName>INDIRECT PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PARTNERING ORGANIZATION</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PRODUCT PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SERVICES PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CategoryScope__c</picklist>
+            <values>
+                <fullName>All Categories</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category Group</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DataAcquisitionMethod__c</picklist>
+            <values>
+                <fullName>Data Load</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Survey</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Survey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Frequency__c</picklist>
+            <values>
+                <fullName>0</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>12</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GeoScope__c</picklist>
+            <values>
+                <fullName>All Markets</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Country</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Market</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Market Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Project</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LifecycleStage__c</picklist>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Obsolete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OperationalType__c</picklist>
+            <values>
+                <fullName>Lagging KPI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leading KPI</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ValuesType__c</picklist>
+            <values>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>String</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Obsolete</fullName>
+        <active>true</active>
+        <label>Obsolete</label>
+        <picklistValues>
+            <picklist>BUScope__c</picklist>
+            <values>
+                <fullName>All Products</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Business Line</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Business Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Business__c</picklist>
+            <values>
+                <fullName>INDIRECT PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PARTNERING ORGANIZATION</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PRODUCT PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SERVICES PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CategoryScope__c</picklist>
+            <values>
+                <fullName>All Categories</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category Group</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DataAcquisitionMethod__c</picklist>
+            <values>
+                <fullName>Data Load</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Survey</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Survey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Frequency__c</picklist>
+            <values>
+                <fullName>0</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>12</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GeoScope__c</picklist>
+            <values>
+                <fullName>All Markets</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Country</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Market</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Market Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Project</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LifecycleStage__c</picklist>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Obsolete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OperationalType__c</picklist>
+            <values>
+                <fullName>Lagging KPI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leading KPI</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ValuesType__c</picklist>
+            <values>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>String</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Published</fullName>
+        <active>true</active>
+        <label>Published</label>
+        <picklistValues>
+            <picklist>BUScope__c</picklist>
+            <values>
+                <fullName>All Products</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Business Line</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Business Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Business__c</picklist>
+            <values>
+                <fullName>INDIRECT PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PARTNERING ORGANIZATION</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PRODUCT PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SERVICES PROCUREMENT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>CategoryScope__c</picklist>
+            <values>
+                <fullName>All Categories</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Category</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category Area</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Category Group</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>DataAcquisitionMethod__c</picklist>
+            <values>
+                <fullName>Data Load</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Standalone Survey</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Survey</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Frequency__c</picklist>
+            <values>
+                <fullName>0</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>12</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>5</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>7</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>9</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GeoScope__c</picklist>
+            <values>
+                <fullName>All Markets</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Country</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Market</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Market Unit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Project</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LifecycleStage__c</picklist>
+            <values>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Obsolete</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>OperationalType__c</picklist>
+            <values>
+                <fullName>Lagging KPI</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leading KPI</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>ValuesType__c</picklist>
+            <values>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>String</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>PI_Title__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PIAbbreviation__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LifecycleStage__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DataAcquisitionMethod__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Frequency__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.FIRST_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.LAST_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_UPDATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <listViewButtons>SPE_Extended_ViewPI</listViewButtons>
+        <lookupDialogsAdditionalFields>PI_Title__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>PITitle__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LifecycleStage__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>GeoScope__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>BUScope__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CategoryScope__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>SurveyQuestion__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>PI_Title__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LifecycleStage__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>OperationalType__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ValuesType__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>PI_Title__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PITitle__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LifecycleStage__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GeoScope__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CategoryScope__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>BUScope__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>SurveyQuestion__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>SPE_Frequency</fullName>
+        <active>true</active>
+        <description>This rule puts a check on the Frequency for Survey PIs</description>
+        <errorConditionFormula>AND(ISPICKVAL(DataAcquisitionMethod__c, &apos;Survey&apos;), NOT(ISPICKVAL(Frequency__c,&apos;0&apos;)))</errorConditionFormula>
+        <errorDisplayField>Frequency__c</errorDisplayField>
+        <errorMessage>For Survey PIs, Frequency can not be set to any values other than 0</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_PIDueDateRequired</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL(DataAcquisitionMethod__c,&apos;Data Load&apos;)&amp;&amp; ISBLANK( PIUploadDuedate__c )</errorConditionFormula>
+        <errorDisplayField>PIUploadDuedate__c</errorDisplayField>
+        <errorMessage>Enter PI Upload Due date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_PIUploadDueDate_Blank</fullName>
+        <active>true</active>
+        <description>For survey based PI, the upload due date should be blank</description>
+        <errorConditionFormula>ISPICKVAL(DataAcquisitionMethod__c,&apos;Survey&apos;)&amp;&amp; NOT(ISBLANK( PIUploadDuedate__c ))</errorConditionFormula>
+        <errorDisplayField>PIUploadDuedate__c</errorDisplayField>
+        <errorMessage>For Survey based PI, PI Upload due date should be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_PIdatatypeNumberifmultiselectchoice</fullName>
+        <active>true</active>
+        <description>If the attached question answer is multiselect choice option then PI data type must be Number.</description>
+        <errorConditionFormula>ISPICKVAL(SurveyQuestion__r.AnswerType__c,&apos;Picklist&apos;) &amp;&amp; NOT(ISPICKVAL(ValuesType__c,&apos;Number&apos;))</errorConditionFormula>
+        <errorDisplayField>ValuesType__c</errorDisplayField>
+        <errorMessage>Question answer is multiselect choice option then PI data type must be Number.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_QuestionIDRequiredForSurveyBased</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK(SurveyQuestion__c) &amp;&amp; (ISPICKVAL(DataAcquisitionMethod__c,&apos;Survey&apos;) || ISPICKVAL(DataAcquisitionMethod__c,&apos;Standalone Survey&apos;))</errorConditionFormula>
+        <errorDisplayField>SurveyQuestion__c</errorDisplayField>
+        <errorMessage>For Survey / Standalone Survey Based Data Acquisition Method, Question ID can not be kept blank.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_Question_ID</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL(DataAcquisitionMethod__c,&apos;Data Load&apos;)&amp;&amp; NOT(ISBLANK( SurveyQuestion__c))</errorConditionFormula>
+        <errorDisplayField>SurveyQuestion__c</errorDisplayField>
+        <errorMessage>If Data Acquisition Method is Data load then Question ID must be blank.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_StageValidation</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(PRIORVALUE(LifecycleStage__c),&quot;Obsolete&quot;),OR( ISPICKVAL(LifecycleStage__c,&quot;Published&quot;),ISPICKVAL(LifecycleStage__c,&quot;Draft&quot;)))</errorConditionFormula>
+        <errorMessage>The Life-cycle stage must be Draft before converted to published</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_StatusRestriction</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(ISNEW(), OR(ISPICKVAL(LifecycleStage__c,&quot;Published&quot;), 
+ISPICKVAL(LifecycleStage__c,&quot;Obsolete&quot;) ))</errorConditionFormula>
+        <errorDisplayField>LifecycleStage__c</errorDisplayField>
+        <errorMessage>Lifecycle Stage must be Draft</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_Upload_Due_Date_cannot_exceed_25th</fullName>
+        <active>false</active>
+        <description>Upload due date field should not exceed 25th of a month</description>
+        <errorConditionFormula>DAY(PIUploadDuedate__c)&gt;25</errorConditionFormula>
+        <errorDisplayField>PIUploadDuedate__c</errorDisplayField>
+        <errorMessage>PI Upload Due date cannot exceed 25th.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>SPE_special_character_not_allowed</fullName>
+        <active>true</active>
+        <description>Name should be start with Alphanumeric only</description>
+        <errorConditionFormula>NOT(REGEX(PI_Title__c, &quot;[a-zA-Z 0-9]{1}.*&quot;))</errorConditionFormula>
+        <errorDisplayField>CategoryScope__c</errorDisplayField>
+        <errorMessage>Name should be start with Alphanumeric only</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Clone</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Clone</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.open(&apos;/apex/SPE2_PI_edit_or_new_page?id={!SPE_PIDefinition__c.Id}&amp;isClone=true&apos;,&apos;_self&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Create_PI_Values</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Upload PI Values</masterLabel>
+        <openType>sidebar</openType>
+        <page>SPE_DataLoader</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Delete_All_Related_PI_Values</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete PI Values Request</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>alert(&apos;Please Raise a support ticket mentioning the time ranges of the PI values you wish to delete&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Execute_PI_Upload_Due_Day</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Execute PI Upload Due Day</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot;)}
+
+sforce.apex.execute(&quot;SPE2ExecuteAdhocBatchCls&quot;,&quot;ExecuteAdhocBatch&quot;,{ });
+
+alert(&quot;Batch Job is in Progress!&quot;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Extended_View_Survey</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;PI Data Under Survey&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id + &quot;?pv0={!SPE_PIDefinition__c.Id}&quot;; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Extended_View_Survey_PI</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;PI Data Under Survey&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id + &quot;?pv0={! SPE_PIDefinition__c.Id }&quot;; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>SPE_Extended_ViewPI</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Extended View</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+try{ 
+var reportName = &quot;PI Library View Report&quot;; 
+
+var result = sforce.connection.query( 
+&quot;SELECT Id &quot; + 
+&quot;FROM Report &quot; + 
+&quot;WHERE Name = &apos;&quot; + reportName + &quot;&apos; &quot; + 
+&quot;LIMIT 1&quot; 
+); 
+
+var reports = result.getArray(&quot;records&quot;); 
+
+if(reports.length === 0){ 
+alert(&quot;The Report isn&apos;t Available in this Org!&quot;); 
+} 
+else{ 
+var url = &quot;/&quot; + reports[0].Id; 
+
+window.open(url, &quot;_blank&quot;); 
+} 
+} 
+catch(e){ 
+alert( 
+&quot;An unexpected Error has Occurred.\r\n&quot; + 
+&quot;Error: &quot; + e.message 
+); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Upload_PI_Values</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Upload PI Values</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if({!OR( ISPICKVAL( SPE_PIDefinition__c.LifecycleStage__c , &apos;Draft&apos;) ,  ISPICKVAL( SPE_PIDefinition__c.LifecycleStage__c , &apos;Obsolete&apos;) , NOT( ISBLANK( SPE_PIDefinition__c.SurveyQuestion__c ) ) )}){
+    alert(&apos;PI Value Upload is not available for Draft/Obsolete/Survey PI\&apos;s&apos;);
+}
+else{
+    window.open(&apos;/apex/SPEPIUploader_k1?id={!SPE_PIDefinition__c.Id}&apos;,&apos;_blank&apos;);
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,32 @@
+<apex:component controller="supplierSpendController">
+    
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>My Supplier Spend</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>   
+        <body>    
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-truncate">
+                            <p class="slds-text-heading--label">Spend Savings TPD Actuals and Estimates</p>
+                            <p class="slds-text-heading--label">for my key suppliers</p>
+                        </div>
+                    </div>
+                </div>
+               
+               </div>
+         </body>
+      </html>
+
+    <apex:chart height="300" width="50" data="{!ChartData}" background="white">
+       <apex:axis type="Numeric" minimum="0" position="left" fields="SpendAct,SpendLE"  title="Spend (M€)" grid="false" steps="20.0" />
+       <apex:legend position="right"/>
+       <apex:axis type="Category" position="bottom" fields="supplier"  title="Suppliers" >
+       <apex:chartLabel rotate="270" font="10px Helvetica, sans-serif"/>
+        </apex:axis> 
+                <apex:barSeries orientation="vertical" axis="left" xField="supplier" yField="SpendAct,SpendLE" Stacked="false" showInLegend="true" gutter="30" groupGutter="0" >
+        <apex:chartTips height="5" width="5"/>  </apex:barSeries>
+    </apex:chart><br/><br/>
+</apex:component>

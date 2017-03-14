@@ -1,0 +1,615 @@
+<!-- Purpose: Below code is written for QIPP DMAIC form creation page, This page is used in Creation and Edit of the Project related to DMAIC
+---- Author: Haripriya/Manish -----
+---- Created by: Haripriya -----
+---- Created Date: 31st May 2016 --> 
+ 
+<apex:page id="page" standardController="QIPP_Project__c" extensions="QIPPProject" sidebar="false" tabStyle="QIPP_Project__c" showHeader="true" title="{!If(proj.Id == null,'New DMAIC QIPP Project', 'QIPP Project Edit: '+proj.Project_Number__c)}">
+<apex:sectionHeader title="{!If(proj.Id == null ,$ObjectType.QIPP_Project__c.Label,$ObjectType.QIPP_Project__c.Label + ' Edit')}" subtitle="{!If(proj.Id == null ,'New DMAIC '+ $ObjectType.QIPP_Project__c.Label,proj.Project_Number__c)}"/>
+
+    <!-- Added by Rahul(15-11-2016)-- Start -->
+    <style type = 'text/css'>
+        #calMonthPicker, #calYearPicker{
+            width: auto;
+        }
+        
+        .BenfpopupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left:0px;
+            z-index: 9998;
+        }
+        
+        .LeadSponsorEqualPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 38%;
+            padding: 10px;
+            position: fixed;
+            width: 310px !important;
+            top: 32%;     
+        }
+        
+        #loading{
+           width: 100%;
+           height: 100%;
+           top: 0;
+           left: 0;
+           position: fixed;
+           display: block;
+           opacity: 0.5;
+           background-color: #E1E8EB;
+           z-index: 99;
+           text-align: center;
+        }
+        
+        #loading-image {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 100;
+        }
+    </style>
+    <!-- Added by Rahul(15-11-2016)-- End -->
+ 
+<apex:form id="form"><apex:inputHidden id="DistributionPercent" value="{!proj.Distribution__c}"/>    <apex:inputHidden id="oldBGVal" value="{!proj.Portfolio_BU__c}"/><apex:inputHidden id="oldBUVal" value="{!proj.Project_BL__c}"/>          <apex:inputHidden id="oldBLVal" value="{!proj.Benefitting_Project_BL_Level_4_Org__c}"/>
+    <apex:pageBlock id="pblock" mode="edit">
+    <div id="loading" style="display:none;">
+        <img id="loading-image" src="https://raw.githubusercontent.com/ressio/lazy-load-xt/master/src/loading.gif" alt="Loading..." />
+    </div>
+    <apex:pageMessages id="pgMsg"></apex:pageMessages>
+        <apex:pageBlockButtons >
+            <apex:commandButton id="saveButton" action="{!save}" onclick="startProcess(); CompareBBG(); if(isAcceptChange=='false') {return false;}" reRender="pgMsg,projLeadSponsorEqualPopup" Value="Save" title="Save" oncomplete="endProcess();"/>
+            <apex:commandButton id="saveandnewButton" action="{!saveAndNew}" onclick="startProcess(); CompareBBG(); if(isAcceptChange=='false') {return false;}" reRender="pgMsg,projLeadSponsorEqualPopup"  value="Save And New" title="Save And New" oncomplete="endProcess();"/>
+           
+            <apex:commandButton id="cancelButton" action="{!cancel}" Value="Cancel" title="Cancel" onclick="startProcess();" oncomplete="endProcess();" />
+           <!-- <apex:inputFile value="{!csvFileBody}" filename="{!csvAsString}" id="csvfile"/>
+            <apex:commandButton value="Import Project" action="{!importCSVFile}" onclick="checkit()" immediate="true"/> -->
+        </apex:pageBlockButtons>
+        <!-- Start of First Section -->
+        <apex:pageBlockSection id="pbsection1" columns="2" title="Standard Project Fields" collapsible="false">     
+              
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Name_Succinct__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Name_Succinct__c.Label}" for="projName"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="projName" value="{!proj.Project_Name_Succinct__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(ProjNameError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="portfolioBUItem" dataStyle="width:20%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Portfolio_BU__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Portfolio_BU__c.Label}" for="portfolioBU"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="portfolioBU" value="{!proj.Portfolio_BU__c}"><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(PBBGError)>0}" style="color:#d74c3b"/>
+                    
+                </apex:inputField>
+                </apex:outPutPanel>
+            </apex:pageBlockSectionItem>           
+            <apex:pageBlockSectionItem id="projLeadItem" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.Label}" for="projLead"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="projLead" value="{!proj.Project_Lead__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(ProjLeadError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="projLeadItem_RO" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Lead__c.Label}" for="projLead"/>
+                <apex:outputText id="projLead" value="{!proj.Project_Lead__r.name}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="bBU" dataStyle="width:20%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_BL__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_BL__c.Label}" for="bBU"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="bBU" value="{!proj.Project_BL__c}"/>
+                <!-- E036-Start- -->
+                <!--
+                <apex:actionRegion >
+                    <apex:inputField id="bBU" value="{!proj.Project_BL__c}">
+                        <apex:actionSupport event="onchange" action="{!bGMBBList}" reRender="bumbb"/>
+                    </apex:inputField>
+                </apex:actionRegion>
+                -->
+                <!-- E036-Start- -->
+                <br/><apex:outputText value="{!GenericError}" rendered="{!LEN(BBUError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="portfolioItem" dataStyle="width:10%" labelStyle="width:23%" helpText="{!$ObjectType.QIPP_Project__c.fields.Portfolio_Name__c.inlineHelpText}">           
+               <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Portfolio_Name__c.Label}" for="portfolioName"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:actionRegion >
+                <apex:selectList id="portfolioName1" value="{!portfolioName}" size="1">
+                        <apex:selectOptions value="{!PortfolioValues}"/>
+                        <apex:actionSupport event="onchange" action="{!getPortfolioBBGValue}" oncomplete="disabledBG();" reRender="portfolioBU,bBU,bBL,bumbb"/>
+                </apex:selectList><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(PortfolioError)>0}" style="color:#d74c3b"/>
+                </apex:actionRegion>
+                </apex:outputPanel>              
+           </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="bBL" dataStyle="width:20%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Benefitting_Project_BL_Level_4_Org__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Benefitting_Project_BL_Level_4_Org__c.Label}" for="portfolioDesc"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="bBL" value="{!proj.Benefitting_Project_BL_Level_4_Org__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(BBLError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="projState" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_State__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_State__c.Label}" for="projState"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                    <apex:selectList id="projState" value="{!projState}" size="1">
+                        <apex:selectOptions value="{!ProjectStateValues}"/>
+                    </apex:selectList>
+                 </apex:outputPanel>   
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="cemtID" helpText="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.Label}" for="cemtID"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="cemtID" value="{!proj.CEMT_ID__c}"/><br/><apex:outputText id="error" value="Error: Blank space not accepted, please use Not Applicable instead." rendered="{!LEN(CEMT_MeasureError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>            
+            <apex:pageBlockSectionItem id="PortfolioDec" helpText="{!$ObjectType.QIPP_Project__c.Fields.Project_Description_Detailed__c.inlineHelpText}" rendered="{!IF((projectId != null),true,false)}">
+                <apex:outputLabel id="ProjDecs" value="{!$ObjectType.QIPP_Project__c.fields.Project_Description_Detailed__c.Label}" for="projectDesc" style="display: inline-block;width: 110px;"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="portfolioDesc" value="{!proj.Project_Description_Detailed__c}" html-placeholder="1800 Character Limit" style="width: 590px; height: 60px"/><br/><apex:outputText id="error" value="{!GenericError}" rendered="{!LEN(ProjDescError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ProjectDec" helpText="{!$ObjectType.QIPP_Project__c.Fields.Project_Description_Detailed__c.inlineHelpText}" rendered="{!IF((projectId == null),true,false)}">
+                <apex:outputLabel id="ProjDecs" value="{!$ObjectType.QIPP_Project__c.fields.Project_Description_Detailed__c.Label}" for="projectDesc" style="display: inline-block;width: 110px;"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="portfolioDesc" value="{!proj.Project_Description_Detailed__c}" html-placeholder="1800 Character Limit" style="width: 590px; height: 60px"/><br/><apex:outputText id="error" value="{!GenericError}" rendered="{!LEN(ProjDescError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="cemtmeasureID" helpText="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.inlineHelpText}" rendered="{!IF((projectId == null),true,false)}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.CEMT_ID__c.Label}" for="cemtID"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="cemtID" value="{!proj.CEMT_ID__c}"/><br/><apex:outputText id="error" value="Error: Blank space not accepted, please use Not Applicable instead." rendered="{!LEN(CEMT_MeasureError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+       </apex:pageBlockSection>
+       
+        <!-- Start of Second Section -->
+       
+        <apex:pageBlockSection id="pbsection2" columns="3" title="DMAIC Specific Fields" collapsible="false">
+            <apex:pageBlockSectionItem id="bCandMentItem" dataStyle="width:10%" labelStyle="width:40%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Candidate_Mentor__c.inlineHelpText}">
+                <apex:outputLabel value="Project Mentor" for="bcandment"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="bCandMent" value="{!proj.Belt_Candidate_Mentor__c}" style="width:130px"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(ProjMentError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="bCandMentItem_RO" dataStyle="width:10%" labelStyle="width:40%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Candidate_Mentor__c.inlineHelpText}">
+                <apex:outputLabel value="Project Mentor" for="bcandment"/>
+                <apex:outputText id="bCandMentor" value="{!proj.Belt_Candidate_Mentor__r.name}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="bpSponsorItem" dataStyle="width:10%" labelStyle="width:40%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Sponsor__c.inlineHelpText}">
+                <apex:outputLabel value="Project Sponsor" for="bpsponsor"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="bpSponsor" value="{!proj.Belt_Project_Sponsor__c}" style="width:130px"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(ProjSponsError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="bpSponsorItem_RO" dataStyle="width:10%" labelStyle="width:40%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Sponsor__c.inlineHelpText}">
+                <apex:outputLabel value="Project Sponsor" for="bpsponsor"/>
+                <apex:outputText id="bProjSponsor" value="{!proj.Belt_Project_Sponsor__r.name}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="beltProjItem" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Type__c.inlineHelpText}">
+                <apex:outputLabel value="Project Type" for="Beltprjtyp"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                    <apex:selectList id="methodology" value="{!projectype}" size="1" style="width:230px">
+                        <apex:selectOptions value="{!ProjectTypeValues}"/>
+                    </apex:selectList><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(projtypeError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Champion__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Champion__c.Label}" for="bprojchamp"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="bprojchamp" value="{!proj.Belt_Project_Champion__c}" style="width:130px"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(ProjChampError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Finance_Approver__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Finance_Approver__c.Label}" for="finapprover"/>
+                <apex:inputField id="finapprover" value="{!proj.Finance_Approver__c}" style="width:130px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Mentor_Certificate__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Mentor_Certificate__c.Label}" for="mentorCert"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                    <apex:selectList id="mentorCert" value="{!mcertName}" size="1" style="width:230px">
+                        <apex:selectOptions value="{!MentorCertificatValues}"/>
+                    </apex:selectList><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(MentorCertError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="bumbbItem" dataStyle="width:10%" labelStyle="width:40%" helpText="Business Group Master Black Belt(BG-MBB) from the benefitting organization will be overseeing your project. This is dynamically updated based on the selected portfolio.">
+                <a id="theLink" target="_new" name="theLink" style="color: #4a4a56" href="https://workspaces-emea.int.nokia.com/sites/L6S/Lists/L6S%20Contacts/">Business Group Master Black Belt</a>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:selectList id="bumbb" value="{!bumbbName}" size="1">
+                        <!-- E036- start -->
+                        <!--<apex:selectOptions value="{!BumbbValues}"/>-->
+                        <apex:selectOptions value="{!bGMBBOptions}"/>
+                        <!-- E036- end -->                        
+                </apex:selectList><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(BUMBBError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="BeltProj" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Assigned__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Belt_Assigned__c.Label}" for="L6SBA"/>
+                <apex:inputField id="L6SBA" value="{!proj.Belt_Assigned__c}" required="false" style="width:130px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="BeltProjPhase" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Phase__c.inlineHelpText}" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="Project Phase" for="BeltProjPhase"/>
+                <apex:outputText id="BeltProjPhase" value="{!beltProjPhase}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="BeltProjPhase_RO" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Belt_Project_Phase__c.inlineHelpText}" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted ==  'Measure',phasecompleted ==  'Analyze',phasecompleted ==  'Improve',phasecompleted ==  'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="Project Phase" for="BeltProjPhase"/>
+                <apex:outputText id="BeltProjPhase" value="{!proj.Belt_Project_Phase__c}" />
+            </apex:pageBlockSectionItem>
+           <!--  Define phase-->
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Define__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Define__c.Label}" for="DDPlan" style="color:#124191"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="DDPlan" value="{!proj.DMAIC_Define__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(DDPlanError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%"  rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Define__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Define__c.Label}" for="DDPlan" style="color:#124191"/>
+                <apex:outputField id="DDPlanRO" value="{!proj.DMAIC_Define__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Define_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Define_Date_Forecast__c.Label}" for="DDforecast" style="color:#00c9ff"/>
+                <apex:inputField id="DDforecast" value="{!proj.Define_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Define_Date_Forecast__c.inlineHelpText}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Define_Date_Forecast__c.Label}" for="DDforecast" style="color:#00c9ff"/>
+                <apex:outputField id="DDforecast" value="{!proj.Define_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="DefineStat" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Define_Status__c.inlineHelpText}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Define_Status__c.Label}" for="DStatus" />
+                <apex:inputField id="DStatus" value="{!proj.Define_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="DefineStatus" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Define_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Define_Status__c.Label}" for="DStatus" />
+                <apex:outputField id="DStatus" value="{!proj.Define_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <!--  Measure phase-->
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Measure__c.inlineHelpText}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Measure__c.Label}" for="DMPlan" style="color:#124191"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="DMPlan" value="{!proj.DMAIC_Measure__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(MDPlanError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Measure__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Measure__c.Label}" for="DMPlan" style="color:#124191"/>
+                <apex:outputField id="DMPlan" value="{!proj.DMAIC_Measure__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Measure_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Measure_Date_Forecast__c.Label}" for="DMforecast" style="color:#00c9ff"/>
+                <apex:inputField id="DMforecast" value="{!proj.Measure_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Measure_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Measure_Date_Forecast__c.Label}" for="DMforecast" style="color:#00c9ff"/>
+                <apex:outputField id="DMforecast" value="{!proj.Measure_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="MeasureStat" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Measure_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Measure_Status__c.Label}" for="MStatus"/>
+                <apex:inputField id="MStatus" value="{!proj.Measure_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem> 
+            <apex:pageBlockSectionItem id="MeasureStatus" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Measure_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Measure_Status__c.Label}" for="MStatus"/>
+                <apex:outputField id="MStatus" value="{!proj.Measure_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>           
+            <!--  Analyze phase-->
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Analyze__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Analyze__c.Label}" for="DAPlan" style="color:#124191"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="DAPlan" value="{!proj.DMAIC_Analyze__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(ADPlanError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Analyze__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Analyze__c.Label}" for="DAPlan" style="color:#124191"/>
+                <apex:outputField id="DAPlan" value="{!proj.DMAIC_Analyze__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Analyze_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Analyze_Date_Forecast__c.Label}" for="DAforecast" style="color:#00c9ff"/>
+                <apex:inputField id="DAforecast" value="{!proj.Analyze_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Analyze_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Analyze_Date_Forecast__c.Label}" for="DAforecast" style="color:#00c9ff"/>
+                <apex:outputField id="DAforecast" value="{!proj.Analyze_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="AnalyzeStat" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Analyze_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Analyze_Status__c.Label}" for="AStatus" />
+                <apex:inputField id="AStatus" value="{!proj.Analyze_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="AnalyzeStatus" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.Analyze_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Analyze_Status__c.Label}" for="AStatus" />
+                <apex:outputField id="AStatus" value="{!proj.Analyze_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <!--  Improve phase-->
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Improve__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Improve__c.Label}" for="DIPlan" style="color:#124191"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="DIPlan" value="{!proj.DMAIC_Improve__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(IDPlanError)>0}" style="color:#d74c3b"/>           
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Improve__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Improve__c.Label}" for="DIPlan" style="color:#124191"/>
+                <apex:outputField id="DIPlan" value="{!proj.DMAIC_Improve__c}" />           
+            </apex:pageBlockSectionItem> 
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Improve_Design_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Improve_Design_Date_Forecast__c.Label}" for="DIforecast" style="color:#00c9ff"/>
+                <apex:inputField id="DIforecast" value="{!proj.Improve_Design_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Improve_Design_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Improve_Design_Date_Forecast__c.Label}" for="DIforecast" style="color:#00c9ff"/>
+                <apex:outputField id="DIforecast" value="{!proj.Improve_Design_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ImproveStat" dataStyle="width:10%" labelStyle="width:150px;display:inline-block" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Improve_Status__c.inlineHelpText}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Improve_Status__c.Label}" for="IStatus"/>
+                <apex:inputField id="IStatus" value="{!proj.Improve_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ImproveStatus" dataStyle="width:10%" labelStyle="width:150px;display:inline-block" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.Improve_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Improve_Status__c.Label}" for="IStatus"/>
+                <apex:outputField id="IStatus" value="{!proj.Improve_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <!--  Control phase-->
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Control__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Control__c.Label}" for="DCPlan" style="color:#124191"/>
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField id="DCPlan" value="{!proj.DMAIC_Control__c}"/><br/><apex:outputText value="{!GenericError}" rendered="{!LEN(CDPlanError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Control__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DMAIC_Control__c.Label}" for="DCPlan" style="color:#124191"/>
+                <apex:outputField id="DCPlan" value="{!proj.DMAIC_Control__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(phasecompleted !=  'Control' , TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Control_Verify_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Control_Verify_Date_Forecast__c.Label}" for="DCforecast" style="color:#00c9ff"/>
+                <apex:inputField id="DCforecast" value="{!proj.Control_Verify_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(phasecompleted == 'Control', TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Control_Verify_Date_Forecast__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Control_Verify_Date_Forecast__c.Label}" for="DCforecast" style="color:#00c9ff"/>
+                <apex:outputField id="DCforecast" value="{!proj.Control_Verify_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ControlStatus" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.Control_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Control_Status__c.Label}" for="CStatus" />
+                <apex:inputField id="CStatus" value="{!proj.Control_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ControlStat" dataStyle="width:10%" labelStyle="width:23%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}"  helpText="{!$ObjectType.QIPP_Project__c.fields.Control_Status__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Control_Status__c.Label}" for="CStatus" />
+                <apex:outputField id="CStatus" value="{!proj.Control_Status__c}" style="width:230px"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+       
+        <!-- Start of Third Section -->
+       
+        <apex:pageBlockSection id="pbsection3" columns="3" title="Additional Project Fields" collapsible="false" >
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.Label}" for="ProjDoc"/>
+                <apex:outputPanel >
+                <apex:inputField id="ProjDoc" value="{!proj.Project_Document__c}" required="false" style="width: 168px; height: 30px"/><apex:outputText value="Error: Enter a valid url where project doc is stored" rendered="{!LEN(projDocumentError)>0}" style="color:#d74c3b"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+           <!-- <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.inlineHelpText}" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Document__c.Label}" for="ProjDoc"/>
+                <apex:outputField id="ProjDoc" value="{!proj.Project_Document__c}" />
+            </apex:pageBlockSectionItem>-->
+            <apex:pageBlockSectionItem labelStyle="width:160px;display:inline-block" helpText="{!$ObjectType.QIPP_Project__c.fields.Planned_Start_Date__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Planned_Start_Date__c.Label}" for="PlanStartDt"/>
+                <apex:inputfield id="PlanStartDt" value="{!proj.Planned_Start_Date__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="CompDtPlanned" labelStyle="width:150px;display:inline-block" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Target__c.inlineHelpText}" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="Completion Date - Planned" for="CompDtPlanned"/>
+                <apex:inputfield id="CompDtPlanned" value="{!proj.Project_Completion_Date_Target__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="CompDtPlan" labelStyle="width:150px;display:inline-block" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Target__c.inlineHelpText}" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="Completion Date - Planned" for="CompDtPlanned"/>
+                <apex:outputfield id="CompDtPlanned" value="{!proj.Project_Completion_Date_Target__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="methodologyItem" dataStyle="width:10%" labelStyle="width:40%" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Type__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Type__c.Label}" for="methodology"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:selectList id="methodology" value="{!methodology}" size="1" style="width:173px">
+                            <apex:selectOptions value="{!MethodologyValues}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="methodologyItem_RO" dataStyle="width:10%" labelStyle="width:40%" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Type__c.inlineHelpText}">
+                    <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Type__c.Label}" for="methodo"/>
+                    <apex:outputText id="methodo" value="{!proj.Project_Type__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ProjStartDtActl" dataStyle="width:10%" labelStyle="" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.inlineHelpText}" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.Label}" for="ProjStartDtActl"/>
+                <apex:inputField id="ProjStartDtActl" value="{!proj.Project_Start_Date__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ProjStartActual" dataStyle="width:10%" labelStyle="" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.inlineHelpText}" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Start_Date__c.Label}" for="ProjStartDtActl_RO"/>
+                <apex:outputField id="ProjStartDtActl_RO" value="{!proj.Project_Start_Date__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="itemforcast" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Forecast__c.inlineHelpText}" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}">
+                <apex:outputLabel value="Completion Date - Forecast" for="forecast"/>
+                <apex:inputField id="forecast" value="{!proj.Project_Completion_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="itemforcast_RO" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Forecast__c.inlineHelpText}" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}">
+                <apex:outputLabel value="Completion Date - Forecast" for="forecast_RO"/>
+                <apex:outputField id="forecast_RO" value="{!proj.Project_Completion_Date_Forecast__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.MO_Site__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.MO_Site__c.Label}" for="MOSite"/>
+                <apex:inputField id="MOSite" value="{!proj.MO_Site__c}" required="false" style="width:173px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="ProjCreDt" dataStyle="width:10%" labelStyle="width:40%" >
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Created_Date__c.Label}" for="ProjCreDt"/>
+                <apex:outputField id="ProjCreDt" value="{!proj.Project_Created_Date__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="Actual" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Actual__c.inlineHelpText}" rendered="{!IF(And(phasecompleted != 'Define',phasecompleted !=  'Measure',phasecompleted !=  'Analyze',phasecompleted !=  'Improve',phasecompleted !=  'Control'), TRUE, FALSE)}">
+                <apex:outputLabel value="Completion Date - Actual" for="Actual"/>
+                <apex:inputField id="Actual" value="{!proj.Project_Completion_Date_Actual__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="Actual_RO" dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Completion_Date_Actual__c.inlineHelpText}" rendered="{!IF(OR(phasecompleted == 'Define',phasecompleted == 'Measure',phasecompleted == 'Analyze',phasecompleted == 'Improve',phasecompleted == 'Control'), TRUE, FALSE)}">
+                <apex:outputLabel value="Completion Date - Actual" for="Actual_RO"/>
+                <apex:outputField id="Actual_RO" value="{!proj.Project_Completion_Date_Actual__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Quality_Award_Project__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Quality_Award_Project__c.Label}" for="QtyAwardProj"/>
+                <apex:selectRadio id="qtyAwardProj" value="{!qtyAwardProj}" style="margin-top: -5px;margin-left:-15px;position:absolute;">
+                    <apex:selectOptions value="{!qtyAwardProjectValues}"/>
+                </apex:selectRadio>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Flex_Field_1__c.inlineHelpText}">
+                <apex:outputLabel value="Project Flex Field" for="ProjFlexField1"/>
+                <apex:inputField id="ProjFlexField1" value="{!proj.Project_Flex_Field_1__c}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.DI_State__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.DI_State__c.Label}" for="DIState"/>
+                <apex:selectList id="DIState" value="{!diState}" size="1">
+                    <apex:selectOptions value="{!DIStateValues}"/>
+                    </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem helpText="{!$ObjectType.QIPP_Project__c.fields.Permission_to_use_Belt_Info__c.inlineHelpText}">
+                <apex:outputLabel value="Permission to report Candidate recognition" for="PermBeltInfo" style="width:173px;display:inline-block;"/>
+                <apex:selectRadio id="PermBeltInfo" value="{!permBeltInfo}" style="margin-top: -5px;margin-left:-15px;position:absolute;">
+                    <apex:selectOptions value="{!permBeltInfoValues}"/>
+                    </apex:selectRadio>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Progress_To_Date__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Progress_To_Date__c.Label}" for="ptodate"/>
+                <apex:inputField id="ptodate" value="{!proj.Progress_To_Date__c}" required="false" style="width: 185px; height: 30px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Next_Steps__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Next_Steps__c.Label}" for="nextStep"/>
+                <apex:inputField id="nextStep" value="{!proj.Next_Steps__c}" required="false" style="width: 185px; height: 30px"/>
+            </apex:pageBlockSectionItem>
+           <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Member1__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Member1__c.Label}" for="member1"/>
+                <apex:inputField id="member1" value="{!proj.Project_Member1__c}" required="false" style="width: 170px"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem dataStyle="width:10%" labelStyle="width:40%" helpText="{!$ObjectType.QIPP_Project__c.fields.Project_Member2__c.inlineHelpText}">
+                <apex:outputLabel value="{!$ObjectType.QIPP_Project__c.fields.Project_Member2__c.Label}" for="member2"/>
+                <apex:inputField id="member2" value="{!proj.Project_Member2__c}" required="false" style="width: 170px"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        
+        
+        <apex:outputPanel id="projLeadSponsorEqualPopup">
+        <apex:actionFunction name="cancelLeadSponserPopuup" action="{!closeLeadSponsorEqualPopup}" reRender="projLeadSponsorEqualPopup" />
+        <apex:outputPanel id="popupLeadSponsorEqual" styleClass="BenfpopupBackground" layout="block" rendered="{!projLeadSponsorEqual}" />
+        <apex:outputPanel styleClass="LeadSponsorEqualPopup" layout="block" rendered="{!projLeadSponsorEqual}">
+
+           <apex:pageBlockSection >
+                <apex:pageBlockSectionItem id="projLeadSponsorEqual">
+                    <apex:outputLabel value="{!$Label.QIPP_Lead_and_Sponsor_is_Equal_Msg}" style="width: 300px;display: inline-block;text-align: left;"/>
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <div style="text-align:center;margin-top: 8px;">
+                 <apex:commandButton id="btnSaveLeadSponsorEqual" value="OK" action="{!save}"/>
+                <apex:commandButton id="btnCancelLeadSponsorEqual" value="Cancel" onclick="cancelLeadSponserPopuup(); return false;"/>
+            </div>             
+        </apex:outputPanel>
+    </apex:outputPanel>
+    
+        
+    </apex:pageBlock>
+    <apex:inputHidden id="myHiddenField"/>
+    <apex:actionFunction name="modifiedBBGDetails" action="{!BBGUpdated}" rerender="myHiddenField">
+    
+    </apex:actionFunction>
+    <!--<apex:actionFunction name="modifiedBBGDetails" action="{!BBGUpdated}"/>-->
+
+</apex:form>
+<!-- JQuery Liberary Files-->
+<apex:includeScript value="https://code.jquery.com/jquery-2.1.1.min.js"/>
+<script type="text/javascript">
+    var isAcceptChange = 'true';
+    var countBBG = false;
+    if('{!JSENCODE(phasecompleted)}' != 'Define' && '{!JSENCODE(phasecompleted)}' !=  'Measure' && '{!JSENCODE(phasecompleted)}' !=  'Analyze' && '{!JSENCODE(phasecompleted)}' !=  'Improve'&& '{!JSENCODE(phasecompleted)}' !=  'Control'){
+        
+        document.getElementById('page:form:pblock:pbsection2:BeltProjPhase:BeltProjPhase').disabled=true;
+        document.getElementById('page:form:pblock:pbsection3:itemforcast:forecast').disabled=true;
+        document.getElementById('page:form:pblock:pbsection3:Actual:Actual').disabled=true;
+        document.getElementById('page:form:pblock:pbsection3:CompDtPlanned:CompDtPlanned').disabled=true;
+        document.getElementById('page:form:pblock:pbsection3:ProjStartDtActl:ProjStartDtActl').disabled=true;
+        
+        document.getElementById('page:form:pblock:pbsection2:DefineStat:DStatus').disabled=true;
+        document.getElementById('page:form:pblock:pbsection2:MeasureStat:MStatus').disabled=true;
+        document.getElementById('page:form:pblock:pbsection2:AnalyzeStat:AStatus').disabled=true;
+        document.getElementById('page:form:pblock:pbsection2:ImproveStat:IStatus').disabled=true;
+        document.getElementById('page:form:pblock:pbsection2:ControlStatus:CStatus').disabled=true;
+    }
+   
+    var j$ = jQuery.noConflict();
+    j$(document).ready(function() {
+        j$("select[name='page:form:pblock:pbsection1:portfolioBUItem:portfolioBU']").attr('disabled','true');
+    }); 
+    
+    function disabledBG(){
+        j$("select[name='page:form:pblock:pbsection1:portfolioBUItem:portfolioBU']").attr('disabled','true');
+    }
+    
+    function startProcess(){
+        j$("[id^=loading]").each(function(index, ele){
+            j$(ele).show();
+        });
+    }
+    
+    function endProcess(){
+        j$("[id^=loading]").each(function(index, ele){
+            j$(ele).hide();
+        });
+    }
+    
+    function CompareBBG(){
+         
+         var dist = document.getElementById('page:form:DistributionPercent').value;
+         var bg = document.getElementById('page:form:oldBGVal').value;
+         var bu = document.getElementById('page:form:oldBUVal').value;
+         var bl = document.getElementById('page:form:oldBLVal').value;
+         
+         var newBG = document.getElementById('page:form:pblock:pbsection1:portfolioBUItem:portfolioBU').value;
+         var newBU = document.getElementById('page:form:pblock:pbsection1:bBU:bBU').value;
+         var newBL = document.getElementById('page:form:pblock:pbsection1:bBL:bBL').value;
+         //alert({!JSENCODE(cloneid)});
+         if('{!JSENCODE(cloneid)}' == null || '{!JSENCODE(cloneid)}' == ''){
+             if(bg!='' && bu!='' && bl!=''){
+                 if((bg!=newBG || bu!=newBU || bl!=newBL) && ('{!benefitAmount}'> 0.0 ))
+                 {
+                     modifiedBBGDetails();
+                     //if(dist!=100){
+                     if(!countBBG){
+                        countBBG = true;
+                        var r = confirm("Please review the %\'s allocated to Benefiting Business Groups associated with this Project.It will reset with the Selected Benefitting Business Group");
+                        if (r == true) {
+                            isAcceptChange = 'true';
+                            return true;
+                        } else {
+                            isAcceptChange = 'false';
+                            countBBG = false;
+                            return false;
+                        }
+                        }
+                        else{return true;}
+                     //}
+                 }
+             }
+         }
+     }
+</script>
+</apex:page>

@@ -1,0 +1,173 @@
+<apex:page standardController="SPE_PIDefinition__c">
+
+    <style>
+    .GreenColor
+    {
+     background: Green;
+    }
+
+    .GreyColor 
+    {
+     background: rgb(200, 186, 186);
+    }
+
+    th
+    {
+     text-align: center;
+     border-color: Black;
+    }
+
+    .table1 td
+    {
+     height: 10px;
+     border-color: Black;
+    }
+
+    .table2 td
+    {
+     height: 19.9px;
+     border-color: Black;
+    }
+
+    table 
+    {
+     border-color: Black;
+     border-collapse: collapse;
+     width: 30%;
+     float: left;
+     margin-top: 15px;
+     margin-right: 30px;
+    }
+
+    hr
+    {
+     display: block;
+     margin-top: 1em;
+     margin-bottom: 1em;
+     border-color: green;
+     border-width: 1px;
+    }
+</style>
+
+    <hr />
+    <table border="1" cellspacing="1" cellpadding="4" class="table1">
+        <tr>
+            <th>Geography</th>
+            <th>Indication</th>
+        </tr>
+
+        <tr>
+            <td>All Markets</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.GeoScope__c == 'All Markets' || SPE_PIDefinition__c.GeoScope__c == 'Market' 
+                            || SPE_PIDefinition__c.GeoScope__c == 'Market Unit' || SPE_PIDefinition__c.GeoScope__c == 'Country' 
+                                || SPE_PIDefinition__c.GeoScope__c == 'Project', 'GreenColor', 'GreyColor')}">
+            </td>
+        </tr>
+        <tr>
+            <td>Market</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.GeoScope__c == 'Market' || SPE_PIDefinition__c.GeoScope__c == 'Market Unit' 
+                            || SPE_PIDefinition__c.GeoScope__c == 'Country' 
+                                || SPE_PIDefinition__c.GeoScope__c == 'Project','GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Market Unit</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.GeoScope__c == 'Market Unit' || SPE_PIDefinition__c.GeoScope__c == 'Country' 
+                                || SPE_PIDefinition__c.GeoScope__c == 'Project', 'GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.GeoScope__c == 'Country'
+                             || SPE_PIDefinition__c.GeoScope__c == 'Project', 'GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Project</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.GeoScope__c == 'Project', 'GreenColor', 'GreyColor' )}">
+            </td>
+        </tr>
+    </table>
+
+    <table border="1" cellspacing="1" cellpadding="4" class="table2">
+        <tr>
+            <th>Categories</th>
+            <th>Indication</th>
+        </tr>
+        <tr>
+            <td>All Categories</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.CategoryScope__c== 'All Categories' || SPE_PIDefinition__c.CategoryScope__c== 'Category Area'
+                             || SPE_PIDefinition__c.CategoryScope__c== 'Category Group' || SPE_PIDefinition__c.CategoryScope__c == 'Category', 'GreenColor', 'GreyColor')}">
+            </td>
+        </tr>
+        <tr>
+            <td>Category Area</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.CategoryScope__c== 'Category Area' || SPE_PIDefinition__c.CategoryScope__c== 'Category Group' 
+                            || SPE_PIDefinition__c.CategoryScope__c == 'Category','GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Category Group</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.CategoryScope__c== 'Category Group' 
+                            || SPE_PIDefinition__c.CategoryScope__c == 'Category', 'GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.CategoryScope__c == 'Category', 'GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+
+    </table>
+
+
+
+
+    <table border="1" cellspacing="1" cellpadding="4" class="table2">
+        <tr>
+            <th>Products</th>
+            <th>Indication</th>
+
+        </tr>
+
+        <tr>
+            <td>All Products</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.BUScope__c== 'All Products' || SPE_PIDefinition__c.BUScope__c== 'Business Unit' 
+                            || SPE_PIDefinition__c.BUScope__c== 'Business Line' || SPE_PIDefinition__c.BUScope__c== 'Product', 'GreenColor', 'GreyColor')}">
+            </td>
+        </tr>
+        <tr>
+            <td>Business Unit</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.BUScope__c== 'Business Unit' || SPE_PIDefinition__c.BUScope__c== 'Business Line' 
+                            || SPE_PIDefinition__c.BUScope__c== 'Product','GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Business Line</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.BUScope__c== 'Business Line' 
+                            || SPE_PIDefinition__c.BUScope__c== 'Product', 'GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+        <tr>
+            <td>Product</td>
+            <td
+                class="{!If(SPE_PIDefinition__c.BUScope__c== 'Product', 'GreenColor', 'GreyColor' ) }">
+            </td>
+        </tr>
+
+    </table>
+
+
+</apex:page>

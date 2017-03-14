@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;form onmousemove=&quot;if(getElementById(&apos;textBoxImage&apos;)) {document.getElementById(&apos;textBoxDiv&apos;).innerHTML=&apos;&lt;input id=\&apos;searchField\&apos; maxlength=\&apos;80\&apos; name=\&apos;sbstr\&apos; size=\&apos;18\&apos; value=\&apos;\&apos; type=\&apos;text\&apos;&gt;&lt;input value=\&apos; Go! \&apos; class=\&apos;btn\&apos; type=\&apos;submit\&apos;&gt;&apos;}&quot; id=&quot;searchForm&quot; name=&quot;advsrch&quot; action=&quot;/search/SearchResults?searchType=2&amp;amp;sen=0&amp;amp;setLast=1&quot; method=&quot;post&quot;&gt;
+&lt;div id=&quot;textBoxDiv&quot;&gt;&lt;input id=&quot;searchField&quot; maxlength=&quot;80&quot; size=&quot;18&quot; name=&quot;sbstr&quot;&gt;&lt;input class=&quot;btn&quot; type=&quot;submit&quot; value=&quot; Go! &quot;&gt;&lt;/div&gt;&lt;/form&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>

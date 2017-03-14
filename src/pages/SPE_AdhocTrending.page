@@ -1,0 +1,17 @@
+<apex:page standardController="SPE_ConsequenceManagement__c" extensions="SPE_AdhocTrendingExt"  sidebar="false">
+<apex:form >
+<apex:pageMessages ></apex:pageMessages>
+<apex:sectionHeader title="Adhoc KPI Score Trend" subtitle="KPI Trend"/>
+<apex:pageblock >
+<apex:pageblockButtons >
+<apex:commandButton value="Generate KPI Trend" action="{!generateTrend}"/>
+<apex:commandButton value="{!$Label.SPE_Cancel}" action="{!cancel}"/>
+</apex:pageblockButtons>
+<apex:pageblockSection >
+  <apex:inputText value="{!startDate}" size="10" id="demo" onfocus="DatePicker.pickDate(false, this , false);" label="KPI Trend Start Date" required="True"/>
+  
+  <!-- <apex:input type="auto" value="{!startDate}" label="Tracker Execution:"/> -->
+</apex:pageblockSection>
+</apex:pageblock>
+</apex:form>
+</apex:page>

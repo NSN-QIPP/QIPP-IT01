@@ -1,0 +1,35 @@
+<apex:page standardController="QIPP_Project__c" extensions="QIPP_Project_Record_Types_Page_cntr" tabStyle="QIPP_Project__c">
+<a name="skiplink"><img src="/s.gif" height='1' width='1' alt="Content Starts Here" class="skiplink skipLinkTargetInner zen-skipLinkTarget" title="Content Starts Here"/></a><div class="bPageTitle"><div class="ptBody"><div class="content"><img src="/s.gif" alt="QIPP Project"  class="pageTitleIcon" title="QIPP Project"/><h1 class="pageType">New QIPP Project<span  class="titleSeparatingColon">:</span></h1><h2 class="pageDescription"> QIPP Project Methodologies </h2><div class="blank">&nbsp;</div></div><div class="links"></div></div><div class="ptBreadcrumb"></div></div><div class="bDescription" style="font-size:14px;"><b style="font-size: 1.4em; font-weight: normal">To create a new QIPP Project</b>, please click on relevant methodology in below table.</div>
+<script language="javascript">
+document.onmousedown=disableclick;
+status="Right Click Disabled";
+function disableclick(event)
+{
+  if(event.button==2)
+   {
+       //alert(status);
+     return false;    
+   }
+}
+</script>
+    
+    <apex:form >
+        <table  class="infoTable recordTypeInfo" border="0" cellpadding="0" cellspacing="0">
+            <tr class="headerRow">
+                <TH class="recordTypeName" scope="col">Methodology Name</TH>
+                <TH class="recordTypeDescription" scope="col">Description</TH>
+            </tr>
+            <apex:repeat value="{!ry}" var="r" id="theRepeat">
+            <tr oncontextmenu="return false">
+                <TH class="recordTypeName" scope="row">
+                    <u><apex:commandlink value="{!RIGHT(r.Name,LEN(r.Name)-13)}" id="CLink" action="{!Createpage}" style="font-size:13px;color: #125699 ;">
+                    <apex:param name="RecordTypeID" assignTo="{!RecordTypeID}" value="{!r.name}" />
+                    </apex:commandlink></u>
+                </TH>
+               <td class="recordTypeDescription">{!r.Description}</td>
+            </tr>
+            </apex:repeat>
+            
+        </table>
+    </apex:form>
+</apex:page>

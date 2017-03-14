@@ -1,0 +1,27 @@
+<apex:page showHeader="false" >
+  <apex:form >  
+  <!-- Begin Default Content REMOVE THIS -->
+  <div style="float:right;color:white;font-size:16px;background-color:#834358">
+  QIPP – Qualified Auditors
+  </div>
+  <br /><br />
+  <div style="width:1280px;height:20px;float:center;padding-top:3px;padding-center:6px;font-size:18px;color:black; text-align:center;background-color:#A2BFF4">
+  <b>Read This First!</b>
+  </div>
+  
+  <div style="color:black;background-color:#DDDDDD">
+  
+  <P>This tool is the Nokia-wide database for maintaining the qualified internal auditors.  All internal auditors must meet the criteria defined in <apex:commandLink >https://sharenet-ims.inside.nokiasiemensnetworks.com/Guest/Open/D-391462</apex:commandLink> document, Nokia Document Identifier:  D-391462.  Each individual must ensure that their individual record within the Nokia Internal Auditor List is accurate and their qualifications are valid.  Each qualified internal auditor must maintain and improve their competence with respect to auditing through continual professional development and regular participation in audits.  Auditors develop, maintain and improve their competence through continual professional development and regular participation in audits. The competence of auditors is based on:</P>
+  <P>Personal attributes - the need to be ethical, open-minded, diplomatic, observant, perceptive, versatile, tenacious, decisive and self-reliant, in order to examine and verify the accuracy of collected information to confirm the sufficiency and appropriateness of the evidence to support audit findings and conclusions.</P>
+  <P>Work experience and knowledge of the processes to be audited
+    Appropriate education, auditor training and audit experience, including knowledge of the relevant management system standard(s) and reference documents – all auditors must have evidence of completion of the appropriate management system standard training and internal auditor training.  Management System Training requires training and appropriate certification in the following standards, as applicable:</P>
+  <P>In order to retain their status as auditors, auditors should maintain their auditing ability through:<br />
+  - regular participation in audits as an auditor or audit team leader(at least 3 audits over a period of 3 years for each management systems) <br />
+  - attendance at suitable seminars and conferences or other relevant activities (internal and external) is acceptable to substitute for 1 audit over the 3 year period <br />
+  - or achievement of other auditing qualifications that demonstrate current competency, with approval from the appropriate management system leadership team to waive the above mentioned requirements
+  Auditors should be able to demonstrate their continual professional development and take responsibility for ensuring their record within the Nokia auditor list is up to date.
+  </P>
+  </div>
+  <!-- End Default Content REMOVE THIS -->
+  </apex:form>
+</apex:page>

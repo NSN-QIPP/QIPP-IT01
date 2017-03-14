@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>MCAR_EMS_Search</links>
+    <links>MCARs_Pending_My_Action</links>
+    <links>MCAR_Severity_Description</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

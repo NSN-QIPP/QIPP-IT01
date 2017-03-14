@@ -1,0 +1,199 @@
+<apex:page controller="MCARReportController"  standardStyleSheets="false" showHeader="false" cache="false" tabStyle="Account" >
+    <HTML>   
+        <APEX:FORM >          
+    <style>
+            h4
+            {
+                width: 100%;
+                text-align:center;
+                color:blue;                         
+            }
+        table{
+            width: 100%;
+            background-color: #f8f8f8;
+            border:1px solid #EAEAEA;
+            padding: 5px;
+        }
+        
+        tr{
+            text-align: left;
+            padding: 4px 2px;
+        }
+        
+        .first h3{
+            background-color: #0CA1CF;
+            padding: 5px 3px;
+        }
+        
+        .page_navigation{
+            font-family: tahoma;
+            font-size: 11px;
+            float: right;
+            
+        }
+        
+        .page_navigation a{
+            text-decoration: none;
+            padding: 3px 5px;
+            margin: 0 2px;
+            background-color: #28ADD9;
+            color: white;
+            display: block;
+            float: left;
+            text-align: center;
+        }
+        
+        .page_navigation .active_page{
+            background-color: white;
+            color: black;
+        }
+        
+        .demo2{
+            margin: 10px 5px;
+            background-color: #00064F;
+            overflow:auto;
+            text-align: center
+        }
+        
+        .title{
+            font-family: Georgia;
+            font-size: 36px;
+            font-style: italic;
+            color: white;
+            padding: 10px;
+        }
+        
+        .head{
+            font-family: Tahoma;
+            font-size:20px;
+            color: orange;
+            padding: 5px;
+            overflow: auto;
+        }
+        
+        .body {
+            background-color: #C6D9D2;
+            
+        }
+        
+        .content {
+            width: 90%;
+            margin: 0px auto;
+            overflow: auto;
+        }
+        
+        .item{
+            color: black;
+            font-family: Georgia;
+            font-size: 16px;
+            padding: 10px;
+            display: block;
+            
+        }
+        
+        .block{
+            display:block;
+        }
+        
+        .panel {
+            width: 40%;
+            float: left;
+            padding: 0 30px;
+            
+        }
+        
+        .demo2 .page_navigation a{
+            background-color: orange;
+            color: black;
+        }
+        
+        .demo2 .page_navigation .active_page{
+            background-color: transparent;
+            color: white;
+        }
+    </style>     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>       
+        <script>
+            $(document).ready(function(){
+                       $("#click").click(function(){ 
+
+                var patter1 = /^([0-9]{4})\-([0-9]{2})$/;
+                var x = document.getElementById("Format").value;                                        
+                             
+                if(patter1.test(x)) 
+                    {                        
+                        window.open("/apex/mcarreportpage?flag=flt&flt="+x);    
+                    }
+                else alert("In Correct Data or Format..!");
+            });                        
+                          }                              
+                         );
+        </script>
+         
+          <apex:define name="content">    
+     
+            <apex:pageBlock id="pb" >                                  
+                <apex:pageBlockSection title="SPE REPORT" columns="1" id="pbs">                       
+                    <div class="page_navigation"></div>                       
+                    <center><input type="button" onClick="location.href='/apex/mcarreportpage?flag=all'" value='EXPORT ALL' style="background:#FA4A44;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" onClick="location.href='/apex/mcarreportpage?flag=lm'" value='LAST MONTH' style="background:#52BE80" />                        
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                                                                
+                        
+                   <input type="button" id="click" class="button-a blue"  onclick="CheckFormat();"  value="FILTER" style="background:#F7DC6F" />
+                    <input type="text" value="YYYY-MM" name="Format" id="Format" style="background:#F9E79F;width: 65px;" 
+ onblur="if (this.value == '') {this.value = 'YYYY-MM';}"
+ onfocus="if (this.value == 'YYYY-MM') {this.value = '';}" />
+ 
+ </center> 
+ 
+                    <marquee> <h4>Next Scheduled Time to Send Report : {!NextSchedule}</h4></marquee>
+                    <apex:variable var="i" value="{!0}" />                     
+                    <apex:repeat value="{!ListMcarData}" var="ls" rows="1" >                   
+                        <apex:dataTable value="{!ls}" var="r" border="1" >  
+                            <apex:column ><apex:variable var="i" value="{!i+1}" /></apex:column>
+                            <apex:column headerValue="Period" value="{!r.Period}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Period" value="{!r.Period}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Enterprise Id" value="{!r.EID}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Enterprise Id" value="{!r.EID}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Manufacturer" value="{!r.manufacturer}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Manufacturer" value="{!r.manufacturer}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Category Area" value="{!r.categoryArea}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Category Area" value="{!r.categoryArea}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Category Group" value="{!r.CategoryGroup}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Category Group" value="{!r.CategoryGroup}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Category" value="{!r.category}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Category" value="{!r.category}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="MCAR Cases" value="{!r.MCARCases}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="MCAR Cases" value="{!r.MCARCases}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Quantity" value="{!r.quantity}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Quantity" value="{!r.quantity}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="3D CT Avg" value="{!r.CT3Davg}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="3D CT Avg" value="{!r.CT3Davg}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="4D CT Avg" value="{!r.CT4Davg}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="4D CT Avg" value="{!r.CT4Davg}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Close CT Avg" value="{!r.CTMCARavg}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Close CT Avg" value="{!r.CTMCARavg}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                            
+                            <apex:column headerValue="Field Failiuer" value="{!r.FieldFailurer}" rendered="{!if((mod(i,2))==0,true,false)}"  />
+                            <apex:column headerValue="Field Failiuer" value="{!r.FieldFailurer}" rendered="{!if((mod(i,2))==1,true,false)}" style="background:#E5E8E8"  />
+                        </apex:dataTable>                         
+                    </apex:repeat>
+                    
+                      
+                    <div class="page_navigation"></div>
+                </apex:pageBlockSection>
+            </apex:pageBlock>              
+        </apex:define>   
+        </APEX:FORM>        
+        </HTML>
+</apex:page>

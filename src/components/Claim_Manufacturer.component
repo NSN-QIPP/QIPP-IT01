@@ -1,0 +1,4 @@
+<apex:component controller="Claim_Manufacturer" access="global">
+    <apex:attribute name="ClaimId" assignTo="{!Claim_Id}" description="This is the value for the component." type="String"/>
+    {!Manufacturer}
+</apex:component>

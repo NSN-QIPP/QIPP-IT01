@@ -1,0 +1,96 @@
+<apex:page controller="QIPP_MultiPOSelectConroller" sidebar="false" >
+    <head>
+    <!--<apex:sectionHeader title="Portfolio Owners List" subtitle="Add Portfolio Owners"  />-->
+        <script src="{!URLFOR($Resource.Pagination,'DataTable/jquery-1.11.1.min.js')}"></script>
+        <script src="{!URLFOR($Resource.Pagination,'DataTable/jquery.dataTables.min.js')}"></script>
+        <link href="{!URLFOR($Resource.Pagination,'DataTable/jquery.dataTables.css')}" rel="stylesheet" />
+        <script>
+            j$ = jQuery.noConflict();   
+            var contactTable;
+            j$(document).ready( function () {
+                contactTable = j$('[id$="projecttable"]').DataTable({
+                    "order": [],
+                    "lengthMenu": [ 30, 50, 75, 100 ],
+                    aoColumnDefs: [
+                      {
+                         bSortable: false,
+                         aTargets: [ -1 ]
+                      }
+                    ]
+                });
+             });
+        </script>
+    </head>    
+    <apex:form >    
+        <apex:pageBlock title="Available Portfolio Owners">
+            <body>
+                <apex:pagemessages id="errorblock"/>
+                <table id="projecttable" class="display" style="font-size:1em" >
+                    <thead>
+                        <tr>
+                        <!--<apex:commandButton id="newProject" onclick="projectCreation()" value="New QIPP Project"  title="Create New QIPP Project" style="margin-left: 400px;font-size: 1.2em;margin-bottom: 10px;"/>-->
+                        <apex:commandButton id="selectbtn" action="{!addPo}" value="Select" style="margin-left:500px"/>        
+                        <apex:commandButton value="Cancel" action="/{!poid}" style="margin-left:10px"/>
+                        </tr>
+                        <tr>
+                            <th align="left" style="padding-left: 1px;">Select</th>
+                            <th align="left" style="padding-left: 1px;">Name</th>
+                            <th align="left" style="padding-left: 1px;">Email Address</th>
+                            <th align="left" style="padding-left: 1px;">DMAIC / DMADV</th>
+                            <th align="left" style="padding-left: 1px;">Lean (including Kaizen)</th>
+                            <th align="left" style="padding-left: 1px;">8D</th>
+                            <th align="left" style="padding-left: 1px;">A3</th>
+                            <th align="left" style="padding-left: 1px;">CIF</th>
+                            <th align="left" style="padding-left: 1px;">DI (CoPQ)</th>
+                            <th align="left" style="padding-left: 1px;">RCA/EDA</th>
+                            <th align="left" style="padding-left: 1px;">Other</th>
+                            <th align="left" style="padding-left: 1px;">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <apex:repeat value="{!pocNotSelect}" var="pos"> 
+                            <tr id="selecttr">
+                                <td id="isSelect">
+                                    <apex:inputCheckbox styleClass="chboxisselect" value="{!pos.isSelect}" />                    
+                                </td>
+                                <td id="Name">{!pos.name}</td>
+                                <td id="email">{!pos.email}</td>
+                                      <td id="Dmaic">
+                                    <apex:inputCheckbox value="{!pos.dmaic}" disabled="{!pos.dmaicEdit}" />                    
+                                </td>
+                                <td id="lean">
+                                    <apex:inputCheckbox value="{!pos.lean}" disabled="{!pos.leanEdit}"/>                    
+                                </td>
+                                <td id="8D">
+                                    <apex:inputCheckbox value="{!pos.X8D}" disabled="{!pos.X8DEdit}"/>                    
+                                </td>
+                                <td id="A3">
+                                    <apex:inputCheckbox value="{!pos.A3}" disabled="{!pos.A3Edit}"/>                    
+                                </td>
+                                <td id="CIF">
+                                    <apex:inputCheckbox value="{!pos.CIF}" disabled="{!pos.CIFEdit}"/>                    
+                                </td>
+                                <td id="DILogic">
+                                    <apex:inputCheckbox value="{!pos.DILogic}" disabled="{!pos.DILogicEdit}"/>                    
+                                </td>
+                                <td id="RCA">
+                                    <apex:inputCheckbox value="{!pos.RCA}" disabled="{!pos.RCAEdit}"/>                    
+                                </td>
+                                <td id="Others">
+                                    <apex:inputCheckbox value="{!pos.Others}" disabled="{!pos.OthersEdit}"/>                    
+                                </td>
+                                <td id="detail">
+                                    <apex:commandLink target="_blank" value="Details" action="/{!pos.cid}"  />
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                        <!--<table>
+                            <apex:commandButton id="select" action="{!addPo}" value="Select" style="margin-left:500px"/>        
+                            <apex:commandButton value="Cancel" action="/{!poid}" style="margin-left:10px"/>
+                        </table>-->
+                </table>    
+            </body>    
+        </apex:pageBlock>        
+    </apex:form>
+</apex:page>

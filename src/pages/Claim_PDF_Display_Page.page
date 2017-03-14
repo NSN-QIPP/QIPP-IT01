@@ -1,0 +1,373 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="getClaimRecordForPDF" renderAs="pdf">
+<apex:form >
+ <apex:image url="{!$Resource.NSN_New_Logo}" width="154" height="76"/>
+ <BR></BR>
+
+<apex:pageBlock >
+
+ <th>Claim#</th>
+ <th>{!claim.name}</th>
+ <hr></hr>
+ </apex:pageBlock>
+<table width="100%">
+<tr>
+<th width="50%">General Information</th>
+<th width="50%"></th>
+</tr> 
+  <tr>
+
+    <td>
+    <table border="0" cellpadding="5">
+          <tr>
+        <td>Manufacturer</td>
+        <td><apex:outputField value="{!manufacturer.name}"/></td>
+        </tr>
+        <tr>
+      
+        <td>Manufacturer EnterpriseID</td>
+        <td><apex:outputField value="{!manufacturer.name}"/></td>
+        </tr>
+        <tr>
+        <td>Title</td>
+        <td><apex:outputField value="{!claim.Title__c}"/></td>
+        </tr>
+        <tr>
+        <td>Category Area</td>
+        <td><apex:outputField value="{!claim.Part_Category__c}"/></td>
+        </tr>
+        <tr>
+        <td>Category Group</td>
+        <td><apex:outputField value="{!claim.Sub_Category__c}"/></td>
+        </tr>
+        <tr>
+        <td>Related to Customer Issue</td>
+        <td><apex:outputField value="{!claim.Related_to_Customer_Issue__c}"/></td>
+        </tr>
+        <tr>
+        <td>Claim Direction</td>
+        <td><apex:outputField value="{!claim.Claim_Direction__c}"/></td>
+        </tr>
+        <tr>
+        <td>Retrofit Amount</td>
+        <td><apex:outputField value="{!claim.Retrofit_Amount__c}"/></td>
+        </tr>
+        <tr>
+        <td>Retrofit Case</td>
+        <td><apex:outputField value="{!claim.Retrofit_Case__c}"/></td>
+        </tr>
+        <tr>
+        <td>Facility</td>
+        <td><apex:outputField value="{!claim.H_Facility_Name__c}"/></td>
+        </tr>
+         <tr>
+        <td>Colour Status</td>
+        <!--<td><apex:outputField value="{!claim.Colour_Status__c}"/></td>-->
+             <!--<td><apex:image url="{!$Resource.Claims_Red}" width="50" height="10"/></td>-->
+             <td><apex:image url="{!$Resource[colorstatus]}" width="50" height="10"  /></td>
+        </tr>
+        <tr>
+        <td>Supplied Product Summary</td>
+        <td><apex:outputField value="{!claim.Supplied_Product_Summary__c}"/></td>
+        </tr>
+        
+        <tr>
+        <td> Response Due Date </td>
+        <td><apex:outputField value="{!claim.Response_Due_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Payment Summary</td>
+        <td><apex:outputField value="{!claim.Payment_Summary__c}"/></td>
+        </tr>
+        <tr>
+        <td>Nokia Action Summary</td>
+        <td><apex:outputField value="{!claim.Nokia_Action_Summary__c}"/></td>
+        </tr>
+        <tr>
+        <td>Probability</td>
+        <td><apex:outputField value="{!claim.Probability__c}"/></td>
+        </tr>
+        <tr>
+        <td>Related Claim</td>
+        <td><apex:outputField value="{!claim.H_Related_Claim__c}"/></td>
+        </tr>
+        <tr>
+        <td>manual date updated</td>
+        <td><apex:outputField value="{!claim.manual_date_updated__c}"/></td>
+        </tr>
+        <tr>
+        <td>Sup.Confirmed Re-ceipt of Reclamation</td>
+        <td><apex:outputField value="{!claim.Sup_Confirmed_Re_ceipt_of_Reclamation__c}"/></td>
+        </tr>
+        <tr>
+        <td>updated_manufacturer</td>
+        <td><apex:outputField value="{!claim.updated_manufacturer__c}"/></td>
+        </tr>
+        </table>
+        
+    </td>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Owner</td>
+        <td><apex:outputField value="{!claim.owner.name}"/></td>
+        </tr>
+        <tr>
+        <td>Claim Status</td>
+        <td><apex:outputField value="{!claim.Claim_Status__c}"/></td>
+        </tr>
+        <tr>
+        <td>Open Date</td>
+        <td><apex:outputField value="{!claim.Open_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Expected Closing Date</td>
+        <td><apex:outputField value="{!claim.Expected_Closing_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Date Problem Was First Detected</td>
+        <td><apex:outputField value="{!claim.Date_Problem_Was_First_Detected__c}"/></td>
+        </tr>
+        <tr>
+        <td>Created By</td>
+        <td><apex:outputField value="{!claim.CreatedBy.Name}"/></td>
+        </tr>
+        <tr>
+        <td>Last Modified By</td>
+        <td><apex:outputField value="{!claim.LastModifiedBy.Name}"/></td>
+        </tr>
+        </table>
+    </td>
+    
+    </tr>
+
+</table>
+
+<br/>
+<hr/>
+
+<table border="0" width="100%">
+<tr>
+<th>Root Cause Analysis - Summary</th>
+<th width="50%"></th>
+</tr>       
+ <tr>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Root Cause Summary - for CLAIM LETTER</td>
+        <td><apex:outputField value="{!claim.Root_Cause_Summary__c}"/></td>
+        </tr>
+        <tr>
+        <td>Other Information</td>
+        <td><apex:outputField value="{!claim.Other_Information__c}"/></td>
+        </tr>
+        <tr>
+        <td>Sending Claim letter</td>
+        <td><apex:outputField value="{!claim.Sending_Claim_letter__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Corrective Actions Summary</td>
+        <td><apex:outputField value="{!claim.Corrective_Actions_Summary__c}"/></td>
+        </tr>
+        <tr>
+        <td>Manufacturer Accepts Full Responsibility</td>
+        <td><apex:outputField value="{!claim.Manufacturer_Accepts_Full_Responsibility__c}"/></td>
+        </tr>
+        <tr>
+        <td>Send Reclamation Letter</td>
+        <td><apex:outputField value="{!claim.Send_Reclamation_Letter__c}"/></td>
+        </tr>
+        <tr>
+        <td>Sup.Confirmed Re-ceipt of Reclamation</td>
+        <td><apex:outputField value="{!claim.Sup_Confirmed_Re_ceipt_of_Reclamation__c}"/></td>
+        </tr>
+        
+        </table>
+    </td>
+    
+    </tr>   
+
+</table>
+<br/>
+<hr/>
+<table border="0" width="100%">
+<tr>
+<th>Non-Conformance Cost - Summary</th>
+<th width="50%"></th>
+</tr>       
+ <tr>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Total Cost - Roll-up</td>
+        <td><apex:outputField value="{!claim.Total_Claim_Cost__c}"/></td>
+        </tr>
+        <tr>
+        <td>Total Cost - To Be Claimed</td>
+        <td><apex:outputField value="{!claim.Total_Cost_To_Be_Claimed__c}"/></td>
+        </tr>
+        <tr>
+        <td>Claim Type</td>
+        <td><apex:outputField value="{!claim.Claim_Type__c}"/></td>
+        </tr>
+        <tr>
+        <td>Override Claim Type</td>
+        <td><apex:outputField value="{!claim.Override_Claim_Type__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Services Loss</td>
+        <td><apex:outputField value="{!claim.Services_Loss__c}"/></td>
+        </tr>
+        <tr>
+        <td>Materials Factory Loss</td>
+        <td><apex:outputField value="{!claim.Materials_Factory_Loss__c}"/></td>
+        </tr>
+        <tr>
+        <td>Materials Field Loss</td>
+        <td><apex:outputField value="{!claim.Materials_Field_Loss__c}"/></td>
+        </tr>
+        <tr>
+        <td>Materials Hub Loss</td>
+        <td><apex:outputField value="{!claim.Materials_Hub_Loss__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    </tr>   
+</table>
+<br/>
+<hr/>
+
+
+<table border="0" width="100%">
+<tr>
+<th>Approvals (Root Cause and Costs)</th>
+<th width="50%"></th>
+</tr>       
+ <tr>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Root Cause Analysis</td>
+        <td><apex:outputField value="{!claim.Technical_Details_Review_Approval__c}"/></td>
+        </tr>
+        <tr>
+        <td>Non-Conformance Costs</td>
+        <td><apex:outputField value="{!claim.Nonconformance_Costs_Review_Approval__c}"/></td>
+        </tr>
+        <tr>
+        <td>Legal Analysis</td>
+        <td><apex:outputField value="{!claim.Legal_Team_Review_Approval__c}"/></td>
+        </tr>
+        <tr>
+        <td>Category Manager</td>
+        <td><apex:outputField value="{!claim.Commodity_Manager_Review_Approval__c}"/></td>
+        </tr>
+        <tr>
+        <td>First Claim Letter Sent</td>
+        <td><apex:outputField value="{!claim.First_Claim_Letter_Sent__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Root Cause Analysis Approved Date</td>
+        <td><apex:outputField value="{!claim.Root_Cause_Analysis_Approved_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Non-Conformance Costs Approved Date</td>
+        <td><apex:outputField value="{!claim.Non_Conformance_Costs_Approved_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Legal Analysis Approved Date</td>
+        <td><apex:outputField value="{!claim.Legal_Analysis_Approved_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Category Manager Approved Date</td>
+        <td><apex:outputField value="{!claim.Commodity_Manager_Approved_Date__c}"/></td>
+        </tr>
+        <tr>
+        <td>Approvals comments</td>
+        <td><apex:outputField value="{!claim.Approvals_comments__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    </tr>   
+</table>
+<br/>
+<hr/>
+
+<table border="0" width="100%">
+<tr>
+<th>Final Settlement</th>
+<th width="50%"></th>
+</tr>       
+ <tr>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Negotiated Amount</td>
+        <td><apex:outputField value="{!claim.Amount__c}"/></td>
+        </tr>
+        <tr>
+        <td>Payment Time period</td>
+        <td><apex:outputField value="{!claim.Payment_Time_period__c}"/></td>
+        </tr>
+        <tr>
+        <td>Method of Payment</td>
+        <td><apex:outputField value="{!claim.Method_of_Payment__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>Sending Settlement letter</td>
+        <td><apex:outputField value="{!claim.Validated_Payments_Total__c}"/></td>
+        </tr>
+        <tr>
+        <td>Confirmed Totals</td>
+        <td><apex:outputField value="{!claim.Validated_Payments_Total__c}"/></td>
+        </tr>
+        <tr>
+        <td>Confirmed Write Offs</td>
+        <td><apex:outputField value="{!claim.Confirmed_Write_Offs__c}"/></td>
+        </tr>
+        <tr>
+        <td>Confirmed Payments</td>
+        <td><apex:outputField value="{!claim.Confirmed_Payments__c}"/></td>
+        </tr>
+         <tr>
+        <td>Currency</td>
+        <td><apex:outputField value="{!claim.Currency__c}"/></td>
+        </tr>
+        </table>
+    </td>
+    </tr>   
+</table>
+
+<hr />
+<th width="100%">Notes and Attachments:</th>
+
+<apex:pageBlock >
+
+     <apex:repeat value="{!listNotesAttchment}" var="a" >
+
+        <tr>
+        <td><a href="{!a.URL}" target="_blank">{!a.Title}</a></td>
+        </tr>
+
+     </apex:repeat>
+
+</apex:pageblock> 
+
+  </apex:form>
+</apex:page>

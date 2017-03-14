@@ -1,0 +1,272 @@
+<apex:page Controller="SPE2_StandaloneSurveyKPI" ShowHeader="false" cache="false" expires="600" docType="html-5.0" id="pgId">
+    <apex:includeScript value="{!$Resource.JqueryMin}"/>
+    <c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE ></c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE>
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+        .tg td{font-family:Arial, sans-serif;font-size:12px;padding:7px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+        .tg th{font-family:Arial, sans-serif;font-size:12px;font-weight:normal;padding:7px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+        .tg .tg-yw4l{vertical-align:top}
+        .tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+    </style>
+    <style>
+    html, body {
+    height: 100%;
+    min-height: 100%;
+}
+      
+     
+     .kpiheader
+     {
+        border:1px solid black;
+        background-color:#004C9A;
+        color:White;
+        text-align:left;
+        padding:5px;
+        height: 140px;
+        font-family: "Times New Roman";
+     }
+     
+     .tableStyle
+     {
+        
+        margin-left: 15px;
+        margin-right: 30px;
+        margin-top: 20px;
+        border: 1.7px solid black;
+        border-collapse: collapse;
+        
+    }
+     
+     .backgroungColor
+     {
+        background-color:#004C9A;
+     }
+     .fontColor
+     {
+        font-family: "Times New Roman";
+        color:white;
+        font-weight: 600;
+     }
+     .tableBorder
+     {
+     border:1px solid black;
+     border-collapse: collapse;
+     }
+     table.widget1 td 
+     {
+        border:1px solid black;
+        
+        
+     } 
+     table.widget2 td
+     {
+        color:inherit;
+        color:white;
+     }
+     
+     .tooltip 
+     {
+        display:none;
+        position:absolute;
+        border:1px solid #333;
+        background-color:#ff0000;
+        
+        border-radius:5px;
+        padding:10px;
+        color:#fff;
+        font-size:12px Arial;
+     }
+              
+    </style>
+    
+    
+    <apex:form id="fm">
+        
+        
+        <div>
+                 <img style="WIDTH:180px; HEIGHT: 100px" src='{!URLFOR($Resource.SPE_NokiaLogo)}' title="logo"/>                    
+        </div>
+        <div style="text-align: center;">
+            <font Color="#004C9A" size="6"><apex:outputField value="{!spePlan.Survey_Title__c}"/></font> <br/>
+            <font Color="#004C9A" size="4"><apex:outputText value="{!tracker.Name}" /></font> 
+            <!--<apex:outputPanel rendered="{!(fromDate != toDate)}">
+                <font Color="#004C9A" size="2">{!fromDate} to {!toDate} </font> 
+            </apex:outputPanel>-->
+        </div>
+        
+        <div >
+            <table class="tableStyle backgroungColor fontColor widget2 tableBorder" style="width:93%;">
+                <tr>
+                    <td Style="padding:10px" width="10%">
+                        Category Area :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.CategoryArea__c}"/>
+                    </td>
+                    <td style="padding-left: 2%;" width="8%">
+                        Market :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.Market__c}"/>
+                    </td>
+                    <td Style="padding:10px" width="10%">
+                        Business Unit :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.BusinessUnit__c}"/>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td Style="padding:10px" width="10%">
+                        Category Group :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.CategoryGroup__c}"/>
+                    </td>
+                    
+                    <td width="8%">
+                        Market Unit :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.MarketUnit__c}"/>
+                    </td>
+                    <td width="8%" style="padding-left: 1%;">
+                        Business Line :
+                    </td>
+                    <td width="27%" >
+                        <apex:outputField value="{!spePlan.BusinessLine__c}"/>
+                    </td>
+                    
+                    
+                </tr>
+                <tr>
+                    <td Style="padding-left: 4%;" width="10%">
+                        Category :
+                    </td >
+                    <td width="22%">
+                        <apex:outputField value="{!spePlan.Category__c}"/>
+                    </td>
+                    <td width="8%" style="padding-left: 2%;padding-bottom: 12px;"> 
+                        Country : 
+                    </td>
+                    <td width="22%" style="padding-bottom: 12px;">
+                        <apex:outputField value="{!spePlan.Country__c}"/>
+                    </td>
+                    <td width="8%" style="padding-left: 4%;"> 
+                        Product : 
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!spePlan.Product__c}"/>
+                    </td>
+                    
+                    
+                 <!--   <td width="10%">
+                        Survey Due Date : 
+                    </td>
+                    
+                    <td>
+                        <apex:outputText value="{0, date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!tracker.DateOfExecution__c}" /> 
+                        </apex:outputText>
+                    </td>
+                    
+                    <td width="11%">
+                        Respondent Name :  
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!contact.Name}"/>
+                    </td>
+                    -->
+                </tr>
+                <tr>
+                <td width="8%"></td>
+                <td width="11%"></td>
+                <td width="8%" style="padding-left: 2%;"> 
+                        Project : 
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!spePlan.Project__c}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <apex:outputPanel id="respSubmittedId">
+            <apex:outputPanel rendered="{!isSubmitted}">
+                <marquee direction="up"> 
+                    <font Color="#004C9A" size="6"><center>Survey is submitted! </center></font>
+                </marquee>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel id="respNotSubmittedId">
+            <apex:outputPanel rendered="{!NOT(isSubmitted)}">
+                <table class="tg" width="93%" style="margin-left:1%;">                            
+                    <tr>
+                        <th class="tg-yw4l" style="background-color:#004C9A"></th>                        
+                        <apex:repeat value="{!sqWrpperList}" var="sq">
+                            <th class="tg-yw4l" style="background-color:#004C9A;width:25%;">{!sq.qsa.Question_Bank__r.SurveyQuestion__c}</th>
+                        </apex:repeat>    
+                    </tr>            
+                    <apex:variable value="{!0}" var="rowNum"/>
+                    <apex:repeat value="{!surveySuppList}" var="ss">
+                        <tr>
+                            <td class="tg-yw4l">                                
+                                <b>{!ss.suppName}</b><br/>
+                                <apex:inputCheckbox value="{!ss.isSelected}">
+                                    <apex:actionSupport event="onchange" action="{!selectNAForSupplier}" reRender="respNotSubmittedId" status="loadStatus">
+                                        <apex:param name="inputRowNum" value="{!rowNum}"/>
+                                    </apex:actionSupport>
+                                </apex:inputCheckbox>
+                                
+                            </td>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                            <apex:repeat value="{!ss.sqWrpList}" var="qna">
+                                <td class="tg-yw4l" style="width:25%;">                                                                    
+                                    <apex:selectList value="{!qna.selectedAns}" multiselect="false" size="1" rendered="{!Not(qna.isFreeText)}" style="width:80px;">
+                                        <apex:selectOptions value="{!qna.ansOptions}"/>
+                                    </apex:selectList>                                                                                
+                                    <apex:inputText value="{!qna.FreeTextResponse}" rendered="{!qna.isFreeText}" style="width:80%;"/>
+                                    
+                                    <apex:outputPanel rendered="{!qna.qsa.Question_Bank__r.IsRequired__c}">
+                                        <font color="red" size="3">
+                                            <b>*</b>
+                                        </font>
+                                        <apex:outputPanel id="msg1" rendered="{!IF(qna.errorMsg =='true',true,false)}">
+                                    <b><font color="red">{!reqError}</font></b>
+                                    </apex:outputPanel>
+                                         
+                                    </apex:outputPanel>
+                                    
+                                    <br/><br/>
+                                    <apex:inputTextarea value="{!qna.respComment}" html-placeholder="Type in Comments..." style="width:96%"/>
+                                    <br/>
+                                    N/A &nbsp;<apex:inputCheckbox value="{!qna.isApplicable}" />                                
+                                </td>
+                            </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                    
+                </table>
+                <br/>
+                <CENTER><apex:commandButton value="Submit Survey" action="{!submitSurvey}" reRender="msg,respNotSubmittedId,respSubmittedId,msg1" status="loadStatus"/> </CENTER>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        
+    </apex:form>
+    <LEFT>
+    <b style="padding-left:10px;"> Survey ID &nbsp;:&nbsp; </b> {!surveySeqId}<br/>
+    <b style="padding-left:10px;"> Survey Due Date  &nbsp;:&nbsp; </b> 
+    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+            <apex:param value="{!tracker.Survey_Execution_Date__c}" /> 
+    </apex:outputText>
+    <br/>
+    <b style="padding-left:10px;"> Current Date &nbsp;:&nbsp; </b> <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+            <apex:param value="{!currentDate}" /> 
+    </apex:outputText>
+    <br/>
+    <b style="padding-left:10px;"> Survey Owner &nbsp;:&nbsp; </b><apex:outputField value="{!spePlan.OwnerId}"/>
+    </LEFT>
+    <CENTER><c:SPE_FooterforSite /></CENTER>
+</apex:page>

@@ -1,0 +1,94 @@
+<apex:page Controller="ClaimMaterialDeviation" id="deviationpage" docType="html-5.0">
+<apex:sectionHeader title="Material Deviation Edit" subtitle="New Material Deviation" />
+<apex:form id="deviationform" html-novalidate="novalidate">
+    <apex:pageBlock id="pb1" >        
+          <apex:pageBlockSection columns="1" id="pbs1" >        
+              <apex:pageMessages id="errMsg" escape="true" rendered="true" ></apex:pageMessages>
+                
+              <apex:inputField value="{!Claim.Name}" id="claimName" />  
+              <!----------------------------------------------------------------------------------->
+              <apex:pageBlockSectionitem >           
+                  <apex:outputLabel value="MCAR"/>          
+                  <apex:outputPanel >                
+                      <apex:inputHidden value="{!Claim.id}" id="claimid1" />
+                      <apex:inputHidden value="{!MCARid}" id="mcarid" />                          
+                      <apex:inputText size="20" id="mcarname" disabled="false"/> 
+                      
+                        <a href="#" onclick="openLookupPopup1('{!Claim.id}','{!$Component.mcarname}','{!$Component.mcarid}'); return false">
+                        <img src="/s.gif" alt="Parent Account Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon'; this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn'; this.className = 'lookupIconOn';" title="Mcars Lookup (New Window)"/>    
+                        </a>          
+                  </apex:outputPanel>        
+              </apex:pageBlockSectionitem>                
+              <!----------------------------------------------------------------------------------->  
+              
+              <apex:inputField value="{!MeterialDeviation.Problem_Description__c}" />              
+              <!----------------------------------------------------------------------------------->
+              <apex:pageBlockSectionitem >           
+                  <apex:outputLabel value="Code" />         
+                  <apex:outputPanel >                
+                      <apex:inputHidden value="{!Claim.id}" id="claimid" />
+                        <apex:inputHidden value="{!codeid}" id="mepid" />                        
+                      <apex:inputText size="20" id="mepname" disabled="false" /> 
+                      <a href="#" onclick="openLookupPopup('{!Claim.id}','{!$Component.mepname}', '{!$Component.mepid}'); return false">
+                        <img src="/s.gif" alt="Parent Account Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon'; this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn'; this.className = 'lookupIconOn';" title="Meps Lookup (New Window)"/>    
+                        </a>          
+                  </apex:outputPanel>        
+              </apex:pageBlockSectionitem>                
+              <!----------------------------------------------------------------------------------->
+                         
+              <apex:inputField value="{!MeterialDeviation.Defect_PPM__c}" />
+              <apex:inputField value="{!MeterialDeviation.Expected_Containment_Hours__c}" />
+              <apex:inputField value="{!MeterialDeviation.Lot_Number_Date_Code__c}" />
+              <apex:inputField value="{!MeterialDeviation.Quantity__c}" required="true" />
+              <apex:inputField value="{!MeterialDeviation.Serial_Number__c}" />
+                                
+              
+        </apex:pageBlockSection> 
+
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!Save}" />
+        
+            <apex:commandButton value="Cancel" action="/{!ClaimId}" immediate="true" /> 
+                                                                                                          
+             </apex:pageBlockButtons>
+                                                                                                          
+    </apex:pageBlock>             
+    
+    <script> 
+    var newWin=null; 
+    function openLookupPopup(claimid,name, id) 
+    {                
+        var searchvalue = document.getElementById(name).value;              
+        
+        var url="/apex/ClaimMeterialDeviationLookup?claimid="+claimid+"&mepname="+ name + "&mepid=" + id +"&SearchMeps="+searchvalue;
+        newWin=window.open(url, 'Popup','height=500,width=700,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }    
+        return false;
+    }       
+    function openLookupPopup1(claimid,name, id) 
+    {        
+        var searchvalue = document.getElementById(name).value;  
+        
+        var url="/apex/ClaimMaterialDeviationLookup1?claimid="+claimid+"&mcarname="+ name + "&mcarid=" + id +"&SearchMcar="+searchvalue;
+        newWin=window.open(url, 'Popup','height=500,width=700,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }    
+        return false;
+    }   
+ 
+    function closeLookupPopup()
+    {
+        if (null!=newWin)
+        {
+            newWin.close();
+        }  
+    }
+    </script>
+    
+</apex:form>        
+</apex:page>

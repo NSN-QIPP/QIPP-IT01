@@ -1,0 +1,37 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" >
+
+   <!-- <script>
+window.document.onload = new function(e)
+    {
+        alert("This is to inform you that planned maintenance window for QIPP application on 17 Nov 2016 got extended as deployment started late because of salesforce service disruption. Deployment completed successfully. Sanity testing is in progress. We will keep you updated once sanity testing is completed. Thanks for your co-operation.");>
+    }
+</script>-->
+    
+       <Body >
+    <!-- End Default Content REMOVE THIS  -->
+     <table bgcolor="green" border="1" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white"> <FONT SIZE="3">The Release 16.6 enhancements successfully deployed to Production.  The key changes in the release 16.6 are – 
+                    <br></br>
+                    <br></br>
+                        &nbsp; &nbsp; •      Usability improvements for A3, 8D, CIF, RCA/EDA, DI Logic and Other Methodology Forms
+                     <br></br>
+                        &nbsp; &nbsp; •      Project status progress bar and new field to capture On Hold / Cancelled reason for A3 form  
+                     <br></br>
+                        &nbsp; &nbsp; •      New workflow for DI Logic form 
+                     <br></br>                       
+                        &nbsp; &nbsp; •      F and C contact validated only when project is created and while raising approval
+                         <br></br>                          
+                        &nbsp; &nbsp; •      Restrict project lead from selecting complete and closed status for projects   
+                       
+                        
+
+
+
+               <p align="center" >For more information please refer Release Notes available at left side menu.</p>
+ 
+</FONT></FONT></h1></td>
+        </tr>
+    </table>
+    </Body>
+</apex:page>

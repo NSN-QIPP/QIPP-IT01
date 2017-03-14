@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom Object &quot;Portfolio&quot; for the QIPP Application</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>A3__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>A3</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CDT_Lead_Name__c</fullName>
+        <description>This field is requried for CDT report</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CDT Lead Name</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CDT_Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Use directory search or see Portfolio Mgr (Mike Patel) to add new CDT lead</inlineHelpText>
+        <label>CDT Lead</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipName>Portfolio1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CDT_Sponsor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Use directory search or see Portfolio Mgr (Mike Patel) to add new names to sponsor list</inlineHelpText>
+        <label>CDT Sponsor</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipName>Portfolio</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CDT__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>CDT</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CIF__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>CIF</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CPV_Interview_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CPV Interview Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CPV_Reference__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>CPV Reference</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>CPV_Trend__c</fullName>
+        <externalId>false</externalId>
+        <label>CPV Trend</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Down</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CPVi_Composite__c</fullName>
+        <externalId>false</externalId>
+        <label>CPVi-Composite</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CPVi_Future__c</fullName>
+        <externalId>false</externalId>
+        <label>CPVi-Expectation</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>CPVi_Past__c</fullName>
+        <externalId>false</externalId>
+        <label>CPVi-Experience</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Region</label>
+        <picklist>
+            <picklistValues>
+                <fullName>APAC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Greater China</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>India</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Japan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Latin America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Middle East &amp; Africa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>North America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>North East</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>South East Europe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>To Be Determined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>West Europe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DI_CoPQ__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>DI (CoPQ)</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DMAIC_DMADV__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>DMAIC/DMADV</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Super_Portfolio__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is_Super_Portfolio</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lean_including_Kaizen__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lean (including Kaizen)</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Other</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Portfolio_Business_Unit__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The benefitting Business group/Functional Group for the Portfolio. The project details will NOT automatically be changed to the newly updated portfolio values.</inlineHelpText>
+        <label>Portfolio Business Grp/Functional Grp</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Applications &amp; Analytics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chief Financial Office</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chief innovation and Operating office</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Strategy &amp; Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fixed Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IP/Optical Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal &amp; Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing &amp; Corporate Affairs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Portfolio_Name_Unique__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Portfolio Name - Unique</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Portfolio_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Portfolio Owner</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Portfolios (Portfolio Owner)</relationshipLabel>
+        <relationshipName>Portfolios</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Portfolio_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Portfolio Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Portfolio_Type__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>RIGHT(RecordType.Name, 3)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Portfolio Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RCA_EDA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>RCA/EDA</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Regional_Market__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Read-only field determined by Customer Region</inlineHelpText>
+        <label>Regional Market</label>
+        <picklist>
+            <controllingField>Customer_Region__c</controllingField>
+            <picklistValues>
+                <fullName>CO Americas</fullName>
+                <default>false</default>
+                <controllingFieldValues>North America</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO Asia, Middle East &amp; Africa</fullName>
+                <default>false</default>
+                <controllingFieldValues>APAC</controllingFieldValues>
+                <controllingFieldValues>Greater China</controllingFieldValues>
+                <controllingFieldValues>India</controllingFieldValues>
+                <controllingFieldValues>Japan</controllingFieldValues>
+                <controllingFieldValues>Middle East &amp; Africa</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO Europe &amp; Latin America</fullName>
+                <default>false</default>
+                <controllingFieldValues>Latin America</controllingFieldValues>
+                <controllingFieldValues>North East</controllingFieldValues>
+                <controllingFieldValues>South East Europe</controllingFieldValues>
+                <controllingFieldValues>West Europe</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>To Be Determined</fullName>
+                <default>false</default>
+                <controllingFieldValues>To Be Determined</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>X8D__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>8D</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>QIPP Portfolio</label>
+    <listViews>
+        <fullName>A3</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>012U000000016dE</value>
+        </filters>
+        <label>A3</label>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>Portfolio_Business_Unit__c</columns>
+        <columns>Portfolio_Owner__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>BLT</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Owner__c</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>012U000000017On</value>
+        </filters>
+        <label>BLT</label>
+    </listViews>
+    <listViews>
+        <fullName>CDT</fullName>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>QIPP_Portfolio__c.Portfolio_CDT</value>
+        </filters>
+        <label>CDT</label>
+    </listViews>
+    <listViews>
+        <fullName>CPQ</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>012U000000017Oo</value>
+        </filters>
+        <label>CPQ</label>
+    </listViews>
+    <listViews>
+        <fullName>GBC</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>012U000000017Op</value>
+        </filters>
+        <label>GBC</label>
+    </listViews>
+    <listViews>
+        <fullName>QPI</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>012U000000017Ot</value>
+        </filters>
+        <label>QPI</label>
+    </listViews>
+    <listViews>
+        <fullName>STD</fullName>
+        <columns>NAME</columns>
+        <columns>Portfolio_Type__c</columns>
+        <columns>Portfolio_Owner__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>QIPP_Portfolio__c.Portfolio_STD</value>
+        </filters>
+        <label>STD</label>
+    </listViews>
+    <nameField>
+        <label>Portfolio Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Portfolios</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Portfolio_CDT</fullName>
+        <active>true</active>
+        <description>Portfolio - CDT:  &quot;Customer Delight Team Projects&quot;</description>
+        <label>Portfolio - CDT</label>
+        <picklistValues>
+            <picklist>Customer_Region__c</picklist>
+            <values>
+                <fullName>APAC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Greater China</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>India</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Japan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latin America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Middle East %26 Africa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>North America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>North East</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>South East Europe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Be Determined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>West Europe</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Portfolio_Business_Unit__c</picklist>
+            <values>
+                <fullName>Applications %26 Analytics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chief Financial Office</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chief innovation and Operating office</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate Strategy %26 Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Global</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IP%2FOptical Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketing %26 Corporate Affairs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quality</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Portfolio_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Regional_Market__c</picklist>
+            <values>
+                <fullName>CO Americas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO Asia%2C Middle East %26 Africa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO Europe %26 Latin America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Be Determined</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Portfolio_STD</fullName>
+        <active>true</active>
+        <description>Portfolio - STD:  Use this for any standard Portfolio (except CDT)</description>
+        <label>Portfolio - STD</label>
+        <picklistValues>
+            <picklist>CPV_Trend__c</picklist>
+            <values>
+                <fullName>Down</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Up</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Region__c</picklist>
+            <values>
+                <fullName>APAC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Greater China</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>India</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Japan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Latin America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Middle East %26 Africa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>North America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>North East</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>South East Europe</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Be Determined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>West Europe</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Portfolio_Business_Unit__c</picklist>
+            <values>
+                <fullName>Applications %26 Analytics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chief Financial Office</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chief innovation and Operating office</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Corporate Strategy %26 Development</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Operations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fixed Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Global</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IP%2FOptical Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Legal %26 Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Marketing %26 Corporate Affairs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Networks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quality</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Portfolio_Status__c</picklist>
+            <values>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Regional_Market__c</picklist>
+            <values>
+                <fullName>CO Americas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO Asia%2C Middle East %26 Africa</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CO Europe %26 Latin America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>To Be Determined</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Portfolio_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Portfolio_Business_Unit__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Portfolio_Type__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Portfolio_Type__c</searchFilterFields>
+        <searchResultsAdditionalFields>Portfolio_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Validation_for_Percentage_Fields</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR
+ (
+OR( CPVi_Composite__c &gt; 1.0, CPVi_Composite__c &lt; 0.0 ),
+OR( CPVi_Past__c &gt; 1.0,  CPVi_Past__c  &lt; 0.0 ),
+OR( CPVi_Future__c &gt; 1.0,   CPVi_Future__c  &lt; 0.0 )
+)</errorConditionFormula>
+        <errorMessage>Percentage must be between 0 and 100%.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>BG_MBB_Mapping</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>BG MBB Mapping</masterLabel>
+        <openType>noSidebar</openType>
+        <protected>false</protected>
+        <url>/apex/QIPPBGMBBMap?poid={!QIPP_Portfolio__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Portfolio_Owner</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Portfolio Owner</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/qipp_multiposelectpage?poid={!QIPP_Portfolio__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Super_Portfolio_Owner</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Super Portfolio Owner</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/qipp_multispo?poid={!QIPP_Portfolio__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>View_Benefits</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>View Benefits</masterLabel>
+        <openType>newWindow</openType>
+        <page>QIPPLogoInstruction</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>Master_Approver_Configuration</links>
+    <links>Business_Notification</links>
+    <links>Business_Group_Notification</links>
+    <links>Product_Safety_Notification</links>
+    <links>Watchlist_Notification</links>
+    <links>Manage_Guest_Requests</links>
+    <links>Project_Benefit_Email_Report</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

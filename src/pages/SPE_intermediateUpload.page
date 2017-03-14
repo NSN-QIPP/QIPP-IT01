@@ -1,0 +1,131 @@
+<apex:page Controller="SPE_intermediateUploadEXT"  sidebar="false" showHeader="false" id="pgId">
+ <!-- action="{!startbatch}" --> 
+  <apex:includeScript value="{!$Resource.JqueryMin}" />
+  <style>
+        .progressBar{
+            background-color: #f8f8f8;
+            border:1px solid #DDDDDD;
+            height: 19px;
+            width: 300px;
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+        }
+        
+        .progress{
+            background-color: #F7B64B;
+            border:1px solid #E78F08;
+            height: 100%;
+            margin: -1px;
+            text-align: center;
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+            line-height: 18px;
+        }
+        
+        .progress1{
+            background-color: #00FF00;
+            border:1px solid #00FF00;
+            height: 100%;
+            margin: -1px;
+            text-align: center;
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+            line-height: 18px;
+        }
+        
+        .progressBar1{
+            background-color: #f8f8f8;
+            border:1px solid #f8f8f8;
+            height: 19px;
+            width: 300px;
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+        }
+    </style>
+    <script>
+    var co=0;
+    function test3() {
+    calll();
+    
+    }
+    function test5(){
+    co=co+1;
+    if(co==1) {
+    document.getElementById('btn').style.display = 'block';
+    document.getElementById('skipvalidateRecId').style.display = 'block';
+    }
+    }
+    
+    function test1() {
+    document.getElementById('btn').disabled =true;
+    document.getElementById('skipvalidateRecId').disabled =true;
+    }
+    function completeTask(){
+        var r = confirm("You are about to skip all validations. Do you wish to proceed?");
+        if (r == true) {           
+            asynchValidation();
+            alert("Data Uploading has begun, email confirmation will be sent to you post completion. In case you do not receive any confirmation in 24 Hours, please contact support team to investigate the issue.");
+            window.close();
+            //window.location = '/apex/SPE_FinalDataloadPage';                        
+        } else {}           
+    }
+    </script>
+ <center>
+ <br/><br/>
+ <input type="button" id="btn" value="Proceed" onclick="test3()" style="cursor:pointer;display:none" class="btn"/>
+ <br/> OR <br/>
+ 
+ <!--****************PI Upload Performance Improvement/Skip All the current validation part******************-->
+ 
+ <input id="skipvalidateRecId" type="button" value="Skip All Validations & Proceed" class="btn" onclick="completeTask()" style="cursor:pointer;display:none"/><br/>
+ </center>
+ 
+ <br/><br/>
+ <apex:form id="frmId">  
+ 
+ 
+ <!--<apex:commandButton value="Proceed" id="test2" action="{!startbatch}" reRender="jobs" oncomplete="test1();"/> -->
+ 
+ 
+   <apex:actionFunction name="calll" action="{!startbatch}" reRender="jobs" oncomplete="test1();" />
+   <apex:actionPoller rerender="jobs" interval="5" action="{!BatchJobDetail}" oncomplete="test5()"/>
+   <apex:actionFunction name="asynchValidation" action="{!asynchBatchRun}" reRender="" oncomplete="test1();" />
+            
+            
+           
+       <apex:outputPanel id="jobs">
+               <center>
+               Satus of Validation: {!statuss1} <br/>
+               Total Number of Batches: {!totalItems1 }<br/>
+               Total batch Executed: {!itemsProcessed1 }<br/>
+               
+                <div class="progressBar">
+                    <div class="progress" style="width: {!percentComplete1}%;">
+                        {!percentComplete1}%
+                    </div>
+                </div>
+                </center>
+                <br/><br/>
+                <center>
+               Satus of Validation: {!statuss} <br/>
+               Total Number of Batches: {!totalItems }<br/>
+               Total batch Executed: {!itemsProcessed }<br/>
+               
+                <div class="progressBar1">
+                    <div class="progress1" style="width: {!percentComplete}%;">
+                        {!percentComplete}%
+                    </div>
+                </div>
+                </center>
+ </apex:outputPanel>
+ 
+ <!--
+ <script>
+ $(document).ready(function() {
+    //$("#pgId:frmId:hitMeId").click();
+    callme();
+});
+</script>    
+ -->       
+    </apex:form> 
+</apex:page>

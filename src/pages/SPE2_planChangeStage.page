@@ -1,0 +1,16 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE2_PlanChangeStage">
+    <apex:form >
+        <apex:pageBlock title="Selected Plans">
+            <apex:pageMessages id="msgId"/>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!spePlan.Stage__c}" label="Select a Stage"/>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Change Stage" action="{!updateSPEPlanStage}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="Return" action="{!returnbackToPlan}"/><br/>
+            <apex:pageBlockTable value="{!spePlanList}" var="pl">
+                <apex:column value="{!pl.Name}" headerValue="SPE Plan"/>
+                <apex:column value="{!pl.Stage__c}" headerValue="Plan Stage"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

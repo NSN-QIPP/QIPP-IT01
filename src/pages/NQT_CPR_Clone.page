@@ -1,0 +1,56 @@
+<apex:page standardController="CPR__c" tabStyle="CPR__c" extensions="NQTCPRClone" standardStylesheets="true" showHeader="true" >
+    <apex:form title="CPR">
+        <apex:pageBlock mode="edit" tabStyle="CPR__c" title="NQT CPR Edit">
+        <apex:messages style="color:red;align:center;"/>
+            <apex:pageBlockSection title="Customer Information">
+                <apex:inputField value="{!cpr.NQT_CPR_Name__c}"/>
+                <apex:inputField value="{!cpr.NQT_Type_Of_Request__c}"/>
+                <apex:inputField value="{!cpr.NQT_Customer_contact_Name__c}"/>
+                <apex:inputField value="{!cpr.NQT_CPR_Start_Date__c}"/>
+                <apex:inputField value="{!cpr.NQT_Customer_Contact_Phone__c}"/>
+                <apex:outputText label="Project Status" />
+                <apex:inputField value="{!cpr.NQT_Customer_Email_Address__c}"/>
+                <apex:outputText label="Deliverable Status"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Market Information">
+                <apex:inputField value="{!cpr.NQT_Area__c}"/>
+                <apex:inputField value="{!cpr.NQT_Market__c}"/>
+                <apex:inputField value="{!cpr.NQT_MTSO__c}"/>
+                <apex:inputField value="{!cpr.NQT_Account_Manager__c}"/>
+                <apex:inputField value="{!cpr.NQT_If_Other_MTSO__c}"/>
+                <apex:inputField value="{!cpr.NQT_Program_Manager__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Product Information">
+                <apex:inputField value="{!cpr.NQT_Product__c}"/>
+                <apex:inputField value="{!cpr.NQT_Switch_CLLI_Code__c}"/>
+                <apex:inputField value="{!cpr.NQT_MTX_Ericsson__c}"/>
+                <apex:inputField value="{!cpr.NQT_if_other__c}"/>
+                <apex:inputField value="{!cpr.NQT_If_Other_Product__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Project Description/ Scope of Work">
+                <apex:inputField value="{!cpr.NQT_Is_NSN_Required_to_Provide_cablling__c}"/>
+                <apex:inputField value="{!cpr.NQT_Database_Work_Needed__c}"/>
+                <apex:inputField value="{!cpr.NQT_Cabling_Location__c}"/>
+                <apex:inputField value="{!cpr.NQT_Database_Work_Description__c}"/>
+                <apex:inputField value="{!cpr.NQT_Cable_Type_and_Length_in_Meter_s__c}"/>
+                <apex:inputField value="{!cpr.NQT_Reparenting_Work_Needed__c}"/>
+                <apex:inputField value="{!cpr.NQT_Installation_and_Additional_Details__c}"/>
+                <apex:inputField value="{!cpr.NQT_Reparenting_Work_Description__c}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Requested Delivery Dates">
+                <apex:inputField value="{!cpr.NQT_Requested_Quote_Delivery_Date__c}"/>
+                <apex:inputField value="{!cpr.NQT_Target_Service_Start_Date__c}"/>
+                <apex:inputField value="{!cpr.NQT_Customer_Requested_Ship_Date__c}"/>
+                <apex:inputField value="{!cpr.NQT_Target_Service_Finish_Date__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save1}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

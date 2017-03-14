@@ -1,0 +1,227 @@
+<apex:page action="{!DeleteBenefit}" standardController="QIPP_Benefit__c" Extensions="QIPP_Benefit_View" tabStyle="QIPP_Project__c" showHeader="true" sidebar="true">
+<apex:form >
+<script type="text/javascript">
+
+function closewin()
+{
+    self.close();
+}
+
+function confirmdelete()
+{
+    var conf = confirm("Are you sure you want to delete this benefit");
+    if(conf == true)
+        conf  = true;
+    else
+        conf  = false;
+    alert(conf)    ;
+    return conf;
+}
+</script>
+<br></br><br></br>
+<table>
+
+<TR>
+<apex:commandLink action="{!BackToProjectDetailPage}" title="Back" value="Back To Project Detail Page"/>
+<!--<apex:outputText value="Benefit Summary Page for {!projectFieldValue.Project_Number__c} ({!projectFieldValue.Project_Name_Display__c})" style="float:right;font-weight:bold;font-size:12pt;margin-right:260px;"/>-->
+
+<br></br><br></br>
+<!--<apex:commandButton action="{!goToBenefitLookUp}" title="This will open a new link where users can search for an Improvement Measure (KPI)"  value="Add Benefit" rendered="{!if($Profile.Name =='Nokia QIPP Project Viewer' || checkButtonVisibility != true,false,true)}"  style="float:center;font-weight:b;margin-left:0px"/>-->
+<!--<apex:commandButton action="{!moveToBenefitePage}" value="Add Benefit" rendered="{!checkButtonVisibility}" style="float:center;font-weight:b;margin-left:40px;"></apex:commandButton>-->
+<br/>
+<!--<apex:outputText value="{!FinancialErrorMessage}" style="float:center;font-weight:b;margin-left:00px;background-color:Yellow"> <br/> </apex:outputText>
+<apex:outputText value="{!OperationalErrorMessage }" style="float:center;font-weight:b;margin-left:00px;background-color:Yellow"> <br/> </apex:outputText>
+<!--<apex:outputText rendered="{!if(((projectinfo.TotalKPI__c + projectinfo.TotalCOPQ__c > 1000) && (projectinfo.Project_State__c == 'In Progress' || projectinfo.Project_State__c == 'Not Started'||projectinfo.Project_State__c == 'On Hold')),true,false)}"> 
+    <font size="2" style="color:red;margin-left:00px;">Note :  QIPP project benefits must be recorded in Kilo Euro (k€) units [ie.1 k€ = 1000€].</font> <br/> 
+    <font size="2" style="color:red;margin-left:40px;">Please correct the numbers if the benefits are not recorded in k€.</font>
+    <br/> 
+</apex:outputText> -->
+</TR>
+<br></br>
+    <tr>
+    <td>
+    <apex:pagemessages id="errorblock"/>
+<!--<apex:pageBlock >
+    ,<apex:pagemessages id="errorblock"/>
+<apex:pageBlockSection columns="2"  >
+
+<!--<apex:outputField value="{!projectFieldValue.Project_Number__c}"/>-->
+<!--<apex:outputField value="{!projectFieldValue.Project_Name_Display__c}" />
+<apex:outputField value="{!projectFieldValue.Project_Lead__c}"/> 
+<apex:outputField value="{!projectFieldValue.Portfolio_Name__c}"/>-->
+<!--
+</apex:pageBlockSection>
+</apex:pageBlock>
+-->
+<!-- <apex:pageBlock >COMMENTED 
+        <apex:pageBlockSection title="Financial Savings">
+            <table  width="1200px">
+                 <apex:pageBlockTable value="{!benifit_Financial}" var="contact" align="center" width="1200px" >
+                 <apex:column width="30px"><apex:outputLink value="/apex/QIPP_Benefit_Detail_Page?detailpage={!contact.id}" title="View">View</apex:outputLink>  </apex:column>  
+                 
+                 <apex:column width="30px"><apex:outputLink value="/apex/QIPP_Benefit?id={!contact.id}&retURL=%2F{!contact.Project_ID__c}&sfdc.override=1" title="Edit"  rendered="{!IF( ($Profile.Name =='Nokia QIPP Project Viewer')||((UserRolename != 'yes') &&( ((projectinfo.Project_State__c == 'Complete' || projectinfo.Project_State__c == 'Closed')  && (projectinfo.Project_Type__c =='DMAIC' || projectinfo.Project_Type__c == 'Lean (including Kaizen)' || projectinfo.Project_Type__c =='CIF' || projectinfo.Project_Type__c =='A3' || projectinfo.Project_Type__c =='8D'|| projectinfo.Project_Type__c =='RCA/EDA' || projectinfo.Project_Type__c =='Other')) || ((projectinfo.CoPQ_Benefits_Validation_State__c != null)&&(projectinfo.CoPQ_Benefits_Validation_State__c == 'With Finance Approver to Validate' || projectinfo.CoPQ_Benefits_Validation_State__c == 'Validation Complete'))|| (projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete')||(projectinfo.Belt_Project_Phase__c != null && projectinfo.Belt_Project_Phase__c == 'Control / Verify' && projectinfo.FieldForControlVerifyPhase__c == 'RecordLock')||(projectinfo.Belt_Project_Phase__c == 'Complete') || (projectinfo.Recordtype.Name == 'Methodology: Lean (including Kaizen)' && projectinfo.Check_Lean_Approval_State__c == 'During Lean')|| (projectinfo.Recordtype.Name == 'Methodology: CIF' && (projectinfo.Check_Approval_Process_Status__c == 'During CIF' )) || (projectinfo.Check_Approval_Process_Status__c == 'During L6S') )),false,true)}">Edit</apex:outputLink>  </apex:column>
+                 
+                 <apex:column width="30px"><apex:outputLink value="/apex/QIPP_Benefit_View?delete={!contact.id}&Projectid={!projectid}" onclick="if (!confirmDelete()) return false;" title="Delete"  rendered="{!IF( ($Profile.Name =='Nokia QIPP Project Viewer')|| ((UserRolename != 'yes') &&( ((projectinfo.Project_State__c == 'Complete' || projectinfo.Project_State__c == 'Closed')  && (projectinfo.Project_Type__c =='DMAIC' || projectinfo.Project_Type__c == 'Lean (including Kaizen)' || projectinfo.Project_Type__c =='CIF' || projectinfo.Project_Type__c =='A3' || projectinfo.Project_Type__c =='8D'|| projectinfo.Project_Type__c =='RCA/EDA' || projectinfo.Project_Type__c =='Other')) || (projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete') || ((projectinfo.CoPQ_Benefits_Validation_State__c != null)&&(projectinfo.CoPQ_Benefits_Validation_State__c == 'With Finance Approver to Validate' || projectinfo.CoPQ_Benefits_Validation_State__c == 'Validation Complete'))||(projectinfo.Belt_Project_Phase__c != null && projectinfo.Belt_Project_Phase__c == 'Control / Verify' && projectinfo.FieldForControlVerifyPhase__c == 'RecordLock')||(projectinfo.Belt_Project_Phase__c == 'Complete') || (projectinfo.Recordtype.Name == 'Methodology: Lean (including Kaizen)' && projectinfo.Check_Lean_Approval_State__c == 'During Lean')|| (projectinfo.Recordtype.Name == 'Methodology: CIF' && (projectinfo.Check_Approval_Process_Status__c == 'During CIF')) || (projectinfo.Check_Approval_Process_Status__c == 'During L6S'))),false,true)}">Delete</apex:outputLink></apex:column>
+                
+                <apex:column value="{!contact.Name}" width="95px" /> 
+                 <apex:column value="{!contact.Improvement_Measure_KPI__c}" width="80px"/>                                                                                        
+                 <apex:column value="{!contact.Planned_Financial_Savings_Total__c}" style="{!IF(((contact.Planned_Financial_Savings_Total__c!=NULL)&&(contact.Planned_Financial_Savings_Total__c<0)),'color:red','')}" width="55px"/>
+                 <apex:column value="{!contact.Achieved_Financial_Savings_Total__c}" style="{!IF(((contact.Achieved_Financial_Savings_Total__c!=NULL)&&(contact.Achieved_Financial_Savings_Total__c<0)),'color:red','')}" width="55px"/>
+                 <apex:column value="{!contact.Future_Financial_Savings_Total__c}" style="{!IF(((contact.Future_Financial_Savings_Total__c!=NULL)&&(contact.Future_Financial_Savings_Total__c<0)),'color:red','')}" width="55px"/>
+                 <apex:column value="{!contact.Benefit_Amount_Achieved_Future_k__c}" style="{!IF(((contact.Benefit_Amount_Achieved_Future_k__c!=NULL)&&(contact.Benefit_Amount_Achieved_Future_k__c<0)),'color:red','')}" width="55px"/>                 
+                 </apex:pageBlockTable>
+            </table>
+        </apex:pageBlockSection>
+</apex:pageBlock>   COMMENT END -->
+<!-- COMMENT 
+<table width="1200px">
+       <tr>  
+            <td width="160px"/>       
+            <td align="left" width="110px"><font size="2" color="Black"><b>Total Financial Savings:</b></font></td>
+            <td align="left" width="40px"><font size="2" color="Black"><b><apex:outputText value="{!PlannedFinancialTotal}" /></b></font></td>
+            <td align="left"  width="40px"><font size="2" color="Black"><b><apex:outputText value="{!AchievedFinancialTotal}" /></b></font></td>
+            <td align="left"  width="40px"><font size="2" color="Black"><b><apex:outputText value="{!FutureFinancialTotal}" /></b></font></td>
+             <td align="left"  width="145px"><font size="2" color="Black"><b><apex:outputText value="{!ACHIEVEDFUTUREFINANCIALTOTAL}" /></b></font></td>
+        </tr>   
+</table>  COMMENT END-->
+
+   <!-- <br></br><br></br>
+      
+<table style="width:100%">
+<tr>
+  <td width='30%' align='right'></td>
+  <td width='55%' align='right'><apex:commandLink action="{!viewFSQ}" title="Report Page" value="View Quarterly Distribution"/></td>
+  <!--<td width='15%'/>-->
+  <!-- <td width='55%' align='right'><apex:commandLink action="{!viewFSM}" title="Report Page" value="View Monthly Distribution"/></td>         
+</tr>
+</table>
+      
+ 
+    
+    
+          <br></br><br></br>
+  </td>
+    </tr>
+    
+
+      
+    <tr>
+    <td> COMMENT END -->
+ <!--  <apex:pageBlock >
+        <apex:pageBlockSection title="Operational Savings">
+            <table  width="1200px">
+                 <apex:pageBlockTable value="{!benifit_Operational}" var="contact" align="center" width="1200px" >
+                 <apex:column width="30px"><apex:outputLink value="/apex/QIPP_Benefit_Detail_Page?detailpage={!contact.id}" title="View">View</apex:outputLink>  </apex:column>                 
+                
+                <apex:column width="30px"><apex:outputLink value="/apex/QIPP_Benefit?id={!contact.id}&retURL=%2F{!contact.Project_ID__c}&sfdc.override=1" title="Edit" rendered="{!IF( ($Profile.Name =='Nokia QIPP Project Viewer')|| ((UserRolename != 'yes') && ( ((projectinfo.Project_State__c == 'Complete' || projectinfo.Project_State__c == 'Closed')  && (projectinfo.Project_Type__c =='DMAIC' || projectinfo.Project_Type__c == 'Lean (including Kaizen)' || projectinfo.Project_Type__c =='CIF' || projectinfo.Project_Type__c =='A3' || projectinfo.Project_Type__c =='8D'|| projectinfo.Project_Type__c =='RCA/EDA' || projectinfo.Project_Type__c =='Other')) || ((projectinfo.KPI_Benefits_Validation_State__c != null)&&(projectinfo.KPI_Benefits_Validation_State__c == 'With Operational Savings Approver to Validate' || projectinfo.KPI_Benefits_Validation_State__c == 'With Finance Approver to Validate' || projectinfo.KPI_Benefits_Validation_State__c == 'Validation Complete'))|| (projectinfo.Check_DI_Approval_State__c == 'During DI5'  ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete')||(projectinfo.Belt_Project_Phase__c != null && projectinfo.Belt_Project_Phase__c == 'Control / Verify' && projectinfo.FieldForControlVerifyPhase__c == 'RecordLock')||(projectinfo.Belt_Project_Phase__c == 'Complete') || (projectinfo.Recordtype.Name == 'Methodology: Lean (including Kaizen)' && projectinfo.Check_Lean_Approval_State__c == 'During Lean') || (projectinfo.Recordtype.Name == 'Methodology: CIF' && (projectinfo.Check_Approval_Process_Status__c == 'During CIF')) || (projectinfo.Check_Approval_Process_Status__c == 'During L6S'))),false,true)}">Edit</apex:outputLink>  </apex:column>
+                 
+                <apex:column width="30px"><apex:outputLink value="/apex/QIPP_Benefit_View?delete={!contact.id}&Projectid={!projectid}" onclick="if (!confirmDelete()) return false;" title="Delete" rendered="{!IF( ($Profile.Name =='Nokia QIPP Project Viewer')|| ((UserRolename != 'yes') && ( ((projectinfo.Project_State__c == 'Complete' || projectinfo.Project_State__c == 'Closed')  && (projectinfo.Project_Type__c =='DMAIC' || projectinfo.Project_Type__c == 'Lean (including Kaizen)' || projectinfo.Project_Type__c =='CIF' || projectinfo.Project_Type__c =='A3' || projectinfo.Project_Type__c =='8D'|| projectinfo.Project_Type__c =='RCA/EDA' || projectinfo.Project_Type__c =='Other')) || (projectinfo.Check_DI_Approval_State__c == 'During DI3' || projectinfo.Check_DI_Approval_State__c == 'DI3 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI4' ||projectinfo.Check_DI_Approval_State__c == 'DI4 Complete' ||projectinfo.Check_DI_Approval_State__c == 'During DI5' ||projectinfo.Check_DI_Approval_State__c == 'DI5 Complete')|| ((projectinfo.KPI_Benefits_Validation_State__c != null)&&(projectinfo.KPI_Benefits_Validation_State__c == 'With Operational Savings Approver to Validate' || projectinfo.KPI_Benefits_Validation_State__c == 'With Finance Approver to Validate' || projectinfo.KPI_Benefits_Validation_State__c == 'Validation Complete'))||(projectinfo.Belt_Project_Phase__c != null && projectinfo.Belt_Project_Phase__c == 'Control / Verify' && projectinfo.FieldForControlVerifyPhase__c == 'RecordLock')||(projectinfo.Belt_Project_Phase__c == 'Complete') || (projectinfo.Recordtype.Name == 'Methodology: Lean (including Kaizen)' && projectinfo.Check_Lean_Approval_State__c == 'During Lean') || (projectinfo.Recordtype.Name == 'Methodology: CIF' && (projectinfo.Check_Approval_Process_Status__c == 'During CIF')) || (projectinfo.Check_Approval_Process_Status__c == 'During L6S')  )),false,true)}">Delete</apex:outputLink></apex:column>
+                
+                 <apex:column value="{!contact.Name}" width="105px" />
+                 <apex:column value="{!contact.Improvement_Measure_KPI__c}" width="80px"/>                                                                                        
+                 <apex:column value="{!contact.Planned_Operational_Savings_Total__c}" style="{!IF(((contact.Planned_Operational_Savings_Total__c!=NULL)&&(contact.Planned_Operational_Savings_Total__c<0)),'color:red','')}" width="55px"/>
+                 <apex:column value="{!contact.Achieved_Operational_Savings_Total__c}" style="{!IF(((contact.Achieved_Operational_Savings_Total__c!=NULL)&&(contact.Achieved_Operational_Savings_Total__c<0)),'color:red','')}" width="55px"/>
+                 <apex:column value="{!contact.Future_Operational_Savings_Total__c}" style="{!IF(((contact.Future_Operational_Savings_Total__c!=NULL)&&(contact.Future_Operational_Savings_Total__c<0)),'color:red','')}" width="55px"/>
+                 <apex:column value="{!contact.Benefit_Operational_Achieved_Future_k__c}" style="{!IF(((contact.Benefit_Operational_Achieved_Future_k__c!=NULL)&&(contact.Benefit_Operational_Achieved_Future_k__c<0)),'color:red','')}" width="55px"/>
+                 </apex:pageBlockTable>
+            </table>
+        </apex:pageBlockSection>
+  </apex:pageBlock>--> 
+          <!--
+<table width="1200px">
+       <tr> <td width="160px"/> 
+            <td align="left" width="110px"><font size="2" color="Black"><b>Total Operational Savings:</b></font></td>
+            <td align="left" width="40px"><font size="2" color="Black"><b><apex:outputText value="{!PlannedOperationalTotal }" /></b></font></td>
+            <td align="left"  width="40px"><font size="2" color="Black"><b><apex:outputText value="{!AchievedOperationalTotal }" /></b></font></td>
+            <td align="left"  width="40px"><font size="2" color="Black"><b><apex:outputText value="{!FutureOperationalTotal }" /></b></font></td>
+            <td align="left"  width="145px"><font size="2" color="Black"><b><apex:outputText value="{!ACHIEVEDFUTUREOPERATIONALTOTAL }" /></b></font></td>
+        </tr>               
+</table> -->
+
+<br></br><br></br>
+
+
+<!--
+    <table style="width:100%">
+       <tr>  
+           <td width='30%' align='right'></td>
+           <td width='55%' align='right'><apex:commandLink action="{!viewOSQ}" title="Report Page" value="View Quarterly Distribution"/></td>
+           <!--<td width='15%' />-->
+          <!-- <td width='15%' align='right'><apex:commandLink action="{!viewOSM}" title="Report Page" value="View Monthly Distribution"/></td>
+        </tr>   
+    </TABLE>-->
+    
+    </td>
+    </tr>
+     
+     
+  
+  
+  <!--
+    <tr>
+    <td>
+     <apex:pageBlock >
+       <apex:pageBlockSection title="Improvement Plan">
+        <table  width="900px">
+           <apex:pageBlockTable value="{!benifit}" var="contact" width="500px">
+             <apex:column ><apex:outputLink value="/apex/QIPP_Benefit_Detail_Page?detailpage={!contact.id}" title="View">View</apex:outputLink>  </apex:column>                 
+             <apex:column ><apex:outputLink value="/apex/QIPP_Benefit?id={!contact.id}&retURL=%2F{!contact.Project_ID__c}&sfdc.override=1" title="Edit" >Edit</apex:outputLink>  </apex:column>
+             <apex:column value="{!contact.Improvement_Measure_KPI__c}"/>
+             <apex:column value="{!contact.Planned_Quanity__c}"/>
+             <apex:column value="{!contact.Planned_Start_Date__c}"/>
+             <apex:column value="{!contact.Planned_End_Date__c}"/>
+             <apex:column value="{!contact.Planned_Financial_Savings_Total__c}" style="{!IF(((contact.Planned_Financial_Savings_Total__c!=NULL)&&(contact.Planned_Financial_Savings_Total__c<0)),'color:red','')}"/>
+             <apex:column value="{!contact.Planned_Operational_Savings_Total__c}" style="{!IF(((contact.Planned_Operational_Savings_Total__c!=NULL)&&(contact.Planned_Operational_Savings_Total__c<0)),'color:red','')}"/>                             
+            </apex:pageBlockTable>
+        </table>
+       </apex:pageBlockSection>
+     </apex:pageBlock>
+    </td>
+   </tr>
+    
+    <tr>
+    <td>
+      <apex:pageBlock >
+      <apex:pageBlockSection title="Achieved To Date">
+      <table  width="900px">
+       <apex:pageBlockTable value="{!benifit}" var="contact">
+         <apex:column ><apex:outputLink value="/apex/QIPP_Benefit_Detail_Page?detailpage={!contact.id}" title="View">View</apex:outputLink>  </apex:column>                 
+         <apex:column ><apex:outputLink value="/apex/QIPP_Benefit?id={!contact.id}&retURL=%2F{!contact.Project_ID__c}&sfdc.override=1" title="Edit">Edit</apex:outputLink>  </apex:column>
+         <apex:column value="{!contact.Improvement_Measure_KPI__c}"/>
+         <apex:column value="{!contact.Achieved_Quantity__c}"/>
+         <apex:column value="{!contact.Achieved_Start_Date__c}"/>
+         <apex:column value="{!contact.Achieved_End_Date__c}"/>
+         <apex:column value="{!contact.Achieved_Financial_Savings_Total__c}" style="{!IF(((contact.Achieved_Financial_Savings_Total__c!=NULL)&&(contact.Achieved_Financial_Savings_Total__c<0)),'color:red','')}"/>
+         <apex:column value="{!contact.Achieved_Operational_Savings_Total__c}" style="{!IF(((contact.Achieved_Operational_Savings_Total__c!=NULL)&&(contact.Achieved_Operational_Savings_Total__c<0)),'color:red','')}"/>         
+      </apex:pageBlockTable>
+      </table>
+      </apex:pageBlockSection>
+     </apex:pageBlock>
+   </td>
+  </tr>
+
+<tr>
+    <td>
+      <apex:pageBlock >
+      <apex:pageBlockSection title="Future Savings">
+      <table  width="900px">
+       <apex:pageBlockTable value="{!benifit}" var="contact">
+         <apex:column ><apex:outputLink value="/apex/QIPP_Benefit_Detail_Page?detailpage={!contact.id}" title="View">View</apex:outputLink>  </apex:column>                 
+         <apex:column ><apex:outputLink value="/apex/QIPP_Benefit?id={!contact.id}&retURL=%2F{!contact.Project_ID__c}&sfdc.override=1" title="Edit" >Edit</apex:outputLink>  </apex:column>
+         <apex:column value="{!contact.Improvement_Measure_KPI__c}"/>
+         <apex:column value="{!contact.Future_Quantity__c}"/>
+         <apex:column value="{!contact.Future_Start_Date__c}"/>
+         <apex:column value="{!contact.Future_End_Date__c}"/>
+         <apex:column value="{!contact.Future_Financial_Savings_Total__c}" style="{!IF(((contact.Future_Financial_Savings_Total__c!=NULL)&&(contact.Future_Financial_Savings_Total__c<0)),'color:red','')}"/>
+         <apex:column value="{!contact.Future_Operational_Savings_Total__c}" style="{!IF(((contact.Future_Operational_Savings_Total__c!=NULL)&&(contact.Future_Operational_Savings_Total__c<0)),'color:red','')}"/>      
+      </apex:pageBlockTable>
+      </table>
+      </apex:pageBlockSection>
+     </apex:pageBlock>
+   </td>
+  </tr>
+-->
+
+</TABLE>
+</apex:form>
+</apex:page>

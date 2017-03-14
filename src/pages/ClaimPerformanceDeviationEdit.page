@@ -1,0 +1,73 @@
+<apex:page standardController="Performance_Deviation_section__c" extensions="ClaimPerformanceDeviationEdit" id="deviationpage" docType="html-5.0">
+<apex:sectionHeader title="PerformanceDeviation Edit" subtitle="New PerformanceDeviation" />
+   <apex:form id="deviationform" html-novalidate="novalidate">
+    <apex:pageBlock id="pb1" >        
+          <apex:pageBlockSection columns="2" id="pbs1" >        
+              
+              <apex:inputField value="{!PerformanceDeviation.Claim__r.Name}" id="claimName" />  
+              <apex:inputField value="{!PerformanceDeviation.name}" required="true" />
+              <apex:inputField value="{!PerformanceDeviation.Performance_Measure_Name__c}" required="true" />
+              <apex:pageBlockSectionitem >           
+                  <apex:outputLabel value="Associated Part Code"/>         
+                  <apex:outputPanel >                
+                      <apex:inputHidden value="{!PerformanceDeviation.Claim__c}" id="claimid" />
+                        <apex:inputHidden value="{!PerformanceDeviation.Associated_Part_Code__c}" id="mepid" />                        
+                      <apex:inputText size="20" id="mepname" disabled="false" value="{!PerformanceDeviation.Associated_Part_Code__r.Name}" /> 
+                      <a href="#" onclick="openLookupPopup('{!PerformanceDeviation.Claim__c}','{!$Component.mepname}', '{!$Component.mepid}'); return false">
+                        <img src="/s.gif" alt="Parent Account Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon'; this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn'; this.className = 'lookupIconOn';" title="Meps Lookup (New Window)"/>    
+                        </a>          
+                  </apex:outputPanel>       
+              </apex:pageBlockSectionitem>
+             
+              
+                  
+              <apex:inputField value="{!PerformanceDeviation.Associated_Product__c}"  />
+              <apex:inputField value="{!PerformanceDeviation.Business_Impact__c}"  />
+              <apex:inputField value="{!PerformanceDeviation.Date_Measured__c}" />
+              <apex:inputField value="{!PerformanceDeviation.Frequency_of_Measurement__c}" />
+              <apex:inputField value="{!PerformanceDeviation.Measurement_Standard__c}" required="true" />
+               <apex:inputField value="{!PerformanceDeviation.Shipper_Name_Location__c}" />
+              <apex:inputField value="{!PerformanceDeviation.Actual_Measurement__c}" required="true" />      
+              <apex:inputField value="{!PerformanceDeviation.Shipping_Destination__c}" />
+             
+            </apex:pageBlockSection> 
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!UpdatePerformance}" />
+        
+            <apex:commandButton value="Cancel" action="/{!PerformanceDeviation.claim__c}" immediate="true" /> 
+                                                                                                          
+             </apex:pageBlockButtons>
+                                                                                                          
+    </apex:pageBlock>   
+    
+     <script> 
+    var newWin=null; 
+    function openLookupPopup(claimid,name, id) 
+    {        
+        var searchvalue = document.getElementById(name).value;
+        
+        var url="/apex/ClaimPerformanceDeviationLookup?claimid="+claimid+"&mepname="+ name + "&mepid=" + id +"&SearchMeps="+searchvalue;
+        newWin=window.open(url, 'Popup','height=500,width=700,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }    
+        return false;
+    }       
+   
+ 
+    function closeLookupPopup()
+    {
+        if (null!=newWin)
+        {
+            newWin.close();
+        }  
+    }
+    </script>          
+    
+  
+    
+</apex:form>        
+ 
+</apex:page>

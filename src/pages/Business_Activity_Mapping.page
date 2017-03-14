@@ -1,0 +1,336 @@
+<apex:page id="page" controller="businessActivityMapping" showHeader="false" action="{!showMapping}" tabStyle="Business_Activity__c">
+<!--
+<apex:includeScript value="https://code.jquery.com/jquery-2.1.1.min.js"/>
+<apex:includeScript value="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"/>
+-->
+  <apex:stylesheet value="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"/>
+  <apex:includeScript value="https://code.jquery.com/jquery-1.12.4.js" />
+  <apex:includeScript value="https://code.jquery.com/ui/1.12.0/jquery-ui.js" />
+  <!--<script src="{!URLFOR($Resource.Tooltip,'Tooltip/bootstrap.min.js')}"></script>
+  <link href="{!URLFOR($Resource.Tooltip,'Tooltip/bootstrap.min.css')}" rel="stylesheet" />-->
+
+    
+
+ <apex:form id="form">
+           <apex:pageBlock id="pBlock">
+               <apex:pagemessages id="errorblock"/>
+            <apex:pageBlockSection id="pBlockSection" columns="1" title="Business Activity Mapping" collapsible="false">
+                    <apex:pageBlockTable value="{!InnerWrapperList}" var="wrap" id="pBlockTableRows" styleClass="style">
+                    <apex:column style="background-color:#00c9ff;height:20px; border:1px inset black;font-weight: bold;text-align:center;" headerValue=""  headerClass="TableTitle" value="{!wrap.Business_Function_Val}" id="colTopCell" />
+                    <apex:column id="column1" style="height:20px; border:1px inset black;text-align:center;" headerValue="{!valueStreamList[0]}"  headerClass="TableTitle" title="{!wrap.DescrSt_Features}" onclick="set_color(this)" value="{!wrap.ValueSt_Features}" />
+                    <apex:column style="height:20px; border:1px inset black;text-align:center;" headerValue="{!valueStreamList[1]}"  headerClass="TableTitle" title="{!wrap.DescrStr_Price}"  onclick="set_color(this)" value="{!wrap.ValueStr_Price}" />
+                    <apex:column style="height:20px; border:1px inset black;text-align:center;" headerValue="{!valueStreamList[2]}"  headerClass="TableTitle" title="{!wrap.DescrStr_Quality}"  onclick="set_color(this)" value="{!wrap.ValueStr_Quality}" />
+                    <apex:column style="height:20px; border:1px inset black;text-align:center;" headerValue="{!valueStreamList[3]}"  headerClass="TableTitle" title="{!wrap.DescrStr_Relationship}"  onclick="set_color(this)" value="{!wrap.ValueStr_Relationship}" />
+                    <apex:column style="height:20px; border:1px inset black;text-align:center;" headerValue="{!valueStreamList[4]}"  headerClass="TableTitle" title="{!wrap.DescrStr_Time}"  onclick="set_color(this)" value="{!wrap.ValueStr_Time}" />
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <span id="activityMsg" style="margin-left: 10px !important; color: #008000 !important;font-size: 1.2em;"></span>
+            <br/><span id="activityMsg1" style="margin-left: 10px !important; color:Red !important; font-size: 1.4em;"></span>  
+            <br/><span id="activityMsg2" style="margin-left: 10px !important; color:Red !important; font-size: 1.4em;"></span>
+
+            <div align="center" draggable="false" style="margin-top: 5px;" >
+                 <!--<apex:commandButton value="Save" action="{!saveMapping}"/>-->
+                 <apex:commandButton value="Save & Close" onclick="saveAndClose(); return false;" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false && projState != 'Complete' && projState !='Closed'),true,false)}" />
+                 <apex:commandButton value="Cancel" onclick="closeMe(); return false;" />
+            </div>
+               <div><b>Each Continuous Improvement project is to be mapped to at least one business activity. Select the appropriate business activities applicable for your project with the mouse click.</b></div>
+                <div id="pgInstruction" align="left" draggable="false" style="margin-top:10px;">
+                    <span><b>Instructions:</b></span><br/>
+                   <apex:outputLabel > 1) Click on the Activity to Map the Activity to the Project.</apex:outputLabel><br/>
+                   <apex:outputLabel > 2) Selected Activity will be Highlighted in Blue background color.</apex:outputLabel><br/>
+                   <apex:outputLabel > 3) Minimum 1 and Maximum 3 Activities can be mapped to the Project.</apex:outputLabel><br/>
+                   <apex:outputLabel > 4) Please click on the Highlighted Activity to deselect.</apex:outputLabel><br/>                
+                   <apex:outputLink value="https://sharenet-ims.int.net.nokia.com/Download/D547810361" id="theLink" target="_blank" style="margin-left:250px;">Click Here for More Info on Business Activity Mapping</apex:outputLink>
+                </div>
+  
+        </apex:pageBlock>     
+    <apex:inputHidden value="{!selActivities}" id="myHiddenField"/>
+    <!--<apex:actionFunction name="mapThisActivty" action="{!saveMapping}" rerender="myHiddenField"/>-->
+    <apex:actionFunction name="mapThisActivty" action="{!saveMapping}" rerender="myHiddenField,errorblock" />
+    
+    <div id="divTooltipPopup" style="visibility:hidden;"></div>
+
+    </apex:form>
+    
+   <style type="text/css">
+    
+     .headerRow.TableTitle {
+     background-color: #124191 !important;
+     color: white !important; 
+     font-size:100% !important; 
+     border:1px inset black !important;
+     text-align:center !important;
+        }
+        
+    .selActivity{
+        background: #0099ff!important;
+    }
+    
+    .deSelActivity{
+        background: transparent !important;
+    }     
+    .column1 {
+    white-space: pre-wrap;
+    }
+    .ui-icon.white { background-image: url(https://download.jqueryui.com/themeroller/images/ui-icons_ffffff_256x240.png); }       
+    
+    /*-- Overwrite sfdc standard css for pageBlockSection style -- Start-- */
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody .pbSubheader {
+        border-top: 0;
+        color: white;
+        text-align: center;
+    }
+    
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody .pbSubheader h3 {
+        font-size: 1.5em;
+    }
+    
+    /*-- Overwrite sfdc standard css for pageBlockSection style -- End-- */    
+  
+ </style>
+   
+   <script type="text/javascript">
+        $( document ).ready(function() {
+            document.getElementById('page:form:pBlock:pBlockSection:pBlockTableRows:colTopCellheader:sortDiv').innerHTML = "<span class='ui-icon ui-icon-arrowthick-1-s white'></span>Business Function / Value Stream <span class='ui-icon ui-icon-arrowthick-1-e white'></span>";
+        
+           $(document).tooltip({
+                content: function () {
+                return $(this).prop('title');
+                } 
+            });
+        });
+   
+        var cur = '';
+        
+        window.onload = function() {
+            var selActivities = '{!projActivity}';
+            var selActivityArr = selActivities.split(';');
+            for(var i = 0; i < selActivityArr.length; i++) {
+                $('td').filter(function(){
+                    if($(this).text()!= ''){
+                    if($(this).text() == selActivityArr[i]){
+                        cur = this;
+                        //this.style.background = '#0099ff';
+                        $(this).addClass("selActivity");
+                        countSelectedCell();
+                    }
+                    }
+                })
+            }
+        };
+        
+        var prev = '';
+        function set_color_x(cell) {
+            if (cur) { 
+                cur.style.background = '#fff';        
+            }
+         if (prev) {
+                cur = false;        
+                prev.style.background = '#fff';
+            }
+            cell.style.background = '#0099ff';
+            $('[id$=myHiddenField]').val(document.getElementById(cell.id).textContent);
+            mapThisActivty();
+            $("#activityMsg").html("<b>"+document.getElementById(cell.id).textContent+ "</b> is mapped with this project.");
+            prev = cell;
+        }
+        
+        //--Added by Rahul(22-08-2016)--Start--//
+        var selActivities = [];
+        function countSelectedCell(){
+
+            $('.selActivity').each(function(index, ele){
+                if(selActivities.indexOf(ele.textContent) == -1){
+                    selActivities[selActivities.length] = ele.textContent;
+                }
+            });
+            $('.deSelActivity').each(function(index, ele){
+                selActivities= $.grep(selActivities, function(value) {
+                    return value != ele.textContent;
+                });
+            });
+            //alert('@@selection:'+selActivities.length+'-'+selActivities.toString());
+            var selActivityTokenizerVal = selActivities.toString().replace(/,/g,';');
+            $('[id$=myHiddenField]').val(selActivityTokenizerVal);
+            $("#activityMsg").html(" <br/> <b>Selected Business Activity : </b>"+selActivities.toString());
+        }
+
+        function set_color(cell) {
+            var compId = document.getElementById(cell.id);
+//            alert(compId.textContent);
+                if((compId.textContent== "") && (selActivities.length < 3))
+                {
+                  document.getElementById("activityMsg2").innerHTML="You Cannot Select a Blank Activity."; 
+                   $(compId).removeClass("deSelActivity");
+                  return false;
+                }
+                 if((compId.textContent== "") && (selActivities.length >2))
+                {
+                  document.getElementById("activityMsg2").innerHTML=" "; 
+                   $(compId).removeClass("deSelActivity");
+                  return false;
+                }
+            if($(compId).hasClass("selActivity")){
+                $(compId).removeClass("selActivity");
+                $(compId).addClass("deSelActivity");
+                 document.getElementById("activityMsg1").innerHTML=" ";
+                 //document.getElementById("activityMsg2").innerHTML=" ";
+            }else{        
+                if(selActivities.length > 2){
+                   // alert('You already have selected 3 activities.');
+                    document.getElementById("activityMsg1").innerHTML="You can select a Maximum of 3 Activities. One Activity is Required.";
+                    document.getElementById("activityMsg2").innerHTML=" ";
+                    return false;
+                }else{
+                    $(compId).removeClass("deSelActivity");
+                    $(compId).addClass("selActivity");
+                     document.getElementById("activityMsg2").innerHTML=" ";
+                }
+            }
+            countSelectedCell();
+        }        
+        
+        function closeMe() {
+            //window.opener.refreshBAM();
+            parent.refreshBAM();         
+            //window.close();
+        }
+        function saveAndClose(){
+            //debugger;
+            if(selActivities.length > 0){
+                mapThisActivty();
+                closeMe();
+            }else{
+                alert('You can select a Maximum of 3 Activities. One Activity is Required.');
+                return false;
+            }
+        }
+        
+        function findPosX(obj){
+            var curleft = 0;
+            if (obj.offsetParent) {
+                while (obj.offsetParent) {
+                    curleft += obj.offsetLeft;
+                    obj = obj.offsetParent;
+                }
+            }
+            else if (obj.x)
+                curleft += obj.x;
+        
+            return curleft;
+        }
+        
+        function findPosY(obj){
+            var curtop = 0;
+            if (obj.offsetParent) {
+                while (obj.offsetParent) {
+                    curtop += obj.offsetTop;
+                    obj = obj.offsetParent;
+                }
+            }
+            else if (obj.y)
+                curtop += obj.y;
+        
+            return curtop;
+        }
+        
+        var dp;
+        function showPopup(hv_item,strDesc){
+        /*
+            dp = document.getElementById("divTooltipPopup");
+            dp.innerHTML = strDesc;
+        
+            dp.style.top = findPosY(hv_item) - 10;
+            dp.style.left = findPosX(hv_item) + 20;
+        
+            dp.style.visibility = "Visible";
+            $( "#divTooltipPopup" ).dialog();
+        */    
+        }
+        
+        function hidePopup(){
+        /*
+            dp = document.getElementById("divTooltipPopup");
+            dp.style.visibility = "Hidden";
+        */    
+        }
+        //--Added by Rahul(22-08-2016)--End--//
+        
+        $(document).ready(function(){
+        
+        //alert("INSIDE");
+            $("table tr").each(function() {
+        
+            var tr = this;
+            var counter = 0;
+            var strLookupText = '';
+            
+            
+            jQuery('td', tr).each(function(index, value) {
+              var td = jQuery(this);
+        
+              if (td.text() == strLookupText) {
+                counter++;
+                td.prev().attr('colSpan', '' + parseInt(counter + 1,10) + '').css({textAlign : 'center'});
+                td.remove(); 
+              }
+              else {
+                counter = 0;
+              }
+        
+               strLookupText = td.text();
+        
+            });
+        
+          });
+          
+        });
+        
+       // console.clear();
+        var table = $("table");
+        var rows = table.find($("tr"));
+        var colsLength = $(rows[0]).find($("td")).length;
+        var removeLater = new Array();
+        for(var i=0; i<colsLength; i++){
+            var startIndex = 0;
+            var lastIndex = 0;
+            var startText = $($(rows[0]).find("td")[i]).text();
+            for(var j=1; j<rows.length; j++){
+                var cRow =$(rows[j]);
+                var cCol = $(cRow.find("td")[i]);
+                var currentText = cCol.text();
+                if(currentText==startText){
+                    cCol.css("background","gray");
+                    //console.log(cCol);
+                    removeLater.push(cCol);
+                    lastIndex=j;
+                }else{
+                    var spanLength = lastIndex-startIndex;
+                    if(spanLength>=1){
+                        //console.log(lastIndex+" - "+startIndex)
+                        //console.log($($(rows[startIndex]).find("td")[i]))
+                        $($(rows[startIndex]).find("td")[i]).attr("rowspan",spanLength+1);
+                    }
+                    lastIndex = j;
+                    startIndex = j;
+                    startText = currentText;
+                }
+                    
+            }
+            var spanLength = lastIndex-startIndex;
+                    if(spanLength>=1){
+                       // console.log(lastIndex+" - "+startIndex)
+                        //console.log($($(rows[startIndex]).find("td")[i]))
+                        $($(rows[startIndex]).find("td")[i]).attr("rowspan",spanLength+1);
+                    }
+            //console.log("---");
+        }
+        
+        for(var i in removeLater){
+            $(removeLater[i]).remove();
+        }
+        
+        
+        
+</script>
+</apex:page>

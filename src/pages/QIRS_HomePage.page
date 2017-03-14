@@ -1,0 +1,240 @@
+<apex:page tabStyle="QIRS__c" Controller="QIRSHomeController" showHeader="true" sidebar="true">
+
+<apex:form >
+<br></br>
+<style>
+.l1{font-size:large;}
+.odd{background-color: red;}
+</style>
+
+
+       
+             
+
+<table width="70%" BGCOLOR="Yellow" >
+<tr>
+<td width="3%" align="right" >
+<b>Submitted Tasks:</b>
+</td>
+<td width="2%" >
+{!SubmittedTasks} 
+</td>
+
+<td width="3%" align="right" >
+<b>Task Review:</b>
+</td>
+<td width="2%" >
+{!TaskReview} 
+</td>
+<td width="3%" align="right">
+<b>Pending Tasks:</b>
+</td>
+<td width="2%">
+{!Pendingtask}
+</td>
+<td width="3%" align="right">
+<b>Task Analysis:</b>
+</td>
+<td width="2%">
+{!TaskAnalysis} 
+</td>
+
+
+
+<td width="3%" align="right">
+<b>Master Analysis:</b>
+</td>
+<td width="2%">
+{!MasterAnalysis} 
+</td>
+<td width="3%" align="right">
+<b>Master Rejection:</b>
+</td>
+<td width="2%">
+{!MasterRejection} 
+</td>
+
+</tr>
+</table>
+<br/>
+ <table > 
+  
+   <tr bgcolor="skyblue">
+   <b><apex:outputLabel value="SUMMARY MOST RECENT RECORDS" styleClass="l1"></apex:outputLabel></b>
+   </tr>
+    <br></br>
+    
+             
+
+      <tr>
+    
+        <td width = "8%">
+         &nbsp;&nbsp;&nbsp;<h1>Business:</h1> 
+         </td>
+           <td width = "8%">
+            <apex:selectList value="{!Business}" size="1">
+            <apex:selectOptions value="{!businessDD}"/>
+            <apex:actionSupport event="onchange"/>
+            </apex:selectList>
+  
+            </td> 
+             <td width = "8%" align="right">
+               &nbsp;&nbsp;<h1>Business Line:</h1> 
+             </td>
+               <td width = "8%">
+                 <apex:selectList value="{!BusinessGroup}" size="1">
+                 <apex:selectOptions value="{!businessGrpDD}"/>
+                 <apex:actionSupport event="onchange"/>
+                </apex:selectList>
+             </td>  
+               <td width = "8%" align="right">
+                &nbsp;&nbsp;<h1>Site:</h1> 
+                </td>
+                <td width = "8%">
+                 <apex:selectList value="{!Sites}" size="1">
+                 <apex:selectOptions value="{!sitesDD}"/>
+                 <apex:actionSupport event="onchange"/>
+                 </apex:selectList>
+                </td>   
+                
+                <td width = "8%" align="right"> 
+                &nbsp;&nbsp;<h1>Alert Type:</h1> 
+                </td>
+                
+                <td width = "8%">
+                  <apex:selectList value="{!Alerttype}" size="1">
+                  <apex:selectOptions value="{!alertTypesDD}"/>
+                  <apex:actionSupport event="onchange"/>
+                  </apex:selectList>
+                 </td>
+                   <td width = "8%" align="right">
+                   &nbsp;&nbsp;<h1>Status:</h1>
+                   </td>
+                     <td width = "8%"> 
+                       <apex:selectList value="{!Status}" size="1">
+                        <apex:selectOptions value="{!statusDD}"/>
+                        <apex:actionSupport event="onchange"/>
+                        </apex:selectList> 
+                        
+                      </td>
+                      
+                      <td align="right">
+                       &nbsp;&nbsp;<h1>Case Owner:</h1>
+                      </td>
+                       <td width = "8%"> 
+                          <apex:selectList value="{!ProcessOwner}" size="1">
+                          <apex:selectOptions value="{!processOwnersDD}"/>
+                          <apex:actionSupport event="onchange"/>
+                          </apex:selectList> 
+                       </td>
+                   
+        </tr>
+   
+    <tr>
+                       
+     <td colspan="12"> 
+       <apex:pageBlock >
+
+             
+                 
+        <apex:panelGrid columns="6"  columnClasses="left,none" width="100%" cellpadding="5" cellspacing="0" border="1"  styleClass="infobox">
+                    <tr>
+                        <th bgcolor="skyblue">Record Code</th>
+                        <th bgColor="skyblue">Case Name</th> <!-- DEM0014107 --->
+                        <th bgcolor="skyblue">Alert Type</th>
+                        <th bgcolor="skyblue">Case Owner</th>
+                        <th bgcolor="skyblue">Business</th>
+                        <th bgcolor="skyblue">Business Line</th>
+                        <!-- <th bgcolor="skyblue">Site</th> -->
+                        
+                        <th bgcolor="skyblue">Effect to Production</th>        
+                        <th bgcolor="skyblue">Product Name</th>  
+                        <th bgcolor="skyblue">Defect</th>             
+                        <th bgcolor="skyblue">Status</th>
+                        <th bgcolor="skyblue">Close Date</th>          
+                        <th bgcolor="skyblue">WatchList</th>        
+                        <th bgcolor="skyblue">Open Date</th>     
+                        <!-- <th bgcolor="skyblue">MCAR</th>  -->
+                        
+                        <th  bgcolor="skyblue">
+                      <div>
+                     <center>Action Plan Details</center>
+                      </div>
+                        <table valign="top" width="100%" border="1">
+                      
+                       <tr>
+                        <td align="center" width="33.33%">
+                            Action Code
+                        </td>
+                        <td align="center" width="33.33%">
+                            Action Type                        
+                        </td>
+                        <td align="center" width="33.33%">
+                            Status
+                        </td>
+                        </tr>
+                        
+                        </table>
+                        </th>
+                    </tr>
+                     <apex:repeat id="RowA" value="{!showQIRS}" var="k" >
+                    <tr>                         
+                         <td><a href="/{!k.id}"><font color="#5F9EA0">{!k.Name}</font>
+                         </a></td>
+                         <td><apex:outputField value="{!k.Case_Name__c}"/></td> 
+                         <td><apex:outputField value="{!k.Alert_Type__c}"/></td>                          
+                         <td><apex:outputField value="{!k.Process_Owner1__c }"/></td>  
+                         <td><apex:outputField value="{!k.Business__c}"/></td>
+                         <td><apex:outputField value="{!k.Business_Group__c}"/></td>
+                         <!-- <td><apex:outputField value="{!k.Site1__c}"/></td> -->
+
+                         <td bgcolor="{!k.IssueLevelColor__c}">
+                         <apex:outputField value="{!k.Issue_Level__c}"/></td>
+                         <td><apex:outputField value="{!k.View_Product_Name__c}"/></td>
+
+                         <td><apex:outputField value="{!k.Defective_Part__c}"/>
+                         <apex:outputLabel value=" "></apex:outputLabel>
+                         <apex:outputField value="{!k.Symptom__c}"/>
+                         </td>
+                         <td bgcolor="{!k.StatusColor__c}"><apex:outputField value="{!k.Status__c}"/></td>
+
+                         <td><apex:outputField value="{!k.Closed_Date1__c}"/></td>
+
+                         <td><apex:outputField value="{!k.Watchlist__c}"/></td> 
+                         <td><apex:outputField value="{!k.CreatedDate}"/></td>
+                         <!-- <td><apex:outputField value="{!k.MCAR__c}"/></td> -->
+                         <td style ="background-color:{!k.View_AP_Color__c}"  >
+                            <apex:outputText rendered="{!if((k.View_AP_Color__c ='white'),false,true)}"> No Action </apex:outputText>
+                         <table id="homegrid" border ="0" width="100%">
+                        
+                          <apex:repeat id="RowA" value="{!k.QIRS_Action_Plan__r}" var="tm" >
+                       
+                         <tr border="1" >
+                         <td width="33.33%"><apex:outputField value="{!tm.Name}"/></td>
+                         <td width="33.33%"><apex:outputField value="{!tm.Action_Type__c}"/></td>
+                         <td width="33.33%" style="background-color:{!tm.StatusColor__c}"><apex:outputField value="{!tm.Status__c}"/></td>
+                         </tr>
+                         </apex:repeat>  
+                         </table>
+                        
+                        
+                    
+                        
+
+                         </td>                                    
+                    </tr>
+                    </apex:repeat>                    
+              </apex:panelgrid>                                      
+        </apex:pageBlock> 
+
+    </td>
+ </tr>
+</table> 
+
+
+
+
+</apex:form>
+
+
+</apex:page>

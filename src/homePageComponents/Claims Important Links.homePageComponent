@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>MCAR_Claims_Training_Material_Link</links>
+    <links>Claims_Process</links>
+    <links>NCC_Templates</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

@@ -1,0 +1,90 @@
+<apex:page cache="false" expires="0" sidebar="true" showheader="true" tabStyle="MCAR_Change_Request__c" standardController="MCAR_Change_Request__c" extensions="MCARChangeRequestExtention" action="{!temp}" >
+  <apex:form >
+  <apex:pageBlock >
+        
+    <table border="0" width="850">
+        <tr>
+            <td align="center">
+                <p><h2><b><font size="5" color="#00BFFF"> Change Request Form</font><br></br>
+                <font size="4" color="#00BFFF"><apex:outputPanel id="trackID1" rendered="{!trackID}">RECORD SAVED Request ID: {!get_id}</apex:outputPanel>
+                <apex:outputPanel id="trackID2" rendered="{!trackID1}">RECORD DETAIL TrackID: {!get_id}</apex:outputPanel></font></b></h2></p>
+                <apex:pageMessages ></apex:pageMessages>
+            </td>
+        </tr>
+    </table>           
+    <hr></hr>
+    
+    <table border="0" width="1350">
+        <tr>
+            <td colspan="2">
+                <p><h2><b><font size="4" color="red">User Information</font></b></h2></p>
+            <td>
+                <font color="white">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</font>
+            </td>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                 <h2>Name:</h2> 
+            </td>
+            <td>
+                <apex:outputPanel id="Name1" rendered="{!Name1}">
+                <apex:inputtext value="{!Name}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="Name2" rendered="{!Name2}">
+                <apex:outputText value="{!Name}">
+                </apex:outputText>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                 <h2>Mfg Part Number:</h2> 
+            </td>
+            <td>
+                <apex:outputPanel id="MfgPartNumber1" rendered="{!Name1}">
+                <apex:inputtext value="{!MfgPartNumber}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="MfgPartNumber2" rendered="{!Name2}">
+                <apex:outputText value="{!MfgPartNumber}">
+                </apex:outputText>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        
+        <tr>            
+            <td valign="top">
+                 <B>Description : </B>
+                    <apex:outputPanel id="Description2" rendered="{!Name2}">
+                    <apex:outputText value="{!Description}">
+                    </apex:outputText>
+                    </apex:outputPanel>
+            </td>
+            <td colspan="2">
+                    <apex:outputPanel id="Description1" rendered="{!Name1}">
+                    <apex:inputtextarea cols="51" rows="5" value="{!Description}"/>
+                    </apex:outputPanel>
+            </td>
+        </tr>
+    </table>
+    <hr></hr>  
+    
+    <table border="0" width="100%">
+        <tr>
+           <td width="40%" align="right">            
+                <apex:commandButton value="Save" action="{!Save}"/>
+           </td>
+           <td width="60%"> 
+                <apex:commandButton value="Cancel" action="{!cancel}"/>  
+           </td> 
+        </tr>          
+    </table>   
+        
+    
+  </apex:pageBlock>  
+  </apex:form>
+</apex:page>

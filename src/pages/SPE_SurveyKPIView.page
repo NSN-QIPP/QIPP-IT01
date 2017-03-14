@@ -1,0 +1,292 @@
+<apex:page Controller="SPE_SurveyKPI" ShowHeader="false">
+<apex:includeScript value="{!$Resource.JqueryMin}"/>
+    <style>
+     
+     .kpiheader
+     {
+        border:1px solid black;
+        background-color:#004C9A;
+        color:White;
+        text-align:left;
+        padding:5px;
+        height: 140px;
+        font-family: "Times New Roman";
+     }
+     
+     .tableStyle
+     {
+        
+        margin-left: 15px;
+        margin-right: 30px;
+        margin-top: 20px;
+        border: 1.7px solid black;
+        border-collapse: collapse;
+        
+    }
+     
+     .backgroungColor
+     {
+        background-color:#004C9A;
+     }
+     .fontColor
+     {
+        font-family: "Times New Roman";
+        color:white;
+        font-weight: 600;
+     }
+     .tableBorder
+     {
+     border:1px solid black;
+     border-collapse: collapse;
+     }
+     table.widget1 td 
+     {
+        border:1px solid black;
+        
+        
+     } 
+     table.widget2 td
+     {
+        color:inherit;
+        color:white;
+     }
+     
+     .tooltip 
+     {
+        display:none;
+        position:absolute;
+        border:1px solid #333;
+        background-color:#ff0000;
+        
+        border-radius:5px;
+        padding:10px;
+        color:#fff;
+        font-size:12px Arial;
+     }
+     
+     .supplierStyle {
+    border:1px solid black;
+    margin:2em;
+    
+    
+       /* gradient example */
+        /* for non-css3 browsers */
+        background: #FFFFFF;
+    
+        /* gradient IE background: -webkit-linear-gradient(#FFFFFF,#5378C1);  */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#004C9A')!important;
+        background: -ms-linear-gradient(top,  #ffffff 0%,#004C9A 100%,#004C9A 100%); /* IE10+ */
+        /*background: linear-gradient(to bottom, white, #004C9A);*/
+    
+        /* gradient webkit */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#004C9A));
+        /*background: linear-gradient(to bottom, white, #004C9A);*/
+    
+        /* gradient moz */
+        background: -moz-linear-gradient (top, #FFFFFF, #004C9A);
+        background: -moz-linear-gradient(top,  #ffffff 0%, #004C9A 100%, #004C9A 100%); /* FF3.6+ */
+        
+        /* IE ... :'( */
+        /* download polyfill ? ... */
+    
+    
+}
+     
+    </style>
+    
+    <script >
+        window.$Label = window.$Label || {};
+        $Label.alertMsg = '{!JSENCODE($Label.SPE_PlsFillReqdField)}';
+        
+        window.$Label = window.$Label || {};
+        $Label.alertMsg1 = '{!JSENCODE($Label.SPE_PlsFillReqdText)}';
+        
+
+       
+      function validation ()
+      { 
+        $( "div[title ='true']" ).each(function()
+        {   
+            $(this).children().each(function()
+            {
+                if ($(this).val() == '' && $(this).hasClass("picklist"))
+                {
+                    alert($Label.alertMsg);
+                }
+                else if ($(this).val() == '' && $(this).hasClass("freeText"))
+                {   
+                    alert($Label.alertMsg1);
+                }
+            
+            });
+        });
+      }
+      
+      
+   </script>
+    
+    <apex:form id="fm">
+        <apex:pagemessages ></apex:pagemessages>
+        
+        <div>
+                 <img style="WIDTH:180px; HEIGHT: 100px" src='{!URLFOR($Resource.SPE_NokiaLogo)}' title="logo"/>                    
+        </div>
+        <div style="text-align: center;">
+            <font Color="#004C9A" size="6"> Survey For &nbsp;<apex:outputField value="{!spePlan.Name}"/> </font>
+        </div>
+        <div >
+            <table class="tableStyle backgroungColor fontColor widget2 tableBorder" style="width:93%;">
+                <tr>
+                    <td Style="padding:10px" width="8%">
+                       {!$Label.SPE_CategoryCluster}
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.CategoryCluster__c}"/>
+                    </td>
+                    <td width="8%">
+                        {!$Label.SPE_CategoryGroup} :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.CategoryGroup__c}"/>
+                    </td>
+                    <td width="8%">
+                        {!$Label.SPE_CategoryGroup} :
+                    </td >
+                    <td width="22%">
+                        <apex:outputField value="{!spePlan.Category__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td Style="padding:10px" width="8%">
+                       {!$Label.SPE_Market} :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.Region__c}"/>
+                    </td>
+                    <td width="8%">
+                        {!$Label.SPE_MarketUnit} :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.SubRegion__c}"/>
+                    </td>
+                    <td width="8%"> 
+                        {!$Label.SPE_Country} :
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!spePlan.Country__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td Style="padding:10px" width="8%">
+                        {!$Label.SPE_Project} :
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!spePlan.Project__c}"/>
+                    </td>
+                    <td width="10%">
+                         {!$Label.SPE_SurveyDD}
+                    </td>
+                    <td width="27%">
+                        <!-- <apex:outputField value="{!tracker.DateOfExecution__c}"/> -->
+                        <apex:outputText value="{0,date,MM.dd.yyyy}">
+                            <apex:param value="{!tracker.DateOfExecution__c}" />
+                        </apex:outputText>
+                    </td>
+                    <td width="11%">
+                        {!$Label.SPE_RespondantName} 
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!contact.Name}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="top" style="width:94%;overflow-x:auto;"> 
+        
+           <table class="tableStyle widget1" style="width:100%;">
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!responseWrapperSupplierMap}" var="rKey">
+                    <tr>
+                        
+                        <div style="">
+                        
+                        <apex:outputPanel rendered="{!(index == 0)}">
+                        
+                        <td valign="bottom" class="supplierStyle" style="color:white;  font-weight: 2000;text-align:center;padding-bottom:60px;width:150px;">
+                        <hr style = "margin-bottom: 3em;border-color: black;" />         
+                                    
+                                <font size="3.5"> <b> {!supplierNameMap[rKey]} </b></font>
+                       
+                        </td> 
+                        
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!(index != 0)}">
+                        
+                        <td style="color:white;background:#004C9A;text-align:center;width:150px;">                     
+                                <font size="3.5"> <b> {!supplierNameMap[rKey]} </b></font>
+                        </td> 
+                        
+                        </apex:outputPanel>
+                        </div>
+                                         
+                       <apex:repeat value="{!responseWrapperSupplierMap[rKey]}" var="rQue">
+                            <td valign="top" style="width:300px;">
+                             
+                            <apex:outputPanel rendered="{!(index == 0)}">
+                            
+                                <div class="kpiheader">
+                                     <b><p title="{!rQue.kpiId}">{!$Label.SPE_KPIName}: {!rQue.kpiName}</p>
+                                     <hr></hr>
+                                            Question: {!rQue.surQue.SurveyQuestion__c}</b>
+                                            <hr></hr>
+                                  </div>
+                                        <br/>
+                           </apex:outputpanel>
+                                <table>
+                                    <div Style="padding-top:6px;padding-left:6px;"> 
+                                        <span class="helpButtonOn" id="showicon-_help">
+                                        <img src="/s.gif" alt="" class="helpOrb" title="{!supplierNameMap[rKey]}"/>
+                                        </span>
+                                                <b> Answer : </b> </div>
+                                   
+                                    <div style="padding-top: 6px;padding-left:6px;"  title= "{!rQue.surQue.IsRequired__c}">
+                                        <apex:selectList value="{!rQue.ansId}" rendered="{!rQue.renderPicklist}" id="myPicklist" size="1" styleClass="picklist" required="{!rQue.surQue.IsRequired__c}" style="width: 200px;">
+                                           <apex:selectOptions value="{!rQue.selectAns}" id="plv"/>
+                                        </apex:selectList>
+                                      
+                                         
+                                         <apex:inputCheckbox value="{!rQue.renderCheckBox}" rendered="{!rQue.booleanData}" Required="{!rQue.surQue.IsRequired__c}" style="width: 200px;"/>
+                                         <apex:inputText value="{!rQue.dateData}" size="10" id="demo" onfocus="DatePicker.pickDate(false, this , false);" rendered="{!rQue.renderDate}" required="{!rQue.surQue.IsRequired__c}" style="width: 200px;"/>
+                                         
+                                        <apex:inputText value="{!rQue.textAreaData}" id="ita" rendered="{!rQue.renderFreeText}" styleClass="freeText" required="{!rQue.surQue.IsRequired__c}" style="width: 200px;"/> 
+                                        
+                                        <apex:inputText value="{!rQue.textStringData}"  id="itaString" rendered="{!rQue.renderStringFreeText}" styleClass="freeText" required="{!rQue.surQue.IsRequired__c}" style="width: 200px;"/> 
+                                        
+                                        <apex:OutputPanel rendered="{!rQue.surQue.IsRequired__c}" styleClass="span" >
+                                            <font color="red" size="4">*</font>
+                                        </apex:OutputPanel>
+                                    </div>
+                                    <div style="padding-top: 6px;padding-left:6px;">
+                                    <b> Comments : </b>
+                                    </div>
+                                    <div style="padding-top: 6px;padding-bottom: 6px;padding-left:6px;">  
+                                        <apex:inputText value="{!rQue.comments}" style="width: 200px;"/>   
+                                    </div>                  
+                                        </table>
+                            </td>
+                        </apex:repeat>
+                        <td valign="top" style="width:500px;border-color: white;"><div style="width:500px;border-color: white;">
+                            
+                            </div></td>
+                    </tr>
+                    <apex:variable var="index" value="{!index + 1}" />
+                </apex:repeat>     
+            </table>
+            
+    </div>
+   
+    </apex:form>
+    <c:SPE_FooterforSite />
+</apex:page>

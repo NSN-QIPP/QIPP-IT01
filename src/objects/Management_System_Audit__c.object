@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object for capturing Audits (for QIPP Application), for Quality Team</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Audit_Complete_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave blank upon creating new record; will be updated when all findings are closed from the calendar.</inlineHelpText>
+        <label>Audit Complete Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Conducted__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Conducted</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Face to Face</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Remote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Duration__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>External audits only</inlineHelpText>
+        <label>Audit Duration</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Audit_Executed_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Leave blank upon creating new record; will be updated when audit has been conducted; select the last day of the audit from the calendar.</inlineHelpText>
+        <label>Audit Executed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Headcount__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Headcount</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Audit_Location__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter audit location.</inlineHelpText>
+        <label>Location</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Audit_Name_Unique__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Audit Name - Unique</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Audit_Organization_Manager__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill in the name of the organization manager who will be responsible for implementation of the corrective actions.</inlineHelpText>
+        <label>Audit Organization Manager</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Audit_Planned_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the date of the planned audit.  If only the month is known, select the last day of the month from the calendar.</inlineHelpText>
+        <label>Audit Planned Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Report_Received__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Audit Report Received</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planned, not committed</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planned, committed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Executed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reported</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ISO14K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISO14K&amp;OHS18K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISO27K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISO22301</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISO9K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISO9K&amp;ISO14K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OHS18K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Process Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supplier Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TL9K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TL9K&amp;ISO14K</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_URL__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Audit URL</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Audit_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Year</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2015</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2016</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2017</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2018</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2019</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2020</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_organization__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Organization</label>
+        <picklist>
+            <picklistValues>
+                <fullName>MBB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QMP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CFO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A&amp;A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIOO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QMS and Audits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Audit_purpose_and_scope__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Optional, space to add additional information; you can list the details of processes covered, etc.</inlineHelpText>
+        <label>Audit Purpose and Scope</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Optional field; could be used to provide additional detail about the audited organization such as the name of the Unit, Business Unit, Business Lines.  This can be used also e.g. to separate Product Lines inside Business Lines (e.g. BSC, RNC, BTS).</inlineHelpText>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>External_Auditor_Name__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>External Auditor Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Internal_Audit_Program_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Search by the *First Name* (or) *Last Name* - append * at the beginning and at the end - and you will be provided with a list of contacts to choose from.</inlineHelpText>
+        <label>Int Audit Program Owner / Ext Audit Host</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Audits (Internal Audit Program Owner)</relationshipLabel>
+        <relationshipName>Audits1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Internal_External__c</fullName>
+        <externalId>false</externalId>
+        <label>Internal / External</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Internal</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Auditor_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Lead Auditor Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead_Auditor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Search by the *First Name* (or) *Last Name* - append * at the beginning and at the end - and you will be provided with a list of contacts to choose from.</inlineHelpText>
+        <label>Lead Auditor</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Audits (Lead Auditor)</relationshipLabel>
+        <relationshipName>Audits</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Management_System__c</fullName>
+        <externalId>false</externalId>
+        <label>Management System</label>
+        <picklist>
+            <picklistValues>
+                <fullName>EMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HSSMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS + HSSMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMS + QMS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BCM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Notes_Cancellation__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>If audit canceled, please provide the details regarding the justification for cancellation.</inlineHelpText>
+        <label>Notes</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Revised_Audit_Planned_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Revised Audit Planned Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Visit_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>External audits only</inlineHelpText>
+        <label>Visit Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Surveillance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recertification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Extension to Scope</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Certification – stage 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Certification – stage 2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>additional_organization__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Organization</label>
+        <picklist>
+            <controllingField>Audit_organization__c</controllingField>
+            <picklistValues>
+                <fullName>3G Core BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Advanced Mobile Networks Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>MN</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>APJ</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asia &amp; Middle East &amp; Africa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Care</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEM &amp; OSS BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Converged Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>MN</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>COO</fullName>
+                <default>false</default>
+                <controllingFieldValues>MN</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Core Platforms</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Support</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Delivery Excellence</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DO</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Europe</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Europe and Latin America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FDD LTE BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GCHINA</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Procurement</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Service Delivery (GSD)</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>MN</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS</fullName>
+                <default>false</default>
+                <controllingFieldValues>CIOO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS Business Performance Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS Office</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GSM</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Het-Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>India</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LAT</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Liquid Core BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LTE</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Managed services (MS)</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Management Operations</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manufacturing Operations</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MEA</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Networks Products</fullName>
+                <default>false</default>
+                <controllingFieldValues>MN</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NAM</fullName>
+                <default>false</default>
+                <controllingFieldValues>CO</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Implementation (NI)</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Planning and Optimization (NPO)</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>North America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM and Mature Products</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operations Portfolio Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OSS</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Packet Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PO</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portfolio Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Business Unit</fullName>
+                <default>false</default>
+                <controllingFieldValues>A&amp;A</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio Platforms</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RF / SM</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Single RAN BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Small Cell / CDMA</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Small Cell BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Supply Chain Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>GOPS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>System Module</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Systems Integration (SI)</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TD-LTE BL</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transformation Program</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value Creation</fullName>
+                <default>false</default>
+                <controllingFieldValues>GS</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value Creation Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VIPT</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WCDMA</fullName>
+                <default>false</default>
+                <controllingFieldValues>MBB</controllingFieldValues>
+            </picklistValues>
+            <sorted>true</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>QIPP Audit</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Audit_Type__c</columns>
+        <columns>Lead_Auditor__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Audit_Year__c</columns>
+        <columns>Audit_Status__c</columns>
+        <columns>Audit_Complete_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Audit Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Audits</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Management_System__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Lead_Auditor__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Audit_Year__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Audit_Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Audit_Complete_Date__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Management_System__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Lead_Auditor__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Audit_Status__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Management_System__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Lead_Auditor__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Audit_Year__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Audit_Status__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Audit_status_to_be_changed_to_complete</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL( Audit_Status__c , &apos;Completed&apos;) &amp;&amp; Audit_Complete_Date__c &gt; TODAY()</errorConditionFormula>
+        <errorDisplayField>Audit_Status__c</errorDisplayField>
+        <errorMessage>Audit Status could not be changed to COMPLETED if the Audit Completed Date entered is in the future</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Audit_status_to_be_changed_to_execute</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL( Audit_Status__c , &apos;Executed&apos;) &amp;&amp;  Audit_Executed_Date__c &gt; TODAY()</errorConditionFormula>
+        <errorDisplayField>Audit_Status__c</errorDisplayField>
+        <errorMessage>Audit Status could not be changed to EXECUTED if the Audit Executed Date entered is in the future</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>External_Audits_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL(Internal_External__c, &apos;External&apos;) &amp;&amp;  ($UserRole.Name != &apos;QIPP Audit Manager&apos;)</errorConditionFormula>
+        <errorMessage>External Audits can only be created or modified by QMP.  Please contact QMP in this regard.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Audit_Completed_Date</fullName>
+        <active>false</active>
+        <description>Audit Complete Date can ONLY be entered when Audit Status = &quot;Completed“</description>
+        <errorConditionFormula>AND (
+
+NOT ( ISPICKVAL(  Audit_Status__c  , &apos;Completed&apos;) 
+     ), 
+
+ NOT(ISBLANK( Audit_Complete_Date__c )) 
+)</errorConditionFormula>
+        <errorDisplayField>Audit_Complete_Date__c</errorDisplayField>
+        <errorMessage>Audit Complete Date can ONLY be entered when Audit Status = &quot;Completed“</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Audit_Executed_Date</fullName>
+        <active>true</active>
+        <description>Audit Executed Date can ONLY be entered when Audit Status = &quot;Executed&quot;, &quot;Reported&quot; and &quot;Completed&quot;</description>
+        <errorConditionFormula>AND (
+
+NOT ( 
+ OR ( ISPICKVAL(  Audit_Status__c  , &apos;Executed&apos;), 
+     ISPICKVAL(  Audit_Status__c  , &apos;Reported&apos;),
+     ISPICKVAL(  Audit_Status__c  , &apos;Completed&apos;)
+   )), 
+
+ NOT(ISBLANK(Audit_Executed_Date__c)) 
+)</errorConditionFormula>
+        <errorDisplayField>Audit_Executed_Date__c</errorDisplayField>
+        <errorMessage>Audit Executed Date can ONLY be entered when Audit Status = &quot;Executed&quot;, &quot;Reported&quot; or &quot;Completed&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Audit_Status</fullName>
+        <active>true</active>
+        <description>Audit Status cannot be set to &quot;Executed&quot;, &quot;Reported&quot; or &quot;Completed&quot; - when Audit Executed Date is NOT present</description>
+        <errorConditionFormula>AND ( 
+
+( 
+OR ( ISPICKVAL( Audit_Status__c , &apos;Executed&apos;), 
+ISPICKVAL( Audit_Status__c , &apos;Reported&apos;), 
+ISPICKVAL( Audit_Status__c , &apos;Completed&apos;) 
+)), 
+
+(ISBLANK(Audit_Executed_Date__c)) 
+)</errorConditionFormula>
+        <errorDisplayField>Audit_Status__c</errorDisplayField>
+        <errorMessage>Audit Status cannot be set to &quot;Executed&quot;, &quot;Reported&quot; or &quot;Completed&quot; - when Audit Executed Date is NOT present</errorMessage>
+    </validationRules>
+</CustomObject>

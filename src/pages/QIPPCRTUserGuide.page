@@ -1,0 +1,4 @@
+<apex:page showHeader="false" standardStylesheets="false" 
+action="{!URLFOR($Resource.CRTUserGuide)}">
+  
+  </apex:page>

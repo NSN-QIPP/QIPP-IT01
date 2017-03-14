@@ -1,0 +1,534 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_SPEPlanCreateExt" id="pgId">
+<head>
+    <script>
+    var prdValue = '';
+    var blValue = '';
+    var buValue = '';
+   
+           if ('{!isUserHaveAccessToRecord}' == 'false')
+            {
+                
+                alert('You can only edit SPE under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_SPEPlan__c.Id}";
+                
+            }
+    </script>
+</head>
+<script>
+    
+     //----------JS functions for custom picklist starts-------------------
+        function populateMarketUnitJS(a){
+        
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled='true';
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled='true';
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true'; 
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled='true';
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled='true';
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+           //document.getElementById('temp').disabled='true';
+           //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled='true';
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled='true';
+           document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+           populateMarketUnit(a);
+   
+        }
+    function populateMarketUnitJS1(){
+    
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+            //document.getElementById('temp').disabled=false;
+            //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+            
+    }
+        function populateCountryJS(val){
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+             //document.getElementById('temp').disabled='true';
+             //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+             
+             populateCountry(val);
+ 
+        }
+        
+        function populateCountryJS1(){
+        
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+             //document.getElementById('temp').disabled=false;
+             //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+  
+        }
+       
+        
+        function populatePrjJS(val){
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+            //document.getElementById('temp').disabled='true';
+            //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled='true';
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+            populatePrj(val);
+            
+        }
+
+        function populatePrjJS1()
+        {
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+            //document.getElementById('temp').disabled=false;
+            //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+        
+        }
+        function populateBLJS(val){
+             buValue = val;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+             //document.getElementById('temp').disabled='true';
+             //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+             populateBL(val);
+          }
+          
+        function  populateBLJS1(){
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+             //document.getElementById('temp').disabled=false;
+             //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled=false;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+        
+        } 
+        
+        function populateProductJS(val){
+             blValue = val;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+             //document.getElementById('temp').disabled='true';
+             //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled='true';
+             document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+             populateProduct(val);
+             
+        
+        }
+        
+        function populateProductJS1(){
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+            //document.getElementById('temp').disabled=false;
+            //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled=false;
+            document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+        
+        
+        }
+        
+         function populateCatGroupJS(val){
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+         //document.getElementById('temp').disabled='true';
+         //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+         populateCatGroup(val);
+                
+        }
+        
+        function populateCatGroupJS1(){
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem12Id:chooseCatGroup').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+         //document.getElementById('temp').disabled=false;
+         //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+        
+        }
+        
+        function populateCatJS(val){
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled='true';
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled='true';
+         //document.getElementById('temp').disabled='true';
+         //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+
+         populateCat(val);
+                
+        }
+        
+        function populateCatJS1(){
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem11Id:chooseCatArea').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem113Id:chooseCategory').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem1Id:chooseMarket').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem2Id:chooseMarketUnit').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem4Id:chooseProject').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem3Id:chooseCountry').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem5Id:chooseBU').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem10Id:chooseBL').disabled=false;
+         document.getElementById('pgId:frmId:detail:pgSectionId:pgSectionItem7Id:chooseProduct').disabled=false;
+         //document.getElementById('temp').disabled=false;
+         //document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+
+        }
+        
+        //-------------------JS functions for custom picklist ends------------------
+    
+    function setPrdval(a){
+        prdValue = a;
+        document.getElementById('pgId:frmId:hdFld').value = a;
+        rerenderForm1(a);
+    }
+    </script>
+
+    <apex:form id="frmId">
+        <apex:inputHidden value="{!prdVal}" id="hdFld"/> <!-- Hidden field for Custom Picklist -->
+     <apex:actionFunction id="rerenderForm1" name="rerenderForm1" action="{!blankMethod}" reRender="none">
+        <apex:param value="" name="rerenderForm11"  assignTo="{!prdVal}"/>
+     </apex:actionFunction>
+     
+     <apex:actionFunction id="populateMarketUnit" name="populateMarketUnit" action="{!fillMarketUnit}" immediate="true" reRender="muPanel,countryPanel,projectPanel,myMsg" status="statusChangeC" oncomplete="populateMarketUnitJS1();">
+                <apex:param value="" name="marketVal"  assignTo="{!marketVal}"/>
+     </apex:actionFunction> 
+     
+      
+     <apex:actionFunction id="populateCountry" name="populateCountry" action="{!fillCountry}" immediate="true" reRender="countryPanel,marketPanel,projectPanel,myMsg" status="statusChangeMU" oncomplete="populateCountryJS1()">
+         <apex:param value="" name="marketUnitVal"  assignTo="{!marketUnitVal}"/>
+     </apex:actionFunction> 
+     
+     <apex:actionFunction id="populatePrj" name="populatePrj" action="{!fillProject}" immediate="true" reRender="projectPanel,myMsg" status="statusChangeCountry" oncomplete="populatePrjJS1()">
+         <apex:param value="" name="countryVal"  assignTo="{!countryVal}"/>
+     </apex:actionFunction>
+     
+     <apex:actionFunction id="populateBL" name="populateBL" action="{!fillBusinessLine}" immediate="true" reRender="BLPanel,ProductPanel,myMsg" status="statusChangeBU" oncomplete="populateBLJS1()">
+                <apex:param value="" name="buVal"  assignTo="{!buVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateProduct" name="populateProduct" action="{!fillProduct}" immediate="true" reRender="ProductPanel,myMsg" status="statusChangeBL" oncomplete="populateProductJS1()">
+                <apex:param value="" name="blVal"  assignTo="{!blVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateCatGroup" name="populateCatGroup" action="{!fillCategoryGroup}" immediate="true" reRender="CGPanel,CPanel,myMsg" status="statusChangeCatArea" oncomplete="populateCatGroupJS1()">
+                <apex:param value="" name="caVal"  assignTo="{!caVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateCat" name="populateCat" action="{!fillCategory}" immediate="true" reRender="CPanel,myMsg" status="statusChangeCatGroup" oncomplete="populateCatJS1()">
+                <apex:param value="" name="cgVal"  assignTo="{!cgVal}"/>
+     </apex:actionFunction> 
+     
+      <!--  Action function for custom picklist ends ---------  -->
+    
+        <apex:outputPanel id="alertPane" >
+            <script>
+            function isMatch()
+            {
+                var bool1 = '{!isScopeMatch}';
+                var isValid = '{!isValid}';
+                
+                if (isValid == 'true')
+                {
+                    if (bool1 == 'false')
+                    {
+                        var flag = confirm('Scope does not match with Scoring Template, Do you really want to proceed further ?');
+                        if (flag == true)
+                        {
+                            saveRecord();
+                        }
+                    } 
+                    else
+                    {
+                        saveRecord();
+                    }
+                }
+            }
+            </script>
+        </apex:outputPanel>
+        
+        <apex:pageBlock id="detail" rendered="{!isUserHaveAccessToRecord}">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="{!$Label.SPE_Save}" action="{!scopeMatch}" oncomplete="isMatch();" reRender="alertPane,detail" />
+                <apex:commandButton value="{!$Label.SPE_Cancel}" action="{!cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="myMsg" />
+            <apex:PageBlockSection title="{!$Label.SPE_PlanDetail}" collapsible="false" id="pgSectionId">
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="{!$Label.SPE_PlanName}"/>
+                    <apex:inputfield value="{!spePlan.SPEPlanName__c}" required="true" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="scoringTemp">
+                    <apex:outputText value="{!$Label.SPE_ScoringTLab}"/>
+                    <apex:inputfield value="{!spePlan.SPEScoringTemplate__c}" required="true" />
+                </apex:pageBlockSectionItem>
+                
+               <apex:pageBlockSectionItem id="Organization">
+                    <apex:outputText value="{!$Label.SPE_Org_Grp}"/>
+                    <apex:inputfield value="{!spePlan.Organization_Group__c}" required="true" />
+                </apex:pageBlockSectionItem> 
+                   
+                <apex:pageBlockSectionItem id="pgSectionItem11Id">
+                        <apex:outputText value="{!$Label.SPE_CategoryArea}"/>
+                        <apex:outputPanel id="CAPanel">
+                            <apex:selectList id="chooseCatArea" value="{!caVal}" size="1" onchange="populateCatGroupJS(this.value)">
+                                <apex:selectOptions value="{!CategoryAreaValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCatArea">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    
+                
+                  <apex:pageBlockSectionItem id="pgSectionItem1Id">
+                        <apex:outputText value="{!$Label.SPE_Market}"/>
+                        <apex:outputPanel id="marketPanel">
+                            <apex:selectList id="chooseMarket" value="{!marketVal}" size="1" onchange="populateMarketUnitJS(this.value)">
+                                <apex:selectOptions value="{!MarketValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeC">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>  
+                    
+                
+                <apex:pageBlockSectionItem id="pgSectionItem12Id">
+                        <apex:outputText value="{!$Label.SPE_CategoryGroup}"/>
+                        <apex:outputPanel id="CGPanel">
+                            <apex:selectList id="chooseCatGroup" value="{!cgVal}" size="1" onchange="populateCatJS(this.value)">
+                                <apex:selectOptions value="{!CategoryGroupValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCatGroup">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    
+                
+                <apex:pageBlockSectionItem id="pgSectionItem2Id">
+                        <apex:outputText value="{!$Label.SPE_MarketUnit}"/>
+                        <apex:outputPanel id="muPanel">
+                            <apex:selectList id="chooseMarketUnit" value="{!marketUnitVal}" size="1" onchange="populateCountryJS(this.value);">
+                                <apex:selectOptions value="{!MarketUnitValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeMU">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                
+               <apex:pageBlockSectionItem id="pgSectionItem113Id">
+                        <apex:outputText value="{!$Label.SPE_Category}"/>
+                        <apex:outputPanel id="CPanel">
+                            <apex:selectList id="chooseCategory" value="{!ctVal}" size="1">
+                                <apex:selectOptions value="{!CategoryValues}"/>
+                            </apex:selectList>
+                            
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>   
+                    
+                 
+                 <apex:pageBlockSectionItem id="pgSectionItem3Id">
+                        <apex:outputText value="{!$Label.SPE_Country}"/>
+                        <apex:outputPanel id="countryPanel">
+                                        
+                            <apex:selectList id="chooseCountry" value="{!countryVal}" size="1" onchange="populatePrjJS(this.value);">
+                                <apex:selectOptions value="{!CountryValues}"/>
+                                
+                       </apex:selectList>
+                       <apex:actionStatus id="statusChangeCountry">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    
+                
+                <apex:pageBlockSectionItem id="pgSectionItem5Id">
+                        <apex:outputText value="{!$Label.SPE_BusinessUnit}"/>
+                        <apex:outputPanel id="BUPanel">
+                                        
+                            <apex:selectList id="chooseBU" value="{!buVal }" size="1" onchange="populateBLJS(this.value);">
+                                <apex:selectOptions value="{!BusinessUnitValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeBU">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                             </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                     
+                
+                 <apex:pageBlockSectionItem id="pgSectionItem4Id">
+                        <apex:outputText value="{!$Label.SPE_Project}"/>
+                        <apex:outputPanel id="projectPanel">
+                                
+                            <apex:selectList id="chooseProject" value="{!projectVal}" size="1" onchange="changeProjectJS()">
+                                <apex:selectOptions value="{!ProjectValues}"/>
+                                
+                       </apex:selectList>
+                       
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+                    
+                
+                <apex:pageBlockSectionItem id="pgSectionItem10Id">
+                        <apex:outputText value="{!$Label.SPE_BusinessLine}"/>
+                        <apex:outputPanel id="BLPanel">
+                                        
+                            <apex:selectList id="chooseBL" value="{!blVal}" size="1" onchange="populateProductJS(this.value)">
+                                <apex:selectOptions value="{!BusinesLineValues}"/>
+                            </apex:selectList>
+                           <apex:actionStatus id="statusChangeBL">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                             </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                
+                 
+                
+                
+              <!--  <apex:pageBlockSectionItem >
+                    <apex:outputText value="CM"/>
+                    <apex:inputfield value="{!spePlan.CM__c}" />
+                </apex:pageBlockSectionItem> -->
+                <apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem id="pgSectionItem7Id">
+                        <apex:outputText value="{!$Label.SPE_Product}"/>
+                        <apex:outputPanel id="ProductPanel">
+                              <apex:selectList id="chooseProduct" value="{!prdVal}" size="1" onchange="setPrdval();">
+                                <apex:selectOptions value="{!ProductValues}"/>
+                            </apex:selectList>
+                       <!--     <select id="temp" onchange="setPrdval(this.value);">
+                              <apex:repeat value="{!lstTemp}" var="a">
+                                  <option value="{!a}">{!a}</option>
+                                  
+                              </apex:repeat>
+                            </select>      -->    
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem> 
+           </apex:PageBlockSection>
+           <apex:PageBlockSection title="{!$Label.SPE_SchedulingDetails}" collapsible="false" columns="2">
+                <apex:inputfield value="{!spePlan.StartDate__c}" required="true" />
+                <apex:inputfield value="{!spePlan.EndDate__c}" required="true" />
+                <apex:inputfield value="{!spePlan.FrequencyInMonths__c}"  required="true" />
+                <apex:inputfield value="{!spePlan.AggregationDuration__c}"  required="true" />
+                <apex:inputfield value="{!spePlan.SurveyExecutionBeforeIndays__c}" />
+                <apex:inputfield value="{!spePlan.SurveyReminderBeforeExecutionDate__c}" />  
+               <apex:outputField value="{!SPE_SPEPlan__c.Survey_Shut_Down__c }" />
+            </apex:PageBlockSection>
+            
+           </apex:pageBlock>
+           
+          <!-- <apex:pageBlock id="errorMsgBlock" rendered="{!!isUserHaveAccessToRecord}">
+               <table cellspacing="10">
+               <tbody>
+                   <tr>
+                       <td>
+                           <span style="font-weight: bold;font-size: 12pt;">Insufficient Privileges</span>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.
+                           <br />
+                           <br />
+                           Click <a href="/{!spePlan.id}">here</a> to return to the previous page.
+                       </td>
+                   </tr>    
+               </tbody>    
+               </table> 
+           </apex:pageBlock> -->
+           
+        <apex:actionFunction id="save" name="saveRecord" action="{!save}" rerender="dupcheck"/>
+         <!--   Code for custom picklist starts -->
+        <script>
+            document.getElementById('temp').value = document.getElementById('pgId:frmId:hdFld').value;
+        </script>
+        <!--   Code for custom picklist ends    -->
+        
+        </apex:form>
+</apex:page>

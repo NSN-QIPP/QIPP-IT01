@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <description>link for Approver Configuration</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Master Approver Configuration</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/a0G?fcf=00BU0000002Bnn8</url>
+</CustomPageWebLink>

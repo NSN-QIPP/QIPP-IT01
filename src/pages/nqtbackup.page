@@ -1,0 +1,23 @@
+<apex:page controller="AssignBackupPerson" tabStyle="NQT_Assign_Backup_User__c">
+<apex:form >
+    <apex:pageBlock title="Assign Backup Person">
+        <apex:pageBlockSection rendered="{!Save}">
+            <apex:inputField value="{!ABP.NQT_Backup_Person__c}" required="FALSE"/>
+            <apex:inputField value="{!ABP.NQT_Availability_Status__c}"/>
+            <apex:inputField value="{!ABP.NQT_From__c}" required="FALSE"/>
+            <apex:inputField value="{!ABP.NQT_To__c}" required="FALSE"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection rendered="{!Edit}">
+            <apex:outputField value="{!ABP.NQT_Backup_Person__c}"/>
+            <apex:outputField value="{!ABP.NQT_Availability_Status__c}"/>
+            <apex:outputField value="{!ABP.NQT_From__c}"/>
+            <apex:outputField value="{!ABP.NQT_To__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton action="{!saveRes}" value="Save" rendered="{!Save}"/>
+            <apex:commandButton action="{!editRes}" value="Edit" rendered="{!Edit}"/>
+            <apex:commandButton action="{!Cancel1}" value="Cancel"  rendered="{!Save}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

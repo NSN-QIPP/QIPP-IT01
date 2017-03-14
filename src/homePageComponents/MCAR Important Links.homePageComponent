@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>MCAR_Scorecard_Report_Data</links>
+    <links>MCARs_Pending_My_Action</links>
+    <links>MCARs_Pending_Action</links>
+    <links>MCAR_Severity_Description</links>
+    <links>MCAR_Training_Material_Internal_User_Link</links>
+    <links>MCAR_Process</links>
+    <links>MCAR_8D_Guidelines</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

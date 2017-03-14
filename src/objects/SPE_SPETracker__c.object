@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <customHelpPage>SPE_SPE_Definition_Help_Page</customHelpPage>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Avg_SPE_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Avg SPE Score</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Avg_Tracker_SPE_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_SPE_Score__c /  Count_Score__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Avg Tracker SPE Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BusinessLine__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Line</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Global Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CARE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Implementation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Systems Integration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Managed Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Planning and Optimization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mature Software Products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Support Systems</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MEDIA AND ENTERTAINMENT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mediate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Broadband</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio Frequency</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Security</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Single RAN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio Cluster</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM and Mature Products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OEM Products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mature Products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GSMR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CDMA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Perfect Voice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Liquid Core</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Value Creation Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FDD LTE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TD LTE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Core Cluster</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>System Module</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CEM and OSS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Small Cell</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3G Core</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optical Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aggregation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All Business Line</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>BusinessUnit__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>GLOBAL SERVICES</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MATURE SOFTWARE PRODUCTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MOBILE BROADBAND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OPTICAL NETWORKS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CategoryCluster__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Category Area</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CategoryGroup__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Category Group</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Category__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comment__c</fullName>
+        <description>Please add related tracker comment</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <inlineHelpText>Please add related tracker comment</inlineHelpText>
+        <label>Comment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>SPE Trackers</relationshipLabel>
+        <relationshipName>SPE_Trackers</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Count_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Count Score</label>
+        <summaryFilterItems>
+            <field>SPE_TrackerScore__c.SPEScore__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>SPE_TrackerScore__c.SPETracker__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DateOfExecution__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Date Of Execution</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ForceSurvey__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Force Survey</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MAX_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Max SPE Score</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Min_SPE_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Min SPE Score</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NewExecution__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>DateOfExecution__c -  VALUE( $Label.SPE_ScheduleDateModifier)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>New Execution</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Owner__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>SPEPlan__r.Owner:User.FirstName+&apos; &apos;+SPEPlan__r.Owner:User.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Owner</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Period_Date__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Period Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Period__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>SurveyExecutionBeforeIndays__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Period</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PilotTestDataCheck__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Pilot (Test Data)</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Market</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ReviewOfSPE__c</fullName>
+        <externalId>false</externalId>
+        <label>Review Of SPE</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SPEPlanStage__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>TEXT(SPEPlan__r.Stage__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SPE Plan Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SPEPlan__c</fullName>
+        <externalId>false</externalId>
+        <label>SPE Plan</label>
+        <referenceTo>SPE_SPEPlan__c</referenceTo>
+        <relationshipLabel>SPE Trackers</relationshipLabel>
+        <relationshipName>SPE_Trackers</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>SPETemplateId__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>SPETemplate__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SPE Template Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SPETemplate__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SPE Template</label>
+        <referenceTo>SPE_SPETemplate__c</referenceTo>
+        <relationshipLabel>SPE Trackers</relationshipLabel>
+        <relationshipName>SPE_Trackers</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Score_1_Upper_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 1 Upper Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_1_lower__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 1 Lower Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_2_Lower_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 2 Lower Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_2_Upper_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 2 Upper Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_3_Loewr_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 3 Loewr Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_3_Upper_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 3 Upper Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_4_Lower_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 4 Lower Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Score_4_Upper_Bound__c</fullName>
+        <externalId>false</externalId>
+        <label>Score 4 Upper Bound</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SendSurveyLink__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Send Survey Link</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Detail__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/apex/SPE_TrackerView?id=&apos;+Id  , &apos;Show Detail&apos;, &apos;_self&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Show Detail</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Show_Details__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;/apex/SPE_TrackerView?id=&apos;+ Id , &apos;Show Details&apos; , &apos;_self&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Show Details</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Abandoned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SubRegion__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Market Unit</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SurveyDueDate__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>DateOfExecution__c - 1</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Due Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SurveyExecutionBeforeIndays__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>NewExecution__c - SPEPlan__r.SurveyExecutionBeforeIndays__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Execution Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SurveyLinkUpdate__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>LastModifiedDate  - 0.040277</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Link Update</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>SurveyReminderBeforeExecutionDate__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>NewExecution__c - SPEPlan__r.SurveyReminderBeforeExecutionDate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Survey Reminder Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SystemTime__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>NOW()</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>System Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Total_SPE_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Total SPE Score</label>
+        <summarizedField>SPE_TrackerScore__c.Score__c</summarizedField>
+        <summaryFilterItems>
+            <field>SPE_TrackerScore__c.SPEScore__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </summaryFilterItems>
+        <summaryForeignKey>SPE_TrackerScore__c.SPETracker__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Tracker_Identifier__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Tracker Identifier</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>isContainsSurveyBasedPI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>isContainsSurveyBasedPI</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>SPE Tracker</label>
+    <listViews>
+        <fullName>AllCompletedTrackers</fullName>
+        <columns>Show_Detail__c</columns>
+        <columns>NAME</columns>
+        <columns>SPEPlan__c</columns>
+        <columns>Region__c</columns>
+        <columns>SubRegion__c</columns>
+        <columns>Country__c</columns>
+        <columns>Project__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <label>All Completed Trackers</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>AllPendingTrackers</fullName>
+        <columns>NAME</columns>
+        <columns>SPEPlan__c</columns>
+        <columns>Region__c</columns>
+        <columns>SubRegion__c</columns>
+        <columns>Country__c</columns>
+        <columns>Project__c</columns>
+        <columns>DateOfExecution__c</columns>
+        <columns>NewExecution__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </filters>
+        <label>All Pending Trackers</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>SPE Tracker Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>SPE Trackers</pluralLabel>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>SPE_CheckPIDataforSPE</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Check PI Data for SPE</masterLabel>
+        <openType>replace</openType>
+        <page>SPE_SPEPIAvailability</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>SPE_ForceSurvey</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Force A Survey</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)} 
+
+sforce.connection.sessionId = &quot;{!$Api.Session_ID}&quot;; 
+if({!SPE_SPETracker__c.SendSurveyLink__c } == false) 
+{ 
+var isSuervey = sforce.apex.execute(&quot;SPE_RecalculateIsSurveyBasePI&quot;,&quot;recalculateIsSurveyPI&quot;,{templateId:&quot;{!SPE_SPETracker__c.SPETemplateId__c}&quot;}) 
+if(isSuervey == &apos;true&apos;) 
+{ 
+
+var c = new sforce.SObject(&quot;SPE_SPETracker__c&quot;); 
+c.id = &quot;{!SPE_SPETracker__c.Id}&quot;; 
+c.SendSurveyLink__c = true; 
+c.ForceSurvey__c = true;
+result = sforce.connection.update([c]); 
+
+if ( result[0].getBoolean( &quot;success&quot; ) ) 
+{ 
+window.location.reload(); 
+} 
+else 
+{ 
+alert( result[0].errors.message); 
+} 
+} 
+else 
+alert(&apos;This Tracker does not contains Survey Based PI&apos;); 
+
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>SPE_TrackerExecution</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Tracker Execution</masterLabel>
+        <openType>replace</openType>
+        <page>SPE_TrackerExecution</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>SPE_TrackerShow_PDF</fullName>
+        <availability>online</availability>
+        <description>SPE tracker button for pdf generate</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Show PDF</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/SPE_TrackerViewPDF?id={!SPE_SPETracker__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_Email</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Survey Invitation</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)}
+
+         sforce.connection.sessionId = &quot;{!$Api.Session_ID}&quot;;
+     if({!SPE_SPETracker__c.SendSurveyLink__c } == false)
+     {
+          var isSuervey = sforce.apex.execute(&quot;SPE_RecalculateIsSurveyBasePI&quot;,&quot;recalculateIsSurveyPI&quot;,{templateId:&quot;{!SPE_SPETracker__c.SPETemplateId__c}&quot;})
+		  if(isSuervey == &apos;true&apos;)
+		  {
+			   var c = new sforce.SObject(&quot;SPE_SPETracker__c&quot;);
+			  c.id = &quot;{!SPE_SPETracker__c.Id}&quot;;
+			  c.SendSurveyLink__c = true;
+			  result = sforce.connection.update([c]);
+			  if ( result[0].getBoolean( &quot;success&quot; ) )
+			  {
+				   window.location.reload();
+			  }
+			  else
+			  {
+				   alert( result[0].errors.message);
+			  }
+		  }
+		  else 
+		  alert(&apos;This Tracker does not contains Survey Based PI&apos;);
+		  
+      }</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Show_Details</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Show Details</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/SPE_TrackerView?id={!SPE_SPETracker__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>SurveyTrack</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Survey Track</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/SPE_SurveyTrack?id={!SPE_SPETracker__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Tracker_Execution_New</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Tracker Execution</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/25.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/25.0/apex.js&quot;)} 
+var sprTrackerId = &apos;{!SPE_SPETracker__c.Id}&apos;; 
+var agree = confirm(&quot;Tracker Execution process will start. Do you want to proceed?&quot;); 
+if(agree){ 
+sforce.apex.execute(&quot;SPE_TrackerExecutionExt&quot;,&quot;TrackerExecution&quot;,{sprTrackerId: sprTrackerId}); 
+} 
+window.location.reload();
+this.disabled = true;
+this.className = &quot;btnDisabled&quot;;</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,92 @@
+<apex:page standardController="SPE_ScorecardTemplate__c" recordSetVar="ScorecardTemp"  extensions="SPE_ScorecardTemplateBulkUpdateExt">
+<script type="text/javascript">
+function popup()
+{
+ 
+ var r = confirm("Do you really want to update values ? ");
+ if (r == true) 
+    {
+      callapex();
+        
+    } 
+    else 
+    {
+       window.location.href='/{!$Request.Id}';
+    }
+}
+</script>
+<style>
+.statusStyle {
+    background:url(/img/loading.gif) no-repeat 0 0; 
+    padding-left:20px; 
+    margin-left:10px; 
+    padding-bottom:5px; 
+}
+</style>
+<apex:sectionHeader title="Scorecard Template Definition" subtitle="Bulk Scorecard Template Stage Update"/>
+    <apex:form >
+    <apex:actionFunction action="{!updateScorecardTemps}" name="callapex"  />
+        <apex:pageBlock >
+        <apex:pageBlockSection columns="2">
+        <apex:pageBlockSectionItem > 
+                <apex:outputText ><font size="3"> Change From Stage</font>
+                </apex:outputText>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+            <apex:outputText ><font size="3"> Change To Stage</font>
+            </apex:outputText>
+        </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+        <apex:pageBlockSectionItem >
+            <apex:actionRegion >
+                    <apex:selectList value="{!fromStage}" size="1" id="Region">
+                        <apex:selectOptions value="{!fromStageList}" />
+                            <apex:actionSupport action="{!searchScorecardTemps}" event="onchange" rerender="ScorecardTemp" status="myStatus" />
+                    </apex:selectList>
+                    <apex:actionStatus id="myStatus" startText="Processing..."   stopText=""   startStyleClass="statusStyle"/>
+            </apex:actionRegion>
+                    
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+                <apex:selectList value="{!toStage}" size="1">
+                    <apex:selectOptions value="{!toStageList}"/>
+                </apex:selectList> 
+        </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <div style="margin-left: 12px; margin-bottom: 8px;">
+            <label for="theCheckbox">Send Notification Email   </label>
+            <apex:inputCheckbox value="{!sendNotification}" id="theCheckbox"/>
+        </div>
+        
+        <div style="margin-left: 417px; margin-bottom: 8px;">
+            <apex:commandButton value="Update" onclick="if (!popup()) return false;"/>
+        </div>
+        
+        
+        <apex:pageBlock id="ScorecardTemp">
+        <apex:pageBlockTable value="{!ScorecardTempWrapperList}" var="item">
+        <apex:column headerValue="Action">
+        <apex:inputCheckbox value="{!item.isChecked}"/>
+        </apex:column>
+        <apex:column value="{!item.ScoreTemp.name}"/>
+        <apex:column value="{!item.ScoreTemp.ScorecardTemplateId__c}"/>
+        <apex:column value="{!item.ScoreTemp.Stage__c}"/>
+        <apex:column value="{!item.ScoreTemp.Category__c}"/>
+        <apex:column value="{!item.ScoreTemp.CategoryGroup__c}"/>
+        <apex:column value="{!item.ScoreTemp.CategoryCluster__c}"/>
+        <apex:column value="{!item.ScoreTemp.Region__c}"/>
+        <apex:column value="{!item.ScoreTemp.SubRegion__c}"/>
+        <apex:column value="{!item.ScoreTemp.Country__c}"/>
+        <apex:column value="{!item.ScoreTemp.Project__c}"/>
+        </apex:pageBlockTable>
+        
+        
+        
+        </apex:pageBlock>
+    
+        
+    </apex:form>
+</apex:page>

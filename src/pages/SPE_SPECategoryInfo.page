@@ -1,0 +1,87 @@
+<apex:page standardController="SPE_CategoryInfo__c" extensions="SPE_CategoryInfoEXT,SPE_MasterDataExt" >
+ <style>
+.statusStyle {
+    background:url(/img/loading.gif) no-repeat 0 0; 
+    padding-left:20px; 
+    margin-left:10px; 
+    padding-bottom:5px; 
+}
+</style> 
+<apex:form >
+		<apex:sectionHeader title="Category Info Edit" subtitle="New Category Info"/>
+        <apex:pageBlock id="detail">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save" action="{!save}" reRender="myMsg"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="myMsg" />
+            <apex:PageBlockSection title="Information" collapsible="false" >
+                
+                <apex:pageBlockSectionItem rendered="{!categoryInfo.Supplier__c != null}">
+                    <apex:outputText value="Supplier"/>
+                    <apex:outputPanel id="Supplier">
+                     <apex:inputField value="{!categoryInfo.Supplier__c}"/>   
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!categoryInfo.Contact__c != null}">
+                    <apex:outputText value="Contact"/>
+                    <apex:outputPanel id="Contact">
+                        <apex:inputField value="{!categoryInfo.Contact__c}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                               
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Category Area"/>
+                    <apex:outputPanel id="caPanel">
+                        <apex:selectList id="chooseCa" value="{!caVal}" size="1" onchange="callCg(this.value);">
+                            <apex:selectOptions value="{!CaValues}"/>
+                        </apex:selectList>
+                        <apex:actionStatus id="statusChangeCa">
+                            <apex:facet name="start">
+                                <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Category Group"/>
+                    <apex:outputPanel id="cgPanel">
+                        <apex:selectList id="chooseCg" value="{!cgVal}" size="1" onchange="callCt(this.value);">
+                            <apex:selectOptions value="{!CgValues}"/>
+                        </apex:selectList>
+                        <apex:actionStatus id="statusChangeCg">
+                            <apex:facet name="start">
+                                <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Category"/>
+                    <apex:outputPanel id="ctPanel">
+                        <apex:selectList id="chooseCategory" value="{!ctVal}" size="1">
+                            <apex:selectOptions value="{!CategoryValues}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                 
+           </apex:pageblockSection>     
+        </apex:pageBlock>
+        
+        <apex:actionFunction id="callCg" name="callCg" action="{!fillCategoryGroups}" immediate="true" reRender="cgPanel,myMsg" status="statusChangeCa">
+            <apex:param value="" name="caVal" />
+        </apex:actionFunction>
+        <apex:actionFunction id="callCt" name="callCt" action="{!fillCategory}" immediate="true" reRender="ctPanel,myMsg" status="statusChangeCg">
+            <apex:param value="" name="cgVal" />
+        </apex:actionFunction>
+</apex:form>        
+</apex:page>

@@ -1,0 +1,120 @@
+<apex:page controller="ExecutiveSupplierDataController" showHeader="false" standardStylesheets="false" sidebar="true" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+        <head>
+            <title>Supplier Contacts</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <style type="text/css">
+                .Table
+                {
+                display: table;
+                //width: 200px;
+                height: 50px;
+                overflow:auto;
+                }
+                .Title
+                {
+                display: table-caption;
+                text-align: center;
+                font-weight: bold;
+                font-size: larger;
+                }
+                .Heading
+                {
+                display: table-row;
+                font-weight: bold;
+                text-align: center;
+                }
+                .Row
+                {
+                display: table-row;
+                }
+                .Cell
+                {
+                display: table-cell;       
+                border-width: thin;
+                <!--padding-left: 5px;
+                padding-right: 5px;-->
+                padding-bottom: 10px;       
+                }
+            </style>
+        </head>   
+        <body>  
+            <div class="slds">
+                <table width="100%">
+                    <tr >
+                        <td align="center" colspan="2">
+                            <a href="/apex/ExecutiveSupplierCompleteView" class="slds-button slds-button--brand">Back</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>             
+                            <apex:outputLabel style="color: #0066cc;font-size:25px;" value="{!supplier.Name}"></apex:outputLabel>                      
+                        </td>
+                    </tr> 
+                </table>
+                <div class="Table">
+                    <div class="Row">
+                        <div class="Cell">
+                            <div class="slds-page-header" role="banner">
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-has-flexi-truncate">
+                                        <p class="slds-text-heading--label">Contact Details</p>
+                                    </div>
+                                </div>
+                            </div>                       
+                            <div class="myapp">
+                                <table class="slds-table slds-table--bordered slds-scrollable--x" >
+                                    <thead>
+                                        <tr class="slds-text-heading--label">
+                                            <th scope="col">
+                                                <span class="slds-cell-wrap">Name</span>
+                                            </th>
+                                            <th scope="col">
+                                                <span class="slds-cell-wrap">Email</span>
+                                            </th>
+                                            <th scope="col">
+                                                <span class="slds-cell-wrap">Business Group</span>
+                                            </th>
+                                            <th scope="col">
+                                                <span class="slds-cell-wrap">Phone</span>
+                                            </th>
+                                            <th scope="col">
+                                                <span class="slds-cell-wrap">Mobile</span>
+                                            </th>
+                                        </tr>   
+                                    </thead>
+                                    <apex:repeat value="{!supplierContactsList}" var="cont" id="theRepeat1">
+                                        <tr>               
+                                            <td>
+                                                <apex:outputLink styleClass="slds-truncate"  value="/{!cont.Id}" target="_blank">{!cont.Full_Name__c}</apex:outputLink>
+                                            </td>
+                                            <td>
+                                                <span class="slds-cell-wrap">{!cont.Email__c}</span>
+                                            </td>
+                                            <td>
+                                                <span class="slds-cell-wrap">{!cont.Business_Group__c}</span>
+                                            </td>
+                                            <td>
+                                                <span class="slds-cell-wrap">{!cont.Phone__c}</span>
+                                            </td>
+                                            <td>
+                                                <span class="slds-cell-wrap">{!cont.Mobile__c}</span>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </table>
+                            </div>                             
+                        </div>
+                    </div>
+                </div>
+                <div class="Table">
+                    <div class="Row">
+                        <div class="Cell">
+                            <a href="/apex/ExecutiveSupplierCompleteView" class="slds-button slds-button--brand">Back</a>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </body>
+    </html>    
+</apex:page>

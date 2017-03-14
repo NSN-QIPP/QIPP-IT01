@@ -1,0 +1,25 @@
+<apex:page tabStyle="MCAR_Claim_Management__c" Controller="MCAR_Cancel" showHeader="true" sidebar="true" >
+<apex:form >
+<apex:Pagemessages ></apex:Pagemessages>
+<apex:sectionHeader title="Claim Edit" subtitle="{!claimName}"/>
+<apex:pageBlock title="Reason for Cancellation" mode="detail">
+<apex:pageBlockButtons location="both">
+<apex:commandButton value="Save" action="{!ClaimCancel}"/>
+<apex:commandButton immediate="true" value="Cancel" action="{!Cancel}"/>
+</apex:pageBlockButtons>
+<table border="0">
+<tr>
+<td>
+<font size= "10" color="red">|</font>
+</td>
+<td>
+<apex:inputTextArea value="{!Comments}" rows="10" cols="60"/>
+</td>
+</tr>
+</table>
+
+
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

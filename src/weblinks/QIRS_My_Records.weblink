@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <description>It contain records created by login user.</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>My Records</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <url>/apex/QIRS_MyRecords</url>
+</CustomPageWebLink>

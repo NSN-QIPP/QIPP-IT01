@@ -1,0 +1,208 @@
+<apex:page standardController="SPE_ScoringTemplate__c" extensions="SPE_NewScoringTemplateExt">
+   <style type="text/css">
+        .backgroundColor{background-color: #b0c4de; }
+        
+         #wrapper
+   {
+   background-color: #F00;
+   width: 400px;//This width can be anything according to your need
+   margin-right: auto;//Note margin-right and left are allocated automatically
+   margin-left: auto;
+   }
+   .btn1-primary {
+    margin-right: 5px;
+    margin-top: 5px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn1 {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.btn1.disabled, .btn1[disabled], fieldset[disabled] .btn1 {
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.65;
+}
+   </style>
+   
+<script>
+     
+    
+    function onPublish(sucess,msg,proceed)
+    {
+        if(sucess=='false' && proceed=='true'){
+            alert(msg);
+         }
+         else {
+             
+             if(proceed=='false') {
+                window.open('/apex/SPE_TreeView?id={!RecordId}&Lifecycle=Published', 'TreeView', 'left=250,top=100,width=800,height=500,toolbar=1,resizable=0');
+                }
+             if(sucess=='true' && proceed=='true') {
+                 window.top.location.href = '/{!RecordId}';
+                }        
+        }
+    }
+    
+    function onObsolete(sucess,msg,proceed)
+    {
+        if(sucess=='false' && proceed=='true'){
+            alert(msg);
+            
+         }
+        else {
+            if(proceed=='false') {    
+                 window.open('/apex/SPE_TreeView?id={!RecordId}&Lifecycle=Obsolete', 'TreeView', 'left=250,top=100,width=800,height=500,toolbar=1,resizable=0');
+                }
+             if(sucess=='true' && proceed=='true') {
+                 window.top.location.href = '/{!RecordId}';
+                }        
+        }
+    }
+    
+    function onDelete () {
+    
+        if(confirm("Are you sure you want to delete?")) {
+        deleteNow();
+        }
+    }
+    
+    function onDeleteTestData () {
+    
+        if(confirm("Are you sure you want to delete Test Data ?")) {
+            deleteTestdata();
+        }
+    }
+    
+    function OnPilotConfirm () {
+        if(confirm("Are you sure you want to Change to Pilot?")) {
+        PilotNow();
+        }
+    
+    }
+    
+    
+    function OnPublishedConfirm () {
+        if(confirm("Are you sure you want to Publish the definition?")) {
+        PublishNow();
+        }
+    }    
+    
+    
+    function OnObsoleteConfirm () {
+        if(confirm("Are you sure you want to Obsolete the definition?")) {
+        ObsoleteNow();
+        }
+    }
+    
+</script>
+    <apex:sectionHeader title="{!$Label.SPE_ScoringTemplateEdit}" subtitle="{!$Label.SPE_ScoringTemplateEditLabel}"/>
+        <apex:form >
+            <apex:pageBlock tabStyle="SPE_SPETemplate__c" title="{!$Label.SPE_ScoringTemplate}">
+                <apex:pageblockButtons location="top" >
+                    <apex:commandButton action="{!edi}" value="{!$Label.SPE_Edit}" styleClass="btn">
+                    </apex:commandButton>
+                    <input value="Sharing" class="btn" title="Sharing" name="share" 
+                           onclick="navigateToUrl('/p/share/CustomObjectSharingDetail?parentId={!SPE_ScoringTemplate__c.Id}','DETAIL','share');" 
+                           type="button"/>
+                    <apex:commandButton action="{!cloneFn}" value="Clone" styleClass="btn">
+                    </apex:commandButton>
+                    <br/> <br/>
+                    <apex:outputPanel rendered="{!IsAccess}">
+                        
+                        <apex:commandButton rendered="true" value="Pilot" disabled="{!pilot}"  oncomplete=" OnPilotConfirm ()"/>
+                        <apex:commandButton rendered="true" value="Published" disabled="{!published}" oncomplete="OnPublishedConfirm ()" />
+                        <apex:commandButton rendered="true" value="Obsolete" disabled="{!obsolete}" oncomplete="OnObsoleteConfirm ()" />
+                       <!--<apex:commandButton rendered="true" value="Delete Test Data" disabled="{!delval}" oncomplete="onDeleteTestData()" />
+                        <apex:commandButton rendered="false" value="Delete" disabled="{!del}" oncomplete="onDelete()" /> -->                       
+                    </apex:outputPanel>
+                    <apex:commandLink value="Create Bulk SPE Plan" action="{!GoToBulkSPEPlan}" styleClass="btn" style="text-decoration:none;padding:4px;" target="_blank" rendered="{!isNotDraft}"/>
+                  <!--  <apex:actionFunction action="{!executeTestBatch}" status="processStatus" name="deleteTestdata" oncomplete="window.top.location.href = '/{!RecordId}';"/>
+                    <apex:actionFunction action="{!Stagedelete}" status="processStatus" name="deleteNow" oncomplete=" window.top.location.href = '/home/home.jsp'"/> -->
+                    <apex:actionFunction action="{!StagePilot}" status="processStatus" name="PilotNow" oncomplete="window.top.location.href = '/{!RecordId}';"/>
+                    <apex:actionFunction action="{!StagePublished}" status="processStatus" name="PublishNow" oncomplete="onPublish('{!isSuccess}','{!msg}','{!Proceed}')"/>
+                    <apex:actionFunction action="{!StageObsolete}" status="processStatus" name="ObsoleteNow" oncomplete="onObsolete('{!isSuccess}','{!msg}','{!Proceed}')"/>
+                    
+                </apex:pageblockButtons>
+                
+                <apex:pageBlockSection title="{!$Label.SPE_Information}" collapsible="false" columns="2">
+                    <apex:outputField value="{!scoringTemplate.Name}" />
+                    <apex:outputField value="{!scoringTemplate.ScoringTemplateCode__c}"/>
+                    <apex:outputField value="{!scoringTemplate.SPETemplate__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Stage__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Region__c}"/>
+                    <apex:outputField value="{!scoringTemplate.CategoryCluster__c}"/>
+                    <apex:outputField value="{!scoringTemplate.SubRegion__c}"/>
+                    <apex:outputField value="{!scoringTemplate.CategoryGroup__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Country__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Category__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Project__c}"/>
+                    <apex:outputField value="{!scoringTemplate.BusinessUnit__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Organization_Group__c}"/>
+                    <apex:outputField value="{!scoringTemplate.BusinessLine__c}"/>
+                    <apex:inputHidden value="{!scoringTemplate.BusinessUnit__c}"/>
+                    <apex:outputField value="{!scoringTemplate.Product__c}"/>
+                    <apex:outputField value="{!scoringTemplate.CreatedById}"/>
+                </apex:pageBlockSection> 
+        </apex:pageblock>
+        
+        <apex:pageblock tabStyle="SPE_SPETemplate__c" title=" {!$Label.SPE_ScoringThreshold}" id="pb1" >
+        <apex:repeat value="{!toBeUpdatedScoringCalculation}" var="key" >
+        
+        <!--***********************Changes For Encryption************************-->
+        <!--<apex:pageblocksection id="pb1" title="{!toBeUpdatedScoringCalculation[key][0].kpiName}" columns="1">-->
+        <apex:pageblocksection id="pb1" title="{!toBeUpdatedScoringCalculation[key][0].kpiDef.KPI_Title__c}" columns="1">
+        <!--************************************END*******************************************-->
+        
+        <apex:pageBlockTable value="{!toBeUpdatedScoringCalculation[key]}"  var="item"> 
+                <apex:column width="15%">
+                         Score&nbsp;<b><apex:outputfield style="width: 60px;" value="{!item.spesc.Score__c}" />&nbsp;</b>for KPI values
+                 </apex:column>
+                
+                <apex:column width="6%">
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.LowerTo__c}" /></b>
+                 </apex:column>
+                <apex:column width="6%" >
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.Lower__c}"/></b>
+                 </apex:column>
+                 <apex:column width="6%" >
+                        and
+                 </apex:column>
+                 <apex:column width="6%">
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.UpperTo__c}" /></b>
+                 </apex:column>
+                 
+                 <apex:column width="10%">
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.Upper__c}" /></b>
+                 </apex:column>
+                 
+                 <apex:column width="16%" >
+                    <apex:facet name="header"></apex:facet>
+                        <apex:outputtext style="width: 60px; color:red; font-size: 130%;" rendered="{!item.isError}" value="{!$Label.SPE_CorrectValue1}" id="opt">
+                        </apex:outputtext>
+                 </apex:column>
+            </apex:pageBlockTable>
+            </apex:pageblocksection>
+           </apex:repeat>
+           
+        </apex:pageblock>
+        </apex:form>
+        
+</apex:page>

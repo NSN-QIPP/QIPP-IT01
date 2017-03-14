@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>BL_Transformation_Lead_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>BL Transformation Lead Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BL_Transformation_Lead__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>BL Transformation Lead</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Project Contact Name</relationshipLabel>
+        <relationshipName>ProjectContactName</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Business_Owner_Delegate_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Business Owner – Delegate Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Business_Owner_Delegate__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>If there is no delegate available, assign Business Owner as delegate.</inlineHelpText>
+        <label>Business Owner Delegate</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_1__c</field>
+                <operation>equals</operation>
+                <value>Business Owner Delegate</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_2__c</field>
+                <operation>equals</operation>
+                <value>Business Owner Delegate</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_3__c</field>
+                <operation>equals</operation>
+                <value>Business Owner Delegate</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_4__c</field>
+                <operation>equals</operation>
+                <value>Business Owner Delegate</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Business Owner Delegate</relationshipLabel>
+        <relationshipName>BusinessOwnerDelegate</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Business_Owner_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Business Owner Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Business_Owner__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Business Owner</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_1__c</field>
+                <operation>equals</operation>
+                <value>Business Owner</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_2__c</field>
+                <operation>equals</operation>
+                <value>Business Owner</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_3__c</field>
+                <operation>equals</operation>
+                <value>Business Owner</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_4__c</field>
+                <operation>equals</operation>
+                <value>Business Owner</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>CoPQ Project Team (Business Owner)</relationshipLabel>
+        <relationshipName>Business_Owner_cr</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Business_Role_Function__c</fullName>
+        <externalId>false</externalId>
+        <label>Business Role / Function</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Owner Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q PMO Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measure Creator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Project Contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CoPQTeamMember__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CoPQ Team Member</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3</booleanFilter>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_1__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Business_Role_Function__c</valueField>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_2__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Business_Role_Function__c</valueField>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_3__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Business_Role_Function__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>CoPQ Project Team</relationshipLabel>
+        <relationshipName>CoPQ_Project_Team</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Approver_Delegate_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Finance Approver Delegate Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finance_Approver_Delegate__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>If there is no delegate available, assign Finance Approver as delegate.</inlineHelpText>
+        <label>Finance Approver Delegate</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_1__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver Delegate</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_2__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver Delegate</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_3__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver Delegate</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_4__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver Delegate</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>CoPQ Project Team (Finance Approver Delegate)</relationshipLabel>
+        <relationshipName>FinanceApproverDelegate</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Approver_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Finance Approver Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finance_Approver__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Finance Approver</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_1__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_2__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_3__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_4__c</field>
+                <operation>equals</operation>
+                <value>Finance Approver</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>CoPQ Project Team (Finance Approver)</relationshipLabel>
+        <relationshipName>CoPQ_Project_Team1</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Measure_Creator_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Measure Creator Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Measure_Creator__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Measure Creator</label>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Measure Creator</relationshipLabel>
+        <relationshipName>MeasureCreator</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProjectID__c</fullName>
+        <externalId>false</externalId>
+        <label>Project ID</label>
+        <referenceTo>QIPP_Project__c</referenceTo>
+        <relationshipLabel>CoPQ Project Team</relationshipLabel>
+        <relationshipName>QIPPProjectTeams</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Project_Lead__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>ProjectID__r.Project_Lead_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Lead</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Name__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <formula>ProjectID__r.Project_Name_Succinct__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_PMO_Team_Member_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Q PMO Team Member Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Q_PMO_Team_Member__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Q PMO Team Member</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_1__c</field>
+                <operation>equals</operation>
+                <value>Q PMO Team Member</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_2__c</field>
+                <operation>equals</operation>
+                <value>Q PMO Team Member</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_3__c</field>
+                <operation>equals</operation>
+                <value>Q PMO Team Member</value>
+            </filterItems>
+            <filterItems>
+                <field>QIPP_Contacts__c.CoPQ_Role_4__c</field>
+                <operation>equals</operation>
+                <value>Q PMO Team Member</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>QIPP_Contacts__c</referenceTo>
+        <relationshipLabel>Q PMO Team Member</relationshipLabel>
+        <relationshipName>QPMOTeamMember</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>CoPQ Project Team</label>
+    <nameField>
+        <displayFormat>Team-{0000}</displayFormat>
+        <label>QIPP Project  Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>CoPQ Project Team</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Business_Role_Function__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CoPQTeamMember__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ProjectID__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Business_Role_Function__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CoPQTeamMember__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>ProjectID__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Business_Role_Function__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CoPQTeamMember__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>ProjectID__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Business_Role_Function__c</searchFilterFields>
+        <searchFilterFields>CoPQTeamMember__c</searchFilterFields>
+        <searchFilterFields>ProjectID__c</searchFilterFields>
+        <searchResultsAdditionalFields>Business_Role_Function__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CoPQTeamMember__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ProjectID__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

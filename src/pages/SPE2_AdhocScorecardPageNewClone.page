@@ -1,0 +1,243 @@
+<apex:page id="pg" extensions="SPE2_AdhocScorecardPageNewClone" standardController="SPE_ScorecardGenerator__c" >
+<apex:includeScript value="{!$Resource.JqueryMin}" />
+<script>
+ if ('{!CurrentUserId}' != '{!RecordOwnerId}')
+            {
+                
+                alert('You can only edit a record under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_ScorecardGenerator__c.Id}";
+                
+            }
+</script>
+<c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE />
+    <apex:form id="frmId">
+        <apex:pagemessages id="msgId"></apex:pagemessages>
+        <apex:pageBlock id="SCGeneratorBlock">
+            <apex:PageBlockSection title="Adhoc Scorcard Generator" collapsible="false" columns="2" id="scorecardSection" >
+               <apex:pageblocksectionItem id="pgsec1">
+                     <apex:outputLabel value="Scorecard Generator Name" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.Name}" required="true" id="name"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem >
+                     <apex:outputLabel value="Scorecard Title" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.AdhocScorecardName__c}" required="true"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem >
+                     <apex:outputLabel value="Stage" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:outputText value="Draft"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="aggTypeItem">
+                     <apex:outputLabel value="Aggregation Type" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.AggregationType__c}" required="true" id="aggType"/>
+               </apex:pageblocksectionItem>
+               
+               <apex:pageblocksectionItem >
+                     <apex:outputLabel value="Auto Approved" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.IsAutoApproved__c}"/> 
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="aggTypePeriod">
+                     <apex:outputLabel value="Aggregation Period" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:outputpanel >
+                         <apex:inputField value="{!scoreCardgenerator.Aggregation_Period_Adhoc__c}" required="true" id="aggPeriod" onchange="refreshDateJS();"/>
+                     </apex:outputpanel>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="distributesec" >
+                     <apex:outputLabel value="Auto Distributed" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.isAutoDistributionON__c}" id="distrib"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="descriptionId" >
+                     <apex:outputLabel value="Description" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.Description__c}" id="descib" style="width:55%;"/>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="displayValueId" >
+                     <apex:outputLabel value="Display Values" style="font-weight:bold;"></apex:outputLabel>
+                     <apex:inputField value="{!scoreCardgenerator.DisplayValues__c}" id="discib" />
+               </apex:pageblocksectionItem>
+               <apex:pageblockSectionItem >
+                   <apex:outputLabel value="Buffer Days" style="font-weight:bold;"></apex:outputLabel>
+                   <apex:inputField value="{!scoreCardgenerator.Additional_Days__c}" style="width:50px;"/>
+               </apex:pageblockSectionItem>
+              </apex:pageBlockSection>
+              <apex:pageBlockSection title="Time Period Entry" id="dateSection" collapsible="false" columns="2">
+                  <apex:pageblocksectionItem id="monthlyStart">
+                   
+               <apex:outputPanel id="datePanel" style="margin-right:350px;">
+               <apex:outputpanel rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Monthly',true,false)}"><br/>
+               <table style="width:40%;">
+                   <tr>
+                       <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDate" value="{!startDateYear}" multiselect="false" size="1" style="width:65%;">
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList> &nbsp;&nbsp;
+                            <apex:outputText value=" P " style="font-weight:bold;"> </apex:outputText>
+                       </td>
+                       <td>
+                           <apex:selectList id="startMonth" value="{!startDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateMonth}"/>
+                            </apex:selectList>
+                       </td>
+                   </tr>
+               </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="quarterPanel" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Quarterly',true,false)}">
+                <table style="width:40%;">
+                    <tr>
+                        <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDateQ" value="{!startDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList> &nbsp;&nbsp;
+                            <apex:outputText value=" Q " style="font-weight:bold;"> </apex:outputText>
+                       </td>
+                       <td>
+                           <apex:selectList id="startMonthQ" value="{!startDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateQuarter}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="halfYearlyPanel" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Half Yearly',true,false)}">
+                <table style="width:40%;">
+                    <tr>
+                        <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDateH" value="{!startDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList> &nbsp;&nbsp;
+                            <apex:outputText value=" H " style="font-weight:bold;"> </apex:outputText>
+                       </td>
+                       <td>
+                           <apex:selectList id="startMonthH" value="{!startDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateHalfYearly}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="YearlyPanel" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Annual',true,false)}">
+                <table style="width:40%;">
+                    <tr>
+                        <td>
+                           <apex:outputText value="Start : "  style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td>
+                           <apex:selectList id="startDateY" value="{!startDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                </apex:outputPanel>
+               </apex:pageblocksectionItem>
+               <apex:pageblocksectionItem id="monthlyEnd">
+               
+               <apex:outputPanel id="EnddatePanel" style="margin-right:350px;">
+               <apex:outputpanel rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Monthly',true,false)}" ><br/>
+               <table style="width:32%;">
+                    <tr>
+                        <td style="width:27%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td style="width:50%;">
+                           <apex:selectList id="endDate" value="{!EndDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>&nbsp;&nbsp;
+                            <apex:outputText value=" P " style="font-weight:bold;margin-left:3%;"> </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:selectList id="endMonth" value="{!endDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateMonth}"/>
+                            </apex:selectList>
+                       </td>
+                   </tr>
+               </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="quarterPanel2" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Quarterly',true,false)}">
+                <table style="width:32%;">
+                    <tr>
+                        <td style="width:27%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td style="width:50%;">
+                            <apex:selectList id="endDateQ" value="{!endDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>&nbsp;&nbsp;
+                            <apex:outputText value=" Q " style="font-weight:bold;margin-left:3%;"> </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:selectList id="endMonthQ" value="{!EndDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateQuarter}"/>
+                            </apex:selectList>
+                       </td>
+                   </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="halfYearlyPanel2" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Half Yearly',true,false)}">
+                <table style="width:32%;">
+                    <tr>
+                        <td style="width:27%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%"/>
+                       </td>
+                       <td style="width:50%;">
+                            <apex:selectList id="endDateH" value="{!endDateYear}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateYear}"/>
+                            </apex:selectList>&nbsp;&nbsp;
+                            <apex:outputText value=" H " style="font-weight:bold;margin-left:3%;"> </apex:outputText>
+                       </td>
+                       <td>
+                            <apex:selectList id="endMonthH" value="{!endDateMonth}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!populateHalfYearly}"/>
+                            </apex:selectList>
+                       </td>
+                    </tr>
+                </table>
+                </apex:outputpanel>
+                <apex:outputpanel id="YearlyPanel2" rendered="{!IF(scoreCardgenerator.Aggregation_Period_Adhoc__c == 'Annual',true,false)}">
+                <table style="width:32%;">
+                    <tr>
+                        <td style="width:27%;">
+                           <apex:outputText value="End :" style="font-weight:bold;margin-left:20%;"/>
+                       </td>
+                       <td style="width:50%;">
+                           <apex:selectList id="EndDateY" value="{!endDateYear}" multiselect="false" size="1" >
+                         <apex:selectOptions value="{!populateYear}"/>
+                         </apex:selectList>
+                       </td>
+                   </tr>
+                </table>
+                </apex:outputpanel>
+             </apex:outputPanel>
+               </apex:pageblocksectionItem>
+              </apex:pageBlockSection>
+              <apex:pageBlockSection title="Scope Attributes" columns="3" collapsible="false">
+                  <apex:inputField value="{!scoreCardgenerator.CategoryCluster__c}" label="Category Area"/>
+                  <apex:inputField value="{!scoreCardgenerator.Region__c}" label="Market"/>
+                  <apex:inputField value="{!scoreCardgenerator.BusinessUnit__c}" label="Business Unit"/>
+                  <apex:inputField value="{!scoreCardgenerator.CategoryGroup__c}" label="Category Group"/>
+                  <apex:inputField value="{!scoreCardgenerator.SubRegion__c}" label="Market Unit"/>
+                  <apex:inputField value="{!scoreCardgenerator.BusinessLine__c}" label="Business Line"/>
+                  <apex:inputField value="{!scoreCardgenerator.Category__c}" label="Category"/>
+                  <apex:inputField value="{!scoreCardgenerator.Country__c}" label="Country"/>
+                  <apex:inputField value="{!scoreCardgenerator.Product__c}" label="Product"/>
+                  <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                  <apex:inputField value="{!scoreCardgenerator.Project__c}" label="Project"/>
+                  <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!saveScorecardGen}" value="Save" rerender="msgId"/>
+              <apex:commandButton action="{!cancel}" value="Cancel"/>
+          </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:actionFunction name="refreshDateJS" id="refreshDateJSId" action="{!blankMethod}" rerender="dateSection,msgId" status="loadStatus"/>
+    </apex:form> 
+</apex:page>

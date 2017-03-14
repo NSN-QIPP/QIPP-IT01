@@ -1,0 +1,26 @@
+<apex:page standardController="QIPP_Project__c" extensions="QIPPRenderReport" sidebar="false"  id="testpage1">
+  <apex:form >
+  <apex:pageBlock id="pb">
+<table>
+<tr>
+  <td width="150px"  align="center"><apex:outputText title="Select Report Type:" >Select Report Type:</apex:outputText></td>
+  <td width="100px"  align="center"><apex:inputField value="{!account.Report_Type__c}"/></td>
+  <td width="150px"  align="center"><apex:outputText title="Select Report Name:" >Select Report Name:</apex:outputText></td>          
+  <td width="300px"  style="white-space:nowrap;"><apex:inputField value="{!account.Report_Name__c}"/></td>
+  <td width="100px"  align="center"><font size="3"><apex:commandButton value="View Report" action="{!test}" rerender="pb" /></font></td>
+</tr>
+</table>
+<table>
+<TR width="100px">
+<TD>
+    <apex:pagemessages ></apex:pagemessages>
+</TD>
+</TR>
+</table>
+   <p/>
+        <div>
+            <iframe name="theFrame" src="{!hyperlinkval }" width="100%" height="1000px" ></iframe>
+        </div>
+ </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,27 @@
+<apex:page tabStyle="QIRS__c" StandardController="QIRS_Action_Plan__c" showHeader="true" extensions="QIRS_ActionPlan_Controller" sidebar="true">
+	<apex:sectionHeader title="Action Plan Edit" subtitle="{!strSubtitleValue}"/>
+	<apex:form >
+		<apex:messages style="color:Red" />
+			<apex:pageBlock title="Action Plan Edit" mode="detail">
+
+				<apex:pageBlockButtons location="top">
+					<apex:commandButton value="Save" action="{!Save}"/>
+					<apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+				</apex:pageBlockButtons>
+				<apex:pageBlockButtons location="bottom">
+					<apex:commandButton value="Save" action="{!Save}"/>
+					<apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+				</apex:pageBlockButtons>
+				<apex:pageBlockSection title="Information" columns="1">
+					<apex:outputField value="{!objAP.QIRS__c}" />
+					<apex:inputField value="{!objAP.Action_Type__c}" required="true"/>
+					<apex:inputField value="{!objAP.Task__c}" required="true"/>
+					<apex:outputField value="{!objAP.Status__c}" rendered="{!!isActionTypeEditable}"/>
+					<apex:inputField value="{!objAP.Status__c}" rendered="{!isActionTypeEditable}"/>
+					<apex:inputField value="{!objAP.Required_date__c}" required="true"/>
+					<apex:inputField value="{!objAP.Implementation_Date__c}" rendered="{!Isvisible}"/>
+					<apex:inputField value="{!objAP.Implementation_Comment__c}" rendered="{!Isvisible}" style="width:100%"/>
+				</apex:pageBlockSection> 
+			</apex:pageBlock>
+	</apex:form>
+</apex:page>

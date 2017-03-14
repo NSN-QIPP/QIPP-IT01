@@ -1,0 +1,298 @@
+<apex:component controller="QIRSWatchListController" access="global">
+<style type="text/css">
+
+div.scroll {
+width: 375px;
+overflow: auto;
+}
+.table-border {
+
+    border-left: solid 2px black;
+    border-bottom: solid 2px black;
+    border-Top: solid 2px black;
+    border-right: solid 2px black; 
+    border-collapse: collapse;
+    
+    font-size:2;
+
+}
+</style> 
+   
+<div id="Datatable">
+
+
+<table  width="100%" height="0.5%" bgcolor="#38ACEC">
+<td width="30">
+
+    <!--<apex:image value="https://cs50.content.force.com/servlet/servlet.ImageServer?id=015U0000000FfzN&oid=00DU0000000H1T7&lastMod=1324744935000" alt="Right click on the image to save it to your computer." title="Right click on the image to save it to your computer."/> -->
+<img src="http://www.liveside.net/wp-content/images/2012/02/Nokia.png" alt="Right click on the image to save it to your computer." title="Right click on the image to save it to your computer."/> 
+</td>
+<td align="right"><b><font color="#FFFFFF" Size="4" face="Arial">Nokia Quality Watch List - {!todays_date}<br/> QIRS System</font></b></td>
+</table><br/>
+<table width="100%" height="0.1%" bgcolor="#3090C7">
+<td><a style="color:white" href = "https://test.salesforce.com">QIRS System</a></td>
+</table>
+<table width="100%" height="1%">
+<td align="left"><font color="#357EC7" Size="5" face="Arial"><b>Nokia Quality Watch List</b> </font><br/><font color="#357EC7" size="3" face="Arial"><b> High Visibility Quality Concerns</b></font></td>
+<td align="right"><font color="#357EC7" Size="5" face="Arial"><b>{!todays_date}</b></font></td>
+        <tr><td align="left"><font color="#357EC7"><b>** This is an auto generated email - please do not reply. If there are any questions, please direct those to the Case Owner. **</b> </font>
+       </td></tr>
+       </table>
+<apex:outputPanel rendered="{!IsOutputpanal}">
+
+ <table   class="table-border" border="1"  width="100%" height="100%" >
+        <tr>
+            <td width="22%" align="center">
+            <table width="100%"><tr><td><font size="2">Business&nbsp;/&nbsp;Business Line&nbsp;/&nbsp;Product Name&nbsp;/&nbsp;Product Code&nbsp;/&nbsp;Customers</font></td></tr></table>
+            </td>
+            <td width="20%" align="center"><font size="2">Record&nbsp;Number&nbsp;/&nbsp;Alert Type&nbsp;/&nbsp;Root Cause&nbsp;/&nbsp;Factory</font></td>
+            <td width="40%" align="center"><font size="2">Status&nbsp;/&nbsp;Problem Description&nbsp;/&nbsp;Latest News</font></td>
+            <td width="20%" align="center"><font size="2">Open&nbsp;Date&nbsp;/&nbsp;Case Owner/&nbsp;<br></br>Estimated&nbsp;Release&nbsp;Date</font></td>
+        </tr>
+        
+       <apex:repeat id="reports" value="{!WatchlistRecord}" var="Relatedto">
+          <tr >
+            <td>&nbsp;<font size="2"><B>{!Relatedto.Business__c}</B></font></td>
+                <td>
+                    <table>
+                        <tr>
+                        <td>
+                        &nbsp;<font size="2"><B>{!Relatedto.Name} </B></font></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;<font size="2"><B>Alert Type:</B>&nbsp;{!Relatedto.Alert_Type__c}</font></td>
+                        </tr>
+                     </table>
+                 </td>
+                 <td rowspan='1'><font size="2"><B>Status:</B>&nbsp;  <apex:outputField value="{!Relatedto.Status__c}" style="background-color:red;"/></font></td> 
+                <td><font size="2"> <B>Open Date:</B>&nbsp;
+                <apex:outputText value="{0,date, dd/MMM/yyyy}" id="OpenDate">
+                  <apex:param value="{!Relatedto.CreatedDate}"  /> 
+                 </apex:outputText></font>
+                </td>
+        </tr>
+        <tr>
+            <td><font size="2"><b>&nbsp;Business Line:&nbsp;</b>{!Relatedto.Business_Group__c}</font></td>
+            <td><font size="2"><b>&nbsp;Part:</b>&nbsp;{!Relatedto.Defective_Part__c}</font></td>
+            <!-- line no 76 added by srinivas vadla on 23 OCt 2012 -->
+            <td><font size="2"><b>&nbsp;Problem Description:</b>&nbsp;{!Relatedto.Problem_Description1__c}</font></td> 
+            <td><font size="2"><b>Case Owner:</b>&nbsp;{!Relatedto.Process_Owner1__r.Name}</font></td>
+        </tr>
+        <tr>
+            <td>
+            <table>
+            <tr>
+            <td>
+            <font size="2"><b>Product Name:&nbsp;</b> {!Relatedto.View_Product_Name__c}</font>
+            </td>
+            </tr>
+            <tr>
+            <td>
+             <font size="2"><b>Product Code:&nbsp;</b>{!Relatedto.Product_PN__c} &nbsp;{!Relatedto.View_Release_Product__c} </font>
+            </td>
+            </tr>
+            
+            </table>
+             
+           
+            </td>
+                       
+            <td><font size="2"><b>&nbsp;Symptom:</b>&nbsp;{!Relatedto.Symptom__c}</font></td>
+
+            <td rowspan='2'   width="40%" ><br></br> 
+        <table>
+        <tr>
+        <td>
+       <font size="2"> <b>Latest News:</b>&nbsp;</font>
+           <div class="scroll"> 
+           <div align ="left">
+             <font size="2"> <apex:outputText escape="false" value="{!Relatedto.WatchListComment__c}"></apex:outputText> </font>
+             
+            </div>
+            </div>
+        </td>
+        </tr>
+        <tr>
+        <td >
+        <hr></hr>
+        <table>
+        
+         <!--<tr><td><font size="2"><b>At Risk: </b></font></td>
+          <td><font size="2">Orders: {!Relatedto.Orders_Impact__c}</font> </td> 
+          <td><font size="2">Units:{!Relatedto.Units_Backlog__c} </font></td>
+          <td><font size="2">Revenue:{!Relatedto.Revenue_Backlog__c}</font> </td></tr>--></table>
+        </td>
+        </tr>
+       
+        <tr>
+        <td>
+        <table>
+        <tr><td><font size="2"><b>Affected units at Customer: </b></font></td>
+          <td><font size="2">{!Relatedto.Affected_Unit_at_Customer_Action__c}</font> </td> 
+          </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <table>
+        <tr><td><font size="2"><b>Affected units at Hub: </b></font></td>
+          <td><font size="2">{!Relatedto.Affected_Unit_at_Hubs_Action__c}</font> </td> 
+          </tr>
+        </table>
+        </td>
+        </tr>
+        
+        <tr>
+        <td>
+        
+        <table>
+        <tr><td><font size="2"><b>Affected units at factories: </b></font></td>
+          <td><font size="2">{!Relatedto.Affected_Unit_at_Factories_Action__c}</font> </td> 
+          </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td >
+        
+        <tr>
+        <td>
+        <table>
+        <tr><td><font size="2"><b>Affected units at HWS: </b></font></td>
+          <td><font size="2">{!Relatedto.Affected_Units_at_HWS_Action__c}</font> </td> 
+          </tr>
+        </table>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <table>
+        <tr><td><font size="2"><b>Affected untis at suppliers: </b></font></td>
+          <td><font size="2">{!Relatedto.Affected_Units_at_Suppliers_Action__c}</font> </td> 
+          </tr>
+        </table>
+        </td>
+        </tr>
+        
+        
+      <table  id="Impact"> 
+          <!-- <tr>
+                <td>
+                   <font size="2"> <b>Impact: </b></font>
+                </td>
+                <td>
+                  <font size="2">  <div id="Orderimpact" >Orders: {!Relatedto.Orders_Impact__c}</div></font>
+                </td>
+                <td>
+                   <font size="2"> <div id="Unitimpact" >Units: {!Relatedto.Units_Impact__c}</div></font>
+                </td>
+                <td>
+                    <font size="2"> <div id="Revenueimpact" >Revenue: {!Relatedto.Revenue_Impact__c}</div></font>
+                </td>
+            </tr>-->
+     
+        </table>   
+       
+        </td>
+        
+        </tr> 
+        </table>
+            
+            
+            </td>
+            <td rowspan='2'><font size="2"><b>Estimated Release Date:&nbsp;</b>
+             <apex:outputText value="{0,date, dd/MMM/yyyy}" id="OpenLiftedDate">
+                
+                 <apex:param value="{!Relatedto.Projected_Lift_Date__c}"  /> 
+                 
+             </apex:outputText></font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <table width="100%">
+            <tr>
+            <td colspan='2'>
+          <font size="2"> <b>Customer:&nbsp;</b> {!Relatedto.Customer__c}</font>
+            </td>
+            </tr>
+            <tr>
+            <td><font size="2"><B>Watchlist Status:</B></font></td>
+            <td style="background-color:{!Relatedto.WatchListType_Color__c}">
+           <font size="2">  <apex:outputText value="{!if((Relatedto.WatchListType__c ='NoChangeRed'),'No Change',
+            if((Relatedto.WatchListType__c ='ProgressRed'),'Progress',if((Relatedto.WatchListType__c ='RegressRed'),'Regress',
+            if((Relatedto.WatchListType__c ='ProgressYellow'),'Progress',if((Relatedto.WatchListType__c ='RegressYellow'),'Regress',
+            if((Relatedto.WatchListType__c ='NoChangeYellow'),'No Change',if((Relatedto.WatchListType__c ='ProgressGreen'),'Progress',
+            if((Relatedto.WatchListType__c ='RegressGreen'),'Regress','No Change' ))))))))}"></apex:outputText>
+            </font>
+            
+            </td>
+            </tr>
+            </table>
+            </td>
+            <td><font size="2"><b>&nbsp;Factory:</b>&nbsp;{!Relatedto.Factory__c}</font></td>
+            
+        </tr>
+        
+        <tr bgcolor="black"  height="10" width="100%">        
+        <TD style="border:0;" colspan='4' height="10" width="100%">
+        </TD>
+        </tr>
+        </apex:repeat>
+
+    </table>
+   
+     </apex:outputPanel>
+
+    
+    
+    <br/><font Size="5" face="Arial"><b><apex:outputLabel rendered="{!IsBlank}" style="bold:true;" value="Currently there are no active issues to report."> </apex:outputLabel></b></font><br/><br/>
+
+    <table>
+    <tr>
+    <td valign="top">
+      <apex:image value="https://cs50.content.force.com/servlet/servlet.ImageServer?id=015U0000000FrV2&oid=00DU0000000H1T7&lastMod=1328682597000" alt="Right click on the image to save it to your computer." title="Right click on the image to save it to your computer."/>
+    </td>
+    <td valign="top" bgcolor="red">
+    <font size="2">Red : Major impact to NOKIA customers</font>
+    </td>    
+   <td valign="top">
+      <apex:image value="https://cs50.content.force.com/servlet/servlet.ImageServer?id=015U0000000FrUs&oid=00DU0000000H1T7&lastMod=1328682525000" alt="Right click on the image to save it to your computer." title="Right click on the image to save it to your computer."/>
+    </td>
+    <td valign="top" bgcolor="yellow">
+    <font align="left" size="2">Yellow: Minor customer impact</font>
+    </td>    
+   <td valign="top">
+      <apex:image value="https://cs50.content.force.com/servlet/servlet.ImageServer?id=015U0000000FrUx&oid=00DU0000000H1T7&lastMod=1328682566000" alt="Right click on the image to save it to your computer." title="Right click on the image to save it to your computer."/>
+    </td>
+    <td valign="top" bgcolor="green">
+    <font align="left" size="2">Green: No customer impact</font>
+    </td>        
+    </tr>
+    <tr>
+    <!--<td colspan="6"><font size="2"><u>Note</u>:&nbsp;If you wish to be removed from this distribution, Please contact the administrators:<a href=""> niki.gavin@nokia.com ; candace.bondi@nokia.com</a></font></td> -->
+    <!-- Line no. 221 added by srinivas vadla on 25oct 2012 -->
+    <!-- Updated the mail id from candace.bondi@nokia.com to pekka.kivioja@nokia.com on 25-AUG-2014 -->
+    <td colspan="6"><font size="2"><u>Note</u>:&nbsp;If you wish to be removed from this distribution, Please contact the administrator:<a href="">pekka.kivioja@nokia.com</a></font></td>
+    </tr> 
+    <tr><td colspan="6" align="right"><font size="2">This report was generated automatically by the system.</font></td></tr>
+
+    </table>
+    <table width="100%" height="1%" bgcolor="#38ACEC">
+    <tr>
+    <td align="center" style="color:white"><font Size="1" face="Arial"><b>NOKIA Internal Use Only <br/>QIRS System</b></font> </td> </tr>
+<!-- <tr><td align="center">   <b> To login as a guest user (view only) go to:(http://nsn.qa01.cs9.force.com/QIRS)<br/> -->
+      <!-- To login as an active user (update privileges)  go to:(www.test.salesforce.com) <br/> -->
+       <!--line no 229 added by srinivas vadla on 23 oct 2012-->
+    <!-- line no.233 modified by srinivas vadla on 25oct 2012 -->
+  <!--  <tr><td align="center">   <b>   To login as an active user (update privileges)  go to:(https://test.salesforce.com) <br/> -->
+    <tr><td align="center">   <b>    To login to QIRS Application using Single Sign-On,click <a style="color:blue" href="https://intrafed.inside.nsn.com/idp/profile/SAML2/Unsolicited/SSO?providerId=https://saml.salesforce.com">here.</a><br/> 
+  To login to QIRS Application with user name / password, click  <a style="color:blue" href="https://test.salesforce.com">here.</a><br/>
+       To request a Force.com User ID or for any other issues related to Force.com platform, visit  My IT support to open a ticket <a style="color:blue" href="https://nsnsi.service-now.com/ess"> My IT support </a><br/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tickets can be opened in My IT support – Request Services – Browse IT Services – Logistics Offering - QIRS</b><br/>
+       </td></tr>
+       </table> 
+      </div>
+
+</apex:component>

@@ -1,0 +1,75 @@
+<apex:page id="spage" cache="false" showHeader="false" sidebar="false">
+    
+    <apex:form id="sform" styleClass="myFormStyle">
+    <!--<apex:pageBlock id="pblock" title="Search" styleClass="linksModule sidebarModule">-->
+    <div class="sidebar fixed">
+      <div class="linksModule sidebarModule" style="width:200px;">
+        <div class="sidebarModuleHeader" style="transparent url('/img/alohaSkin/sidebar_sprite.png') -9px bottom no-repeat">
+        <header>
+            <h2>Search</h2>
+        </header></div>
+        <div class="sidebarModuleBody" style="width:200px;" >
+            <apex:inputText id="searchString" html-placeholder="Example* or''Example'' " style="width:150px;font-size: 11px;"/>
+            <apex:commandButton value="Go!" styleClass="groovybutton" oncomplete="searchResult()"/>
+        </div>
+     </div>
+    </div>
+    <script>
+        function searchResult(){
+            var urlvalue = document.getElementById("spage:sform:searchString").value;
+            var res = urlvalue.charAt(0);
+            var res1 = urlvalue.charAt(urlvalue.length-1);
+            var exactfirst=res.includes("\""); 
+            var exactlast=res1.includes("\"");
+            if(exactfirst==true && exactlast==true) 
+            {
+             // alert('hi');
+              //var win = window.open('/search/SearchResults?searchType=2&asPhrase=1&sen=00T&sen=002&sen=a1B&sen=00P&sen=a17&sen=a18&setLast=1&str='+urlvalue,'_parent');
+              var win = window.open('/search/SearchResults?searchType=2&asPhrase=1&sen=00T&sen=002&sen=a1B&sen=00P&sen=a17&sen=a18&setLast=1&str='+urlvalue,'_parent');
+              win.focus();
+            }
+            else{
+               var win = window.open('/search/SearchResults?searchType=2&sen=00T&sen=002&sen=a1B&sen=00P&sen=a17&sen=a18&setLast=1&str='+urlvalue,'_parent');  
+                win.focus();
+                
+            }
+        }
+    </script>
+    <style>
+     
+         .sidebarModuleHeader{
+            background:#1797c0 url('/img/alohaSkin/sidebar_sprite.png') -209px -2px no-repeat;
+            color:#fff;
+            display:block;
+            padding:5px 9px;
+            font-family:Arial,Helvetica,sans-serif;
+            margin:0;
+            font-size:100%;
+            border-bottom-right-radius: .5em;
+            border-bottom-left-radius: .5em;
+            
+        }
+       
+        .myFormStyle {
+            background-color: white-space;
+        }
+        .sidebarModuleBody{
+            padding:15px 5px 15px;
+            background:#cfeef8 url('/img/alohaSkin/sidebar_sprite.png') -209px top no-repeat;
+            padding-top:15px;
+            font-size:100%;
+            width:220px;
+            border-bottom-right-radius:1.1em;
+            border-bottom-left-radius:1em;
+            
+            
+        }
+        iframe{
+            margin:-4px;
+            padding-top:10px;
+            width:250px;
+        }
+    </style>
+    </apex:form>
+    
+</apex:page>

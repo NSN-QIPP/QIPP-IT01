@@ -1,0 +1,546 @@
+<apex:page standardController="SPE_ScoringTemplate__c" extensions="SPE2_1_NewScoringTemplateExt,SPE_MasterDataExt" id="pgId">
+    <apex:includeScript value="{!$Resource.JqueryMin}"/>
+    <c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE ></c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE>
+    <style>
+        .closeIcon,.hiddenId{
+            display:none;
+        }
+        
+    </style>
+    
+    <script>
+        
+        var newWin=null;
+        function captureVal(eventId){ 
+            var y = document.getElementById(eventId).addEventListener("click", alert('hi'));    
+        }
+        function openLookupPopup(name, id,kpidefId)
+        {
+            var url="/apex/SPE2_NewKPIThreshold?kpiId="+kpidefId+"&namefield=" + name + "&idfield=" + id +"&isPopUpWindow=true";
+            newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+            if (window.focus) 
+            {
+                newWin.focus();
+            }
+                
+            return false;
+        }
+                      
+        function closeLookupPopup()
+        {
+           if (null!=newWin)
+           {
+              newWin.close();
+              //captureVal();
+           }  
+        }
+        
+    </script>
+    <script>
+        if ('{!scoringTemplate.Stage__c}'=='Obsolete')
+        {
+            alert('Obsolete SPE Template is not Editable !!!');
+            window.location.href="/{!scoringTemplate.SPETemplate__c}";
+        }
+    </script>
+    <head>
+        <script>
+            var prdValue = '';
+            var blValue = '';
+            var buValue = '';
+        </script>
+    </head>
+    <script>
+
+        //----------JS functions for custom picklist starts-------------------
+        function populateMarketUnitJS(a){
+        
+           
+           populateMarketUnit(a);
+   
+        }
+        function populateMarketUnitJS1(){
+    
+            
+            
+    }
+        function populateCountryJS(val){
+             
+             
+             populateCountry(val);
+ 
+        }
+        
+        function populateCountryJS1(){
+        
+             
+  
+        }
+       
+        
+        function populatePrjJS(val){
+            
+            populatePrj(val);
+            
+        }
+
+        function populatePrjJS1()
+        {
+            
+        
+        }
+        function populateBLJS(val){
+             buValue = val;
+             
+             populateBL(val);
+          }
+          
+        function  populateBLJS1(){
+             
+        } 
+        
+        function populateProductJS(val){
+             blValue = val;
+             
+             populateProduct(val);
+        }
+        
+        function populateProductJS1(){
+            
+        }
+        
+         function populateCatGroupJS(val){
+        
+         populateCatGroup(val);
+        }
+        
+        function populateCatGroupJS1(){
+         
+        
+        }
+        
+        function populateCatJS(val){
+         
+
+         populateCat(val);
+                
+        }
+        
+        function populateCatJS1(){
+         
+        }
+        
+        function setPrdval(a){
+            prdValue = a;
+            document.getElementById('pgId:fm:hdFld').value = a;
+            rerenderForm1(a);
+        }
+        
+        function noenterForSave(ev){
+        if(window.event && window.event.keycode==13|| ev.which ==13){
+            saveRecord();
+            return false;
+        }
+        else{
+            return true;
+        }    
+        }
+        
+        function noenterForValidate(ev){
+        if(window.event && window.event.keycode==13|| ev.which ==13){
+            saveRecord();
+            return false;
+        }
+        else{
+            return true;
+        }    
+        }
+        //-------------------JS functions for custom picklist ends------------------
+        </script>
+        
+    <style type="text/css">
+        .backgroundColor{background-color: #b0c4de; }
+        
+    </style>
+    <apex:sectionHeader title="Scoring Template Edit" subtitle="New Scoring Template !"/>
+     
+        <apex:form id="fm">
+        <apex:pageMessages id="topmsgId"></apex:pageMessages>
+        <apex:inputHidden value="{!prdVal}" id="hdFld"/> <!-- Hidden field for Custom Picklist -->
+        
+            <div style="display:none">
+                <apex:inputField value="{!scoringTemplate.CategoryCluster__c}" />
+                <apex:inputField value="{!scoringTemplate.CategoryGroup__c}" />
+                
+                <apex:inputField value="{!scoringTemplate.Region__c}" />
+                <apex:inputField value="{!scoringTemplate.SubRegion__c}"   />
+                <apex:inputField value="{!scoringTemplate.Country__c}"   />
+                
+                <apex:inputField value="{!scoringTemplate.BusinessUnit__c}" />
+                <apex:inputField value="{!scoringTemplate.BusinessLine__c}" />
+                        
+            </div>
+            
+              <apex:pageBlock tabStyle="SPE_SPETemplate__c" title="Scoring Template Edit" rendered="{!IF(scoringTemplate.Stage__c !='Obsolete',true,false)}" id="pgBlkId">
+              <apex:pageMessages id="dupcheck"></apex:pageMessages>
+                <apex:pageblockButtons >
+                    <apex:commandButton value="Save"  reRender="alertPane,topmsgId" action="{!methodSave}" status="loadStatus" />
+              
+                    <apex:commandButton action="{!Cancel}" value="Cancel"/> 
+                </apex:pageblockButtons>
+               
+                <apex:pageBlockSection title="Information" collapsible="false" columns="2" id="pgSectionGeoId">
+                    
+                     <apex:pageBlockSectionItem >
+                        <apex:outputText value="Scoring Template Name"/>
+                        <apex:inputField value="{!scoringTemplate.Name}" required="true" onkeypress="return noenterForSave(event);" id="templateNameId" style="height: 100%;width: 120%;padding-left: 3px;"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="SPE Template"/>
+                        <apex:inputField value="{!scoringTemplate.SPETemplate__c}" required="true">
+                            <apex:actionSupport event="onchange" action="{!populateAllValues}" reRender="pgSectionGeoId,pb1,dupcheck" status="loadStatus"/>
+                            <apex:actionStatus id="speTemplateChange">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:inputField>
+                        
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                    <!--  <apex:pageBlockSectionItem rendered="{!If(speTemplate.Region__c == defalultPicklist[0].Market__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem1AId">
+                        <apex:outputText value="Market"/>
+                        <apex:outputPanel id="marketPanel">
+                            <apex:selectList id="chooseMarket" value="{!marketVal}" size="1" onchange="populateMarketUnitJS(this.value)" disabled="{!NOT(enableattributesMap['Market'])}">
+                                <apex:selectOptions value="{!MarketValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeC">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem1IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Market"/>
+                        <apex:outputField value="{!scoringTemplate.Region__c}"/>
+                    </apex:pageBlockSectionItem> 
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputText value="Stage"/>
+                        <apex:OutputField value="{!scoringTemplate.Stage__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.SubRegion__c == defalultPicklist[0].Market_Unit__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem2AId">
+                        <apex:outputText value="Market Unit"/>
+                        <apex:outputPanel id="muPanel">
+                            <apex:selectList id="chooseMarketUnit" value="{!marketUnitVal}" size="1" onchange="populateCountryJS(this.value);" disabled="{!NOT(enableattributesMap['Market Unit'])}">
+                                <apex:selectOptions value="{!MarketUnitValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeMU">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem2IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Market Unit"/>
+                        <apex:outputField value="{!scoringTemplate.SubRegion__c}"/>
+                    </apex:pageBlockSectionItem> 
+                    
+                    
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem1Id" >
+                        <apex:outputText value="Category Area"/>
+                        <apex:outputPanel id="CAPanel" >
+                            <apex:selectList id="chooseCatArea" value="{!caVal}" size="1" onchange="populateCatGroupJS(this.value)" disabled="{!NOT(enableattributesMap['Category Area'])}" >
+                                <apex:selectOptions value="{!CategoryAreaValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCatArea">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem3IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Category Area"/>
+                        <apex:outputField value="{!scoringTemplate.CategoryCluster__c}"/>
+                    </apex:pageBlockSectionItem> 
+                    
+                    <!--  <apex:outputText value="{!speTemplate.CategoryCluster__c}" rendered="{!If(speTemplate.CategoryCluster__c != defalultPicklist[0].Category_Area__c, true, false)}"/>-->
+                    
+                     <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.Country__c == defalultPicklist[0].Country__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem33Id">
+                        <apex:outputText value="Country"/>
+                        <apex:outputPanel id="countryPanel">
+                                        
+                            <apex:selectList id="chooseCountry" value="{!countryVal}" size="1" onchange="populatePrjJS(this.value);" disabled="{!NOT(enableattributesMap['Country'])}">
+                                <apex:selectOptions value="{!CountryValues}"/>
+                                
+                       </apex:selectList>
+                       <apex:actionStatus id="statusChangeCountry">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem4IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Country"/>
+                        <apex:outputField value="{!scoringTemplate.Country__c}"/>
+                    </apex:pageBlockSectionItem>
+                     
+                    <!--<apex:outputText value="{!speTemplate.Country__c}" rendered="{!If(speTemplate.Country__c != defalultPicklist[0].Country__c, true, false)}"/>-->
+
+                    
+                                        
+                    <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.CategoryGroup__c == defalultPicklist[0].Category_Group__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem2Id">
+                        <apex:outputText value="Category Group"/>
+                        <apex:outputPanel id="CGPanel">
+                            <apex:selectList id="chooseCatGroup" value="{!cgVal}" size="1" onchange="populateCatJS(this.value)" disabled="{!NOT(enableattributesMap['Category Group'])}">
+                                <apex:selectOptions value="{!CategoryGroupValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeCatGroup">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem5IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Category Group"/>
+                        <apex:outputField value="{!scoringTemplate.CategoryGroup__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!--<apex:outputText value="{!speTemplate.CategoryGroup__c}" rendered="{!If(speTemplate.CategoryGroup__c != defalultPicklist[0].Category_Group__c, true, false)}"/>-->
+                    
+                     <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.Project__c == defalultPicklist[0].Project__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem4Id">
+                        <apex:outputText value="Project"/>
+                        <apex:outputPanel id="projectPanel">
+                                        
+                            <apex:selectList id="chooseProject" value="{!projectVal}" size="1" disabled="{!NOT(enableattributesMap['Project'])}">
+                                <apex:selectOptions value="{!ProjectValues}"/>
+                                
+                       </apex:selectList>
+                       
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem6IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Project"/>
+                        <apex:outputField value="{!scoringTemplate.Project__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!--<apex:outputText value="{!speTemplate.Project__c}" rendered="{!If(speTemplate.Project__c != defalultPicklist[0].Project__c, true, false)}"/>-->
+
+                                       
+                    <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.Category__c == defalultPicklist[0].Category__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem3Id">
+                        <apex:outputText value="Category"/>
+                        <apex:outputPanel id="CPanel">
+                            <apex:selectList id="chooseCategory" value="{!ctVal}" size="1" disabled="{!NOT(enableattributesMap['Category'])}">
+                                <apex:selectOptions value="{!CategoryValues}"/>
+                            </apex:selectList>
+                            
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem id="pgSectionItem7IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Category"/>
+                        <apex:outputField value="{!scoringTemplate.Category__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                     <apex:pageBlockSectionItem id="pgSectionItemorggroup" rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}">
+                        <apex:outputText value="Organization Group"/>
+                        <apex:inputField value="{!scoringTemplate.Organization_Group__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItemorggroupop" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Organization Group"/>
+                        <apex:outputField value="{!scoringTemplate.Organization_Group__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <!--<apex:outputText value="{!speTemplate.Category__c}" rendered="{!If(speTemplate.Category__c != defalultPicklist[0].Category__c, true, false)}"/>-->
+                   
+                                       
+                    <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.BusinessUnit__c == 'All Business Units', true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem5Id">
+                        <apex:outputText value="Business Unit"/>
+                        <apex:outputPanel id="BUPanel">
+                                        
+                            <apex:selectList id="chooseBU" value="{!buVal }" size="1" onchange="populateBLJS(this.value);" disabled="{!NOT(enableattributesMap['Business Unit'])}">
+                                <apex:selectOptions value="{!BusinessUnitValues}"/>
+                            </apex:selectList>
+                            <apex:actionStatus id="statusChangeBU">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                             </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem8IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Business Unit"/>
+                        <apex:outputField value="{!scoringTemplate.BusinessUnit__c}"/>
+                    </apex:pageBlockSectionItem>
+                     
+                    <!--<apex:outputText value="{!speTemplate.BusinessUnit__c}" rendered="{!If(speTemplate.BusinessUnit__c != defalultPicklist[0].Business_Unit__c, true, false)}"/>-->
+                    
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    
+                    <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.BusinessLine__c == defalultPicklist[0].Business_Line__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem10Id">
+                        <apex:outputText value="Business Line"/>
+                        <apex:outputPanel id="BLPanel">
+                                        
+                            <apex:selectList id="chooseBL" value="{!blVal}" size="1" onchange="populateProductJS(this.value)" disabled="{!NOT(enableattributesMap['Business Line'])}">
+                                <apex:selectOptions value="{!BusinesLineValues}"/>
+                            </apex:selectList>
+                           <apex:actionStatus id="statusChangeBL">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                                </apex:facet>
+                             </apex:actionStatus>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem9IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Business Line"/>
+                        <apex:outputField value="{!scoringTemplate.BusinessLine__c}"/>
+                    </apex:pageBlockSectionItem> 
+                    <!--<apex:outputText value="{!speTemplate.BusinessLine__c}" rendered="{!If(speTemplate.BusinessLine__c != defalultPicklist[0].Business_Line__c, true, false)}"/>-->
+                    
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                    
+                    <!--<apex:pageBlockSectionItem rendered="{!If(speTemplate.Product__c == defalultPicklist[0].Product__c, true, false)}">-->
+                    <apex:pageBlockSectionItem rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}" id="pgSectionItem7Id">
+                        <apex:outputText value="Product"/>
+                        <apex:outputPanel id="ProductPanel">
+                            <apex:selectList id="chooseProduct" value="{!prdVal}" size="1" onchange="setPrdval();" disabled="{!NOT(enableattributesMap['Product'])}">
+                                <apex:selectOptions value="{!ProductValues}"/>
+                            </apex:selectList>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="pgSectionItem10IdReadOnly" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}">
+                        <apex:outputText value="Product"/>
+                        <apex:outputField value="{!scoringTemplate.Product__c}"/>
+                    </apex:pageBlockSectionItem>
+                   
+                    <!--<apex:outputText value="{!speTemplate.Product__c}" rendered="{!If(speTemplate.Product__c != defalultPicklist[0].Product__c, true, false)}"/>-->
+                </apex:pageBlockSection>  
+        </apex:pageblock>
+        
+        <apex:pageblock tabStyle="SPE_SPETemplate__c" title=" Scoring Threshold" id="pb1" rendered="{!IF(scoringTemplate.Stage__c !='Obsolete',true,false)}">
+         
+        <apex:pageMessage summary="Please select an existing Threshold from the Lookup or You can create a New Threshold from the below provided link." severity="info" strength="2" />
+       <!-- <apex:pageblockButtons >
+          <apex:commandbutton value="Validate" action="{!validate}"   reRender="pb1, pb2"/>
+          <apex:outputText style="width: 60px; color:Green; font-size: 150%; font-family:italic" value="    Entered value is correct " rendered="{!isCorrect}" />
+        </apex:pageblockButtons>-->
+        
+        <apex:pageMessages id="pb2"/>
+        
+        <apex:repeat value="{!toBeUpdatedScoringCalculation}" var="key" id="repeatId">
+        
+        <!--*********************Changes For Encryption***************-->
+        <!--<apex:pageblocksection id="pb1" title="{!toBeUpdatedScoringCalculation[key][0].kpiName}" columns="1">-->
+        <apex:pageblocksection id="pbs1" title="{!toBeUpdatedScoringCalculation[key][0].kpiDef.KPI_Title__c}" columns="3">
+        <!--*********************END***************-->
+        <apex:inputField value="{!toBeUpdatedScoringCalculation[key][0].spesc.KPI_Threshold__c}" id="targetId">             
+            <apex:actionSupport action="{!fetchScoringCalculation}" event="onchange" status="statusChangeSC" reRender="pb1,targetId,pgSectionGeoId,pb2">           
+                <apex:param value="{!toBeUpdatedScoringCalculation[key][0].kpiDef.Id}" name="kpiDefId1"/>
+                <apex:param value="{!key}" name="ThresholdId"/>
+            </apex:actionSupport>
+            <apex:actionStatus id="statusChangeSC">
+                <apex:facet name="start">
+                    <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:inputField>
+        
+        <apex:inputField value="{!toBeUpdatedScoringCalculation[key][0].spesc.KPIDefinition__c}" id="targetId1" style="display:none;" label=""/>
+        <a href="#" onclick="openLookupPopup('{!$Component.targetId}', '{!$Component.targetName}','{!toBeUpdatedScoringCalculation[key][0].kpiDef.Id}'); return false">Create New Threshold</a>
+        <apex:pageBlockTable value="{!toBeUpdatedScoringCalculation[key]}" var="item"> 
+                <apex:column width="25%">
+                        Score&nbsp;<b><apex:outputfield style="width: 60px;" value="{!item.spesc.Score__c}" />&nbsp;</b>for KPI values
+                 </apex:column>
+                 
+                 <apex:column width="10%">
+                     <b><apex:outputField style="width: 60px;" value="{!item.spesc.LowerTo__c}" rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}"/></b>
+                    <b> <apex:outputfield style="width: 60px;" value="{!item.spesc.LowerTo__c}" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}"/></b>
+                 </apex:column>
+                
+                <apex:column width="10%" >
+                      <b> <apex:outputfield style="width: 60px;" value="{!item.spesc.Lower__c}" rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}"/></b>
+                      <b>  <apex:outputfield style="width: 60px;" value="{!item.spesc.Lower__c}" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}"/></b>
+                 </apex:column>
+                 
+                 <apex:column width="10%" style="text-align:center;">
+                        AND
+                 </apex:column>
+                 <apex:column width="10%">
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.UpperTo__c}" rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}"/></b>
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.UpperTo__c}" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}"/></b>
+                 </apex:column>
+                 
+                 <apex:column width="4%">
+                        <b><apex:outputfield style="width: 60px;" value="{!item.spesc.Upper__c}" rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}"/></b>
+                       <b> <apex:outputfield style="width: 60px;" value="{!item.spesc.Upper__c}" rendered="{!IF(scoringTemplate.Stage__c =='Published',true,false)}"/></b>
+                 </apex:column>
+                 
+                <!--<apex:column width="15%" rendered="{!IF(scoringTemplate.Stage__c !='Published',true,false)}">
+                    <apex:facet name="header"></apex:facet>
+                        <apex:outputtext style="width: 60px; color:red; font-size: 130%;" rendered="{!item.isError}" value="Please fill the field with correct Values" id="opt">
+                        </apex:outputtext>
+                 </apex:column>-->
+            </apex:pageBlockTable>
+            <apex:inputHidden value="{!toBeUpdatedScoringCalculation[key][0].spesc.KPI_Threshold__r.Name}" id="targetName"/>
+            </apex:pageblocksection>
+           </apex:repeat>
+           
+        </apex:pageblock>
+        
+        <apex:actionFunction id="save" name="saveRecord" action="{!methodSave}"/> 
+        <!--<apex:actionFunction id="saveOnValidate" name="ValidateOnEnter" action="{!validate}"/> -->
+        
+         <!-----action function for custom picklist starts--------------------- -->
+    
+    <apex:actionFunction id="rerenderForm1" name="rerenderForm1" action="{!blankMethod}" reRender="none">
+        <apex:param value="" name="rerenderForm11"  assignTo="{!prdVal}"/>
+     </apex:actionFunction>
+     
+    <apex:actionFunction id="populateMarketUnit" name="populateMarketUnit" action="{!fillMarketUnit}" immediate="true" reRender="muPanel,countryPanel,projectPanel,myMsg" status="loadStatus" oncomplete="populateMarketUnitJS1();">
+                <apex:param value="" name="marketVal"  assignTo="{!marketVal}"/>
+     </apex:actionFunction> 
+     
+      
+     <apex:actionFunction id="populateCountry" name="populateCountry" action="{!fillCountry}" immediate="true" reRender="countryPanel,marketPanel,projectPanel,myMsg" status="loadStatus" oncomplete="populateCountryJS1()">
+         <apex:param value="" name="marketUnitVal"  assignTo="{!marketUnitVal}"/>
+     </apex:actionFunction> 
+     
+     <apex:actionFunction id="populatePrj" name="populatePrj" action="{!fillProject}" immediate="true" reRender="projectPanel,myMsg" status="loadStatus" oncomplete="populatePrjJS1()">
+         <apex:param value="" name="countryVal"  assignTo="{!countryVal}"/>
+     </apex:actionFunction>
+     
+     <apex:actionFunction id="populateBL" name="populateBL" action="{!fillBusinessLine}" immediate="true" reRender="BLPanel,ProductPanel,myMsg" status="loadStatus" oncomplete="populateBLJS1()">
+                <apex:param value="" name="buVal"  assignTo="{!buVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateProduct" name="populateProduct" action="{!fillProduct}" immediate="true" reRender="ProductPanel,myMsg" status="loadStatus" oncomplete="populateProductJS1()">
+                <apex:param value="" name="blVal"  assignTo="{!blVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateCatGroup" name="populateCatGroup" action="{!fillCategoryGroup}" immediate="true" reRender="CGPanel,CPanel,myMsg" status="loadStatus" oncomplete="populateCatGroupJS1()">
+                <apex:param value="" name="caVal"  assignTo="{!caVal}"/>
+     </apex:actionFunction> 
+     
+      <apex:actionFunction id="populateCat" name="populateCat" action="{!fillCategory}" immediate="true" reRender="CPanel,myMsg" status="loadStatus" oncomplete="populateCatJS1()">
+                <apex:param value="" name="cgVal"  assignTo="{!cgVal}"/>
+     </apex:actionFunction> 
+
+      <!--  Action function for custom picklist ends ---------  --> 
+        </apex:form>
+        
+</apex:page>

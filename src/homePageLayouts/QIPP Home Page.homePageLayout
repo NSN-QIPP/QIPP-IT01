@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <narrowComponents>QIPP_Search_Page</narrowComponents>
+    <narrowComponents>Release Notes</narrowComponents>
+    <narrowComponents>standard-CreateNew</narrowComponents>
+    <narrowComponents>QIPP - Resources</narrowComponents>
+    <narrowComponents>Audit Management – Resources</narrowComponents>
+    <narrowComponents>Qualified Auditor – Resources</narrowComponents>
+    <narrowComponents>Contact IT Support</narrowComponents>
+    <narrowComponents>standard-RecentItems</narrowComponents>
+    <wideComponents>QIPP Release Updates</wideComponents>
+    <wideComponents>Welcome Message</wideComponents>
+    <wideComponents>QIPP_Release_Notes_Updates_Updated</wideComponents>
+    <wideComponents>standard-ProcessWorkitems</wideComponents>
+    <wideComponents>standard-Dashboard</wideComponents>
+</HomePageLayout>

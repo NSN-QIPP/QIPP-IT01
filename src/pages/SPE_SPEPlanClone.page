@@ -1,0 +1,8 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_SPEPlanCloneExt" action="{!cloneSPEPlan}">
+    <apex:form >
+        <apex:pageMessages ></apex:pageMessages><br/><br/>
+        <div align="center">
+            <apex:commandButton value="Back to SPE Plan" action="{!backToSPE}" rendered="{!isError}"/>
+        </div>
+    </apex:form>
+</apex:page>

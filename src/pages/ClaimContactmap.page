@@ -1,0 +1,26 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimMaterialDeviationMap">
+<apex:pageBlock title="Claim Contacts">
+ <apex:pageblockTable value="{!ClaimContacts}" var="items">
+  <apex:column headerValue="Claim Contact Name" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Contact Type" width="20%">
+      <apex:outputText value="{!items.Contact_Type__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Name" width="20%">
+      <apex:outputText value="{!items.Name__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Phone" width="20%">
+      <apex:outputText value="{!items.Phone__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Email" width="20%">
+      <apex:outputText value="{!items.Email__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,155 @@
+<apex:page controller="SPE_VerifyEnterpriseIDExt" showHeader="false" sidebar="false" standardStylesheets="false">
+ <apex:stylesheet value="{!URLFOR($Resource.Bootstrap_min)}"/> 
+ 
+ <script>
+     function updatefunction()
+     {
+         updatefunc();
+     }
+     function insertfunction()
+     {
+        
+         insfunc();
+     }
+     function skipfunction()
+     {
+        
+         skipfunc();
+     }
+ </script>
+ 
+ <style>
+     .navigationBtn{
+    cursor:pointer;
+    border-radius:5px;
+    height: 30px;
+    width: 160px;
+}
+
+ </style>
+ 
+ <apex:form >
+ <apex:actionFunction name="updatefunc" action="{!updateEIDs}" reRender="out" status="statusChange1"/>
+ <apex:actionFunction name="insfunc" action="{!BatchUpload}" reRender="BU" status="statusChange2"/>
+ <apex:actionFunction name="skipfunc" action="{!skiptoNxtVal}" reRender="BU" status="statusChange3"/>
+ 
+     <div class="container">
+
+     <!--- Panel Heading --->
+    <div class="panel panel-primary" style="border-color:#1485a9;">
+        <div class="panel-heading" style="height: 50px;background-color:#1485a9;"> 
+           <center> <b style="color:white;font-weight:bold;font-size: x-large;" >Validate Enterprise ID</b> </center>
+        </div>
+        <center>{!Sizei} Records out of {!totalCount} are found Faulty</center>
+        <div style="float:right">
+            <input type="button" class="navigationBtn" style="margin-right: 10px;" value="Skip All Validations" onclick="insertfunction();"/>
+            <apex:actionStatus id="statusChange2">
+                        <apex:facet name="start">
+                           <apex:outputText value=" pending....."/>
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+            </apex:actionStatus>
+        </div>
+        <div >
+            <input type="button" class="navigationBtn" style="margin-left: 1%;" value="Skip Current Validation" onclick="skipfunction();"/>
+            <apex:actionStatus id="statusChange3">
+                        <apex:facet name="start">
+                           <apex:outputText value=" pending....."/>
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+            </apex:actionStatus>
+        </div>
+        
+    
+    <!-- Panel heading Ends Here -->
+    
+        <div class="panel-body">
+            <apex:outputPanel id="out">
+            <apex:outputPanel id="check" rendered="{!If(PVTList1.size>0,true,false)}"  style="overflow:auto" layout="block">
+             
+              
+            <table class="table table-hover" >
+                 
+                 <th style="background-color:#93D7EA">EnterpriseID</th>
+                 <th style="background-color:#93D7EA">SPE PIValuesTempId</th>
+                 <th style="background-color:#93D7EA">PIDefination</th>
+                 <th style="background-color:#93D7EA">NumberValue</th> 
+                 <th style="background-color:#93D7EA">Period</th>
+                 <th style="background-color:#93D7EA">Market</th>
+                 <th style="background-color:#93D7EA">Market Unit</th>
+                 <th style="background-color:#93D7EA">Country</th>
+                 <th style="background-color:#93D7EA">Project</th>
+                 <th style="background-color:#93D7EA">CategoryArea</th>
+                 <th style="background-color:#93D7EA">CategoryGroup</th>
+                 <th style="background-color:#93D7EA">Category</th>
+                 <th style="background-color:#93D7EA">Business Line</th>
+                 <th style="background-color:#93D7EA">Business Unit</th>
+                 <th style="background-color:#93D7EA">Product</th>
+                 
+                 
+                 
+                 <th style="background-color:#93D7EA">Product</th>
+                 
+                 
+    
+                 <apex:repeat value="{!PVTList1}" var="li"> 
+                     <tr>
+                         
+                         <td> <apex:inputField value="{!li.EnterpriseID__c}"/></td>
+                         <td>{!li.name}</td>
+                         
+                       <!--*****************Changes For Encryption*******************-->    
+                         <!--<td>{!li.PIDefination__r.name}</td>-->
+                         <td>{!li.PIDefination__r.PI_Title__c}</td>
+                       <!--*****************END*******************-->  
+                         <td>{!li.NumberValue__c}</td>
+                         <td >
+                             {!li.Period__c}
+                             
+                         </td>
+                         <td>{!li.Market__c}</td>
+                         <td>{!li.MarketUnit__c}</td>
+                         <td>{!li.Country__c}</td>
+                         <td>{!li.Project__c}</td>
+                         <td>{!li.Cluster__c}</td>
+                         <td>{!li.CategoryGroup__c}</td>
+                         <td>{!li.Category__c}</td>
+                         <td>{!li.BusinessLine__c}</td>
+                         <td>{!li.BusinessUnit__c}</td>
+                         <td>{!li.Product__c}</td>
+                    
+                     </tr>
+                 </apex:repeat>   
+                   
+             </table>
+             
+         </apex:outputPanel>   
+        </apex:outputPanel>
+        </div>
+        <apex:outputPanel id="check2" rendered="{!If(PVTList1.size>0,true,false)}">
+            
+                     
+                     <input type="button" class="btn btn-primary btn-lg" value="Validate" onclick="updatefunction();" style="margin-left: 1%;"/>
+                     <apex:actionStatus id="statusChange1">
+                        <apex:facet name="start">
+                           <apex:outputText value=" pending....."/>
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+            
+        </apex:outputPanel>
+    
+    
+    <div class="panel-body">
+            <apex:outputPanel id="out1">
+            <apex:outputPanel id="check1" rendered="{!If(PVTList1.size==0,true,false)}">
+                <b>No more Enterprise ID's to validate</b><br/><br/>
+                <i>Click "<apex:commandlink value="Proceed" action="{!validateCategory}"/>" to further validate the Category</i> 
+            </apex:outputPanel>
+            </apex:outputPanel>
+    </div>
+    
+    </div>
+    </div>
+ </apex:form>
+</apex:page>

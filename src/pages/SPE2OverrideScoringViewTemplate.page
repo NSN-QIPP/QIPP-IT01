@@ -1,0 +1,3 @@
+<apex:page standardController="SPE_ScoringTemplate__c" extensions="SPE2overrideScoringViewTemplate" action="{!populateScoringViewTemplate}">
+ 
+</apex:page>

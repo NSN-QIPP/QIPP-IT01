@@ -1,0 +1,26 @@
+<apex:page standardController="SPE_KPIDefinition__c" extensions="SPE_KPIAdhocScheduleExt" id="kpiAdhocSchPgId">
+    <apex:form id="kpiAdhocSchFrmId">
+        <apex:pageMessages id="errId"/>
+        <apex:pageBlock tabStyle="SPE_KPIDefinition__c">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="{!$Label.SPE_Schedule}" action="{!scheduleBatch}"/>
+            </apex:pageBlockButtons>
+            
+            
+            <apex:inputText id="date" value="{!inputdate}" required="true" size="2"/>&nbsp;Months KPI Calculation, Starting &nbsp;
+            <apex:selectList id="chooseMonth" value="{!monthVal}" size="1" required="true">
+                 <apex:selectOptions value="{!Month}"/>
+            </apex:selectList>
+            <apex:selectList id="chooseYear" value="{!yearVal}" size="1" required="true">
+                 <apex:selectOptions value="{!Year}"/>
+            </apex:selectList>
+            <br/><br/>
+            
+            1 Month means; the month and year selected will be computed (default) <br/>
+2 Months means; the selected month and subsequent next 1 month will be computed <br/>
+6 Months means; the selected month and subsequent next 5 month will be computed <br/>
+-- <br/>
+The month and Year that is selected; system computes the KPI using the PI of the previous month 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,263 @@
+<apex:page controller="SPE_ConsequenceManagementsView" showHeader="false" tabStyle="SPE_ConsequenceManagement__c" cache="false" >
+    <apex:form id="fm">
+                    <apex:pagemessages id="msgId" />
+            
+        <c:SPE_HeaderforSite />
+        
+        <!---<apex:include pageName="SPE_HeaderforSite" rendered="{!isPassword}"/>---->    
+        <apex:pageBlock rendered="{!isPassword}">
+            <apex:pageBlockSection title="Login Details" rendered="{!isPassword}" collapsible="false">
+                <table border="0">
+                    <tr>
+                        <td>
+                            <h2>One Time Password:</h2> 
+                        </td>
+                        <td> 
+                            <apex:inputText id="password" value="{!password}"/>
+                        </td>
+                            <apex:commandButton value="Login" action="{!enter}"/>
+                    </tr>
+                </table>
+                        </apex:pageBlockSection>
+                </apex:pageBlock>
+           
+ 
+
+            <apex:pageBlock rendered="{!!isPassword}">
+                <apex:pageblockSection title="Other Consequence Management Tickets" collapsible="true">
+                <apex:pageBlockTable value="{!otherCMsTicket}" var="r">
+                   <apex:column headerValue="CM Record No.">
+        <apex:outputLink value="?id={!r.Id}&pswd={!$CurrentPage.parameters.pswd}">
+        {!r.Name} 
+        </apex:outputLink>
+        </apex:column>
+       <apex:column value="{!r.TicketStatus__c}"/>
+            </apex:pageBlockTable>        
+        </apex:pageblockSection>
+            </apex:pageBlock>
+            
+            
+            <apex:pageBlock rendered="{!!isPassword}">
+            <apex:outputPanel >
+            </apex:outputPanel>
+             
+                        <apex:pageBlockSection title="General Information" collapsible="false" >
+                <apex:outputField value="{!ccm.Title__c}"/>
+                <apex:outputField value="{!ccm.Owner.Name}" label="{!IF(idAuditTicket==true,'Audit NC Ticket Owner','Owner')}"/> 
+                <apex:outputField value="{!ccm.Market__c}"/>
+                <apex:outputField value="{!ccm.TicketStatus__c}"/>
+                <apex:outputField value="{!ccm.CategoryArea__c}"/>
+                <apex:outputField value="{!ccm.MarketUnit__c}"/>  
+                <apex:outputField value="{!ccm.CategoryGroup__c}"/>
+                <apex:outputField value="{!ccm.Country__c}"/> 
+                <apex:outputField value="{!ccm.Category__c}"/>
+            <!--    <apex:outputField value="{!ccm.SPE_Status__c}"/>   -->
+            
+                <apex:outputField value="{!ccm.Project__c}"/>  
+                <apex:outputField value="{!ccm.BusinessUnit__c}"/>          
+                
+                <apex:outputField value="{!ccm.BusinessLine__c}"/>
+                <apex:outputfield value="{!ccm.Contact__c}" rendered="{!Not(idAuditTicket)}"/>
+                <apex:outputField value="{!ccm.Product__c}"/>
+                
+            </apex:pageblockSection>
+            
+            <apex:pageBlockSection title="Supplier Information" collapsible="false" rendered="{!Not(idAuditTicket)}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Enterprise ID" />
+                    <apex:outputText value="{!supplierName }" />
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!ccm.CategoryManager__c}" />
+                <apex:outputfield value="{!ccm.Contact__c}" />
+                <apex:outputField value="{!ccm.OpenDate__c}"/>
+                <apex:outputField value="{!ccm.SurveyCommentsReview__c}"/>
+                                 
+              </apex:pageblockSection>
+              
+              <!----------Page Block section for Audit NC------------------------>
+              
+              <apex:pageBlockSection title="Supplier and Audit Information" collapsible="false" >
+              <apex:pageBlockSectionItem >
+                    <apex:outputText value="Enterprise ID" />
+                    <apex:outputText value="{!supplierName }" />
+              </apex:pageBlockSectionItem>
+              <apex:outputField value="{!ccm.CategoryManager__c}" rendered="{!Not(idAuditTicket)}"/>
+              <apex:outputText value="{!ccm.Supplier_Val__c}" rendered="{!idAuditTicket}"/>
+              <apex:outputfield value="{!ccm.Contact__c}" />
+              <!---<apex:outputText  value="Supplier Address"/>-->
+              <apex:outputText value="{!ccm.Supplier_Address_Value__c}"  rendered="{!idAuditTicket}"/>
+              <apex:outputField value="{!ccm.Audit_Value__c}" rendered="{!idAuditTicket}"/>
+              <apex:outputField value="{!ccm.Lead_Auditor_Value__c}" rendered="{!idAuditTicket}"/>
+              <apex:outputField value="{!ccm.Audit_Value1__c}" rendered="{!idAuditTicket}"/>
+              <apex:outputField value="{!ccm.Audit_Team_Value__c}" rendered="{!idAuditTicket}"/>
+              <!--<apex:outputField value="{!ccm.Preferred_Month__c}" rendered="{!idAuditTicket}"/>
+              <apex:outputField value="{!ccm.Preferred_Year__c}" rendered="{!idAuditTicket}"/>    -->               
+              </apex:pageblockSection>
+                                         
+              
+              
+             <!-----------------Page Block section for Audit NC ends here--------------------->
+              
+            <apex:pageBlockSection title="SPE / KPI Information" collapsible="false" rendered="{!Not(idAuditTicket)}">
+            
+            <!--***************************Changes For Encryption******************************-->
+                <!--<apex:outputfield value="{!ccm.KPIName__r.Name}"  />-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="KPI Title" />
+                    <apex:outputText value="{!kpiTitle}" />
+                </apex:pageBlockSectionItem>
+            <!--*****************************END*********************************-->
+                 
+                <apex:outputfield value="{!ccm.SPEPlan__c}"  />
+                <apex:outputfield value="{!ccm.KPIAbbreviation__c}"  /> 
+                <apex:outputfield value="{!ccm.SPETracker__r.Name}"  /> 
+                <apex:outputfield value="{!ccm.KPIDetails__c}"  /> 
+                <apex:outputfield value="{!ccm.InitialKPIValue__c}"  />
+                <apex:outputfield value="{!ccm.RCAInstructions__c}"  /> 
+                <apex:outputfield value="{!ccm.InitialKPIScore1__c}"  /> 
+                <apex:outputfield value="{!ccm.PreventiveActionInstructions__c}"  /> 
+                <apex:outputfield value="{!ccm.CorrectiveActionInstructions__c}"  />
+                 
+              </apex:pageblockSection>
+              <!-----------Language Section -------------------------------------->               
+               <apex:pageBlockSection title="KPI Information with Other Languages" id="KPI" collapsible="false" columns="1" rendered="{!Not(idAuditTicket)}"> 
+                <apex:pageMessages id="langmsg"></apex:pageMessages>            
+                 <apex:outputPanel id="refLang">
+                 
+                <apex:pageBlockTable value="{!ccm}" var="o" rendered="{!!showOptions}" >
+                <apex:column headerValue="Language">
+                 <apex:selectList size="1" value="{!selectedValue}">
+                    <apex:selectOptions value="{!statusOptions}"/>
+                    <apex:actionSupport event="onchange" action="{!refreshLanguage}" status="statuschange2" rerender="refLang,langmsg" />  
+                </apex:selectList>
+                <apex:outputpanel >
+                <apex:actionStatus id="statuschange2">
+               <apex:facet name="start">
+                   <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+               </apex:facet>
+           </apex:actionStatus>
+            </apex:outputpanel>   
+                   </apex:column>
+                   <apex:column headerValue="KPI Title" > <apex:outputField value="{!o.KPIName__r.KPI_Title__c}" /> </apex:column>
+                   
+                   <apex:column headerValue="Description" ><apex:outputField value="{!o.Description__c}" /></apex:column>
+                   <apex:column headerValue="Preventive Action Instructions" > <apex:outputField value="{!o.PreventiveActionInstructions__c}" /> </apex:column>
+                   <apex:column headerValue="RCA Instructions" ><apex:outputField value="{!o.RCAInstructions__c}" /> </apex:column>
+                   <apex:column headerValue="Corrective Action Instructions" ><apex:outputField value="{!o.CorrectiveActionInstructions__c}" /> </apex:column>
+                 
+               </apex:pageBlockTable>    
+               
+                   
+               <apex:pageBlockTable value="{!altrLang}" var="a" rendered="{!showOptions}" >
+                   <apex:column headerValue="Language">
+                 <apex:selectList size="1" value="{!selectedValue}">
+                            <apex:selectOptions value="{!statusOptions}"/>
+                            <apex:actionSupport event="onchange" action="{!refreshLanguage}" status="statuschange2" rerender="refLang,langmsg" />  
+                 </apex:selectList>  
+                  <apex:outputpanel >
+                    <apex:actionStatus id="statuschange2">
+                       <apex:facet name="start">
+                           <apex:image value="/img/loading.gif"  style="vertical-align: middle;margin-left:2px;"/>
+                       </apex:facet>
+                   </apex:actionStatus>
+                </apex:outputpanel>           
+                    </apex:column>
+                   <apex:column headerValue="KPI Title" > <apex:outputField value="{!a.Language_Version__c}" /> </apex:column>
+                   <apex:column headerValue="Description" > <apex:outputField value="{!a.Alternate_Language_Description__c}"  /></apex:column>
+                   <apex:column headerValue="Preventive Action Instructions" > <apex:outputField value="{!a.Alternate_Language_Preventive_Action_Ins__c}"  /></apex:column>
+                   <apex:column headerValue="RCA Instructions" > <apex:outputField value="{!a.Alternate_Language_RCA_Instructions__c}" rendered="{!showOptions}" /></apex:column>
+                   <apex:column headerValue="Corrective Action Instructions" ><apex:outputField value="{!a.Alternate_Language_Corrective_Action_Ins__c}"  /></apex:column>
+               </apex:pageBlockTable><br/>
+               </apex:outputPanel>  
+              <apex:pageMessages />
+            </apex:pageBlockSection>            
+           
+        <!---------------Language Section------------------------>
+                
+               <apex:pageBlockSection title="Problem Analysis" collapsible="false">
+      
+                    <apex:outputField value="{!ccm.ProblemDescriptionDetails__c}"/><br></br>
+                    <apex:outputField value="{!ccm.AnalysisFindings__c}"/><br></br>
+                    <apex:outputField value="{!ccm.Datefailurefirstobserved__c}"/><br></br>
+                   <!-- <apex:outputField value="{!ccm.InternalContainmentifany__c}"/><br></br> -->
+                    <apex:outputField value="{!ccm.Problem_Analysis_Completed__c}"/>
+               </apex:pageBlockSection> 
+               <apex:pageBlockSection rendered="{!idAuditTicket}" title="Audit NC Items">
+                   <apex:pageBlockTable value="{!ncListForAudit}" var="nc">
+                       <apex:column headerValue="Sl No" value="{!nc.NC_Item_No__c}"/>
+                       <apex:column headerValue="Audit Value" value="{!nc.Audit_Type__c}"/>
+                   </apex:pageBlockTable>
+             </apex:pageBlockSection>      
+            <apex:pageBlockSection title="Root Cause" collapsible="false">
+      
+                <apex:inputField value="{!ccm.X3DManufacturerResponse__c}" rendered="{!IF(ccm.X3DOwnerApproveReject__c=='Approve','false','true')}"/>
+                <apex:outputField value="{!ccm.X3DManufacturerResponse__c}" rendered="{!IF(ccm.X3DOwnerApproveReject__c=='Approve','true','false')}"/>
+                <apex:outputField value="{!ccm.X3DOwnerResponse__c}"/>
+                <apex:inputField value="{!ccm.X3DSupplierContributors__c}" rendered="{!IF(ccm.X3DOwnerApproveReject__c=='Approve','false','true')}"/> 
+                <apex:outputField value="{!ccm.X3DSupplierContributors__c}" rendered="{!IF(ccm.X3DOwnerApproveReject__c=='Approve','true','false')}"/>           
+                <apex:outputField value="{!ccm.X3DOwnerApproveReject__c}"/>
+                <apex:inputField value="{!ccm.X3DSupplierResponseComplete__c}" rendered="{!IF(ccm.X3DOwnerApproveReject__c=='Approve','false','true')}"/> 
+                <apex:outputField value="{!ccm.X3DSupplierResponseComplete__c}" rendered="{!IF(ccm.X3DOwnerApproveReject__c=='Approve','true','false')}"/>
+                <apex:outputField value="{!ccm.X3DDueDate__c}"/><br></br>
+                <apex:outputField value="{!ccm.X3DDaysAllowed__c}"/> 
+           </apex:pageBlockSection>
+           
+           <apex:pageBlockSection title="Fault Assumption" collapsible="false">
+                <apex:inputField value="{!ccm.ManufactureAcceptsFault__c}" rendered="{!IF(ccm.OwnerApproval__c=='Approve','false','true')}"/>
+                <apex:outputField value="{!ccm.ManufactureAcceptsFault__c}" rendered="{!IF(ccm.OwnerApproval__c=='Approve','true','false')}"/>
+                <apex:outputField value="{!ccm.OwnerApproval__c}"/>
+                <apex:inputField value="{!ccm.ManufacturerComments__c}" rendered="{!IF(ccm.OwnerApproval__c=='Approve','false','true')}"/>
+                <apex:outputField value="{!ccm.ManufacturerComments__c}" rendered="{!IF(ccm.OwnerApproval__c=='Approve','true','false')}"/>
+                <apex:outputField value="{!ccm.OwnerComments__c}"/>
+                <apex:inputField value="{!ccm.SupplierFaultAssumptionComplete__c}" rendered="{!IF(ccm.OwnerApproval__c=='Approve','false','true')}"/>
+                <apex:outputField value="{!ccm.SupplierFaultAssumptionComplete__c}" rendered="{!IF(ccm.OwnerApproval__c=='Approve','true','false')}"/>
+           </apex:pageBlockSection>
+             
+           <apex:pageBlockSection title="Corrective Action Plan/ Preventive Action Plan" collapsible="false">
+             <apex:inputField value="{!ccm.X4DSupplierResponse__c}" rendered="{!IF(ccm.X4DOwnerApproveReject__c=='Approve','false','true')}"/>
+             <apex:outputField value="{!ccm.X4DSupplierResponse__c}" rendered="{!IF(ccm.X4DOwnerApproveReject__c=='Approve','true','false')}"/>
+             <apex:outputField value="{!ccm.X4DOwnerResponse__c}"/>
+             <apex:inputField value="{!ccm.X4DSupplierContributors__c}" rendered="{!IF(ccm.X4DOwnerApproveReject__c=='Approve','false','true')}"/>
+             <apex:outputField value="{!ccm.X4DSupplierContributors__c}" rendered="{!IF(ccm.X4DOwnerApproveReject__c=='Approve','true','false')}"/>
+             <apex:outputField value="{!ccm.X4DOwnerApproveReject__c}"/>
+             <apex:inputField value="{!ccm.X4DSupplierResponseComplete__c}" rendered="{!IF(ccm.X4DOwnerApproveReject__c=='Approve','false','true')}"/>  
+             <apex:outputField value="{!ccm.X4DSupplierResponseComplete__c}" rendered="{!IF(ccm.X4DOwnerApproveReject__c=='Approve','true','false')}"/>                                    
+            <apex:outputField value="{!ccm.X4DDueDate__c}"/><br></br>
+             <apex:outputField value="{!ccm.X4DDaysAllowed__c}"/>
+         </apex:pageBlockSection>
+         
+         <apex:pageBlockSection title="Verification and Closure" collapsible="false">
+             <apex:inputField value="{!ccm.X5DSupplierResponse__c}" rendered="{!IF(ccm.X5DOwnerApproveReject__c=='Approve','false','true')}"/> 
+             <apex:outputField value="{!ccm.X5DSupplierResponse__c}" rendered="{!IF(ccm.X5DOwnerApproveReject__c=='Approve','true','false')}"/> 
+             <apex:outputField value="{!ccm.X5DOwnerResponse__c}"/>
+             <apex:inputField value="{!ccm.X5DSupplierContributors__c}" rendered="{!IF(ccm.X5DOwnerApproveReject__c=='Approve','false','true')}"/> 
+             <apex:outputField value="{!ccm.X5DSupplierContributors__c}" rendered="{!IF(ccm.X5DOwnerApproveReject__c=='Approve','true','false')}"/> 
+             <apex:outputField value="{!ccm.X5DOwnerApproveReject__c}"/>
+             <apex:inputField value="{!ccm.X5DSupplierResponseComplete__c}" rendered="{!IF(ccm.X5DOwnerApproveReject__c=='Approve','false','true')}"/>   
+             <apex:outputField value="{!ccm.X5DSupplierResponseComplete__c}" rendered="{!IF(ccm.X5DOwnerApproveReject__c=='Approve','true','false')}"/>           
+             <apex:outputField value="{!ccm.X5DDueDate__c}"/><br></br>
+             <apex:outputField value="{!ccm.X5DDaysAllowed__c}"/> 
+         </apex:pageBlockSection>
+         
+        <apex:pageBlockSection title="Case Summary" collapsible="false">
+             <apex:outputField value="{!ccm.Summary_spe__c}"/>
+             <apex:outputField value="{!ccm.CancelledNTFStatusExplanation__c}"/>
+         </apex:pageBlockSection> 
+                  
+         <apex:pageBlockButtons >
+        
+                <apex:commandButton value="Save and Close" action="{!save1}"  rerender="oppName"/>
+            </apex:pageBlockButtons>
+             
+        </apex:pageBlock>
+        </apex:form>
+        
+        <style>
+input[name=newNote] {
+    display: none;
+}
+</style>
+
+        <apex:relatedList subject="{!ccm}" list="CombinedAttachments" rendered="{!!isPassword}"/>
+        <c:SPE_FooterforSite />
+</apex:page>

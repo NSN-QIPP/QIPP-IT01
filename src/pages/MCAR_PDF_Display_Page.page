@@ -1,0 +1,783 @@
+<apex:page standardController="MCAR__c" extensions="getRecordForPDF" renderAs="pdf" >
+<apex:image url="{!$Resource.NSN_New_Logo}" width="154" height="76"/>
+<BR></BR>
+<th>MCAR# {!MCAR__c.Name}</th>
+<hr></hr>
+
+<table width="100%">
+<tr>
+<th width="50%">General Information</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+        <table border="0" cellpadding="5">
+        <tr>
+        <td>MCAR NO</td>
+        <td>{!MCAR__c.Name}</td>
+        </tr>
+        <tr>
+        <td>Facility</td>
+        <td>{!MCAR__c.H_Facility_Name__c}</td>
+        </tr>
+        <tr>
+        <td>Failure Type</td>
+        <td>{!MCAR__c.MCAR_Failure_Type__c}</td>
+        </tr>
+        <tr>
+        <td>MCAR Status</td>
+        <td>{!MCAR__c.MCAR_Status__c}</td>
+        </tr>
+        <tr>
+        <td>Current 8D Step</td>
+        <td>{!MCAR__c.MCAR_Current_8D_Step__c}</td>
+        </tr>
+        </table>
+    </td>
+    
+    <td>
+        <table border="0" cellpadding="7">
+        <tr>
+        <td>Owner</td>
+        <td>{!MCAR__c.Owner.Name}</td>
+        </tr>
+        <tr>
+        <td>Created By</td>
+        <td>{!MCAR__c.CreatedBy.Name}</td>
+        </tr>
+        <tr>
+        <td>Last Modified By</td>
+        <td>{!MCAR__c.LastModifiedBy.Name}</td>
+        </tr>
+        <tr>
+        <td>Open Date</td>
+        <td>{!getOpenDate}</td>
+        </tr>
+        <tr>
+        <td>Days Open</td>
+        <td>{!getDaysOpen}</td>
+        </tr>
+        </table>
+      </td>
+      
+      </tr>
+</table>
+<hr />
+
+<table border="0" width="100%">
+<tr>
+<th width="50%">Part Information</th>
+<th width="50%"></th>
+</tr>
+<tr>
+<td>
+<table border="0" cellpadding="7">
+        <tr>
+        <td>Code</td>
+        <td>{!NSN_Code}</td>
+        </tr>
+        <tr>
+        <td>Description</td>
+        <td>{!MCAR__c.MCAR_Part_Description__c}</td>
+        </tr>
+        <tr>
+        <td>Part Type</td>
+        <td>{!MCAR__c.MCAR_Part_Type__c}</td>
+        </tr>
+        <tr>
+        <td>Part Family</td>
+        <td>{!MCAR__c.MCAR_Part_Family__c}</td>
+        </tr>
+        <tr>
+        <td>Mfg. Part Number</td>
+        <td>{!MCAR__c.MCAR_Mfg_Part_Number__c}</td>
+        </tr>
+        </table>
+    </td>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Manufacturer</td>
+        <td>{!Manufacture}</td>
+        </tr>
+        <tr>
+        <td>Enterprise ID</td>
+        <td>{!MCAR__c.MCAR_Part_Enterprise_ID__c}</td>
+        </tr>
+        <tr>
+        <td>Lifecycle</td>
+        <td>{!MCAR__c.MCAR_Part_Lifecycle__c}</td>
+        </tr>
+        <tr>
+        <td>Recommendation</td>
+        <td>{!MCAR__c.MCAR_Part_Recommendation__c}</td>
+        </tr>
+        </table>
+    </td>
+</tr>
+</table>
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">Defect Location, Quantity and Severity:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Severity Level</td>
+        <td>{!MCAR__c.MCAR_Severity_Level__c}</td>
+        </tr>
+        <tr>
+        <td>Quanity</td>
+        <td>{!MCAR__c.MCAR_Defect_Quantity__c}</td>
+        </tr>
+        </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Defect Location</td>
+        <td>{!MCAR__c.MCAR_Defect_Location__c}</td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </td>
+</tr>
+</table>
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">Additional Information required for Field Failure:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Customer Name</td>
+        <td>{!MCAR__c.MCAR_Customer_Name__c}</td>
+        </tr>
+        <tr>
+        <td>Time In Service</td>
+        <td>{!MCAR__c.MCAR_Time_In_Service__c}</td>
+        </tr>
+        </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Location (City and Country)</td>
+        <td>{!MCAR__c.MCAR_Location__c}</td>
+        </tr>
+        <tr>
+        <td>Component Current Location</td>
+        <td>{!MCAR__c.Component_Current_Location__c}</td>
+        </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">Product Information:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Business Unit</td>
+        <td>{!MCAR__c.Product_Technology__c}</td>
+        </tr>
+        <tr>
+        <td>Business Line</td>
+        <td>{!MCAR__c.Product_Family__c}</td>
+        </tr>
+        <tr>
+        <td>Product Name</td>
+        <td>{!MCAR__c.MCAR_Product_Name__c}</td>
+        </tr>
+        <tr>
+        <td>Serial Number</td>
+        <td>{!MCAR__c.MCAR_Serial_No__c}</td>
+        </tr>
+        <tr>    
+        <td>Red Tag ID#</td>
+        <td>{!MCAR__c.MCAR_Red_Tag_ID__c}</td>
+        </tr>
+        </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Lot Number / Date Code</td>
+        <td>{!MCAR__c.MCAR_Lot_Nbr_Date_Cd__c}</td>
+        </tr>
+        <tr>
+        <td>COMPL ID</td>
+        <td>{!MCAR__c.MCAR_Compl_Id__c}</td>
+        </tr>
+        <tr>
+        <td>Claims Management ID</td>
+        <td>{!MCAR__c.MCAR_Claims_Management_ID__c}</td>
+        </tr>
+        <tr>
+        <td>QIRS ID</td>
+        <td>{!QRISName}</td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </td>
+</tr>
+
+</table>
+
+<br></br>
+<br></br>
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">RMA Information:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Quantity shipped to Manufacturer?</td>
+        <td>{!MCAR__c.MCAR_Quantity_to_Sup__c}</td>
+        </tr>
+        <tr>
+        <td>RMA Number</td>
+        <td>{!MCAR__c.MCAR_RMA_Number__c}</td>
+        </tr>
+        <tr>
+        <td>RMA Tracking Number</td>
+        <td>{!MCAR__c.MCAR_RMA_Tracking_Number__c}</td>
+        </tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>RMA Sent Date</td>
+        <td>{!RMASentDate}</td>
+        </tr>
+        <tr>
+        <td>RMA Carrier</td>
+        <td>{!MCAR__c.RMA_Carrier__c}</td>
+        </tr>
+        <tr>
+        <td>RMA Address</td>
+        <td>{!MCAR__c.MCAR_RMA_Address__c}</td>
+        </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">Defect Information:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Defect PPM</td>
+        <td>{!MCAR__c.MCAR_Defect_PPM__c}</td>
+        </tr>
+        <tr>
+        <td>Expected Containment Hrs</td>
+        <td>{!MCAR__c.MCAR_Exp_Cont_Hrs__c}</td>
+        </tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Established Incident Cost</td>
+        <td>{!MCAR__c.MCAR_Est_Incident_Cost__c}</td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </td>
+</tr>
+</table>
+<hr />
+
+<tr>
+<th width="50%">1D Contacts:</th>
+</tr>
+<BR></BR>
+
+<apex:pageBlock >
+<tr>
+<th width="50%">Factory GM - Selected Contacts:</th>
+</tr>
+<BR></BR>
+<apex:repeat value="{!FactoryGM}" var="a" >
+ <tr>
+ <td>{!a.Name}</td>
+ <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.Email}</td>
+ <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.Factory}</td>
+ </tr>
+</apex:repeat>
+</apex:pageblock>   
+<BR></BR>
+<apex:pageBlock >
+<tr>
+<th width="50%">Manufacturer Selected Contacts:</th>
+</tr>
+<BR></BR>
+<apex:repeat value="{!OtherEmailList}" var="a" >
+ <tr>
+ <td>{!a.MCAR_First_Name__c}</td><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.MCAR_Role__c}</td><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.MCAR_Topic__c}</td><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.MCAR_Email__c}</td>
+ </tr>
+</apex:repeat>
+</apex:pageblock>   
+<BR></BR>
+<apex:pageBlock >
+<tr>
+<th width="50%">Other Selected Contacts:</th>
+</tr>
+<BR></BR>
+<apex:repeat value="{!OtherContacts}" var="a" >
+ <tr>
+ <td>{!a.Name}</td>
+ <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.Email}</td>
+ </tr>
+</apex:repeat>
+</apex:pageblock>  
+<BR></BR>
+<apex:pageBlock >
+<tr>
+<th width="50%">NSN Selected Contacts:</th>
+</tr>
+<BR></BR>
+<apex:repeat value="{!NSNEmailList}" var="a" >
+ <tr>
+ <td>{!a.MCAR_First_Name__c}</td><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.MCAR_Role__c}</td><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.MCAR_Topic__c}</td><TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+ <td>{!a.MCAR_Email__c}</td>
+ </tr>
+</apex:repeat>
+</apex:pageblock>  
+
+
+ <hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">2D Problem Description and Details:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Problem Description and Details</td>
+        <td>{!MCAR__c.MCAR_2D_Prob_Desc__c}</td>
+        </tr>
+        <tr>
+        <td>Analysis and Findings</td>
+        <td>{!MCAR__c.MCAR_2D_Analysis_Findings__c}</td>
+        </tr>
+        <tr>
+        <td>Date failure first observed?</td>
+        <td>{!MCAR2DFailureDate}</td>
+        </tr>
+        <tr>
+        <td>Internal Containment, if any?</td>
+        <td>{!MCAR__c.MCAR_2D_Internal_Containment__c}</td>
+        </tr>
+        <tr>
+        <td>Contributor</td>
+        <td>{!MCAR__c.Contributor_2D__c}</td>
+        </tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>What was product-level failure mode?</td>
+        <td>{!MCAR__c.MCAR_2D_prod_level_fail_mode_del__c}</td>
+        </tr>
+        <tr>
+        <td>What was device-level failure mode?</td>
+        <td>{!MCAR__c.MCAR_Device_Level_Failure_Mode__c}</td>
+        </tr>
+         <tr>
+        <td>Parts fail under special conditions?</td>
+        <td>{!MCAR__c.MCAR_2D_failure_spl_condition__c}</td>
+        </tr>
+        <tr>
+        <td>How were the failed parts isolated ?</td>
+        <td>{!MCAR__c.MCAR_2D_FP_isolated_method__c}</td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+    </td>
+</tr>
+</table>
+
+
+ <hr />
+<table border="0" width="100%">
+
+<tr>
+<th width="50%">Fault Assumption:</th>
+<th width="50%"></th>
+</tr>
+
+<tr>
+    <td>
+       <table border="0" cellpadding="7">
+       <tr>
+        <td>Manufacturer Accepts Fault?</td>
+        <td>{!MCAR__c.Manufacture_Accepts_Fault__c}</td>
+        </tr>
+       <tr>
+        <td>Manufacturer: Pursue Remaining 8D Action</td>
+        <td>{!MCAR__c.Manufacturer_Agrees_to_Pursue_Remaining__c}</td>
+       </tr>  
+       <tr>
+        <td>Manufacturer Comments</td>
+        <td>{!MCAR__c.Manufacturer_Comments__c}</td>
+       </tr> 
+     </table>
+    </td>
+    
+    <td>
+       <table border="0" cellpadding="7">
+        <tr>
+        <td>Owner_Approval__c</td>
+        <td>{!MCAR__c.Owner_Approval__c}</td>
+        </tr>
+        <tr>
+        <td>Owner: Is Mfr. Involved in MCAR Case?</td>
+        <td>{!MCAR__c.Owner_Is_Mfr_Involved_in_MCAR_Case__c}</td>
+        </tr>
+        <tr>
+        <td>Owner: Is Mfr. Involved in MCAR Case?</td>
+        <td>{!MCAR__c.Owner_Comments__c}</td>
+        </tr>
+       </table>
+    </td>
+ 
+    </tr>
+</table>
+
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">3D Containment Action(s):</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>3D Manufacturer Response</td>
+        <td>{!MCAR__c.MCAR_Containment_Action__c}</td>
+        </tr>
+        <tr>
+        <td>3D Manufacturer Contributor(s)</td>
+        <td>{!MCAR__c.Contributor_3D__c}</td>
+        </tr>
+        <tr>
+        <td>3D Manufacturer Response Complete</td>
+        <td>{!MCAR__c.X3D_Manufacturer_Response_Complete__c}</td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>3D Owner Response</td>
+        <td>{!MCAR__c.X3D_Owner_Response__c}</td>
+        </tr>
+        <tr>
+        <td>3D Owner Approve / Reject</td>
+        <td>{!MCAR__c.X3D_Status__c}</td>
+        </tr>
+        <tr>
+        <td>3D Due Date</td>
+        <td>{!DueDate3D }</td>
+        </tr>
+        <tr>
+        <td>3D Days Allowed</td>
+        <td>{!MCAR__c.MCAR_3D_Days_Allowed__c}</td>
+        </tr>
+      </table>
+    </td>
+</tr>
+</table>
+
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">4D Root Cause:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>4D Manufacture Response</td>
+        <td>{!MCAR__c.MCAR_4D_Root_Cause__c}</td>
+        </tr>
+        <tr>
+        <td>4D Manufacturer Contributor(s)</td>
+        <td>{!MCAR__c.Contributor_4D__c}</td>
+        </tr>
+        <tr>
+        <td>4D Manufacturer Response Complete</td>
+        <td>{!MCAR__c.X4D_Manufacturer_Response_Complete__c}</td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>4D Owner Response</td>
+        <td>{!MCAR__c.X4D_Owner_Response__c}</td>
+        </tr>
+        <tr>
+        <td>4D Owner Approve / Reject</td>
+        <td>{!MCAR__c.X4D_Owner_Approve_Reject__c}</td>
+        </tr>
+        <tr>
+        <td>4D Due Date</td>
+        <td>{!DueDate4D}</td>
+        </tr>
+        <tr>
+        <td>4D Days Allowed</td>
+        <td>{!MCAR__c.MCAR_4D_Days_Allowed__c}</td></tr>
+      </table>
+    </td>
+</tr>
+</table>
+<BR></BR>
+
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">5D Permanent Corrective Action(s):</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>5D Manufacture Response</td>
+        <td>{!MCAR__c.MCAR_5D_Permanent_Corrective_Action__c}</td>
+        </tr>
+        <tr>
+        <td>5D Manufacturer Contributor(s)</td>
+        <td>{!MCAR__c.Contributor_5D__c}</td>
+        </tr>
+        <tr>
+        <td>5D Manufacturer Response Complete</td>
+        <td>{!MCAR__c.X5D_Manufacturer_Response_Complete__c}</td>
+        </tr>
+         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>5D Owner Response</td>
+        <td>{!MCAR__c.X5D_Reason__c}</td>
+        </tr>
+        <tr>
+        <td>5D Owner Approve / Reject</td>
+        <td>{!MCAR__c.X5D_Status__c}</td>
+        </tr>  
+        <tr>
+        <td>5D Due Date</td>
+        <td>{!DueDate5D }</td>
+        </tr>
+        <tr>
+        <td>5D Days Allowed</td>
+        <td>{!MCAR__c.MCAR_5D_Days_Allowed__c}</td>
+        </tr>        
+    </table>
+    </td>
+</tr>
+</table>
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">6D Verify Corrective Action Effectiveness:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>6D Manufacture Response</td>
+        <td>{!MCAR__c.MCAR_6D_Ver_Corr_Action_Eff__c}</td>
+        </tr>
+        <tr>
+        <td>6D Manufacturer Contributor(s)</td>
+        <td>{!MCAR__c.Contributor_6D__c}</td>
+        </tr>
+        <tr>
+        <td>6D Manufacturer Response Complete</td>
+        <td>{!MCAR__c.X6D_Manufacturer_Response_Complete__c}</td>
+        </tr>
+         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>6D Owner Response</td>
+        <td>{!MCAR__c.X6D_Reason__c}</td>
+        </tr>
+        <tr>
+        <td>6D Owner Approve / Reject</td>
+        <td>{!MCAR__c.X6D_Status__c}</td>
+        </tr>
+        <tr>
+        <td>6D Due Date</td>
+        <td>{!DueDate6D}</td>
+        </tr>
+         <tr>
+        <td>6D Days Allowed</td>
+        <td>{!MCAR__c.MCAR_6D_Days_Allowed__c}</td>
+        </tr>
+      </table>
+    </td>
+</tr>
+</table>
+
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">7D Actions Taken to Prevent Recurrence:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>7D Manufacture Response</td>
+        <td>{!MCAR__c.MCAR_7D_Preventive_Actions__c}</td>
+        </tr>
+        <tr>
+        <td>7D Manufacturer Contributor(s)</td>
+        <td>{!MCAR__c.Contributor_7D__c}</td>
+        </tr>
+        <tr>
+        <td>7D Manufacturer Response Complete</td>
+        <td>{!MCAR__c.X7D_Manufacturer_Response_Complete__c}</td>
+        </tr>
+         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>7D Owner Response</td>
+        <td>{!MCAR__c.X7D_Reason__c}</td>
+        </tr>
+        <tr>
+        <td>7D Owner Approve / Reject</td>
+        <td>{!MCAR__c.X7D_Status__c}</td>
+        </tr>
+        <tr>
+        <td>7D Due Date</td>
+        <td>{!DueDate7D }</td>
+        </tr>
+        <tr>
+        <td>7D Days Allowed</td>
+        <td>{!MCAR__c.MCAR_7D_Days_Allowed__c}</td>
+        </tr>        
+      </table>
+    </td>
+</tr>
+</table>
+
+
+<hr />
+<table border="0" width="100%">
+<tr>
+<th width="50%">8D Case Summary:</th>
+<th width="50%"></th>
+</tr>
+<tr>
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Summary</td>
+        <td>{!MCAR__c.Summary__c}</td>
+        </tr>
+     </table>
+    </td>
+    
+    <td>
+    <table border="0" cellpadding="7">
+        <tr>
+        <td>Cancelled \ NTF Status Explanation</td>
+        <td>{!MCAR__c.MCAR_NTF_Explanation__c}</td>
+        </tr>
+     </table>
+    </td>
+</tr>
+</table>
+
+
+<hr />
+<th width="100%">Notes and Attachments:</th>
+  
+<apex:pageBlock >
+
+     <apex:repeat value="{!listNotesAttchment}" var="a" >
+
+        <tr>
+        <td><a href="{!a.URL}" target="_blank">{!a.Title}</a></td>
+        </tr>
+
+     </apex:repeat>
+
+</apex:pageblock>   
+
+
+
+
+    </apex:page>

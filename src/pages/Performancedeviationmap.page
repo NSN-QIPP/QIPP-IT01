@@ -1,0 +1,26 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimMaterialDeviationMap">
+ <apex:pageBlock title="Performance Measure">
+ <apex:pageblockTable value="{!PerformanceDev}" var="items">
+  <apex:column headerValue="Performance Measure Name" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Frequency of Measurement" width="20%">
+      <apex:outputText value="{!items.Frequency_of_Measurement__c}">
+      </apex:outputText>
+  </apex:column>
+  <apex:column headerValue="Measurement Standard" width="20%">
+     <apex:outputText value="{!items.Measurement_Standard__c}">
+      </apex:outputText>
+  </apex:column>
+  <apex:column headerValue="Actual Measurement" width="20%">
+      <apex:outputText value="{!items.Actual_Measurement__c}">
+      </apex:outputText>
+  </apex:column>
+  <apex:column headerValue="Associated Part Code" width="20%">
+      <apex:outputText value="{!items.Associated_Part_Code__r.name}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+</apex:page>

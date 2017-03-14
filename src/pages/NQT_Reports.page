@@ -1,0 +1,315 @@
+<apex:page tabstyle="Report__c" controller="NQTReports" cache="true" contentType="{!TextOrExcel}">
+    <apex:form rendered="{!VF}">
+    <apex:pageBlock title="Quote Log" >
+        <script>
+            function setFocusOnLoad() {} 
+        </script> 
+        <apex:pageBlockSection columns="2" title="Input Parameters" rendered="{!InputButtons}">
+                <apex:inputField label="Area" value="{!CPR.Area1__c}">
+                    <apex:actionSupport event="onchange" action="{!ChangeMarket}" reRender="Market"/>
+                </apex:inputField>
+                
+                <apex:inputField label="Market" id="Market" value="{!CPR.Market1__c}" />
+                <apex:inputField Label="From" value="{!CPR.Reports_From__c}" />
+                <apex:inputField Label="To" value="{!CPR.Reports_To__c}"/>
+                
+                <apex:selectList label="Project Status" value="{!ProjectStatus}" multiselect="True" size="5"> 
+                    <apex:selectoption itemValue="Request Submitted"/>
+                    <apex:selectoption itemValue="Request In-Review"/>
+                    <apex:selectoption itemValue="Request Reviewed"/>
+                    <apex:selectoption itemValue="Engineering Assigned"/>
+                    <apex:selectoption itemValue="Engineering Complete"/>
+                    <apex:selectoption itemValue="Quote Generation"/>
+                    <apex:selectoption itemValue="Quote Closed"/>
+                    <apex:selectoption itemValue="Customer Hold"/>
+                    <apex:selectoption itemValue="Cancelled"/>
+                    <apex:selectoption itemValue="Quote Submitted"/>
+               </apex:selectList>
+                      
+               <apex:selectList label="Engineer" id="Engineer" size="4" value="{!Engineer}" multiselect="TRUE">
+                   <apex:selectOption itemValue="ALL"/>
+                   <apex:selectOption itemValue="SE"/>
+                   <apex:selectOption itemValue="SE-MSC"/>
+                   <apex:selectOption itemValue="FE"/>
+                   <!--apex:actionSupport event="onchange" action="{!EngineerCheck}" reRender="Engineer"/-->
+               </apex:selectList>
+               
+               <apex:selectList label="Product Category" value="{!ProductCategory}" size="1" >
+                   <apex:selectOption itemValue="[ALL]"/>
+                   <apex:selectOption itemValue="MTX"/>
+                   <apex:selectOption itemValue="MTX-Ericsson"/>
+               </apex:selectList>
+      
+        </apex:pageBlockSection>
+        
+        <apex:outputPanel rendered="{!Quote}">
+                <table border="0" width="800">
+                    <tr>
+                        <td width="45%"><b>Area</b></td>
+                        <td><apex:outputField label="Area" value="{!CPR.Area1__c}">
+                                <apex:actionSupport event="onchange" action="{!ChangeMarket}" reRender="Market"/>
+                            </apex:outputField></td>
+                    </tr>
+                    <tr>
+                        <td><b>Market</b></td>
+                        <td><apex:outputField label="Market" id="Market" value="{!CPR.Market1__c}" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Request Submitted Date Range</b></td>
+                        <td><apex:outputField Label="From" value="{!CPR.Reports_From__c}" /> <b>--To--</b> <apex:outputField Label="To" value="{!CPR.Reports_To__c}"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Project Status</b></td>
+                        <td><apex:outputText Label="Project Status" value="{!ProjectStatus}"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Engineer</b></td>
+                        <td><apex:outputText Label="Engineer" value="{!Engineer}"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Product Category</b></td>
+                        <td><apex:outputText Label="Product Category" value="{!ProductCategory}"/></td>
+                    </tr>
+                </table>
+                
+                
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!pageLink}">
+            <table border="0" width="800" >
+            <tr><td width="45%">
+            <apex:outputText rendered="{!IF(CPRRes.resultSize < 10000,true,false)}"><b>Total Number Of Records</b></apex:outputText></td><td>{!CPRRes.resultSize} 
+            </td></tr>
+            </table>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!TableMetrices}">
+            <table border="0" width="800" >    
+            <tr><td width="45%"><b>
+            Delivered on time (%of total quote submitted/closed)</b></td><td>{!ROUND(percent,2)}%
+            </td></tr>
+            </table>
+        </apex:outputPanel>
+        
+        <apex:pageBlockButtons location="both">
+            <apex:commandButton value="Generate Quote Log" action="{!QuoteLog}" rendered="{!InputButtons}"/>
+            <apex:commandButton value="Generate Quote Log & Metrics" action="{!QuoteMetrices}" rendered="{!InputButtons}"/>
+            <apex:commandButton value="Clear" action="{!clear}" rendered="{!InputButtons}"/>
+            
+        </apex:pageBlockButtons> 
+        <apex:commandButton value="Export to Excel" action="{!T2E}" rendered="{!Quote}"/>
+        <apex:commandButton value="Back" action="{!back}" rendered="{!Quote}"/> 
+        <apex:commandButton value="Save Comments" action="{!saveComments}" rendered="FALSE"/>
+    </apex:pageBlock>
+    <apex:outputPanel rendered="{!pageLink}">
+        <apex:commandLink title="Previous Page" value="Previous Page" rendered="{!CPRRes.HasPrevious}" action="{!Previous}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+        <apex:commandLink title="Next Page" value="Next Page" rendered="{!CPRRes.HasNext}" action="{!Next}"/>
+    </apex:outputPanel>
+
+    <apex:pageBlock >
+        <apex:pageBlockTable var="CPR" value="{!SearchResults}" rendered="{!TableLog}">
+            <apex:column headerValue="Market" value="{!CPR.NQT_Market__c}" />
+            <apex:column headerValue="CPR Name" value="{!CPR.NQT_CPR_Name__c}"/>
+            <apex:column headerValue="Project Id" value="{!CPR.Project_Id_Backup__c}"/>
+            <apex:column headerValue="CPR Start Date" value="{!CPR.NQT_CPR_Start_Date__c}"/>
+            <apex:column headerValue="Project Status" value="{!CPR.NQT_Project_Status__c}"/>
+            <apex:column headerValue="Request Submission Date" value="{!CPR.NQT_Request_Submission_Date_del__c}"/>
+            <apex:column headerValue="Customer Requested Quote Date" value="{!CPR.NQT_Requested_Quote_Delivery_Date__c}"/>
+            <apex:column headerValue="SE Submitted Date" value="{!CPR.SE_Submitted_Date__c}"/>
+            <apex:column headerValue="SE Name" value="{!CPR.NQT_SE__r.Name}"/>
+            <apex:column headerValue="SEMSC Submitted Date" value="{!CPR.SEMSC_Submitted_Date__c}"/>
+            <apex:column headerValue="SEMSC Name" value="{!CPR.NQT_SE_MSC__r.Name}"/>
+            <apex:column headerValue="FE Submitted Date" value="{!CPR.FE_Submitted_Date__c}"/>
+            <apex:column headerValue="FE Name" value="{!CPR.NQT_FE__r.Name}"/>
+            <apex:column headerValue="BusOps Submitted Date" value="{!CPR.BusOps_Submitted_Date__c}"/>
+            <apex:column headerValue="Quote Name" value="{!CPR.Document_Quote__c}"/>
+            <apex:column headerValue="Quote Date" value="{!CPR.Document_Quote_Date__c}"/>
+            <apex:column headerValue="Product Category" value="{!CPR.NQT_Product__c}"/>
+            <apex:column headerValue="SE Services($)" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_SE_Services__c}" />
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="FE Services($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_FE_Services__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Equipment($)" style="textalign:right" >
+                <apex:outputText value="{0,number,$#.##}" style="textalign:right">
+                    <apex:param value="{!CPR.NQT_Equipment__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Total Quote($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!IF(CPR.NQT_Total_PO__c == 0, NULL, CPR.NQT_Total_PO__c)}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="PO Number" value="{!CPR.Document_PO__c}"/>
+            <apex:column headerValue="PO Date" value="{!CPR.Document_PO_Date__c}"/>
+            <apex:column headerValue="Comments" >
+                <apex:inputField value="{!CPR.Reports_Comments__c}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+        
+        
+        
+        
+        <apex:pageBlockTable var="CPR" value="{!SearchResults}" rendered="{!TableMetrices}">
+            <apex:column headerValue="Market" value="{!CPR.NQT_Market__c}"/>
+            <apex:column headerValue="CPR Name" value="{!CPR.NQT_CPR_Name__c}"/>
+            <apex:column headerValue="Project Id" value="{!CPR.Project_Id_Backup__c}"/>
+            <apex:column headerValue="CPR Start Date" value="{!CPR.NQT_CPR_Start_Date__c}"/>
+            <apex:column headerValue="Project Status" value="{!CPR.NQT_Project_Status__c}"/>
+            <apex:column headerValue="Request Submission Date" value="{!CPR.NQT_Request_Submission_Date_del__c}"/>
+            <apex:column headerValue="Customer Requested Quote Date" value="{!CPR.NQT_Requested_Quote_Delivery_Date__c}"/>
+            <apex:column headerValue="Customer Requested Cycle Time" value="{!CPR.Customer_Requested_Cycle_Time__c}"/>
+            <apex:column headerValue="Met Customer Expectations" value="{!CPR.Met_Customer_Expectation__c}"/>
+            <apex:column headerValue="Quote Cycle Time" value="{!CPR.Quote_Cycle_Time__c}"/>
+            <apex:column headerValue="Product Category" value="{!CPR.NQT_Product__c}"/>
+            <apex:column headerValue="PM Cycle Time" value="{!CPR.PM_Cycle_Time__c}"/>
+            <apex:column headerValue="SE Submitted Date" value="{!CPR.SE_Submitted_Date__c}"/>
+            <apex:column headerValue="SE Name" value="{!CPR.NQT_SE__r.Name}"/>
+            <apex:column headerValue="SE Cycle Time" value="{!CPR.SE_Cycle_Time__c}"/>
+            <apex:column headerValue="SEMSC Submitted Date" value="{!CPR.SEMSC_Submitted_Date__c}"/>
+            <apex:column headerValue="SEMSC Name" value="{!CPR.NQT_SE_MSC__r.Name}"/>
+            <apex:column headerValue="SEMSC Cycle Time" value="{!CPR.SEMSC_Cycle_Time__c}"/>
+            <apex:column headerValue="FE Submitted Date" value="{!CPR.FE_Submitted_Date__c}"/>
+            <apex:column headerValue="FE Name" value="{!CPR.NQT_FE__r.Name}"/>
+            <apex:column headerValue="FE Cycle Time" value="{!CPR.FE_Cycle_Time__c}"/>
+            <apex:column headerValue="BusOps Submitted Date" value="{!CPR.BusOps_Submitted_Date__c}"/>
+            <apex:column headerValue="Quote Name" value="{!CPR.Document_Quote__c}"/>
+            <apex:column headerValue="Quote Date" value="{!CPR.Document_Quote_Date__c}"/>
+            <apex:column headerValue="Sales Cycle Time" value="{!CPR.Sales_Cycle_Time__c}"/>
+            <apex:column headerValue="SE Services($)" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_SE_Services__c}" />
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="FE Services($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_FE_Services__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Equipment($)" style="textalign:right" >
+                <apex:outputText value="{0,number,$#.##}" style="textalign:right">
+                    <apex:param value="{!CPR.NQT_Equipment__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Total Quote($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!IF(CPR.NQT_Total_PO__c == 0, NULL, CPR.NQT_Total_PO__c)}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="PO Number" value="{!CPR.Document_PO__c}"/>
+            <apex:column headerValue="PO Date" value="{!CPR.Document_PO_Date__c}"/>
+            <apex:column headerValue="Quote to PO Cycle Time" value="{!CPR.Quote_to_PO_Cycle_Time__c}"/>
+            <!--The below line added by Thiresh on 21-Nov-2012-->
+            <apex:column headerValue="PWR Cycle Time" value="{!CPR.PWR_Cycle_Time__c}"/>
+             </apex:pageBlockTable>    
+    </apex:pageBlock>
+    </apex:form>
+    
+    
+    
+    <apex:pageBlock rendered="{!XL}">
+        <apex:pageBlockTable var="CPR" value="{!SearchQuote}" rendered="{!TableLog}">
+            <apex:column headerValue="Market" value="{!CPR.NQT_Market__c}"/>
+            <apex:column headerValue="CPR Name" value="{!CPR.NQT_CPR_Name__c}"/>
+            <apex:column headerValue="Project Id" value="{!CPR.Project_Id_Backup__c}"/>
+            <apex:column headerValue="CPR Start Date" value="{!CPR.NQT_CPR_Start_Date__c}"/>
+            <apex:column headerValue="Project Status" value="{!CPR.NQT_Project_Status__c}"/>
+            <apex:column headerValue="Request Submission Date" value="{!CPR.NQT_Request_Submission_Date_del__c}"/>
+            <apex:column headerValue="Customer Requested Quote Date" value="{!CPR.NQT_Requested_Quote_Delivery_Date__c}"/>
+            <apex:column headerValue="SE Submitted Date" value="{!CPR.SE_Submitted_Date__c}"/>
+            <apex:column headerValue="SE Name" value="{!CPR.NQT_SE__r.Name}"/>
+            <apex:column headerValue="SEMSC Submitted Date" value="{!CPR.SEMSC_Submitted_Date__c}"/>
+            <apex:column headerValue="SEMSC Name" value="{!CPR.NQT_SE_MSC__r.Name}"/>
+            <apex:column headerValue="FE Submitted Date" value="{!CPR.FE_Submitted_Date__c}"/>
+            <apex:column headerValue="FE Name" value="{!CPR.NQT_FE__r.Name}"/>
+            <apex:column headerValue="BusOps Submitted Date" value="{!CPR.BusOps_Submitted_Date__c}"/>
+            <apex:column headerValue="Quote Name" value="{!CPR.Document_Quote__c}"/>
+            <apex:column headerValue="Quote Date" value="{!CPR.Document_Quote_Date__c}"/>
+            <apex:column headerValue="Product Category" value="{!CPR.NQT_Product__c}"/>
+            <apex:column headerValue="SE Services($)" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_SE_Services__c}" />
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="FE Services($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_FE_Services__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Equipment($)" style="textalign:right" >
+                <apex:outputText value="{0,number,$#.##}" style="textalign:right">
+                    <apex:param value="{!CPR.NQT_Equipment__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Total Quote($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!IF(CPR.NQT_Total_PO__c == 0, NULL, CPR.NQT_Total_PO__c)}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="PO Number" value="{!CPR.Document_PO__c}"/>
+            <apex:column headerValue="PO Date" value="{!CPR.Document_PO_Date__c}"/>
+            <apex:column headerValue="Comments" >
+                <apex:outputText value="{!CPR.Reports_Comments__c}"/>
+            </apex:column>
+        </apex:pageBlockTable> 
+        
+        
+        
+        
+        <apex:pageBlockTable var="CPR" value="{!SearchResults}" rendered="{!TableMetrices}">
+            <apex:column headerValue="Market" value="{!CPR.NQT_Market__c}"/>
+            <apex:column headerValue="CPR Name" value="{!CPR.NQT_CPR_Name__c}"/>
+            <apex:column headerValue="Project Id" value="{!CPR.Project_Id_Backup__c}"/>
+            <apex:column headerValue="CPR Start Date" value="{!CPR.NQT_CPR_Start_Date__c}"/>
+            <apex:column headerValue="Project Status" value="{!CPR.NQT_Project_Status__c}"/>
+            <apex:column headerValue="Request Submission Date" value="{!CPR.NQT_Request_Submission_Date_del__c}"/>
+            <apex:column headerValue="Customer Requested Quote Date" value="{!CPR.NQT_Requested_Quote_Delivery_Date__c}"/>
+            <apex:column headerValue="Customer Requested Cycle Time" value="{!CPR.Customer_Requested_Cycle_Time__c}"/>
+            <apex:column headerValue="Met Customer Expectations" value="{!CPR.Met_Customer_Expectation__c}"/>
+            <apex:column headerValue="Quote Cycle Time" value="{!CPR.Quote_Cycle_Time__c}"/>
+            <apex:column headerValue="Product Category" value="{!CPR.NQT_Product__c}"/>
+            <apex:column headerValue="PM Cycle Time" value="{!CPR.PM_Cycle_Time__c}"/>
+            <apex:column headerValue="SE Submitted Date" value="{!CPR.SE_Submitted_Date__c}"/>
+            <apex:column headerValue="SE Name" value="{!CPR.NQT_SE__r.Name}"/>
+            <apex:column headerValue="SE Cycle Time" value="{!CPR.SE_Cycle_Time__c}"/>
+            <apex:column headerValue="SEMSC Submitted Date" value="{!CPR.SEMSC_Submitted_Date__c}"/>
+            <apex:column headerValue="SEMSC Name" value="{!CPR.NQT_SE_MSC__r.Name}"/>
+            <apex:column headerValue="SEMSC Cycle Time" value="{!CPR.SEMSC_Cycle_Time__c}"/>
+            <apex:column headerValue="FE Submitted Date" value="{!CPR.FE_Submitted_Date__c}"/>
+            <apex:column headerValue="FE Name" value="{!CPR.NQT_FE__r.Name}"/>
+            <apex:column headerValue="FE Cycle Time" value="{!CPR.FE_Cycle_Time__c}"/>
+            <apex:column headerValue="BusOps Submitted Date" value="{!CPR.BusOps_Submitted_Date__c}"/>
+            <apex:column headerValue="Quote Name" value="{!CPR.Document_Quote__c}"/>
+            <apex:column headerValue="Quote Date" value="{!CPR.Document_Quote_Date__c}"/>
+            <apex:column headerValue="Sales Cycle Time" value="{!CPR.Sales_Cycle_Time__c}"/>
+            <apex:column headerValue="SE Services($)" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_SE_Services__c}" />
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="FE Services($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!CPR.NQT_FE_Services__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Equipment($)" style="textalign:right" >
+                <apex:outputText value="{0,number,$#.##}" style="textalign:right">
+                    <apex:param value="{!CPR.NQT_Equipment__c}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Total Quote($)" style="align:right" >
+                <apex:outputText value="{0,number,$#.##}" style="align:right">
+                    <apex:param value="{!IF(CPR.NQT_Total_PO__c == 0, NULL, CPR.NQT_Total_PO__c)}"/>
+                </apex:outputText>
+            </apex:column>
+            <apex:column headerValue="PO Number" value="{!CPR.Document_PO__c}"/>
+            <apex:column headerValue="PO Date" value="{!CPR.Document_PO_Date__c}"/>
+            <apex:column headerValue="Quote to PO Cycle Time" value="{!CPR.Quote_to_PO_Cycle_Time__c}"/>
+            <!--The below line added by Thiresh on 21-Nov-2012-->
+            <apex:column headerValue="PWR Cycle Time" value="{!CPR.PWR_Cycle_Time__c}"/>
+        </apex:pageBlockTable>   
+    </apex:pageBlock> 
+</apex:page>

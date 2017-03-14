@@ -1,0 +1,33 @@
+<apex:page standardController="MCAR__c" extensions="ManufacturerSiteOnMCAR" showHeader="false" showChat="false" sidebar="false"  >
+<apex:pageMessages ></apex:pageMessages>
+     <script type="text/javascript">
+    var returnURL;
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");
+            for(var i=0; i<inputCheckBox.length; i++){
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+   
+    </script>
+    <apex:form >
+    <apex:pageBlock >
+             <apex:pageBlockButtons >
+                 
+                 <apex:commandButton value="Save"  action="{!DisplaySiteAccounts}"  />
+                 <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            
+             <apex:pageBlockSection title="All Sites">
+                 <apex:pageBlockTable value="{!vlstwst}" var="vl">
+                     <apex:column >
+                      <apex:inputCheckbox value="{!vl.vbool}" id="inputId"/></apex:column>
+                     <apex:column value="{!vl.vms.name}"/>
+                 </apex:pageBlockTable>
+                 
+             </apex:pageBlockSection>
+        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,27 @@
+<apex:page standardController="SPE_ScorecardTemplate__c" extensions="SPE_NewScorecardTemplateExt" >
+<apex:form >
+    <apex:pageblock title="Scorecard SPE Template Maps">
+        <apex:pageBlockTable value="{!scorecardSPETemplateMaps}" var="item">
+        <apex:column headerValue="Scorecard SPE Template Map Name" width="30%">
+                    
+                        <apex:outputText value="{!item.Name}" />
+                   
+             </apex:column>
+                
+        <apex:column headerValue="SPE Template" width="30%">
+                    <apex:outputLink value="/{!item.SPETemplate__r.Id}" target="_parent">
+                    <apex:outputText value="{!item.SPETemplate__r.Name}" />
+                    </apex:outputLink>
+                </apex:column>
+                
+                <apex:column headerValue="Stage"  width="20%">
+                    <apex:outputfield value="{!item.SPETemplate__r.Stage__c}" />
+                </apex:column>
+                
+                <apex:column headerValue="Weight"  width="20%">
+                    <apex:outputfield value="{!item.Weight__c}" />
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+   </apex:form>
+</apex:page>

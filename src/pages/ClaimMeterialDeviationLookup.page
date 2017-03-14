@@ -1,0 +1,70 @@
+<apex:page controller="ClaimMaterialDeviation"  showHeader="false" sidebar="false" >  
+    <apex:sectionHeader subtitle="Lookup"  />
+    <apex:form >                       
+    <apex:pageBlock id="pb" >    
+     <apex:pageBlockSection >                     
+            <apex:outputText >Search            
+                <apex:inputText value="{!searchValue}" />                           
+                <apex:commandButton value="Go!" action="{!doSearch}" reRender="pbs1" status="statusChange" /> 
+                <!--------------------------status change--------------------------->
+                    <apex:actionStatus id="statusChange">                                                               
+                        <apex:facet name="start">                                                   
+                            <!--<apex:image value="/img/loading.gif" style="vertical-align: middle;"/>                             -->   
+                            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">       
+                                &nbsp;    
+                            </div>   
+                            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">       
+                                <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">          
+                                    <img src="/img/loading.gif" style="float: left; margin: 8px;" />            
+                                    <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>       
+                                </div>    
+                            </div>                                                 
+                        </apex:facet>                           
+                    </apex:actionStatus>                
+                <!------------------------------------------------------>                
+            </apex:outputText>
+        </apex:pageBlockSection>    
+        <br/><br/>          
+        <apex:pageBlockSection columns="1" id="pbs1" >              
+              <apex:pageBlockTable value="{!meps}" var="code">
+                <apex:column headerValue="Name">
+                  <apex:outputLink value="#" onclick="fillIn('{!code.Name}', '{!code.id}')">{!code.Name}</apex:outputLink>       
+                </apex:column>                
+                  <apex:column headerValue="Mfg Part Number" value="{!code.MCAR_Mfg_Part_Number__c}" />
+                  <apex:column headerValue="Manufacturer" value="{!code.Manufacturer_Name__c}" />
+                  <apex:column headerValue="EnterPrise Id" value="{!code.MCAR_MEPS_Enterprise_ID__c}"  />
+              </apex:pageBlockTable>  
+                   
+          </apex:pageBlockSection>     
+        
+        </apex:pageBlock>
+    
+    <script>
+        
+    function fillIn(name, id)
+    {                          
+      var winMain1=window.opener;
+      if (null==winMain1)
+      {          
+         winMain1=window.parent.opener;
+      }                               
+      var ele=winMain1.document.getElementById('{!$CurrentPage.parameters.mepname}');            
+      ele.value=name;                
+      ele=winMain1.document.getElementById('{!$CurrentPage.parameters.mepid}');
+      ele.value=id;
+      CloseWindow();
+   }
+          
+ 
+   function CloseWindow()
+   {
+      var winMain1=window.opener;
+      if (null==winMain1)
+      {
+         winMain1=window.parent.opener;
+      }
+      winMain1.closeLookupPopup();
+   }
+    </script>
+        </apex:form>
+</apex:page>

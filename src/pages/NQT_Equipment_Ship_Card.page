@@ -1,0 +1,7 @@
+<apex:page standardController="CPR__c">
+  <!-- Begin Default Content REMOVE THIS -->
+<!-- This line commented by kishore on 12/04/2012 <a href="{!$Resource.NQT_Equipment_Ship_Card}"><h1>Click here to Download Equipment Ship Card</h1></a> -->
+  <!--New static resource linked in below line by kishore on 12/04/2012-->
+   <a href="{!$Resource.NQT_Equipment_Ship_Card_Latest}"><h1>Click here to Download Equipment Ship Card</h1></a>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

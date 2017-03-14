@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>QIPP_Admin</submitter>
+        <type>roleSubordinates</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>QIPP_L6S_After_the_project_is_approved_if_15KE</name>
+                <type>Alert</type>
+            </action>
+            <action>
+                <name>QIPP_Project_Project_State_Update</name>
+                <type>FieldUpdate</type>
+            </action>
+            <action>
+                <name>QIPP_Workflow_Updated_3_True</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>chandraiah.cherukuru@prod.sys.admin</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <description>System automatically approve if criteria matches</description>
+        <label>Project Approval</label>
+        <name>Project_Approval</name>
+    </approvalStep>
+    <description>QIPP Non-L6S Savings Validation &lt;= 15k</description>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>TotalCOPQ__c  +  TotalKPI__c &lt;= 15  &amp;&amp;   
+ OR(ISPICKVAL(Project_Type__c, &apos;A3&apos;),ISPICKVAL(Project_Type__c, &apos;8D&apos;),ISPICKVAL(Project_Type__c, &apos;RCA/EDA&apos;),ISPICKVAL(Project_Type__c, &apos;Other&apos;)) &amp;&amp; 
+NOT( ISPICKVAL(Project_State__c , &apos;Complete&apos;))</formula>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>QIPP_Project_Project_State_Update</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>QIPP_Approval_Recall_Reject_L6S_Phase</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>QIPP_Approval_During_L6S_Phase</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>QIPP Non-L6S Savings Validation &lt;=15k</label>
+    <recallActions>
+        <action>
+            <name>QIPP_Approval_Recall_Reject_L6S_Phase</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

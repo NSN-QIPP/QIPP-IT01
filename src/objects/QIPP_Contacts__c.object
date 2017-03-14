@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Contact database for QIPP Application</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <fields>
+        <fullName>Assign_User_License_Request_Generator__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>User License Requested By</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Belt_Certification__c</fullName>
+        <externalId>false</externalId>
+        <label>Belt Certification</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Specified</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nokia-Green Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nokia-Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nokia-Master Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External-Green Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External-Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External-Master Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Business_Function__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Business Function</label>
+        <picklist>
+            <picklistValues>
+                <fullName>QIPP Audit User</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Portfolio Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Project Lead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Project Viewer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP QLT Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Task Initiator / Implementer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CoPQ_Role_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Role 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Owner Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q PMO Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measure Creator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BL Transformation Lead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Unit Master Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CoPQ_Role_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Role 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Owner Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q PMO Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measure Creator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BL Transformation Lead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Unit Master Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CoPQ_Role_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Role 3</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Owner Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q PMO Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Measure Creator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BL Transformation Lead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Unit Master Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CoPQ_Role_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Role 4</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Measure Creator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BL Transformation Lead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Owner Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance Approver Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Q PMO Team Member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Unit Master Black Belt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Contact_BL__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>L3 Org (BL)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_BU__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>L2 Org (BU)</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_City__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Country__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_L4_Org__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>L4 Org</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_L5_Org__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Contact L5 Org</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Line_Manager_Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Contact Line Manager Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Line_Manager_NSN_ID__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Contact Line Manager NSN ID</label>
+        <length>9</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Line_Manager__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Contact Line Manager</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Full_Name__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Full Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Instructions_to_Support_Team__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Instructions to Support Team</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>NSN_ID_Text__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <encrypted>false</encrypted>
+        <externalId>true</externalId>
+        <label>NSN ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Remove_User_License_Request_Generator__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>User License Removed By</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Business_Function__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Business Function</label>
+        <picklist>
+            <picklistValues>
+                <fullName>QIPP Audit Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Audit Viewer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Portfolio Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Portfolio Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP QLT Owner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Task Initiator / Implementer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QIPP Audit User</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <length>125</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User_License__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Select a user account, if it is already setup</inlineHelpText>
+        <label>User License</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Contacts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <label>QIPP Contact</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Email__c</columns>
+        <columns>Belt_Certification__c</columns>
+        <columns>Contact_L4_Org__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Contact_BU__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Belts</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Belt_Certification__c</field>
+            <operation>equals</operation>
+            <value>Green Belt,Black Belt,Master Black Belt</value>
+        </filters>
+        <label>Belts</label>
+    </listViews>
+    <nameField>
+        <label>Contact Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Contacts</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Email__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Email__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Belt_Certification__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Contact_BU__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Contact_BL__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Belt_Certification__c</searchFilterFields>
+        <searchFilterFields>Contact_BL__c</searchFilterFields>
+        <searchFilterFields>Contact_BU__c</searchFilterFields>
+        <searchResultsAdditionalFields>Email__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Contact_BU__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Contact_BL__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>QIPP_Contact_NSN_ID_Check</fullName>
+        <active>true</active>
+        <description>check if NSN ID is integer or not</description>
+        <errorConditionFormula>AND(LEN( NSN_ID_Text__c ) &gt; 0, NOT(ISNUMBER(NSN_ID_Text__c)))</errorConditionFormula>
+        <errorDisplayField>NSN_ID_Text__c</errorDisplayField>
+        <errorMessage>Please insert correct NSN ID</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Apply_for_User_License</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Assign User License</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)}
+
+
+if(&apos;{!QIPP_Contacts__c.User_License__c}&apos; != &apos;&apos;)
+{
+   alert(&apos;User License is Present&apos;)
+}
+
+else
+{
+
+var result=sforce.apex.execute(&quot;QIPPContactUserLicense&quot;,&quot;ApplyForUserLicense&quot;,{contactid:&quot;{!QIPP_Contacts__c.Id}&quot;});
+
+if(result == &quot;ok&quot;)
+{
+   alert(&apos;Your request has been processed successfully. An email notification will be sent to the support team for creating the user account. {!QIPP_Contacts__c.Name} will be receiving an email with login credentials from Salesforce.com&apos;);
+}
+else if(result == &quot;Business Function is not present&quot;)
+{
+   alert(result);
+}
+else if(result == &quot;NSN ID is not present&quot;)
+{
+   alert(result);
+}
+else
+{
+   alert(&apos;We encountered an issue while processing your request&apos;);
+}
+
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Remove_User_License</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Remove User License</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)}
+
+if(&apos;{!QIPP_Contacts__c.User_License__c}&apos; == &apos;&apos;)
+{
+   alert(&apos;User License is not Present&apos;)
+}
+
+else if(confirm(&apos;Are you sure you want to remove license for this user?&apos;)==true)
+{
+var result=sforce.apex.execute(&quot;QIPPContactUserLicense&quot;,&quot;RemoveUserLicense&quot;,{contactid:&quot;{!QIPP_Contacts__c.Id}&quot;});
+
+if(result == &quot;ok&quot;)
+   alert(&apos;You request for Remove User License has been successfully proceed. &apos;);
+}
+
+else
+{
+}</url>
+    </webLinks>
+</CustomObject>

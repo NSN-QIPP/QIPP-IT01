@@ -1,0 +1,6 @@
+<apex:page sidebar="false" controller="loggedInUser" showHeader="false" standardStylesheets="true">
+    <apex:form >
+        <apex:outputLabel style="color:#124292;font-weight:bold;font-size:18px;">Welcome {!userFirstname} {!userLastname}, you have successfully logged in to the QIPP Application
+        </apex:outputLabel>
+    </apex:form>
+</apex:page>

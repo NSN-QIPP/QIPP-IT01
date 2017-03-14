@@ -1,0 +1,3 @@
+<apex:page standardController="QIPP_Project__c" extensions="QIPP_Project_View_Redirect_cntr" action="{!redirect}" >
+   <!-- <apex:variable value="{!QIPP_Project__c.RecordType.Name}" var="recTypeName"/>  -->
+</apex:page>

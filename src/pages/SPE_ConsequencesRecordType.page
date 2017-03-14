@@ -1,0 +1,30 @@
+<apex:page standardController="SPE_ConsequenceManagement__c" extensions="SPE_ConsequenceMgmtExt" >
+  <style type="text/css">
+   .outBorder {
+    border:2px outset black;
+   }
+   .inBorder{
+    border-top:2px outset blue;
+    border-left:2px outset blue;
+   }
+  </style>
+   <apex:form id="frm">
+       <apex:pageBlock title="Select Consequence Management Record Type">
+            <apex:pageBlockSection >
+              <apex:outputLabel value="Record Type of new record ">&nbsp; &nbsp;
+                <apex:actionRegion >
+                <apex:selectList value="{!selectedValue}" size="1"  >
+                    <apex:selectOptions value="{!options}" />
+                </apex:selectList>
+                </apex:actionRegion>
+               </apex:outputLabel>
+            </apex:pageBlockSection>   
+           
+            <apex:pageBlockButtons location="bottom">
+                  <apex:commandButton value="Continue" action="{!redirect}" />
+                  <apex:commandButton value="Cancel" action="{!doCancel}" />
+            </apex:pageBlockButtons>    
+            
+        </apex:pageBlock>
+     </apex:form> 
+</apex:page>

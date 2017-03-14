@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>Import_Product_Data</links>
+    <links>UTD_File_Records_Awaiting_Submission</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

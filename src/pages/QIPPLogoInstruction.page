@@ -1,0 +1,16 @@
+<apex:page showHeader="false" sidebar="false" standardController="QIPP_Portfolio__c" >
+<table bgcolor="green" border="1" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">Instructions to upload Customer Logo:</FONT></h1></td>
+        </tr>
+         <tr>
+            <td><h1><FONT COLOR="white">Please attach a logo to this Portfolio, if you would like to display it in reports at a later point.  Here are the steps in order to upload a logo:</FONT></h1></td>
+        </tr>
+        <tr>
+            <td><h1><FONT COLOR="white">•   Click on “Attach File” under the Notes and Attachments section below and follow the steps to attach a file
+<BR></BR>•   Logo should be in one of these formats – JPG, PNG, JPEG
+<BR></BR>•   Name of the Logo should be same as the Portfolio name
+</FONT></h1></td>
+        </tr>
+    </table>
+</apex:page>

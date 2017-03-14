@@ -1,0 +1,120 @@
+<apex:page controller="ClaimContactDetilasConroller" >    
+    <apex:sectionHeader title="Claim Contact Edit" subtitle="New Claim Contact"  />
+    <apex:form >
+        <apex:pageBlock id="Mainblock" tabStyle="Claim_Contact__c" title="Information" >
+            <apex:pageBlockSection id="pg1" columns="1"  >
+                <apex:pageMessages id="errMsg" escape="true" rendered="true" ></apex:pageMessages>
+                <apex:inputField value="{!claimContact.Contact_Type__c}" > 
+                    <apex:actionSupport event="onchange" status="statusChange" reRender="Mainblock"  />                  
+                    <apex:actionStatus id="statusChange">                                                               
+                        <apex:facet name="start">                                                   
+                            <!--<apex:image value="/img/loading.gif" style="vertical-align: middle;"/>                             -->   
+                            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">       
+                                &nbsp;    
+                            </div>   
+                            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">       
+                                <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">          
+                                    <img src="/img/loading.gif" style="float: left; margin: 8px;" />            
+                                    <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>       
+                                </div>    
+                            </div>                                                 
+                        </apex:facet>                           
+                    </apex:actionStatus>
+                </apex:inputField>
+                <apex:outputfield value="{!claimContact.Claims__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" id="page1" rendered="{!IF(!(claimContact.Contact_Type__c='Manufacturer' || (claimContact.Contact_Type__c='Factory SQE' && !zeroFactoryList ) || claimContact.Contact_Type__c='Supplier Manager' || (claimContact.Contact_Type__c='MEX Buyer' && !zeroMexList) || claimContact.Contact_Type__c='Category Manager' && !zeroNSNuser),true,false)}" >
+                <apex:inputField value="{!claimContact.Name__c}" />
+                <apex:inputField value="{!claimContact.Email__c}" required="false" />
+                <apex:inputField value="{!ClaimContact.Phone__c}" />                
+            </apex:pageBlockSection>    
+
+            
+            <apex:pageBlockSection columns="1" id="supplierManager" rendered="{!IF(claimContact.Contact_Type__c='Supplier Manager',true,false)}" >
+                <apex:pageBlockTable value="{!supplierManager}" var="SM" >
+                   <apex:column >
+                        <apex:inputCheckbox value="{!SM.isSelect}" />
+                    </apex:column>
+                    <apex:column headerValue="Name" value="{!SM.Name}" />
+                    <apex:column headerValue="Email" value="{!SM.Email}" />
+                    <apex:column headerValue="Phone" value="{!SM.phone}" />                    
+                    <apex:column >
+                        <apex:commandLink target="_blank" value="Details" action="/{!SM.RecId}"  />
+                    </apex:column> 
+                </apex:pageBlockTable>      
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockSection id="NSNcontact" columns="1" rendered="{!IF(claimContact.Contact_Type__c='Category Manager' && !zeroNSNuser ,true,false)}" >
+                <apex:pageBlockTable value="{!NSNuser}" var="nsn" >
+                    <apex:column >
+                        <apex:inputCheckbox value="{!nsn.isSelect}" />
+                    </apex:column>
+                    <apex:column headerValue="Name" value="{!nsn.Name}" />
+                    <apex:column headerValue="Email" value="{!nsn.Email}" />
+                    <apex:column headerValue="Contact Type" value="{!nsn.Type}" />
+                    <apex:column headerValue="Phone" value="{!nsn.phone}" />                    
+                    <apex:column >
+                        <apex:commandLink target="_blank" value="Details" action="/{!nsn.RecId}"  />
+                    </apex:column>                    
+                </apex:pageBlockTable>            
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="factory" columns="1" rendered="{!IF(claimContact.Contact_Type__c='Factory SQE' && !zeroFactoryList ,true,false)}"  >                
+                <apex:pageBlockTable value="{!factory}" var="fact" >
+                    <apex:column >
+                        <apex:inputCheckbox value="{!fact.isSelect}" />
+                    </apex:column>
+                    <apex:column headerValue="Name" value="{!fact.Name}" />
+                    <apex:column headerValue="Email" value="{!fact.Email}" />
+                    <apex:column headerValue="Contact Type" value="{!fact.type}" />
+                    <apex:column headerValue="Phone" value="{!fact.phone}" />                    
+                    <apex:column >
+                        <apex:commandLink target="_blank" value="Details" action="/{!fact.RecId}"  />
+                    </apex:column>                    
+                </apex:pageBlockTable>              
+            </apex:pageBlockSection>
+                                   
+            <apex:pageBlockSection id="mex" columns="1" rendered="{!IF(claimContact.Contact_Type__c='MEX Buyer' && !zeroMexList ,true,false)}"  >
+                <apex:pageBlockTable value="{!MEXBuyer}" var="mex" >
+                    <apex:column >
+                        <apex:inputCheckbox value="{!mex.isSelect}" />
+                    </apex:column>
+                    <apex:column headerValue="Name" value="{!mex.Name}" />
+                    <apex:column headerValue="Email" value="{!mex.Email}" />
+                    <apex:column headerValue="Contact Type" value="{!mex.type}" />
+                    <apex:column headerValue="Phone" value="{!mex.phone}" />  
+                    <apex:column headerValue="Type" value="{!mex.type}" rendered="{!mex.isSelect}" />
+                    <apex:column headerValue="Type" value="{!null}" rendered="{!!mex.isSelect}" />
+                    <apex:column >
+                        <apex:commandLink target="_blank" value="Details" action="/{!mex.RecId}"  />
+                    </apex:column>
+                </apex:pageBlockTable>              
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="page2" columns="1" rendered="{!IF(claimContact.Contact_Type__c='Manufacturer',true,false)}" >                
+                <apex:pageBlockTable value="{!supplier}"  var="sup" width="75%" align="Center">  
+                    <!--------------------------------------------------------------------------------->
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}"  ><apex:inputCheckbox value="{!sup.isSelect}" /></apex:column>                                            
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}" headerValue="Name" value="{!sup.Name}"/>                                          
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}" headerValue="Email" value="{!sup.Email}"   />                                             
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}" headerValue="Contact Type" value="{!sup.Type}"   />                                               
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}" headerValue="Primary" ><apex:inputCheckbox value="{!sup.isPrimary}"></apex:inputCheckbox></apex:column>                                                           
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}" headerValue="Phone"  value="{!sup.phone}"  />                                                 
+                    <apex:column style="{!if(sup.isPrimary,'background-color:Pink;', 'color:black')}" headerValue="Details" ><apex:commandLink target="_blank" value="Details" action="/{!sup.RecId}"  /></apex:column>                         
+                    <!---------------------------------------------------------------------------------------------------------------->
+                </apex:pageBlockTable>                                 
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton value="Save" action="{!SaveChanges}" rendered="{!IF(claimContact.Contact_Type__c='Manufacturer' || (claimContact.Contact_Type__c='Factory SQE' && !zeroFactoryList)|| (claimContact.Contact_Type__c='MEX Buyer' && !zeroMexList ) || (claimContact.Contact_Type__c='Category Manager' && !zeroNSNuser ) || claimContact.Contact_Type__c='Supplier Manager',true,false)}" />                 
+                <apex:commandButton value="Save & New" action="{!SaveAndNewList}" rendered="{!IF(claimContact.Contact_Type__c='Manufacturer' || (claimContact.Contact_Type__c='Factory SQE' && !zeroFactoryList)|| (claimContact.Contact_Type__c='MEX Buyer' && !zeroMexList ) || (claimContact.Contact_Type__c='Category Manager' && !zeroNSNuser ) || claimContact.Contact_Type__c='Supplier Manager',true,false)}" />                                    
+                <apex:commandButton value="Save" action="{!SaveContact}" rendered="{!IF(!(claimContact.Contact_Type__c='Manufacturer' || (claimContact.Contact_Type__c='Factory SQE' && !zeroFactoryList)|| (claimContact.Contact_Type__c='MEX Buyer' && !zeroMexList) || (claimContact.Contact_Type__c='Category Manager' && !zeroNSNuser ) || claimContact.Contact_Type__c='Supplier Manager'),true,false)}"  />
+                <apex:commandButton value="Save & New" action="{!SaveAndNew}" rendered="{!IF(!(claimContact.Contact_Type__c='Manufacturer' || (claimContact.Contact_Type__c='Factory SQE' && !zeroFactoryList)|| (claimContact.Contact_Type__c='MEX Buyer' && !zeroMexList) || (claimContact.Contact_Type__c='Category Manager' && !zeroNSNuser ) || claimContact.Contact_Type__c='Supplier Manager'),true,false)}"  /> 
+                <apex:commandButton value="Cancel" action="/{!claimContact.Claims__c}" />
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>        
+</apex:page>

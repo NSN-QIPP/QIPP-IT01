@@ -1,0 +1,20 @@
+<apex:page standardController="SPE_SPETemplate__c" >
+<apex:variable var="count" value="{!0}" />
+    <apex:repeat value="{!SPE_SPETemplate__c.Scoring_Templates__r}" var="row">
+        <apex:variable var="count" value="{!count+1}" />
+    </apex:repeat>
+
+  <apex:outputPanel rendered="{!SPE_SPETemplate__c.Stage__c != 'Draft'}">
+    <apex:outputPanel rendered="{!(count==0)}" >
+        <Marquee BEHAVIOR="ALTERNATE"> <font Color="red"> The Scoring Templates information is Pending for SPE Template. Click on New Scoring Template to complete SPE Template .
+         </font> </marquee>
+    </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!SPE_SPETemplate__c.Stage__c = 'Draft'}">
+    <apex:outputPanel rendered="{!(count==0)}" >
+        <Marquee BEHAVIOR="ALTERNATE"> <font Color="red"> SPE Template must be changed to Pilot stage for creating a new Scoring Template.
+         </font> </marquee>
+    </apex:outputPanel>
+    </apex:outputPanel>
+</apex:page>

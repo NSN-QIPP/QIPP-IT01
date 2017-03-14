@@ -1,0 +1,566 @@
+<apex:page standardController="QIPP_Benefit__c" extensions="QIPP_BenefitDetailPage,QIPP_BenefitOverrideController" tabStyle="QIPP_Project__c" showHeader="true" sidebar="true">  
+
+<apex:form >
+<script type="text/javascript">
+
+function closewin()
+{
+    self.close();
+}
+function confirmdelete()
+{
+    var conf = confirm("Are you sure you want to delete this benefit");
+    if(conf == true)
+        conf  = true;
+    else
+        conf  = false;
+    alert(conf)    ;
+    return conf;
+}
+function confirmOverride()
+{
+    var conf = confirm("Are you sure you want to override the Benefit Type?");
+    if(conf == true)
+        conf  = true;
+    else
+        conf  = false;
+    return conf;
+}
+function confirmReset()
+{
+    var conf = confirm("Are you sure you want to reset the Benefit Type?");
+    if(conf == true)
+        conf  = true;
+    else
+        conf  = false;
+    return conf;
+}
+
+</script>
+
+<BR></BR><BR></BR>
+<apex:commandLink action="{!viewBenefit}"  title="BackToSummaryPage" value="Back to Benefits Summary Page" />
+<BR></BR><BR></BR>
+<apex:commandLink action="{!projectDetailspage}"  title="BackToProjectDetailPage" value="Back To Project Detail Page"/>
+<BR></BR><BR></BR><BR></BR>
+<apex:outputText rendered="{!totalsaveings}"> 
+    <font size="2" style="color:red;margin-left:00px;">Note :  QIPP project benefits must be recorded in Kilo Euro (k€) units [ie.1 k€ = 1000€].</font> <br/> 
+    <font size="2" style="color:red;margin-left:40px;">Please correct the numbers if the benefits are not recorded in k€.</font>
+    <br/> 
+    <br/> 
+</apex:outputText>
+<apex:pageBlock >
+<apex:pageMessages id="errorTop" escape="false" />
+
+<apex:pageBlockButtons location="both">
+
+<apex:commandButton value="Edit"  action="{!editbenefit}" rendered="{!if(($Profile.Name =='Nokia QIPP Project Viewer') ||(UserRolename != 'yes' && DisplayEditDeleteButton != true),false,true)}" />
+<apex:commandButton value="Delete"  action="{!deletebenifit}"  rendered="{!if( ($Profile.Name =='Nokia QIPP Project Viewer') || (UserRolename != 'yes' && DisplayDeleteButton != true),false,true)}" onclick="if (!confirmDelete()) return false;"  /> 
+<apex:commandButton id="Override" value="Override Benefit Type"  action="{!overrideBenefitType}"  rendered="{!if($Profile.Name =='Nokia QIPP Project Viewer' || showoverridebenefitbutton != true,false,true)}" onclick="if (!confirmOverride()) return false;" rerender="errorTop"/> 
+<apex:commandButton id="ApproveOrReject" value="Approve / Reject - Benefit Type Override"  action="{!showApproveRejectPopup}" rerender="approverejectpopup"  rendered="{!if($Profile.Name =='Nokia QIPP Project Viewer' || showapproverejectbutton != true,false,true)}"  />
+<apex:commandButton id="Reset" value="Reset Benefit Type"  action="{!resetBenefitType}" rerender="approverejectpopup"  rendered="{!if($Profile.Name =='Nokia QIPP Project Viewer' || showresetbutton != true,false,true)}"  onclick="if (!confirmReset()) return false;"/>
+</apex:pageBlockButtons>
+
+<apex:pageBlockSection columns="2"  >
+<apex:outputfield value="{!benifit.Project_Number__c}"/>
+<apex:outputfield value="{!benifit.Project_Name_Display__c}"/>
+<apex:outputfield value="{!benifit.Project_Lead__c}"/> 
+<apex:outputfield value="{!benifit.Portfolio_Name__c}"/>
+</apex:pageBlockSection>
+
+<apex:pageBlockSection columns="2" title="Quality Improvement Measure">
+<apex:pageBlockSectionItem helpText="The Improvement Measure or Key Performance Indicator that is being improved upon by the project.">
+Improvement Measure (KPI)
+<apex:outputtext value="{!con[0].Name}" />
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem helpText="Default description of the Improvement Measure in QIPP">
+Improvement Measure Brief Description
+<apex:outputfield value="{!benifit.Improvement_Measure_KPI__r.Brief_Description__c}"/>
+</apex:pageBlockSectionItem>
+<!-- <apex:outputText value="{!benifit.Selected_Business_Line__c}" /> -->
+<apex:pageBlockSectionItem helpText="How the Improvement Measure is counted (in what type of unit), e.g. Each, K Euro, Percentage, Days, etc.">
+    Unit of Measure
+    <apex:outputText value="{!benifit.Unit_of_Measure__c}"/>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem helpText="Based upon the default set-up of the KPI.  Either “Direct Financial” or “Indirect Financial” when the Benefit Type is Financial Savings, or “Non-Financial” when the Benefit Type is Operational Savings.">
+Financial Type
+<apex:outputText value="{!benifit.Financial_Type__c}"/>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem helpText="Which direction improves the condition of the Improvement Measure - Lower is Favorable or Higher is Favorable.">
+    Directional Indicator
+    <apex:outputText value="{!benifit.Directional_Indicator__c}"/>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem helpText="Either “Financial Savings” or “Operational Savings” based upon the default condition of the KPI chosen.">
+Benefit Type
+<apex:outputtext value="{!benifit.Benefit_Type__c}" />
+</apex:pageBlockSectionItem>
+
+<apex:outputfield value="{!benifit.Project_Charter_Goal_Statement__c}"/>
+
+<apex:pageBlockSectionItem helpText="If not already described in the project or in linked project documentation, input a summary description of the calculation basis for the project savings. DMAIC projects can leave this field blank since this is explained in the project documents.">
+Basis
+    <apex:outputfield value="{!benifit.Basis__c}"/>
+</apex:pageBlockSectionItem>
+
+<apex:outputText rendered="{!showbenefitoverridestatus == false}"></apex:outputText>
+<apex:outputText value="{!benifit.Benefit_Override_Status__c}" rendered="{!showbenefitoverridestatus}"/>
+
+
+</apex:pageBlockSection>
+
+
+
+
+<!------ starting new sections------------>
+
+<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">Baseline And Forecast</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR><BR></BR>
+
+<table style="width:1100px">
+<tr HEIGHT="30PX">
+  <td width = "250px" align="LEFT"><strong>Type of Quantity</strong></td>
+  <td width = "200px" align="LEFT"><strong>Quantity</strong></td>     
+  <td width = "200px" align="LEFT"><strong>UOM</strong></td>
+  <td width = "200px" align="LEFT"><strong>Time Period</strong></td>
+  <td width = "200px" align="LEFT"><strong> Weeks </strong></td>
+</tr>
+
+
+<tr>
+<td width = "250px" align="left">
+     <apex:outputText value="Baseline"/>
+</td>
+    <td width = "200px" align="LEFT">
+        <apex:outputfield value="{!benifit.Baseline_Quantity__c}"> <span class="helpButton" id="example-title1-_help"><img src="/s.gif" class="helpOrb"/></span>  </apex:outputfield>
+        <script type="text/javascript">
+            sfdcPage.setHelp('example-title1', 'The current (as-is) observed condition (KPI quantity) that exists prior to implementing a Quality Improvement.');
+        </script>
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Unit_of_Measure__c}" />
+    </td>  
+    <apex:actionRegion > 
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Type_of_Measure__c}" >
+            <apex:actionSupport event="onchange" />
+        </apex:outputField>
+    </td>  
+    </apex:actionRegion>
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Baseline_Period_weeks__c}" rendered="{!if((benifit.Type_of_Measure__c =='Distributed Amount') ,true , false)}"/>
+    </td> 
+</tr>
+
+<tr>
+<td width = "250px" align="left">
+     <apex:outputText value="Planned"/>
+</td>
+    <td width = "200px" align="LEFT">
+        <span class="helpButton" id="example-title2-_help">
+                <apex:outputfield value="{!benifit.Planned_Quanity__c}"/>
+            <img src="/s.gif" class="helpOrb"/>
+            <script type="text/javascript">
+            sfdcPage.setHelp('example-title2', 'What the expected condition will be after implementing the Quality Improvement, i.e. the estimated new “run rate” of the KPI. The Planned Quantity estimate is typically calculated at the beginning of a project (e.g. during Define Phase).');
+            </script>
+        </span>
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Unit_of_Measure__c}" />
+    </td>  
+    
+    <apex:actionRegion > 
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Planned_Type_of_Measure__c}" >
+            <apex:actionSupport event="onchange" />
+        </apex:outputField>
+    </td>  
+    </apex:actionRegion>
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Planned_Benefit_Period_Weeks__c}" rendered="{!if((benifit.Planned_Type_of_Measure__c =='Distributed Amount') ,true , false)}"/>
+    </td> 
+</tr>
+
+<tr>
+<td width = "250px" align="left">
+     <apex:outputText value="Revised Forecast"/>
+</td>
+    <td width = "200px" align="LEFT">
+        <span class="helpButton" id="example3-title-_help">
+                <apex:outputfield value="{!benifit.Revised_Forecast_Quanity__c}"/>
+                <img src="/s.gif" class="helpOrb"/>
+            <script type="text/javascript">
+                sfdcPage.setHelp('example3-title', 'The revised estimate of the KPI “run rate” or what the improved condition is after the Quality Improvements have been made. The Revised Forecast is calculated after the process improvements are made and KPI improvements are observed (e.g. Control Phase).');
+            </script>
+        </span>
+    </td>  
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Unit_of_Measure__c}" />
+    </td>  
+    
+     <apex:actionRegion > 
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Revised_Forecast_Type_of_Measure__c}" >
+            <apex:actionSupport event="onchange" />
+        </apex:outputField>
+    </td>  
+    </apex:actionRegion>
+    
+    <td width = "200px" align="LEFT">
+        <apex:outputField value="{!benifit.Revised_Forecast_Benefit_Period_Weeks__c}" rendered="{!if((benifit.Revised_Forecast_Type_of_Measure__c =='Distributed Amount') ,true , false)}" />
+    </td> 
+</tr>
+
+</table>
+
+<!------ ending new sections------------>
+
+
+
+
+<BR></BR><BR></BR>
+
+<!--<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">OLD KPI Metrics</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR><BR></BR>
+
+<table style="width:1100px">
+<tr HEIGHT="30PX">
+  <td width = "250px" align="LEFT"><strong>Conditions</strong></td>
+  <td width = "200px" align="LEFT"><strong>Quantity</strong></td>     
+  <td width = "200px" align="LEFT"><strong>Start Date</strong></td>
+  <td width = "200px" align="LEFT"><strong>End Date</strong></td>
+  <td width = "200px" align="LEFT"><strong>Savings Amount (k€)</strong></td>
+</tr>
+
+<tr>
+  <td width = "250px"></td>
+  <td width = "200px"></td>     
+  <td width = "200px"></td>
+  <td width = "200px"></td>
+  <td width = "200px"></td>
+</tr>
+<tr>
+  <td width = "250px"></td>
+  <td width = "200px"></td>     
+  <td width = "200px"></td>
+  <td width = "200px"></td>
+  <td width = "200px"></td>
+</tr>
+<tr>
+  <td width = "250px"><apex:outputText value="{!TypeOfPlannedSaving}"/></td>
+  <td width = "200px"><apex:outputText value="{!benifit.Planned_Quanity__c}"/></td>        
+  <td width = "200px"><apex:outputText value="{!benifit.Planned_Benefit_Start__c}"/></td>
+  <td width = "200px"><apex:outputText value="{!benifit.Planned_Benefit_End__c}"/></td>
+  <td width = "200px">
+  <apex:outputText value="{!benifit.Planned_Financial_Manual_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = true , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Planned_Financial_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = false , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Planned_Operational_Manual_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = true , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Planned_Operational_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = false , TRUE , FALSE)}"/>  
+  </td> 
+</tr>
+<tr>
+  <td width = "250px"><apex:outputText value="{!TypeOfAchievedSaving }"/></td>
+  <td width = "200px"><apex:outputText value="{!benifit.Achieved_Quantity__c}"/></td>      
+  <td width = "200px"><apex:outputText value="{!benifit.Achieved_Benefit_Start__c}"/></td>
+  <td width = "200px"><apex:outputText value="{!benifit.Achieved_Benefit_End__c}"/></td>
+  <td width = "200px">
+  <apex:outputText value="{!benifit.Achieved_Financial_Manual_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = true , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Financial_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = false , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Operational_Manual_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = true , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Operational_Automatic_Amount__c }" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = false , TRUE , FALSE)}"/>    
+  </td>
+</tr>
+<tr>
+  <td width = "250px"><apex:outputText value="{!TypeOfFutureSaving }"/></td>
+  <td width = "200px"><apex:outputText value="{!benifit.Future_Quantity__c}"/></td>      
+  <td width = "200px"><apex:outputText value="{!benifit.Remaining_Benefit_Start__c}"/></td>
+  <td width = "200px"><apex:outputText value="{!benifit.Remaining_Benefit_End__c}"/></td>
+  <td width = "200px">
+  <apex:outputText value="{!benifit.Future_Financial_Manual_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = true , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Future_Financial_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Financial Savings' && isManual = false , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Future_Operational_Manual_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = true , TRUE , FALSE)}"/>
+  <apex:outputText value="{!benifit.Achieved_Operational_Automatic_Amount__c}" rendered="{!IF(Benefit_Type = 'Operational Savings' && isManual = false, TRUE , FALSE)}"/>  
+  </td>
+</tr>
+</table>
+
+<BR></BR>
+
+<apex:pageBlock rendered="{!IF(con[0].Monetization_Calculation_Method__c == 'Manual',false ,true)}">
+
+<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">KPI Metrics – Calculation Steps</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR><BR></BR>
+
+<table style="width:1100px">
+<tr HEIGHT="30PX">
+  <td width = "250px" align="LEFT"><strong>Conditions</strong></td>
+  <td width = "100px" align="LEFT"><strong>Quantity</strong></td>     
+  <td width = "200px" align="LEFT"><strong>Benefit Period (Weeks)</strong></td>
+  <td width = "200px" align="LEFT"><strong>Savings Rate</strong></td>  
+  <td width = "200px" align="LEFT"><strong>Baseline Rate</strong></td>
+  <td width = "200px" align="LEFT"><strong>Conversion Rate</strong></td>
+  <td width = "300px" align="LEFT"><strong>Savings Amount (k€)</strong></td>  
+</tr>
+
+<tr HEIGHT="30PX">
+  <td width = "250px" align="LEFT"><strong></strong></td>
+  <td width = "100px" align="LEFT"><strong></strong></td>     
+  <td width = "200px" align="LEFT"><strong></strong></td>
+  <td width = "200px" align="LEFT"><strong>Quantity / Benefit Period (Weeks)</strong></td>
+  <td width = "200px" align="LEFT"><strong>Baseline Quantity / Baseline Period (Weeks)</strong></td>
+  <td width = "200px" align="LEFT"><strong>Obtained from the Benefit Conversion Table</strong></td>  
+  <td width = "300px" align="LEFT"><strong><apex:outputText value="{!SavingAmount}"/></strong></td>    
+</tr>
+<tr>
+  <td width = "250px"></td>
+  <td width = "100px"></td>        
+  <td width = "200px"></td>
+  <td width = "200px"></td>
+  <td width = "200px"></td> 
+  <td width = "200px"></td> 
+  <td width = "300px"></td>     
+</tr>
+
+<tr>
+  <td width = "250px"><apex:outputText value="{!TypeOfPlannedSaving}"/></td>
+  <td width = "100px"><apex:outputText value="{!benifit.Planned_Quanity__c}"/></td>        
+  <td width = "200px"><apex:outputText value="{!benifit.Planned_Benefit_Period_Weeks__c}" rendered="{!IF(plannedAvailable == false , false , true)}" /></td>
+  <td width = "200px"><apex:outputText value="{!PlannedSavingRate_RoundedUp}"/></td>
+  <td width = "200px"><apex:outputText value="{!BaselineRate}" rendered="{!IF(plannedAvailable == false , false , true)}" /></td> 
+  <td width = "200px"><apex:outputText value="{!benifit.Planned_Conversion_Rate__c}"  rendered="{!IF(plannedAvailable == false , false , true)}"  /></td> 
+  <td width = "300px"><apex:outputText value="{!PlannedSavingAmount}"/></td>     
+</tr>
+<tr>
+  <td width = "250px"><apex:outputText value="{!TypeOfAchievedSaving}"/></td>
+  <td width = "100px"><apex:outputText value="{!benifit.Achieved_Quantity__c}"/></td>        
+  <td width = "200px"><apex:outputText value="{!benifit.Achieved_Benefit_Period_Weeks__c}" rendered="{!IF(achievedAvailable == false , false , true)}" /></td>
+  <td width = "200px"><apex:outputText value="{!AchievedSavingRate_RoundedUp}"/></td>
+  <td width = "200px"><apex:outputText value="{!BaselineRate}" rendered="{!IF(achievedAvailable == false , false , true)}" /></td> 
+  <td width = "200px"><apex:outputText value="{!benifit.Achieved_Conversion_Rate__c}" rendered="{!IF(achievedAvailable == false , false , true)}" /></td> 
+  <td width = "300px"><apex:outputText value="{!AchievedSavingAmount }"/></td>     
+</tr>
+<tr>
+  <td width = "250px"><apex:outputText value="{!TypeOfFutureSaving }"/></td>
+  <td width = "100px"><apex:outputText value="{!benifit.Future_Quantity__c}"/></td>        
+  <td width = "200px"><apex:outputText value="{!benifit.Future_Benefit_Period_Weeks__c}" rendered="{!IF(futureAvailable == false , false , true)}"/></td>
+  <td width = "200px"><apex:outputText value="{!FutureSavingRate_RoundedUp}"/></td>
+  <td width = "200px"><apex:outputText value="{!BaselineRate}" rendered="{!IF(futureAvailable == false , false , true)}"/></td> 
+  <td width = "200px"><apex:outputText value="{!benifit.Future_Conversion_Rate__c}" rendered="{!IF(futureAvailable == false , false , true)}"/></td> 
+  <td width = "300px"><apex:outputText value="{!FutureSavingAmount }"/></td>     
+</tr>
+</table>
+
+</apex:pageBlock>
+-->
+<!------ Starting section Benefit - Line Items ------------>
+
+      <apex:pageblockSection columns="1" id="BnrepAdd" title="Benefit - Line Items" collapsible="False">
+
+            <apex:pageBlockTable value="{!Bn_rep_AddList}" var="Bnrep" columnsWidth="5%,15%,15%,15%,15%,15%,10%,10%">
+                               
+                 <apex:column headerValue="Condition" style="width:120px">
+                     <apex:facet name="header">Condition
+                        <span class="helpButton" id="example-title4-_help">
+                            <img src="/s.gif" class="helpOrb"/>
+                            <script type="text/javascript">
+                            sfdcPage.setHelp('example-title4', '“Planned” savings are estimated at the beginning of the project (e.g. as estimated at the Define Phase). “Achieved” savings are savings realized so far and “Future” savings are yet to be realized as estimated after the Quality Improvements have been made.');
+                            </script>
+                        </span>
+                    </apex:facet>
+                    <apex:outputField value="{!Bnrep.Benefit_Condition__c}"/>
+                 </apex:column> 
+                 <apex:column headerValue="Year" style="width:120px">
+                    <apex:outputField value="{!Bnrep.Years__c}"/>
+                 </apex:column>
+                 <apex:column headerValue="Quarter" style="width:120px">
+                    <apex:outputField value="{!Bnrep.Quarters__c}"/>
+                 </apex:column>
+                 <apex:column headerValue="Month" style="width:120px">
+                    <apex:outputField value="{!Bnrep.Months__c}"/>
+                 </apex:column>
+
+                 <apex:column headerValue="Savings Amount (k€)" style="width:120px">
+                     <apex:facet name="header">Savings Amount (k€)
+                        <span class="helpButton" id="example-title5-_help">
+                            <img src="/s.gif" class="helpOrb"/>
+                            <script type="text/javascript">
+                            sfdcPage.setHelp('example-title5', 'The financial benefit amount as a result of the Quality Improvement, input in thousands of Euro.');
+                            </script>
+                        </span>
+                    </apex:facet>
+                    <apex:outputField value="{!Bnrep.Benefit_Savings_Amount__c}"/>
+                 </apex:column>
+                 
+              </apex:pageBlockTable>                    
+        </apex:pageblockSection>  
+        
+<!------ Ending section Benefit - Line Items ------------>
+
+
+<!------ Starting section Benefit - Summary ------------>
+
+<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">Benefit - Summary</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR>
+
+<table style="width:1100px">
+<tr HEIGHT="30PX">
+  <td width = "50px" align="LEFT"><strong>Condition</strong></td>
+  <td width = "50px" align="LEFT"><strong>Total Savings Amount (k€)</strong></td> 
+  <td width = "250px" align="LEFT"><strong> </strong></td>  
+</tr>
+
+<tr>
+    <td width = "50px" align="left">
+         <apex:outputText value="Planned"/>
+    </td>
+    <td width = "50px" align="LEFT">
+        <apex:outputText value="{!PlannedAmount}" />
+    </td>  
+</tr>
+
+<tr>
+    <td width = "50px" align="left">
+         <apex:outputText value="Achieved"/>
+    </td>
+    <td width = "50px" align="LEFT">
+        <apex:outputText value="{!AchievedAmount}" />
+    </td>  
+    <td width='250px' align='LEFT'><apex:commandLink action="{!viewSRQ}" title="Report Page" value="View Summary Report – By Quarter" target="_new"/>
+    </td>
+</tr>
+
+<tr>
+    <td width = "50px" align="left">
+         <apex:outputText value="Future"/>
+    </td>
+    <td width = "50px" align="LEFT">
+        <apex:outputText value="{!FutureAmount}" />
+    </td>  
+    <td width='250px' align='LEFT'><apex:commandLink action="{!viewSRM}" title="Report Page" value="View Summary Report – By Month" target="_new"/> 
+    </td>
+</tr>
+
+</table>
+
+
+<!------ Ending section Benefit - Summary ------------>
+
+
+<BR></BR><BR></BR>
+
+<table bgcolor="#9DAF9D" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">Benefit History</FONT></h1></td>
+        </tr>
+</table>
+
+<BR></BR><BR></BR>
+
+
+<table>
+<tr>
+<td width="400px">
+<font size="2"><apex:outputText >Created By</apex:outputText></font></td>
+<td width="400px">
+<apex:outputLabel value="{!benifit.CreatedBy.Name}"></apex:outputLabel>
+</td>
+<td width="400px">
+<font size="2"><apex:outputText >Created Date</apex:outputText></font></td>
+<td width="400px">
+<apex:outputLabel value="{!CreatedTime}"></apex:outputLabel> 
+</td>
+</tr>
+
+<tr>
+<td width="400px">
+<font size="2"><apex:outputText >Last Modified By</apex:outputText></font></td>
+<td width="400px">
+<apex:outputLabel value="{!benifit.LastModifiedBy.Name}"></apex:outputLabel> 
+</td>
+<td width="400px">
+<font size="2"><apex:outputText >Last Modified Date</apex:outputText></font></td>
+<td width="400px">
+<apex:outputLabel value="{!LastUpdatedTime}"></apex:outputLabel> 
+</td>
+</tr>
+
+</table>
+
+  <c:GenericHistoryComponent recordLimit1="10" myObject1="{!benifit}"/>  
+  <!--<c:QIPP_Benefit_Report_History recordLimit1="10" myObject1="{!BURids}"/>
+   <c:QIPP_Benefit_Report_History_v1 recordLimit1="10" myObject1="{!BURids}"/> -->
+  <c:QIPP_Benefit_Report_History_V2 listLineitems="{!Bn_rep_AddList}" recordLimit1="10" myObject1="{!BURids}"/>
+  
+  
+</apex:pageBlock>
+
+        <apex:outputPanel id="approverejectpopup">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}">
+                Select your feedback for Benefit Type Override<br/><br/><br/>
+                <apex:commandButton id="Approve" value="Approve" action="{!approve}" rerender="approverejectpopup"/>
+                <apex:commandButton id="Reject" value="Reject" action="{!reject}" rerender="approverejectpopup"/>
+                <apex:commandButton id="Cancel" value="Cancel" action="{!closePopup}" rerender="approverejectpopup"/>
+            </apex:outputPanel>
+        </apex:outputPanel> 
+
+</apex:form>
+
+    <style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+
+    </style> 
+  
+</apex:page>

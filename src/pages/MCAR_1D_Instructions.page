@@ -1,0 +1,11 @@
+<apex:page standardController="MCAR__c" >
+  <!-- Begin Default Content REMOVE THIS -->
+  <Body >
+    <!-- End Default Content REMOVE THIS  -->
+     <table bgcolor="Green" border="1" width="100%">
+        <tr>
+            <td><h1><FONT COLOR="white">NOTE: Please select Contacts Button (at top or bottom of page) in order to add, delete, or modify the contacts shown here</FONT></h1></td>
+        </tr>
+    </table>
+  </body>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>SPE_Training</links>
+    <links>Glossary_of_Terms</links>
+    <links>Legal</links>
+    <links>Privacy_Policy</links>
+    <links>Terms_of_use</links>
+    <links>Acceptable_Use_Policy</links>
+    <links>SPE_SNOW_link</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

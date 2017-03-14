@@ -1,0 +1,47 @@
+<apex:page standardController="SPE_SPETracker__c" extensions="SPE_SurveyTrack">
+ <!--   <apex:chart height="400" width="600" data="{!pieData}" >
+        <apex:pieSeries dataField="data" labelField="name" colorSet="#64FE2E ,#0099FF" >
+        <apex:chartLabel display="middle" font="bold 18px Helvetica"  />
+        <apex:chartTips height="20" width="140"/>
+        </apex:pieSeries>
+        <apex:legend position="right"/>
+    </apex:chart> -->
+    
+    
+    <apex:chart data="{!BarChartData}" height="400" width="350">
+    <apex:legend position="left"/>
+    <apex:axis type="Numeric" position="left" title="Respondents" grid="true"
+        fields="data1,data2"  steps="1" >
+    <apex:chartLabel />
+    </apex:axis>
+    <apex:axis type="Category" position="bottom" fields="name1" title="Stacked Bars"  >
+      <apex:chartLabel rotate="315"/>
+    </apex:axis>
+    <apex:barSeries orientation="vertical" axis="left" stacked="true" colorSet="#64FE2E ,#0099FF"
+       xField="name1" yField="data1,data2" title="Completed Response,Pending Response"/>
+    </apex:chart> 
+        
+   <!-- <table cellPadding="6" id="t01" style="position: relative; left: 445px; top: -150px">
+      <apex:repeat var="rec" value="{!pieData}">
+        <tr><Th>{!rec.name}</th> <th>  {!rec.data}</th></tr>
+      </apex:repeat>
+    </table> -->
+    <apex:relatedList list="SPE_Tracker_Respondents_del__r" />
+
+    <style>
+    table#t01 tr:nth-child(even) 
+    {
+    background-color: #64FE2E;
+    }
+    table#t01 tr:nth-child(odd) 
+    {
+       background-color:#0099FF;
+    }
+    </style>      
+  <!--  <apex:pageBlock title="Details">
+      <apex:pageBlockTable value="{!pieData}" var="d">
+         <apex:column value="{!d.name}"/>
+         <apex:column value="{!d.data}"/>
+      </apex:pageBlockTable>
+      </apex:pageBlock>  -->
+</apex:page>

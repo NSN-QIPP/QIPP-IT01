@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>QIRS_User_Guide</links>
+    <links>QIRS_Process_ED29277</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

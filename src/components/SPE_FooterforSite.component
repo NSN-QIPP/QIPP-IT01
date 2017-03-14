@@ -1,0 +1,23 @@
+<apex:component >
+  <style>
+       a { text-decoration: none }
+         a:hover { text-decoration: underline }
+            a:link {
+           color: #0000FF;
+               }
+       </style>
+
+            <div class="Footer">
+              <div class="Footer-Content">
+                <p class="Legal"></p>
+                   <p class="Footer-Links"><a target="_blank" href=" http://nsn.com/legal">Legal</a><span>|</span>&nbsp;&nbsp;
+                     <a target="_blank" href=" http://nsn.com/privacy">Privacy Policy</a>
+                       <span>|</span>&nbsp;&nbsp;
+                        <a target="_blank" href="https://supplier.portal.nsn.com/irj/go/km/docs/etc/public/termsofuse/TermsOfUse.html">Terms of use</a>
+                      <span>|</span>&nbsp;&nbsp;
+                    <a target="blank" href="https://supplier.portal.nsn.com/irj/go/km/docs/etc/public/termsofuse/AcceptableUsePolicy.html ">Acceptable Use Policy</a>
+                  <span>|</span>&nbsp;&nbsp;
+                <a target="_blank" href=" http://nsn.com/about-us/contact-us">Contact us</a></p></div> 
+             <div><center><p class="Legal" >&copy; Nokia Solutions and Networks 2014</p></center></div>
+         </div>
+</apex:component>

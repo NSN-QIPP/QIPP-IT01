@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Object created to track the Project Re-deployed activity</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Benefitting_Business_Grp_Functional_Grp__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefitting Business Grp/Functional Grp</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Applications &amp; Analytics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chief Financial Office</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chief innovation and Operating office</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Strategy &amp; Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fixed Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IP/Optical Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal &amp; Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing &amp; Corporate Affairs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Benefitting_Business_Unit__c</fullName>
+        <externalId>false</externalId>
+        <label>Benefitting Business Unit</label>
+        <picklist>
+            <controllingField>Benefitting_Business_Grp_Functional_Grp__c</controllingField>
+            <picklistValues>
+                <fullName>Multiple BUs</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+                <controllingFieldValues>Global</controllingFieldValues>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A&amp;A Finance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A&amp;A Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A&amp;A Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>A&amp;AStrategy, Business Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analytics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>APAC RBC</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>APAC Regional Business Center (RBC)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>APJ &amp; India RBC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Applications &amp; Analytics Marketing and Communications</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR A&amp;A</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR CIOO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR CO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR FN</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR Global Functions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR ION</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BHR MN</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brand and Strategy Communications</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BroadBandAccess</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Intelligence</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Center of Expertise</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>China Regional Business Center (RBC)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIOO Finance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIOO Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CloudBand</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CMO Office</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO Finance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO Integration and Chief of Staff</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Communications &amp; Collaboration</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>COO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Affairs</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Controlling &amp; Finance Operations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Strategy</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO Strategy, Sales Operations and Analytics</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CTO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CTO &amp; Bell Labs</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cultural Integration</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer &amp; Network Operations (CNO)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Marketing and Communications</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Operations Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Digital Home</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMEA RBC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EMEA Regional Business Center (RBC)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment &amp; Labor</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ethics &amp; Compliance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Europe and MEA RBC</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Planning &amp; Analysis</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fixed Networks Marketing and Communications</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FN Finance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FN Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FN Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FN Strategy, Business Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global HoS A&amp;A</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global HoS Enterprise &amp; Public Sector</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global HoS FN</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global HoS ION</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global HoS MN and Sales Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global ITO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GOPS &amp; Procurement Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health, Safety, Security &amp; Environment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Operations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Region Americas</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HR Regions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infrastructure &amp; HSS Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Innovation Steering</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal Audit &amp; Controls</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internet of Things</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investor Relations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ION Finance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ION Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ION Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ION Strategy, Business Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IP/Optical Marketing and Communications</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IP Routing &amp; Packet Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IP Routing Hardware</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal Operations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Litigation</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Management Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market APJ</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market Europe</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market Greater China</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market India</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing Operations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market LAT</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market MEA</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Market NAM</fullName>
+                <default>false</default>
+                <controllingFieldValues>Customer Operations</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mergers &amp; Acquisitions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mergers &amp; Acquisitions and Corporate Strategy and Development Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Advanced MN Solutions</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Commercial Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Converged Core</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN COO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN CTO</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Finance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Legal</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Product Portfolio Sales</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Products</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Quality</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Services Portfolio Sales</fullName>
+                <default>false</default>
+                <controllingFieldValues>Mobile Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MN Strategy, Business Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Networks Marketing and Communications</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA &amp; CALA RBC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NAM &amp; LAT RBC</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NAM and LAT Regional Business Center (RBC)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network &amp; Services Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Management &amp; Self Organizing Networks</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Network Transformation</fullName>
+                <default>false</default>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Business Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nokia EDU</fullName>
+                <default>false</default>
+                <controllingFieldValues>Human Resources</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nuage</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operational Management</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optics</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partners &amp; Solutions:</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pensions Investments</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planning</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Policy &amp; Charging</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Portfolio and Innovation Marketing</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing &amp; Corporate Affairs</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Procurement</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality Culture &amp; Communication</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality Execution</fullName>
+                <default>false</default>
+                <controllingFieldValues>Quality</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulatory</fullName>
+                <default>false</default>
+                <controllingFieldValues>Legal &amp; Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Security and IoT</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>Applications &amp; Analytics</controllingFieldValues>
+                <controllingFieldValues>Fixed Networks</controllingFieldValues>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategic Partnering</fullName>
+                <default>false</default>
+                <controllingFieldValues>Corporate Strategy &amp; Development</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treasury</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief Financial Office</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Video</fullName>
+                <default>false</default>
+                <controllingFieldValues>IP/Optical Networks</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workplace Resources</fullName>
+                <default>false</default>
+                <controllingFieldValues>Chief innovation and Operating office</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <label>QIPP Project</label>
+        <referenceTo>QIPP_Project__c</referenceTo>
+        <relationshipLabel>Project Redeployeds</relationshipLabel>
+        <relationshipName>Project_Redeployeds</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Project Redeployed</label>
+    <nameField>
+        <label>Project Redeployed Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Project Redeployeds</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

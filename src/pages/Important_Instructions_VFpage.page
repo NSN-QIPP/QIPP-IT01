@@ -1,0 +1,9 @@
+<apex:page >
+<span style="background-color: rgb(0, 153, 0);" class="Apple-style-span"><font class="Apple-style-span" color="#ffffff">Before you create an MCAR, be sure that you have validated the following:</font></span>
+<br>#1 NSN Code</br>
+<br>#2 Manufacturer</br>
+<br>#3 Manufacturer Contact (email required)</br>
+<br>#4 MCAR User Account for the Manufacturer Contact (if you want the Manufacturer to have access to the case)
+</br>
+<br>If any of these items are missing or incorrect, please create an MCAR Change Request (see tab above) to request these changes before creating an MCAR.</br>
+</apex:page>

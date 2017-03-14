@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>QIRS_Delegate_My_Actions</links>
+    <links>QIRS_Delegate_Employee_Actions</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

@@ -1,0 +1,785 @@
+<apex:page controller="SPE2_CalculationCanvasEXT" sidebar="false">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg td{font-family:Arial, sans-serif;font-size:12px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#4b67a1;}
+.tg .tg-6k2t{background-color:#D2E4FC;vertical-align:top}
+
+    .custPopup{
+            background-color: #e6f9ff;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;            
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+    .popupBackground{
+        background-color:black;
+        opacity: 0.20;
+        filter: alpha(opacity = 20);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+    }
+</style>
+<apex:pageMessages id="msgs"/>
+<apex:includeScript value="{!$Resource.JqueryMin}"/>
+
+<script type="text/javascript">
+window.$Label = window.$Label || {};
+$Label.alertMsg = '{!JSENCODE($Label.SPE_AddedPI)}';
+function checkPIscore(x)
+{
+    var id;
+    var jsVar = '{!JSENCODE(kpi.Level__c)}';
+    var level = jsVar.split(';');
+    var max = 0;
+    
+    for (var i=0; i< level.length; i++)
+    {
+        var temp = Number(level[i]);
+        if(max < temp)
+        max = temp;
+    }
+    
+    id = $("#PI-"+x).children(":first").attr('value');
+        
+    Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.SPE2_CalculationCanvasEXT.getPIDefinition}',
+            id,max, function(result, event)
+                    {
+                        if (event.status) 
+                        {
+                            if(result)
+                            {
+                                alert($Label.alertMsg);
+                            }
+                    }
+                    else if (event.type === 'exception')
+                    {
+                    //alert('Exception');
+                    }
+            },
+            {escape: true}
+         );
+         acn_fnDisplayfrm();
+}
+</script>
+<script>
+    function displaySection_fn(){
+        acn_fnDisplayfrm();
+    }
+</script>
+<script type="text/javascript">
+function addtoScreen(x) {
+var NAME = document.getElementById("operators"); 
+if(NAME.className=='keys') {
+    document.getElementById("calc").innerHTML =document.getElementById("calc").innerHTML+x ;
+    document.getElementById("RPNcopy").innerHTML=document.getElementById("calc").innerHTML;
+    var NAME = document.getElementById("operators");
+    NAME.className="keys1";
+    var NAME = document.getElementById("Indexes");
+    NAME.className="keys";
+     var NAME = document.getElementById("openbrackets");
+    NAME.className="keys";
+    var NAME = document.getElementById("closebrackets");
+    NAME.className="keys1";
+    }   
+}
+
+function addtoScreen1(x) {
+var NAME = document.getElementById("Indexes");
+if(NAME.className=='keys') { 
+    document.getElementById("calc").innerHTML =document.getElementById("calc").innerHTML+x ;
+    document.getElementById("RPNcopy").innerHTML=document.getElementById("calc").innerHTML;
+    
+    NAME.className="keys1";
+    var NAME = document.getElementById("operators");
+    NAME.className="keys";
+    var NAME = document.getElementById("openbrackets");
+    NAME.className="keys";
+    var NAME = document.getElementById("closebrackets");
+    NAME.className="keys";
+}   
+}
+
+function addtoScreen2(x) {
+  var NAME = document.getElementById("openbrackets");
+  if(NAME.className=='keys') { 
+    document.getElementById("calc").innerHTML =document.getElementById("calc").innerHTML+x ;
+    document.getElementById("RPNcopy").innerHTML=document.getElementById("calc").innerHTML;
+    
+    NAME.className="keys1";
+    var NAME = document.getElementById("operators");
+    NAME.className="keys1";
+    var NAME = document.getElementById("closebrackets");
+    NAME.className="keys1";
+}     
+}
+
+
+function addtoScreen3(x) {
+  var NAME = document.getElementById("closebrackets");
+  if(NAME.className=='keys') { 
+    document.getElementById("calc").innerHTML =document.getElementById("calc").innerHTML+x ;
+    document.getElementById("RPNcopy").innerHTML=document.getElementById("calc").innerHTML;
+    
+    NAME.className="keys1";
+    var NAME = document.getElementById("operators");
+    NAME.className="keys";
+    var NAME = document.getElementById("Indexes");
+    NAME.className="keys1";
+    var NAME = document.getElementById("openbrackets");
+    NAME.className="keys1";
+}     
+}
+
+function ClearScreen() {
+
+document.getElementById("calc").innerHTML ='' ;
+var NAME = document.getElementById("operators");
+NAME.className="keys";
+var NAME = document.getElementById("Indexes");
+NAME.className="keys";
+
+var NAME = document.getElementById("closebrackets");
+NAME.className="keys";
+var NAME = document.getElementById("openbrackets");
+NAME.className="keys";
+}
+
+function AddRecords() {
+Action();
+}
+
+function RemoveRecords(x) {
+Jackson(x);
+
+}
+
+function callD(){
+callDone();
+}
+function SaveRecords() {
+SaveActionJackson();
+}
+
+
+function elseifcondition() {
+
+var x = document.getElementsByClassName("r1")[0].value;
+var xRPN =InfixToPostfix(x);
+
+var y = document.getElementsByClassName("r2")[0].value;
+var yRPN =InfixToPostfix(y);
+
+var z = document.getElementsByClassName("r3")[0].value;
+var zRPN =InfixToPostfix(z);
+
+updateIfElse(x,xRPN,y, yRPN,z, zRPN);
+}
+
+function infix() {
+var x=InfixToPostfix(document.getElementById("calc").innerHTML);
+var y=document.getElementById("calc").innerHTML;
+//alert(x);
+//alert(y);
+updateRPN(x,y);
+}
+
+function RPNConditionChange(val)
+{
+    if (val == 'Not Null Or Zero')
+    {
+        //var elements = document.getElementsByClassName('r3');
+        
+        //elements.style.display = 'block';
+        $('.r2').hide();
+    }
+    else
+    {
+        //var elements = document.getElementsByClassName('r3');
+        //elements.style.display = 'none';
+        $('.r2').show();
+    }
+}
+
+//j$ = jQuery.noConflict();
+    function showLoadingDiv() {
+    
+        
+        $("[id$=loading-curtain-div]").css("background-color", "black").css("opacity", 0.35).css("height", "100%").css("width", "100%").css("display",block);
+    }
+    function hideLoadingDiv() {
+        $("[id$=loading-curtain-div]").css("background-color", "black").css("opacity", "1").css("height", "0px").css("width", "80%").css("display",none);
+    }
+    
+function Hidefilter() {
+  
+    $( ".Filter" ).hide();
+    $("#HideFilter").hide();
+    $("#ShowFilter").show();
+    }
+    
+    function Showfilter() {
+  
+    $( ".Filter" ).show();
+    $("#ShowFilter").hide();
+    $("#HideFilter").show();
+  
+    }
+    
+</script>
+
+
+<!--BEGIN INFIX-POSTFIX JAVASCRIPT-->
+<script language="JavaScript">
+
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.push = push;
+  this.pop = pop;
+  this.peek = peek;
+  this.length = length;
+}
+ 
+function push(element) {
+  this.dataStore[this.top++] = element;
+}
+ 
+function pop() {
+  return this.dataStore[--this.top];
+}
+ 
+function peek() {
+  return this.dataStore[this.top-1];
+}
+ 
+function length() {
+  return this.top;
+}
+function InfixToPostfix(infixStr)
+{ 
+
+infixStr= infixStr.replace(/\s+/g,''); // remove spaces, so infix[i]!=" "
+ 
+var s = new Stack();
+var ops = "-+/*^";
+var precedence = {"^":4, "*":3, "/":3, "+":2, "-":2};
+var associativity = {"^":"Right", "*":"Left", "/":"Left", "+":"Left", "-":"Left"};
+var token;
+var postfix = "";
+var o1, o2;
+ 
+for (var i = 0; i < infixStr.length; i++) {
+  token = infixStr[i];
+  if (token >= "A" && token <= "Z") { // if token is operand (here limited to 0 <= x <= 9)
+    postfix += token + " ";
+  }
+  else if (ops.indexOf(token) != -1) { // if token is an operator
+    o1 = token;
+    o2 = s.peek();
+    while (ops.indexOf(o2)!=-1 && ( // while operator token, o2, on top of the stack
+      // and o1 is left-associative and its precedence is less than or equal to that of o2
+      (associativity[o1] == "Left" && (precedence[o1] <= precedence[o2]) ) || 
+      // the algorithm on wikipedia says: or o1 precedence < o2 precedence, but I think it should be
+      // or o1 is right-associative and its precedence is less than that of o2
+      (associativity[o1] == "Right" && (precedence[o1] < precedence[o2])) 
+      )){
+        postfix += o2 + " "; // add o2 to output queue
+        s.pop(); // pop o2 of the stack
+        o2 = s.peek(); // next round
+    }
+    s.push(o1); // push o1 onto the stack
+  }
+  else if (token == "(") { // if token is left parenthesis
+    s.push(token); // then push it onto the stack
+  }
+  else if (token == ")") { // if token is right parenthesis 
+    while (s.peek() != "("){ // until token at top is (
+      postfix += s.pop() + " ";
+    }
+    s.pop(); // pop (, but not onto the output queue
+  }
+}
+while (s.length()>0){
+  postfix += s.pop() + " ";
+}
+ return postfix;
+}
+function setFocusOnLoad() {}
+</script>
+
+<style>
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    /*box-sizing: border-box;*/
+    
+    /* Better text styling */
+    font: 14px Arial, sans-serif;
+}
+
+/* Some hover effects */
+.keys span:hover {
+    background: #9c89f6;
+    box-shadow: 0px 4px #6b54d3;
+    color: white;
+}
+/* Simulating "pressed" effect on active state of the keys by removing the box-shadow and moving the keys down a bit */
+.keys span:active {
+    box-shadow: 0px 0px #6b54d3;
+    top: 4px;
+}
+
+#calculator {
+    width: 250px;
+    
+    
+    margin: 10px auto;
+    padding: 20px 20px 9px;
+    
+    //background: linear-gradient(#9dd2ea, #8bceec);
+    border-radius: 3px;
+}
+#calculator2 {
+    width: 150px;
+    height: 100px;
+    
+    margin: 10px auto;
+    padding: 20px 5px 9px;
+    
+    //background: linear-gradient(#9dd2ea, #8bceec);
+    border-radius: 1px;
+}
+
+#calculator3 {
+    width: 100px;
+    height: 100px;
+    
+    margin: 10px auto;
+    padding: 20px 5px 9px;
+    
+    //background: linear-gradient(#9dd2ea, #8bceec);
+    border-radius: 1px;
+}
+
+#CalcContainer{
+    width: auto;
+    height: auto;
+    
+    margin: 0px auto;
+    padding: 20px 20px 9px;
+    
+    //background: linear-gradient(#9dd2ea, #8bceec);
+    border-radius: 3px;
+}
+#CalcContainer1{
+    width: auto;
+    height: auto;
+    
+    margin: 0px auto;
+    padding: 20px 20px 9px;
+    
+    //background: linear-gradient(#9dd2ea, #8bceec);
+    border-radius: 3px;
+}
+.top .screen {
+    height: 32px;
+    width: 212px;
+    float: left;
+    padding-top: 13px;
+    background: #94B8B8;
+    border-radius: 3px;
+    box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Clear floats */
+.keys {overflow: hidden;}
+
+.keys span {
+    float: left;
+    cursor: pointer;
+    width: 66px;
+    height: 40px;
+    background:#9dd2ea;
+   
+    border-radius: 3px;
+    box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+    
+    margin: 0 7px 11px 0;
+    
+    line-height: 40px;
+    text-align: center;
+}
+
+.keys1 {overflow: hidden;}
+
+.keys1 span {
+    float: left;
+    width: 66px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.2);
+   
+    border-radius: 3px;
+    box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+    
+    margin: 0 7px 11px 0;
+    
+    line-height: 40px;
+    text-align: center;
+}
+
+
+#table1 {
+  border: 1px solid green;
+  width:100%;
+}
+
+
+#table2 {
+  /*border: 1px solid green;*/
+  width:100%;
+}
+
+#th1 {
+    align:center;
+    background-color: green;
+    color: white;
+}
+
+
+        h1{
+            font-family: times, Times New Roman, times-roman, georgia, serif;
+            color: #444;margin: 0;padding: 0px 0px 6px 0px;font-size: 25px;line-height: 24px;letter-spacing: -2px;font-weight: bold;
+        }
+</style>
+
+
+<script>
+    
+</script>
+<style>
+    #loading-curtain-div {
+        height:100px;
+        width:100%;
+        position:absolute;
+        z-index:5;
+        //-webkit-transition: all 0.30s ease-out;
+        //-moz-transition: all 0.30s ease-out;
+    }
+    
+    .helpButton, .helpButtonOn {
+           position: relative;
+            }
+            .helpButton .helpOrb {
+              background-position: top left;
+            }
+            .helpOrb {
+              background-image: url(/img/help/helpOrbs.gif);
+              background-position: 0 0;
+              width: 20px;
+              height: 15px;
+            }
+
+</style>
+
+<!--  Style ENDs Here ----> 
+
+
+
+
+<div> 
+<apex:pageMessages id="mes"/>
+</div>
+<apex:form id="theForm">
+<div id="loading-curtain-div" style="height:0px;">
+</div>
+<!--***********Changes for Encryption******************-->
+<!--<center><b>{!kpi.name}</b></center>-->
+<center><b style="font-size: 20px;color: #4b67a1;font-weight: bold;">{!kpi.KPI_Title__c}</b></center>
+<!--****************END*****************-->
+
+<!--<div style="float:right">
+<h1> {!$Label.SPE_Step1} </h1> </div> -->
+
+<apex:actionStatus id="save-status" onstart="showLoadingDiv();" onstop="hideLoadingDiv();"/>
+
+<apex:actionFunction name="Action" action="{!AddRecords}" reRender="calcPanel" status="save-status"/>
+<apex:actionFunction name="Jackson" action="{!RemoveRecords}"  status="save-status" reRender="calcPanel,calculatorview,mes,canvsCalcId,doneBtnId">
+<apex:param name="rowIndex" value="" />
+</apex:actionfunction>
+<apex:actionFunction name="SaveActionJackson" action="{!SaveRecords}" status="save-status" reRender="calcPanel,calculatorview,mes,canvsCalcId,doneBtnId" /> <!--  oncomplete="AfterSaveRecords();"/> -->
+<apex:actionFunction action="{!updateKPI}" status="save-status" name="updateRPN" reRender="mes,frmInputId,calculatorview">
+<apex:param name="RPN" value=""/>
+<apex:param name="ActualCalculation" value=""/>
+</apex:actionFunction>
+<apex:actionFunction name="acn_fnDisplayfrm" action="{!displayFormula}" reRender="canvsCalcId,doneBtnId"/>
+<table><tr><td>
+<div style="cursor:pointer;height:25px;width:25px;float:left;margin:4px" onclick="AddRecords();"> 
+<apex:image value="{!URLFOR($Resource.AddLogo)}" height="30px" width="32px"/>
+</div></td><td>
+<span class="helpButton" id="AddRecords-_help">
+<img src="/s.gif" alt="" class="helpOrb" title=""/>
+<script>
+window.$Label = window.$Label || {};
+$Label.addRows = '{!JSENCODE($Label.SPE_AddRowsHelpText)}';
+sfdcPage.setHelp('AddRecords', $Label.addRows);
+</script>
+</span></td>
+
+<td>
+<apex:outputPanel >
+<div style="cursor:pointer;height:23px;width:100px;float:left;margin:4px;color: white;font-weight: bold;border-radius: 8px;background-color: #4b67a1;padding: 3px;height: 21px;" id="ShowFilter" onclick="Showfilter();"> {!$Label.SPE_ShowFilters}</div>
+<div style="cursor:pointer;height:23px;width:100px;float:left;margin:4px;color: white;font-weight: bold;border-radius: 8px;background-color: #4b67a1;padding: 3px;height: 21px;display:none" id="HideFilter" onclick="Hidefilter();"> {!$Label.SPE_HideFilters}</div>
+</apex:outputPanel>
+</td>
+<td>
+<span class="helpButton" id="ShowFilter-_help">
+<img src="/s.gif" alt="" class="helpOrb" title=""/>
+<script>
+window.$Label = window.$Label || {};
+$Label.showPI = '{!JSENCODE($Label.SPE_ShowPIHelpText)}';
+sfdcPage.setHelp('ShowFilter',$Label.showPI);
+</script>
+</span></td></tr></table>
+<div style="clear:both"></div>
+<div id="CalcContainer" >
+        
+                
+        <table width="100%;" cellspacing="0" cellpadding="0">
+        <tr style="height:25px;background-color: #4b67a1;border: 1px #4b67a1;">
+        <td style="width:13%;background-color: #4b67a1;color: white;font-weight: bold;border: 1px #4b67a1;padding-left: 5px;">{!$Label.SPE_Aggregation}
+        </td>
+        <td style="width:16%;background-color: #4b67a1;color: white;font-weight: bold;border: 1px #4b67a1;padding-left: 5px;">{!$Label.SPE_PIDefinition}
+        </td>
+        <td style="width:15%;background-color: #4b67a1;color: white;font-weight: bold;border: 1px #4b67a1;padding-left: 5px;">{!$Label.SPE_ExistingKPIDef}
+        </td>
+        <td style="width:13%;background-color: #4b67a1;color: white;font-weight: bold;border: 1px #4b67a1;padding-left: 5px;">{!$Label.SPE_ConstantValue}
+        </td>
+        <td style="width:14%;background-color: #4b67a1;color: white;font-weight: bold;border: 1px #4b67a1;padding-left: 5px;">{!$Label.SPE_TimeMonths}
+        </td>
+        <td style="width:17%;background-color: #4b67a1;color: white;font-weight: bold;border: 1px #4b67a1;padding-left: 5px;">{!$Label.SPE_Index}
+        </td>
+        </tr>
+        </table>
+       
+</div>        
+<apex:outputPanel id="calcPanel">
+
+ <div id="CalcContainer1">    
+            <apex:variable var="count" value="{!0}"/>               
+            <apex:repeat value="{!CalList}" var="c">
+            <apex:variable var="count" value="{!count + 1}"/>
+            <table id="table2" width="90%">
+            <tr>
+                <td ><apex:inputfield value="{!c.Aggregation__c}" style="height: 80%;border-radius: 10px;border-color:#4b67a1;cursor:pointer;"/></td>
+                <td ><div id="PI-{!count}" ><apex:inputfield value="{!c.PIDefination__c}" onchange="checkPIscore('{!count}');" style="height: 23px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/></div>
+                </td>
+                <td ><apex:outputPanel ><apex:inputfield value="{!c.PrevKPIDefination__c}" onchange="displaySection_fn();" style="height: 80%;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/></apex:outputPanel>
+                     <apex:outputPanel >  </apex:outputPanel>
+                </td>
+                <td ><apex:inputfield value="{!c.ConstantValue__c}" style="height: 80%;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/></td>
+                <td ><apex:inputfield value="{!c.TimeFrame__c}" style="height: 80%;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/></td>
+                <td ><apex:inputField value="{!c.IndexName__c}"  id="indexname" style="height: 80%;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/></td>
+                <td ><apex:outputfield value="{!c.Index__c}" style="height: 80%;border-radius: 10px;border-color:#4b67a1;"/></td>
+                <td><div style="cursor:pointer;height:25px;width:25px;float:left;margin:4px" onclick="RemoveRecords(this.id)" id="{!count}"  rerender="save,canvsCalcId" > 
+                    <apex:image value="{!URLFOR($Resource.DeleteLogo)}" height="25px" width="35px"  /> </div>
+                </td>
+                
+            </tr>  
+            </table>
+            <div class="Filter" style="border:1px;display:none">
+            where<center>
+            <b>Filter 1</b> &nbsp;<apex:inputfield value="{!c.Filter1__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/> <b>Filter 2</b> &nbsp;<apex:inputfield value="{!c.Filter2__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/>  <b>Filter 3</b> &nbsp;<apex:inputfield value="{!c.Filter3__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/> <b>Filter 4</b> &nbsp;<apex:inputfield value="{!c.Filter4__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/><b>Filter 5</b> &nbsp;<apex:inputfield value="{!c.Filter5__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/><br/><br/>
+            <b>Filter 6</b> &nbsp;<apex:inputfield value="{!c.Filter6__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/> <b>Filter 7</b> &nbsp;<apex:inputfield value="{!c.Filter7__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/>  <b>Filter 8</b> &nbsp;<apex:inputfield value="{!c.Filter8__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/> <b>Filter 9</b> &nbsp;<apex:inputfield value="{!c.filter9__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/><b>Filter 0</b> &nbsp;<apex:inputfield value="{!c.filter10__c}" style="height: 21px;border-radius: 10px;border-color:#4b67a1;padding-left: 3px;"/>
+            </center>
+            </div>  <br/>
+             
+             <br/>
+            </apex:repeat>
+           
+        <!-- </table> -->
+    
+</div>
+<div style="clear:both"></div>
+    <apex:outputPanel id="NextBtId" rendered="{!showNextBtn}">
+        <center>
+            <div id="save" style="cursor:pointer;height:30px;width: 10%;background-color: #4b67a1;margin-bottom: 7px;color: white;font-weight: bold;border-radius: 8px;padding-top: 10px;" onclick="SaveRecords()"> 
+                Next >>
+            </div>
+        </center>
+    </apex:outputPanel>
+    
+<hr/> 
+</apex:outputPanel>
+    <!-- calculation canvas for SPE2 starts here --->    
+    <apex:outputPanel id="canvsCalcId">
+        <apex:outputPanel rendered="{!IF(showCondition=='true',true,false)}">
+            
+            <div style="cursor:pointer;height:25px;width:25px;float:left;margin:4px" onclick="addRow();"> 
+                <apex:image value="{!URLFOR($Resource.AddRow)}" height="40px" width="50px"/>
+                
+            </div><br/><br/><br/>
+            <!--<apex:commandButton value="Add Condition" action="{!addMoreConditions}" reRender="canvsCalcId" status="save-status"/>-->
+            <apex:actionFunction name="addRow" action="{!addMoreConditions}" reRender="canvsCalcId,mes" status="save-status"/>
+            <table class="tg" style="width: 95%;">
+              <tr>
+                <th class="tg-031e"></th>
+                <th class="tg-031e">Scenario</th>
+                <apex:repeat value="{!formulaWrapperlist}" var="sFormula">
+                    <th class="tg-031e" colspan="2">{!sFormula.index}</th>
+                </apex:repeat>
+                <th class="tg-031e">Output</th>         
+              </tr>
+              <apex:variable value="{!0}" var="rowNum"/>
+              <apex:repeat value="{!scenarioConditionList}" var="sCon">
+                  <tr class="conditioncls">
+                    <td class="tg-6k2t">
+                        <apex:commandLink action="{!removeConditions}" value="" status="save-status" reRender="canvsCalcId,mes">
+                            <apex:param name="conNum" value="{!rowNum}"/>
+                            <apex:image value="{!URLFOR($Resource.DeleteLogo)}" height="28px" width="35px"/>
+                        </apex:commandLink>
+                    </td>
+                    <td class="tg-6k2t"><font style="font-weight:bold;">{!sCon.scenario}</font></td>
+                    <apex:variable value="{!0}" var="conditionNum"/>
+                    <apex:repeat value="{!sCon.formulaWrpperList}" var="sFormula">
+                        <td class="tg-6k2t">
+                            <apex:selectList value="{!sFormula.operator}" styleClass="operatorcls" size="1" multiselect="false" style="cursor:pointer;border-radius: 5px;width: 80%;height: 117%;">
+                                <apex:actionSupport event="onchange" action="{!allowInput}" reRender="valueid,canvsCalcId">
+                                    <apex:param name="inputRowNum" value="{!rowNum}"/>
+                                    <apex:param name="inputConNum" value="{!conditionNum}"/>
+                                </apex:actionSupport>
+                                <apex:selectOptions value="{!sFormula.Operators}"/>
+                            </apex:selectList>                        
+                        </td>
+                        <td class="tg-6k2t">
+                            <apex:outputPanel id="valueid">
+                                <apex:inputText value="{!sFormula.value}" size="2" disabled="{!sFormula.isEnabled}" styleClass="inputConditioncls" style="cursor:pointer;padding-left: 3px;border-radius: 5px;width: 80%;height: 117%;"/>
+                            </apex:outputPanel>
+                        </td>
+                        <apex:variable var="conditionNum" value="{!conditionNum + 1}"/>
+                    </apex:repeat>
+                    <td>
+                      <apex:inputText size="4" disabled="true" value="{!sCon.formulaInput}" id="frmInputId" style="padding-left: 3px;border-radius: 5px;width: 65%;height: 110%;"></apex:inputText>&nbsp;&nbsp;
+                      <apex:commandLink id="cmdlinkId" value="{!IF(sCon.formulaInput == Null,'Create','View')}" action="{!showPopup}" reRender="calculatorview">
+                          <apex:param name="conditionId" value="{!rowNum}"/>
+                      </apex:commandLink>
+                    </td>
+                  </tr>
+                  <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+              </apex:repeat> 
+              
+            </table>
+        </apex:outputPanel>
+    </apex:outputPanel>
+<!-- calculation canvas for SPE2 ends here --->
+
+
+<apex:outputPanel id="calculatorview">
+<!-- calculation canvas starts here --->
+    
+    <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopup}">
+    <!--<hr/>-->
+    <div>
+        <div style="float:right">
+            <apex:commandLink value="" action="{!closePopup}" rerender="calculatorview">
+                <apex:image value="{!URLFOR($Resource.close_button)}" height="20" width="20"/>
+            </apex:commandLink>
+        </div>
+    
+    
+        <div id="calculator" Style="float:left;margin-left: 0.5cm">
+            <div class="keys" id="Indexes">
+                <!-- operators and other keys -->
+                <apex:repeat value="{!IndexList}" var="i">
+                <span onclick="addtoScreen1(this.innerText)">{!i.Index__c}</span>
+                </apex:repeat>
+             </div>
+        </div>
+        <div id="calculator" Style="float:left">
+        {!$Label.SPE_CalculationLogic}
+            <div class="top" style="padding-top: 4px;"> <center>
+            <div class="screen" id="calc">{!orignalCalcValue}</div></center>
+            </div><br/>
+            <div style="clear:both"></div>
+            
+            <center>
+                <div style="float:left;width=25px;"></div>
+                <div class="keys" style = "padding-top: 5px;" >
+                    <!-- operators -->
+                    <center>
+                        <span onclick="ClearScreen()" style="background: #ff9fa8;box-shadow: 0px 4px #ff7c87;color: white">{!$Label.SPE_Clear}</span>
+                        <span onclick="infix()" style="background: #f1ff92;box-shadow: 0px 4px #9da853;color: #888e5f;">{!$Label.SPE_Save}</span>
+                    </center>
+                </div>
+            </center>            
+            <span></span>                    
+       </div>
+       <div id="calculator3" Style="float:left">
+            <div class="keys" id="openbrackets" >      
+                <span onclick="addtoScreen2(this.innerText)">(</span>
+            </div>   
+            <div class="keys" id="closebrackets" >    
+                <span onclick="addtoScreen3(this.innerText)">)</span>
+            </div>
+        </div>
+     
+        <div id="calculator2" Style="float:left">
+            <div class="keys" id="operators" >
+                <!-- operators -->
+                <span onclick="addtoScreen(this.innerText)">+</span>
+                <span onclick="addtoScreen(this.innerText)">-</span>
+                <span onclick="addtoScreen(this.innerText)">*</span>
+                <span onclick="addtoScreen(this.innerText)">/</span>
+            </div>  
+        </div>
+    
+        <div Style="clear: both;"></div>
+    </div>
+    
+    
+    </apex:outputPanel>
+</apex:outputPanel>
+<!--</apex:form>-->
+
+<!--<apex:form > -->
+<!-- calculation canvas Ends here --->
+
+  <script>
+    document.getElementById("RPNcopy").innerHTML="{!orignalCalcValue}";
+  </script>
+  <apex:outputPanel id="doneBtnId">
+    <apex:outputPanel id="doneBtnId1" rendered="{!showDoneBtn}">
+        <center> <br/><br/>
+        <div id="done" style="cursor:pointer;height:30px;width: 10%;background-color: #4b67a1;margin-bottom: 7px;color: white;font-weight: bold;border-radius: 8px;padding-top: 10px;" onclick="callD()"> 
+            {!$Label.SPE_Done}
+        </div>
+        
+        <!--<apex:commandButton action="{!backToKPI}" value="{!$Label.SPE_Done}" rendered="{!IF(showCondition=='true',true,false)}"/>-->
+    </center>
+    </apex:outputPanel>
+  </apex:outputPanel>
+  <apex:actionFunction action="{!backToKPI}" status="save-status" name="callDone"  reRender="mes,canvsCalcId"/>
+  <apex:actionFunction action="{!updateIfElse}" status="save-status" name="updateIfElse" reRender="xyz">
+
+<apex:param name="r1" value=""/>
+<apex:param name="r1Exp" value=""/>
+<apex:param name="r2" value=""/> 
+<apex:param name="r2Exp" value=""/>
+<apex:param name="r3" value=""/>
+<apex:param name="r3Exp" value=""/> 
+</apex:actionFunction>
+</apex:form>
+
+</apex:page>

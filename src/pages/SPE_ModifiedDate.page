@@ -1,0 +1,61 @@
+<apex:page sidebar="false" showHeader="false" controller="SPE_ModifiedDateEXT">
+
+<style>
+p {
+  -moz-animation-duration: 400ms;
+  -moz-animation-name: blink;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: alternate;
+  
+  -webkit-animation-duration: 400ms;
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  
+  animation-duration: 400ms;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@-moz-keyframes blink {
+  from {
+    opacity: 1;
+  }
+  
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes blink {
+  from {
+    opacity: 1;
+  }
+  
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  
+  to {
+    opacity: 0;
+  }
+}
+</style>
+ <center>
+ <b>Current Simulated System Date:</b><br/>
+ <p id="blink">
+ <font size="6">
+ <apex:outputText value="{0, date, MMM d','  yyyy}" >
+    <apex:param value="{!s}" />
+</apex:outputText>
+</font>
+</p>
+ </center>
+</apex:page>

@@ -1,0 +1,86 @@
+<apex:page standardController="SPE_SurveyQuestion__c" extensions="SPE_AddQuestionAnswerExt">
+    <apex:variable var="PICount" value="{!0}" />
+    <apex:repeat value="{!SPE_SurveyQuestion__c.PI_Data__r}" var="row">
+            <apex:variable var="PICount" value="{!PICount+1}" />
+    </apex:repeat>
+<style>
+.statusStyle {
+    background:url(/img/loading.gif) no-repeat 0 0; 
+    padding-left:20px; 
+    margin-left:10px; 
+    padding-bottom:5px; 
+}
+</style>
+     <head>
+        <script>
+            if (!'{!$CurrentPage.parameters.isClone}' && '{!speSurvey.id}'!= '' && '{!PICount}' != 0)
+            {
+                
+                alert('Editing a Question which is used by a PI, is not allowed.\n' +
+                      'You can find all the PI linkages below the question in a table.\n'+
+                      '-If all linked PI are in (Draft/Pilot Stage), De-link Question linked from PI(s).\n'+
+                      '-If any of the linked PI are not in (Draft/Pilot Stage), Question can not be editable.');
+                       
+                       window.location.href="/{!speSurvey.Id}";
+                
+            }
+        </script>
+    </head>
+    <apex:outputpanel id="op" rendered="{!IF((PICount == 0|| $CurrentPage.parameters.isClone == 'true' || speSurvey.id == null),true,false)}">
+    <apex:form >
+      <apex:pageBlock id="detail">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="{!$Label.SPE_Save}" action="{!save}" />
+                <!-- ********************* Amjad change Cancel to CancelQuestion method button code ************************ --> 
+                <apex:commandButton value="{!$Label.SPE_Cancel}" action="{!cancelQuestion}" immediate="true" />
+             </apex:pageBlockButtons>
+             <apex:pageMessages id="myMsg" />
+             <apex:PageBlockSection title="{!$Label.SPE_GenInfo}" collapsible="false" columns="2">
+                <apex:inputField value="{!speSurvey.QuestionLabel__c}" required="true"/> 
+                <apex:inputField value="{!speSurvey.IsRequired__c}" />
+                <apex:inputField value="{!speSurvey.SurveyQuestion__c}" required="true" style="width:300px;height:100px"/>
+              <!--  <apex:inputField value="{!speSurvey.QuestionAbbreviation__c}" required="true"/> -->
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.SPE_SurveyQuestion__c.fields.AnswerType__c.label}"  for="answerType"/>
+                <apex:actionRegion >
+                <apex:inputField value="{!speSurvey.AnswerType__c}" id="answerType" required="true">
+                    <apex:actionSupport event="onchange" rerender="Answers" status="myStatus" action="{!deleteAllAnswer}" />
+                </apex:inputField>
+                <apex:actionStatus id="myStatus" startText="{!$Label.SPE_Processing}"   stopText=""   startStyleClass="statusStyle"/>
+                </apex:actionRegion>
+                </apex:pageBlockSectionItem> 
+                </apex:PageBlockSection>
+               <!-- <apex:PageBlockSection title="{!$Label.SPE_ScopeMap}" collapsible="false" columns="2">
+                <apex:inputField value="{!speSurvey.GeoScope__c}" required="true"/>
+                <apex:inputField value="{!speSurvey.CategoryScope__c}"  required="true"/>             
+                
+                <apex:inputHidden value="{!speSurvey.BUScope__c}" />             
+                
+                <apex:inputField value="{!speSurvey.BUScope__c}" required="true"/>
+                
+              </apex:PageBlockSection> -->
+      </apex:pageBlock>
+      <apex:pageBlock id="Answers">
+            <apex:commandButton value="{!$Label.SPE_AddNewAnswers}" action="{!addAnswers}"
+                    reRender="Answers" immediate="true" disabled="{!IF(speSurvey.AnswerType__c ='Picklist',false,true)}"/>
+            <apex:variable var="rowNumber" value="{!0}" />
+            <apex:pageBlockTable value="{!speAnswers}" var="item">
+                    <apex:column headerValue="{!$Label.SPE_Action}">
+                    <input type="Button" value="{!$Label.SPE_Delete_Button}" id="{!rowNumber}"
+                        onclick="deleteQueAns(this.id)"/>
+                    <apex:variable var="rowNumber" value="{!rowNumber+1}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.SPE_Answer}">
+                    <apex:inputfield value="{!item.Choices__c}" required="True" style="width:400px;height:15px"/>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.SPE_Score}">
+                    <apex:inputfield value="{!item.Score__c}" required="True" style="width:100px;height:15px"/>
+                    </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:actionFunction action="{!deleteQuestionAnswer}" name="deleteQueAns" reRender="Answers" immediate="TRUE">
+            <apex:param name="rowIndex" value="" />
+        </apex:actionFunction>
+    </apex:form>
+    </apex:outputPanel>
+</apex:page>

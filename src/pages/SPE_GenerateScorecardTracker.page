@@ -1,0 +1,82 @@
+<apex:page id="pgId" standardController="SPE_ScorecardGenerator__c" extensions="SPE_ScorecardGenerator">
+    <apex:form id="fm">
+        <apex:actionFunction id="af" name="GenerateTracker" action="{!generateTracker}" />
+        
+    </apex:form>
+   <apex:includeScript value="{!$Resource.SPE_Connection}"/>
+   <apex:includeScript value="{!$Resource.SPE_ApexJs}"/>
+    <script>
+    
+
+        var stage = '{!JSENCODE(scoreCardgenerate.Stage__c)}';
+        <!-- *************-Commented Line During Encryption *************-->
+        <!--var isTrackerCreated = Boolean('{!JSENCODE(IF(isTrackerCreated ,"true", "false"))}');-->
+        
+        <!-- *************-Added Below Line *************-->
+        var isTrackerCreated = {!isTrackerCreated};
+        
+        window.$Label = window.$Label || {};
+        $Label.alertMsg = '{!JSENCODE($Label.SPE_ScorecardTrackerGenerated)}';
+        
+         try{ 
+                var query = "SELECT Scorecardtemplate_Stage__c from SPE_ScorecardGenerator__c where id = '{!stID}'"; 
+                var query2 = "SELECT ScorecardGenerator__c from SPE_ScorecardSupplierMap__c where ScorecardGenerator__c = '{!stID}'"; 
+                sforce.connection.sessionId = '{!$Api.Session_ID}';
+                sforce.connection.sessionId = '{!$Api.Session_ID}'; 
+                
+                var records = sforce.connection.query(query); 
+                var supRec = sforce.connection.query(query2);
+                
+                var records1 = records.getArray('records'); 
+                
+                  if(supRec.size == 0)
+                  {
+                      alert('Please add Suppliers to Publish the Scorecard Generator');
+                       window.location.href='/{!scoreCardgenerate.Id}';
+                  }
+                    
+                   else if(records1[0].Scorecardtemplate_Stage__c == 'Obsolete')
+                   {
+                       alert('Publish not successful, as the attached Scorecard Template is Obsolete');
+                       window.location.href='/{!scoreCardgenerate.Id}';
+                   }
+                  else
+                  {
+                      
+                            if (stage == 'Draft')
+                            {
+                                if (isTrackerCreated == true)
+                                {
+                                    alert(typeof isTrackerCreated);
+                                    alert(isTrackerCreated);
+                                    alert($Label.alertMsg);
+                                    
+                                    window.location.href='/{!scoreCardgenerate.Id}';
+                                }
+                                else
+                                {
+                                    GenerateTracker();  
+                                }
+                            }
+                            else 
+                            {
+                                alert($Label.alertMsg);
+                                window.location.href='/{!scoreCardgenerate.Id}';
+                                
+                            }   
+        
+                          
+                  }
+                
+                 
+            } 
+            catch(e){ 
+                alert('An Error has Occured. Error:' +e); 
+            }
+        
+        
+        
+        
+        
+    </script>
+</apex:page>

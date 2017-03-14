@@ -1,0 +1,168 @@
+<apex:page controller="QIPPProjectsByPortfolioName" sidebar="false" showHeader="false">
+<apex:form >
+    
+     <table  height="50px" width="100%">
+    <tr align="right">
+    
+   <TD align="right" width="90%"><B><apex:commandlINK value="Print Report" Title="Print Report" onClick="window.print()" /></B></TD>
+   <TD align="right" width="100%"><B><apex:commandlink value="Back To DashBoard" Title="Back To DashBoard" action="{!ReturnFromPortfolioName}" /></B> </td>
+    </tr>
+    </table>
+   <apex:pageBlock >
+   <br/> 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   
+   <font size="5"><b>Summary of Projects by Portfolio Name</b></font>
+
+        <br/><br/><br/>
+   
+        <apex:chart height="400" width="900" data="{!Data}">
+          <apex:axis type="Numeric" position="left" fields="count" title="# Of Active Projects" grid="true"/>
+            <apex:axis type="Numeric" position="right" fields="ahead,onplan,behind,tbd" grid="true" />
+            <apex:axis type="Category" position="bottom" fields="pfname" title="Portfolio Name">
+          </apex:axis>
+        
+          <apex:barSeries orientation="vertical" axis="left" xField="pfname" yField="count" stacked="true" showInLegend="false">
+          <apex:chartTips height="20" width="120"/>
+          </apex:barSeries>
+          <apex:barSeries orientation="vertical" axis="right" xField="pfname" yField="ahead,onplan,behind,tbd" stacked="true" title="Ahead,Behind,On Plan,TBD">
+          <apex:chartTips height="20" width="120"/>
+          </apex:barSeries>
+          <apex:legend position="right" spacing="28" padding="10"></apex:legend>
+        </apex:chart> 
+   
+   <br/>
+
+   <br/>  
+   <table border="1">
+   <tr>
+   <th bgcolor="#7F10A2" align="center"><font color="white"><center>Portfolio Name</center></font></th>
+   <th bgcolor="#7F10A2"><font color="white"><center># of Active Projects</center></font></th>
+   <th bgcolor="#7F10A2"><font color="white"><center># of Projects  Ahead of Plan</center></font></th>
+   <th bgcolor="#7F10A2"><font color="white"><center># of Projects On Plan</center></font></th>
+   <th bgcolor="#7F10A2"><font color="white"><center># of Projects Behind Plan</center></font></th>
+   <th bgcolor="#7F10A2"><font color="white"><center># of Projects Schedule Status TBD</center></font></th>
+   </tr>
+          <apex:Repeat value="{!Table}" var="wrap">
+             <tr>
+             
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.pfname}
+             
+              <!--<apex:form >
+                                        
+               
+                <apex:commandlink action="{!gotonewpage}" target="_blank">
+                {!wrap.pfname}
+                <apex:param name="qlt" value="{!wrap.pfname}"/>
+                </apex:commandlink>
+                                       
+                </apex:form>-->
+             
+             
+             </td>
+              
+             <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >{!wrap.count}</td>  
+             
+              <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                     <td>
+                         <table>
+                             <tr>
+                                <td rowspan="2" VALIGN="CENTER" ALIGN="CENTER" bgcolor="WHITE" width = "50px" >
+                                    <apex:outputText value="{!wrap.ahead}"></apex:outputText>
+                                    <!--<apex:form >
+                                        <apex:commandLink action="{!getLink}" rendered="{!wrap.ahead!=0}">{!wrap.ahead}</apex:commandLink>
+                                        <apex:commandlink action="{!gotonewpage}">
+                                            {!wrap.ahead}
+                                            <apex:param name="q"  value="{!wrap.ahead}"  assignTo="{!strAhead}" />
+                                            <apex:param name="a1" value="{!wrap.pfname}"  assignTo="{!strQLTFunctionName}" />
+                                        </apex:commandlink>
+                                         
+                                    </apex:form>-->
+                                </td>
+                                
+                                <td colspan="2" VALIGN="CENTER" ALIGN="CENTER" width = "50px"  >
+                                  <font size="2"><b>  <apex:outputText value="{!wrap.rowtype1}"></apex:outputText></b></font>
+                                </td>  
+                             </tr>   
+                            </table>
+                        </td> 
+                     </tr>
+                 </table>
+             </td> 
+             
+           <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                     <td>
+                         <table >
+                             <tr>
+                                <td rowspan="2" VALIGN="CENTER" ALIGN="CENTER" bgcolor="WHITE" width = "50px" >
+                                    <apex:outputText value="{!wrap.onplan}"></apex:outputText>
+                                </td>
+                                
+                                <td colspan="2" VALIGN="CENTER" ALIGN="CENTER" width = "50px"  >
+                                    <font size="2"><b>  <apex:outputText value="{!wrap.rowtype2}"></apex:outputText></b></font>
+                                </td>  
+                             </tr>   
+                            </table>
+                        </td> 
+                     </tr>
+                 </table>
+             </td> 
+             
+            <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                     <td>
+                         <table >
+                             <tr>
+                                <td rowspan="2" VALIGN="CENTER" ALIGN="CENTER" bgcolor="WHITE" width = "50px" >
+                                    <apex:outputText value="{!wrap.behind}"></apex:outputText>
+                                </td>
+                                
+                                <td colspan="2" VALIGN="CENTER" ALIGN="CENTER" width = "50px"  >
+                                    <font size="2"><b>  <apex:outputText value="{!wrap.rowtype3}"></apex:outputText></b></font>
+                                </td>  
+                             </tr>   
+                            </table>
+                        </td> 
+                     </tr>
+                 </table>
+             </td> 
+             
+            <td VALIGN="CENTER" ALIGN="CENTER" bgcolor="white" >
+                 <table>
+                     <tr>
+                     <td>
+                         <table >
+                             <tr>
+                                <td rowspan="2" VALIGN="CENTER" ALIGN="CENTER" bgcolor="WHITE" width = "50px" >
+                                    <apex:outputText value="{!wrap.tbd}"></apex:outputText>
+                                </td>
+                                
+                                <td colspan="2" VALIGN="CENTER" ALIGN="CENTER" width = "50px"  >
+                                    <font size="2"><b>  <apex:outputText value="{!wrap.rowtype4}"></apex:outputText></b></font>
+                                </td>  
+                             </tr>   
+                            </table>
+                        </td> 
+                     </tr>
+                 </table>
+             </td> 
+ 
+              
+           
+             </tr> 
+         </apex:Repeat>
+      </table>
+      <br/>
+      <font size="3"><b>For a detailed report of all projects by Portfolio Name, please  
+      &nbsp;<apex:outputLink value="/00OK0000000Oo4s" target="_blank">click here</apex:outputLink>.
+      </b></font>
+    </apex:pageBlock>  
+    </apex:form>
+</apex:page>

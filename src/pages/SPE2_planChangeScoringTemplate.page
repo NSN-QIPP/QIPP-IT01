@@ -1,0 +1,15 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE2_PlanChangeScoringTemplate">
+    <apex:form >
+        <apex:pageBlock title="Selected Plans">
+            <apex:pageBlockSection >
+                <apex:inputField value="{!spePlan.SPEScoringTemplate__c}" label="Select a Scoring Template"/>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Change Scoring Template" action="{!updateSPEPlans}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="Return" action="{!returnbackToPlan}"/><br/>
+            <apex:pageBlockTable value="{!spePlanList}" var="pl">
+                <apex:column value="{!pl.Name}" headerValue="SPE Plan"/>
+                <apex:column value="{!pl.SPEScoringTemplate__c}" headerValue="Scoring Template"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

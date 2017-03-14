@@ -1,0 +1,76 @@
+<apex:page id="pgid" standardController="SPE_ScorecardTemplate__c" extensions="SPE_ScorecardTemplateLifecycleEXT" sidebar="false" rendered="{!IsAccess}" showheader="false" standardStylesheets="false">
+<apex:stylesheet value="{!$Resource.SPE_bootstraps}/css/bootstrap.min.css"/>
+<apex:includeScript value="{!$Resource.SPE_bootstraps}/js/bootstrap.min.js"/> 
+<apex:includeScript value="{!$Resource.JqueryMin}"/>
+<apex:stylesheet value="{!$Resource.SPE_Lifecycle}/fileupload.css"/>
+<apex:includeScript value="{!$Resource.AngularJs}"/>
+
+<script>
+function publishedfunction () {
+     
+    if(confirm("Are you sure you want to Publish the ScorecardTemplate?")) {
+     chkspetemp();
+        
+    }
+} 
+
+function chkspetemp(){
+    var d = document.getElementById('pgid:frmID:alertID').value;
+    
+    if(d=='true')
+    alert('The Scorecard template cannot be published as one or more SPE Templates are not published');
+    else
+     PublishNow();
+    
+}
+function obsoletefunction() {
+    if(confirm("Are you sure you want to Obsolete the ScorecardTemplate?")) {
+    ObsoleteNow();
+    }
+} 
+
+function pilotfunction() {
+    if(confirm("Are you sure you want to Pilot the ScorecardTemplate?")) {
+    PilotNow();
+    }
+} 
+
+function onPublish() {
+    
+    window.top.location.href = '/{!RecordId}';
+    
+}
+function onObsolete() {
+    
+    window.top.location.href = '/{!RecordId}';
+    
+}
+function onPilot() {
+    
+    window.top.location.href = '/{!RecordId}';
+    
+}
+</script>
+
+
+
+<apex:form id="frmID">
+
+    <apex:inputhidden value="{!alertflag}" id="alertID"/>
+    <apex:outputPanel rendered="{!IsAccess}">
+        <center>
+     <!--   <apex:commandButton rendered="true" value="Draft" disabled="{!!draft}" styleclass="btn btn-primary"/> -->
+        <apex:commandButton rendered="true" value="Pilot" disabled="{!!pilot}" onclick="pilotfunction();" oncomplete="OnPilotConfirm ()" styleclass="btn btn-primary"/>
+        <apex:commandButton rendered="true" value="Published" disabled="{!!published}" onclick="publishedfunction();" oncomplete="OnPublishedConfirm ()" styleclass="btn btn-primary"/>
+        <apex:commandButton rendered="true" value="Obsolete" disabled="{!!obsolete}" onclick="obsoletefunction();" oncomplete="OnObsoleteConfirm ()" styleclass="btn btn-primary"/>    
+        </center>
+    </apex:outputPanel>
+    
+    
+    <apex:actionFunction action="{!StagePublished}" status="processStatus" name="PublishNow" oncomplete="onPublish();"/>
+    <apex:actionFunction action="{!StageObsolete}" status="processStatus" name="ObsoleteNow" oncomplete="onObsolete();"/>
+    <apex:actionFunction action="{!StagePilot}" status="processStatus" name="PilotNow" oncomplete="onPilot();"/>
+    
+       
+</apex:form>
+</apex:page>

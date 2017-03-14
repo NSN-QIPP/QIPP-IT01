@@ -1,0 +1,5 @@
+<apex:page controller="MCARReportController" contentType="text/csv#MCAR_Scorecard_Report_Data_{!YEAR(today())}-{!MONTH(today())}-{!DAY(today())}.csv" cache="true" showHeader="false" sidebar="false" standardStylesheets="false" >Period,Enterprise Id,Manufacturer,Category Area,Cagegory Group,category,MCAR Cases,Quantity,3D CT Avg,4D CT Avg,Close CT Avg,Field Failiuer<apex:repeat value="{!ListMcarData}" var="ls" ><apex:repeat value="{!ls}" var="r" >
+        {!r.Period},{!r.EID},{!r.manufacturer},{!r.categoryArea},{!r.CategoryGroup},{!r.category},{!r.MCARCases},{!r.quantity},{!r.CT3Davg},{!r.CT4Davg},{!r.CTMCARavg},{!r.FieldFailurer}
+    </apex:repeat> 
+</apex:repeat>
+</apex:page>

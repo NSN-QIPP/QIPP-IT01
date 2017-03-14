@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;font face=&quot;Arial, sans-serif&quot; size=&quot;4&quot;&gt;&lt;u&gt;&lt;b&gt;1st Jul 2013&lt;/b&gt;&lt;/u&gt;&lt;/font&gt;
+&lt;div&gt; &lt;/div&gt;
+
+&lt;div&gt;
+&lt;p class=&quot;MsoNormal&quot;&gt;Please be advised that the MCAR tool is under maintenance right now:&lt;/p&gt;
+
+&lt;p class=&quot;MsoNormal&quot;&gt; &lt;/p&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: rgb(255, 0, 0); font-size: 10pt;&quot;&gt;Please &lt;b&gt;avoid creating a new MCAR &lt;/b&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: rgb(255, 0, 0); font-size: 10pt;&quot;&gt;Also, please &lt;b&gt;avoid modifying an existing MCAR&lt;/b&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+
+&lt;p class=&quot;MsoNormal&quot;&gt;This message will be updated once the maintenance is done and the tool is ready to be used.&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+&lt;/div&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>

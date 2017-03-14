@@ -1,0 +1,941 @@
+<apex:page showHeader="false" renderAs="pdf"  standardController="SPE_ScoreCard__c" extensions="SPE2_scorecardEXT">
+<apex:form >
+<!--  -->
+<div class="container">
+    
+        <div class="panel-heading" style='"background:#DCE6F1";font-size:12.0pt;font-family:"Sans-Serif"'>
+            <center style="background:#DCE6F1">
+               <b> {!SPE_ScoreCard__c.ScorecardTitle__c} </b>
+            </center> 
+            <div align="right"> 
+                <b>{!SPE_ScoreCard__c.Stage__c}</b><br/>             
+            </div>        
+        </div>
+        <div style="clear:both"/>
+        <br/><br/>
+        <!-- 1st section -->
+     
+            <div style="background:#DCE6F1;width:100%">
+            <div style="float:left;width:30%;">
+                <table style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                    <tr>
+                        <td><b> Enterprise Id: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.name}  </td>
+                    </tr>
+                    <tr>
+                        <td><b> Category Area : </b>  </td>
+                        <td> {!SPE_ScoreCard__c.CategoryCluster__c}   </td>
+                    </tr>
+                    <tr>
+                        <td><b> Category Group : </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.CategoryGroup__c}   </td>
+                    </tr>
+                    <tr>
+                       <td><b> Category : </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.Category__c}   </td>
+                       
+                    </tr>
+                    <tr>
+                        <td><b> Business Unit:</b>  </td>
+                        <td>  {!SPE_ScoreCard__c.BusinessUnit__c}   </td>
+                    </tr>
+                    <tr>
+                        <td><b> Business Line: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.BusinessLine__c}   </td>
+                    </tr>
+                     <tr>
+                        <td><b> Product: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.Product__c}   </td>
+                    </tr>
+                </table>            
+            </div>
+            
+           <div style="float:left;width:35%;font-size: 30px;">
+                <b><center>
+                Score
+                </center></b><br/><br/>
+                <center>{!OverallScore}</center>
+            </div>
+            <div style="float:left;width:30%;">
+                <table style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                    <tr>
+                        <td><b> Region: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.Region__c}   </td>
+                    </tr>
+                    <tr>
+                        <td><b> Sub Region: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.SubRegion__c}  </td>
+                    </tr>
+                    <tr>
+                        <td><b> Country: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.Country__c}  </td>
+                    </tr>
+                    <tr>
+                        <td><b> Project: </b>  </td>
+                        <td>  {!SPE_ScoreCard__c.Project__c}   </td>
+                    </tr>
+                    <apex:outputpanel rendered="{!SPE_ScoreCard__c.DisplaySpend__c}"> 
+                    <tr>
+                        <td>  <b> Spend In EUR: </b>  </td>
+                        <td>      </td>
+                    </tr>
+                    </apex:outputPanel>
+                    <apex:outputpanel rendered="{!SPE_ScoreCard__c.DisplayUnits__c}"> 
+                    <tr>
+                        <td>  <b> Units: </b>  </td>
+                        <td>      </td>
+                    </tr>
+                    </apex:outputPanel>
+                    
+                   <tr>
+                        <td><b> Evaluation Period: </b>  </td>
+                        <td>  
+                        <apex:outputPanel rendered="{!!isPPUser}">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                              <apex:param value="{!SPE_ScoreCard__c.StartDate__c}" /> 
+                              </apex:outputText> - 
+                              <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                              <apex:param value="{!SPE_ScoreCard__c.EndDate__c}" /> 
+                              </apex:outputText>   
+                         </apex:outputPanel>
+                         <apex:outputPanel rendered="{!isPPUser}"> 
+                             <apex:outputText value="{!SPE_ScoreCard__c.ScorecardTracker__r.Name}" />
+                         </apex:outputPanel>    
+                         </td>
+                    </tr>
+                    <tr>
+                        <td><b> Approval Type </b></td>
+                        <td><apex:outputText value="{!SPE_ScoreCard__c.Approval_Type__c}"/></td>
+                    </tr>
+                </table> 
+            </div>
+            </div>
+        <div style="clear:both"/>
+        <!-- End of 1st section -->
+ 
+ </div>  
+ 
+     <br/>    
+    <div>
+            <table width="100%" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+              <apex:repeat value="{!TemplateDisplay }" var="p">
+                <tr>
+                <td width="80%">{!p.SPE_Template_Name__c}</td>
+               <td> <apex:outputText value="{0, number, 0.00}">
+                      <apex:param value="{!p.Score__c }" />
+                </apex:outputText>
+                </td>
+                </tr>
+              </apex:repeat>  
+             </table>   
+        </div>     
+        <br/>
+        
+         <div>
+ <!--        <apex:outputLabel value="Select Alternate Language"></apex:outputLabel>
+        
+     <apex:selectList id="lang" value="{!inputLanguage}" size="1">
+           <apex:selectOptions value="{!LanguageValues}"/>
+           <apex:actionSupport event="onchange" action="{!refreshLanguage}"/>  
+      </apex:selectList> -->  
+        </div> 
+               
+        <apex:repeat value="{!scorecarddisplayNew}" var="p">
+        <div  style="background:#FFC000;height:20px">
+            <center><b>{!p.TemplateName} </b></center>
+        </div>
+        
+        <apex:outputPanel rendered="{!if(p.QualityScore != null ,true,false)}">
+        <div  style="background:#92D050;height:20px">
+            <center><b>Quality</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!p.QualityScore}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputPanel rendered="{!dispPillarWeight}">
+                {!p.QualityPillar}%
+            </apex:outputPanel>
+            </center>            
+        </div>
+        
+        <div>
+            <table width="700px" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                <tr>
+                   <td style="background:#DDD9C4;width:30px;">
+                        <center> KPI Abbr </center>
+                    </td>
+                    <td style="background:#DDD9C4;width:50px;">
+                        <center> KPI NAME </center>
+                    </td>
+                    <td style="background:#DDD9C4;display:{!IF((showLangcol == true),'block', 'none')};">
+                        <center> KPI Name in {!inputlanguage} Language </center>
+                    </td>
+                                       
+                    <td style="background:#DDD9C4;width:30px;">                        
+                        <apex:outputPanel rendered="{!dispKPIWeight}">
+                            <center> KPI Weight </center>
+                        </apex:outputPanel>
+                    </td>
+                                                                                    
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPIval}">
+                        <center> KPI Value </center>
+                        </apex:outputPanel>
+                    </td>
+                            
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPITarget}">
+                        <center> KPI Target </center>
+                        </apex:outputPanel>
+                    </td>
+                                     
+                    <td style="background:#DDD9C4;width:30px;">
+                        <center>Score  </center>
+                    </td >
+                   <!-- <td style="background:#DDD9C4;width:10%">
+                        <center> Data Measure</center>
+                    </td >-->
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center>  KPI Target </center>
+                    </td >-->
+                     <td style="background:#DDD9C4;width:40px;">
+                        <center> Performance </center>
+                    </td>    
+                </tr>
+                <apex:repeat value="{!p.quality1}" var="d">
+                    <tr>
+                        <td style="width:30px">
+                        <center> <apex:outputText value="{!d.KPiAbbr1}" rendered="{!!d.Confidential1}"/> </center>
+                        </td>
+                        <td style="width:50px">
+                      <!--*******************************************Changes For Encryption****************************************-->  
+                        <!--<center> <apex:outputText value="{!d.kpi__r.name}" rendered="{!!d.kpi__r.Confidential__c}"/> </center>-->
+                        <center> <apex:outputText value="{!d.KPiname1}" rendered="{!!d.Confidential1}"/> </center>
+                      <!--*******************************************END****************************************--> 
+                        </td>
+                        <td style="display:{!IF((showLangcol == true),'block', 'none')};">
+                        <apex:outputPanel rendered="{!!d.Confidential1}">
+                        <center> <apex:outputText value="{!d.selectedLanguage1}"  rendered="{!!d.Confidential1}"/> </center>
+                        </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px;">
+                           <apex:outputPanel rendered="{!dispKPIWeight}">
+                                <center> <apex:outputText value="{!d.kpiWeight1}%"/></center>
+                           </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPIval}">
+                            <center> 
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.kpiVal1}"/> 
+                            </apex:outputText>
+                            </center>
+                            </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPITarget}">
+                            <center> <apex:outputText value="{!d.kpiTarget1}"/> </center>
+                            </apex:outputPanel>
+                        </td>
+                        
+                        
+                        <td style="width:30px">
+                            <center> 
+                            <apex:outputPanel rendered="{!!d.Confidential1}">
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.Score1}"/> 
+                            </apex:outputText>
+                            </apex:outputPanel>
+                             </center>
+                        </td >
+                       <!-- <td style="width:10%">
+                            <center> <apex:outputText value="%" rendered="{!!d.kpi__r.Confidential__c}"/> </center>
+                        </td >-->
+                        <td style="width:40px">
+                            <center>
+                            <apex:outputPanel rendered="{!if(d.Score1 <= 2 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.RedDot)}" width="25" height="25"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 > 2 ,true,false) && if(d.Score1 < 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.YellowDot)}" width="22" height="22"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 >= 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.GreenDot)}" width="23" height="25"/>
+                            </apex:outputPanel>
+                             </center>
+                        </td>    
+                    </tr>
+                </apex:repeat>
+            </table>
+        </div>
+        </apex:outputPanel>
+        
+        
+         <apex:outputPanel rendered="{!if(p.DeliveryScore != null ,true,false)}">
+        <div  style="background:#92D050;height:20px">
+            <center><b>Delivery</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!p.DeliveryScore}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputPanel rendered="{!dispPillarWeight}">
+                {!p.DeliveryPillar}%
+            </apex:outputPanel>
+            </center>           
+        </div>
+        
+        <div>
+            <table width="700px" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                <tr>
+                   <td style="background:#DDD9C4;width:30px">
+                        <center> KPI Abbr </center>
+                    </td>
+                    <td style="background:#DDD9C4;width:50px">
+                        <center> KPI NAME </center>
+                    </td>
+                     <td style="background:#DDD9C4;display:{!IF((showLangcol == true),'block', 'none')};">
+                        <center> KPI NAME in {!inputlanguage} Language </center>
+                    </td>
+                    
+                      <td style="background:#DDD9C4;width:30px;">                        
+                        <apex:outputPanel rendered="{!dispKPIWeight}">
+                            <center> KPI Weight </center>
+                        </apex:outputPanel>
+                    </td>
+                                                                                    
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPIval}">
+                        <center> KPI Value </center>
+                        </apex:outputPanel>
+                    </td>
+                            
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPITarget}">
+                        <center> KPI Target </center>
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td style="background:#DDD9C4;width:30px">
+                        <center>Score  </center>
+                    </td >
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center> Data Measure</center>
+                    </td >-->
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center>  KPI Target </center>
+                    </td >-->
+                    <td style="background:#DDD9C4;width:40px">
+                        <center> Performance </center>
+                    </td>
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!p.Delivery1}" var="d">
+                    <tr>
+                        <td style="width:30px">
+                        <center> <apex:outputText value="{!d.KPiAbbr1}" rendered="{!!d.Confidential1}"/> </center>
+                        </td>
+                        <td style="width:50px">
+                      <!--*******************************************Changes For Encryption****************************************-->  
+                        <!--<center> <apex:outputText value="{!d.kpi__r.name}" rendered="{!!d.kpi__r.Confidential__c}"/> </center>-->
+                        <center> <apex:outputText value="{!d.KPiname1}" rendered="{!!d.Confidential1}"/> </center>
+                      <!--*******************************************END****************************************-->  
+                        
+                        </td>
+                        
+                        <td style="display:{!IF((showLangcol == true),'block', 'none')};">
+                        <apex:outputPanel rendered="{!!d.Confidential1}">
+                        <center> <apex:outputText value="{!d.selectedLanguage1}"  rendered="{!!d.Confidential1}"/> </center>
+                        </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px;">
+                           <apex:outputPanel rendered="{!dispKPIWeight}">
+                                <center> <apex:outputText value="{!d.kpiWeight1}%"/></center>
+                           </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPIval}">
+                            <center> 
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.kpiVal1}"/> 
+                            </apex:outputText>
+                            </center>
+                            </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPITarget}">
+                            <center> <apex:outputText value="{!d.kpiTarget1}"/> </center>
+                            </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px">
+                            <center> 
+                            <apex:outputPanel rendered="{!!d.Confidential1}">
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.Score1}"/> 
+                            </apex:outputText>
+                            </apex:outputPanel>
+                             </center>
+                        </td >
+                        <!--<td style="width:10%">
+                            <center> 
+                            <apex:outputText value="%" rendered="{!!d.kpi__r.Confidential__c}"/> 
+                            </center>
+                        </td >-->
+                        <td style="width:40px">
+                            <center>
+                            <apex:outputPanel rendered="{!if(d.Score1 <= 2 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.RedDot)}" width="25" height="25"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 > 2 ,true,false) && if(d.Score1 < 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.YellowDot)}" width="22" height="22"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 >= 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.GreenDot)}" width="23" height="25"/>
+                            </apex:outputPanel>
+                            </center>
+                        </td>    
+                    </tr>
+                    <apex:variable var="index" value="{!index + 1}" />
+                </apex:repeat>
+            </table>
+        </div>
+         </apex:outputPanel>
+       
+         
+        
+        <apex:outputPanel rendered="{!if(p.InnovationScore != null ,true,false)}">
+        <div  style="background:#92D050;height:20px">
+            <center><b>Innovation</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!p.InnovationScore}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputPanel rendered="{!dispPillarWeight}">
+                {!p.InnovationPillar}%
+            </apex:outputPanel>
+            </center>
+        </div>
+        
+        <div>
+            <table width="700px" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                <tr>
+                   <td style="background:#DDD9C4;width:30px">
+                        <center> KPI Abbr </center>
+                    </td>
+                    <td style="background:#DDD9C4;width:50px">
+                        <center> KPI NAME </center>
+                    </td>
+                    
+                    <td style="background:#DDD9C4;display:{!IF((showLangcol == true),'block', 'none')};">
+                        <center> KPI NAME in {!inputlanguage} Language </center>
+                    </td>
+                    
+                     <td style="background:#DDD9C4;width:30px;">                        
+                        <apex:outputPanel rendered="{!dispKPIWeight}">
+                            <center> KPI Weight </center>
+                        </apex:outputPanel>
+                    </td>
+                                                                                    
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPIval}">
+                        <center> KPI Value </center>
+                        </apex:outputPanel>
+                    </td>
+                            
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPITarget}">
+                        <center> KPI Target </center>
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td style="background:#DDD9C4;width:30px">
+                        <center>Score  </center>
+                    </td >
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center> Data Measure</center>
+                    </td >-->
+                   <!-- <td style="background:#DDD9C4;width:10%">
+                        <center>  KPI Target </center>
+                    </td >-->
+                    <td style="background:#DDD9C4;width:40px">
+                        <center> Performance </center>
+                    </td>     
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!p.Innovation1}" var="d">
+                     <tr>
+                        <td style="width:30px">
+                        <center> <apex:outputText value="{!d.KPiAbbr1}" rendered="{!!d.Confidential1}"/> </center>
+                        </td>
+                        <td style="width:50px">
+                      <!--*******************************************Changes For Encryption****************************************-->  
+                        <!--<center> <apex:outputText value="{!d.kpi__r.name}" rendered="{!!d.kpi__r.Confidential__c}"/> </center>-->
+                        <center> <apex:outputText value="{!d.KPiname1}" rendered="{!!d.Confidential1}"/> </center>
+                      <!--*******************************************END****************************************-->  
+                        </td>
+                       
+                        <td style="display:{!IF((showLangcol == true),'block', 'none')};">
+                        <apex:outputPanel rendered="{!!d.Confidential1}">
+                        <center> <apex:outputText value="{!d.selectedLanguage1}"  rendered="{!!d.Confidential1}"/> </center>
+                        </apex:outputPanel>
+                        </td>
+                        
+                       <td style="width:30px;">
+                           <apex:outputPanel rendered="{!dispKPIWeight}">
+                                <center> <apex:outputText value="{!d.kpiWeight1}%"/></center>
+                           </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPIval}">
+                            <center> 
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.kpiVal1}"/> 
+                            </apex:outputText>
+                            </center>
+                            </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPITarget}">
+                            <center> <apex:outputText value="{!d.kpiTarget1}"/> </center>
+                            </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px">
+                            <center> 
+                            <apex:outputPanel rendered="{!!d.Confidential1}">
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.Score1}"/> 
+                            </apex:outputText>
+                            </apex:outputPanel>
+                             </center>
+                        </td >
+                        <!--<td style="width:10%">
+                            <center> <apex:outputText value="%" rendered="{!!d.kpi__r.Confidential__c}"/> </center>
+                        </td >-->
+                        <td style="width:40px">
+                            <center>
+                            <apex:outputPanel rendered="{!if(d.Score1 <= 2 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.RedDot)}" width="25" height="25"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 > 2 ,true,false) && if(d.Score1 < 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.YellowDot)}" width="22" height="22"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 >= 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.GreenDot)}" width="23" height="25"/>
+                            </apex:outputPanel>
+                             </center>
+                        </td>
+                      </tr>
+                       
+                  <apex:variable var="index" value="{!index + 1}" />
+                </apex:repeat>
+            </table>
+        </div>
+        </apex:outputPanel>
+        
+        
+        <apex:outputPanel rendered="{!if(p.RelationScore != null ,true,false)}">
+        <div  style="background:#92D050;height:20px">
+            <center><b>Relationship</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!p.RelationScore}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputPanel rendered="{!dispPillarWeight}">
+                {!p.RelationshipPillar}%
+            </apex:outputPanel>
+            </center>
+        </div>
+        
+        <div>
+            <table width="700px" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                <tr>
+                   <td style="background:#DDD9C4;width:30px">
+                        <center> KPI Abbr </center>
+                    </td>
+                    <td style="background:#DDD9C4;width:50px">
+                        <center> KPI NAME </center>
+                    </td>
+                     <td style="background:#DDD9C4;display:{!IF((showLangcol == true),'block', 'none')};">
+                        <center> KPI NAME in {!inputlanguage} Language</center>
+                    </td>
+                    
+                      <td style="background:#DDD9C4;width:30px;">                        
+                        <apex:outputPanel rendered="{!dispKPIWeight}">
+                            <center> KPI Weight </center>
+                        </apex:outputPanel>
+                    </td>
+                                                                                    
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPIval}">
+                        <center> KPI Value </center>
+                        </apex:outputPanel>
+                    </td>
+                            
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPITarget}">
+                        <center> KPI Target </center>
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td style="background:#DDD9C4;width:30px">
+                        <center>Score  </center>
+                    </td >
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center> Data Measure</center>
+                    </td >-->
+                   <!-- <td style="background:#DDD9C4;width:10%">
+                        <center>  KPI Target </center>
+                    </td >-->
+                    <td style="background:#DDD9C4;width:40px">
+                        <center> Performance </center>
+                    </td>     
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!p.relationship1}" var="d">
+                     <tr>
+                        <td style="width:30px">
+                        <center> <apex:outputText value="{!d.KPiAbbr1}" rendered="{!!d.Confidential1}"/> </center>
+                        </td>
+                        <td style="width:50px">
+                      <!--*******************************************Changes For Encryption****************************************-->  
+                        <!--<center> <apex:outputText value="{!d.kpi__r.name}" rendered="{!!d.kpi__r.Confidential__c}"/> </center>-->
+                        <center> <apex:outputText value="{!d.KPiname1}" rendered="{!!d.Confidential1}"/> </center>
+                      <!--*******************************************END****************************************-->  
+                        </td>
+                       
+                        <td style="display:{!IF((showLangcol == true),'block', 'none')};">
+                        <apex:outputPanel rendered="{!!d.Confidential1}">
+                        <center> <apex:outputText value="{!d.selectedLanguage1}"  rendered="{!!d.Confidential1}"/> </center>
+                        </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px;">
+                           <apex:outputPanel rendered="{!dispKPIWeight}">
+                                <center> <apex:outputText value="{!d.kpiWeight1}%"/></center>
+                           </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPIval}">
+                            <center> 
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.kpiVal1}"/> 
+                            </apex:outputText>
+                            </center>
+                            </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPITarget}">
+                            <center> <apex:outputText value="{!d.kpiTarget1}"/> </center>
+                            </apex:outputPanel>
+                        </td>
+                       
+                       <td style="width:30px">
+                            <center> 
+                            <apex:outputPanel rendered="{!!d.Confidential1}">
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.Score1}"/> 
+                            </apex:outputText>
+                            </apex:outputPanel>
+                             </center>
+                        </td >
+                        <!--<td style="width:10%">
+                            <center> <apex:outputText value="%" rendered="{!!d.kpi__r.Confidential__c}"/> </center>
+                        </td >-->
+                        <td style="width:40px">
+                            <center>
+                            <apex:outputPanel rendered="{!if(d.Score1 <= 2 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.RedDot)}" width="25" height="25"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 > 2 ,true,false) && if(d.Score1 < 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.YellowDot)}" width="22" height="22"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 >= 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.GreenDot)}" width="23" height="25"/>
+                            </apex:outputPanel>
+                             </center>
+                        </td>
+                      </tr>
+                       
+                  <apex:variable var="index" value="{!index + 1}" />
+                </apex:repeat>
+            </table>
+        </div>
+        </apex:outputPanel>
+        
+   
+            
+        <apex:outputPanel rendered="{!if(p.CostScore != null ,true,false)}">
+        <div  style="background:#92D050;height:20px">
+            <center><b>Commercial</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!p.CostScore}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputPanel rendered="{!dispPillarWeight}">
+                {!p.CostPillar}%
+            </apex:outputPanel>
+            </center>
+        </div>
+        
+        <div>
+            <table width="700px" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                <tr>
+                   <td style="background:#DDD9C4;width:30px">
+                        <center> KPI Abbr </center>
+                    </td>
+                    <td style="background:#DDD9C4;width:50px">
+                        <center> KPI NAME </center>
+                    </td>
+                    <td style="background:#DDD9C4;display:{!IF((showLangcol == true),'block', 'none')};">
+                        <center> KPI NAME in {!inputlanguage} Language</center>
+                    </td>
+                    
+                     <td style="background:#DDD9C4;width:30px;">                        
+                        <apex:outputPanel rendered="{!dispKPIWeight}">
+                            <center> KPI Weight </center>
+                        </apex:outputPanel>
+                    </td>
+                                                                                    
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPIval}">
+                        <center> KPI Value </center>
+                        </apex:outputPanel>
+                    </td>
+                            
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPITarget}">
+                        <center> KPI Target </center>
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td style="background:#DDD9C4;width:30px">
+                        <center>Score  </center>
+                    </td >
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center> Data Measure</center>
+                    </td >-->
+                   <!-- <td style="background:#DDD9C4;width:10%">
+                        <center>  KPI Target </center>
+                    </td >-->
+                     <td style="background:#DDD9C4;width:40px">
+                        <center> Performance </center>
+                    </td>  
+                </tr>
+                <apex:repeat value="{!p.cost1}" var="d">
+                    <tr>
+                        <td style="width:30px">
+                        <center> <apex:outputText value="{!d.KPiAbbr1}" rendered="{!!d.Confidential1}"/> </center>
+                        </td>
+                        <td style="width:50px">
+                     <!--*******************************************Changes For Encryption****************************************-->   
+                        <!--<center> <apex:outputText value="{!d.kpi__r.name}" rendered="{!!d.kpi__r.Confidential__c}"/> </center>-->
+                        <center> <apex:outputText value="{!d.KPiname1}" rendered="{!!d.Confidential1}"/> </center>
+                     <!--*******************************************END****************************************-->  
+                        </td>
+                        
+                        <td style="display:{!IF((showLangcol == true),'block', 'none')};">
+                        <apex:outputPanel rendered="{!!d.Confidential1}">
+                        <center> <apex:outputText value="{!d.selectedLanguage1}"  rendered="{!!d.Confidential1}"/> </center>
+                        </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px;">
+                           <apex:outputPanel rendered="{!dispKPIWeight}">
+                                <center> <apex:outputText value="{!d.kpiWeight1}%"/></center>
+                           </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPIval}">
+                            <center> 
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.kpiVal1}"/> 
+                            </apex:outputText>
+                            </center>
+                            </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPITarget}">
+                            <center> <apex:outputText value="{!d.kpiTarget1}"/> </center>
+                            </apex:outputPanel>
+                        </td>
+                       
+                        <td style="width:30px">
+                            <center>
+                            <apex:outputPanel rendered="{!!d.Confidential1}">
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.Score1}"/> 
+                            </apex:outputText>
+                            </apex:outputPanel> 
+                            </center>
+                        </td >
+                        <!-- <td style="width:10%">
+                            <center> <apex:outputText value="%" rendered="{!!d.kpi__r.Confidential__c}"/> </center>
+                        </td >-->
+                        <td style="width:40px">
+                            <center> 
+                            <apex:outputPanel rendered="{!if(d.Score1 <= 2 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.RedDot)}" width="25" height="25"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 > 2 ,true,false) && if(d.Score1 < 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.YellowDot)}" width="22" height="22"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 >= 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.GreenDot)}" width="23" height="25"/>
+                            </apex:outputPanel>
+                            </center>
+                        </td>    
+                    </tr>
+                </apex:repeat>
+            </table>
+        </div>
+        </apex:outputPanel>
+          <apex:outputPanel rendered="{!if(p.SustainabilityScore != null ,true,false)}">
+        <div  style="background:#92D050;height:20px">
+            <center><b>Sustainability</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!p.SustainabilityScore}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputPanel rendered="{!dispPillarWeight}">
+                {!p.SustainabilityPillar}%
+            </apex:outputPanel>
+            </center>           
+        </div>
+        
+        <div>
+            <table width="700px" style='font-size:10.0pt;font-family:"Sans-Serif"'>
+                <tr>
+                   <td style="background:#DDD9C4;width:30px">
+                        <center> KPI Abbr </center>
+                    </td>
+                    <td style="background:#DDD9C4;width:50px">
+                        <center> KPI NAME </center>
+                    </td>
+                     <td style="background:#DDD9C4;display:{!IF((showLangcol == true),'block', 'none')};">
+                        <center> KPI NAME in {!inputlanguage} Language </center>
+                    </td>
+                    
+                      <td style="background:#DDD9C4;width:30px;">                        
+                        <apex:outputPanel rendered="{!dispKPIWeight}">
+                            <center> KPI Weight </center>
+                        </apex:outputPanel>
+                    </td>
+                                                                                    
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPIval}">
+                        <center> KPI Value </center>
+                        </apex:outputPanel>
+                    </td>
+                            
+                    <td style="background:#DDD9C4;width:30px;">
+                        <apex:outputPanel rendered="{!dispKPITarget}">
+                        <center> KPI Target </center>
+                        </apex:outputPanel>
+                    </td>
+                    
+                    <td style="background:#DDD9C4;width:30px">
+                        <center>Score  </center>
+                    </td >
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center> Data Measure</center>
+                    </td >-->
+                    <!--<td style="background:#DDD9C4;width:10%">
+                        <center>  KPI Target </center>
+                    </td >-->
+                    <td style="background:#DDD9C4;width:40px">
+                        <center> Performance </center>
+                    </td>
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!p.Sustainability1}" var="d">
+                    <tr>
+                        <td style="width:30px">
+                        <center> <apex:outputText value="{!d.KPiAbbr1}" rendered="{!!d.Confidential1}"/> </center>
+                        </td>
+                        <td style="width:50px">
+                      <!--*******************************************Changes For Encryption****************************************-->  
+                        <!--<center> <apex:outputText value="{!d.kpi__r.name}" rendered="{!!d.kpi__r.Confidential__c}"/> </center>-->
+                        <center> <apex:outputText value="{!d.KPiname1}" rendered="{!!d.Confidential1}"/> </center>
+                      <!--*******************************************END****************************************-->  
+                        
+                        </td>
+                        
+                        <td style="display:{!IF((showLangcol == true),'block', 'none')};">
+                        <apex:outputPanel rendered="{!!d.Confidential1}">
+                        <center> <apex:outputText value="{!d.selectedLanguage1}"  rendered="{!!d.Confidential1}"/> </center>
+                        </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px;">
+                           <apex:outputPanel rendered="{!dispKPIWeight}">
+                                <center> <apex:outputText value="{!d.kpiWeight1}%"/></center>
+                           </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPIval}">
+                            <center> 
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.kpiVal1}"/> 
+                            </apex:outputText>
+                            </center>
+                            </apex:outputPanel>
+                        </td>
+
+                        <td style="width:30px">
+                            <apex:outputPanel rendered="{!dispKPITarget}">
+                            <center> <apex:outputText value="{!d.kpiTarget1}"/> </center>
+                            </apex:outputPanel>
+                        </td>
+                        
+                        <td style="width:30px">
+                            <center> 
+                            <apex:outputPanel rendered="{!!d.Confidential1}">
+                            <apex:outputText value="{0, number, 0.00}">
+                                <apex:param value="{!d.Score1}"/> 
+                            </apex:outputText>
+                            </apex:outputPanel>
+                             </center>
+                        </td >
+                        <!--<td style="width:10%">
+                            <center> 
+                            <apex:outputText value="%" rendered="{!!d.kpi__r.Confidential__c}"/> 
+                            </center>
+                        </td >-->
+                        <td style="width:40px">
+                            <center>
+                            <apex:outputPanel rendered="{!if(d.Score1 <= 2 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.RedDot)}" width="25" height="25"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 > 2 ,true,false) && if(d.Score1 < 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.YellowDot)}" width="22" height="22"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!if(d.Score1 >= 3 ,true,false)}">
+                                 <apex:image value="{!URLFOR($Resource.GreenDot)}" width="23" height="25"/>
+                            </apex:outputPanel>
+                            </center>
+                        </td>    
+                    </tr>
+                    <apex:variable var="index" value="{!index + 1}" />
+                </apex:repeat>
+            </table>
+        </div>
+         </apex:outputPanel>
+        
+        <br/><br/><br/><br/>
+        </apex:repeat><br/><br/>
+     <div>
+        Comments : {!SPE_ScoreCard__c.Comments__c}
+        </div>
+     <!--   <div>
+         Approver: {!SPE_ScoreCard__c.Approver__r.Name}<br/>
+        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                              <apex:param value="{!Today()}" /> 
+                              </apex:outputText>
+        </div> -->
+        <table style="width:100%;">
+    <tr>
+    <td>
+    Approver: {!SPE_ScoreCard__c.Approver__r.Name}<br/>
+        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+            <apex:param value="{!Today()}" /> 
+         </apex:outputText>
+     </td>
+     <td>
+     <div align="right">  
+     Averaging: {!SPE_ScoreCard__c.ScorecardTracker__r.ScorecardGenerator__r.AggregationType__c}
+     </div>
+     </td>
+     </tr>
+     </table>  
+ </apex:form>  
+</apex:page>

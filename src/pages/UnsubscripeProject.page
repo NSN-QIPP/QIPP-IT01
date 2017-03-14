@@ -1,0 +1,11 @@
+<apex:page id="page" showHeader="false" controller="UnsubscripeProject" action="{!unsubscripePage}" cache="false">
+    <apex:form >
+               <script> 
+               var r = alert("Thank you! You are now Unsubscribe from {!projectlist[0].project_number__c} closing reminder");
+                    window.top.close();
+               //confirm('Thank you to opt do not remind me.');</script>
+    <!--        ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM,'Record Created Successfully.Thank you!'));
+            <apex:pageMessages />-->
+            
+    </apex:form>
+</apex:page>

@@ -1,0 +1,119 @@
+<apex:page cache="false" expires="0" sidebar="false" showHeader="false">
+<apex:form >
+  
+
+    <table width="105%" border="0">
+        <tr>
+            <td width="15%" bgcolor="skyblue" valign="top">
+            
+    <table width="100%" border="0" >
+        <tr>
+            <td width="100%" colspan="2">
+                <h2><Font size="2"><b> Quality Issue Resolution System </b></font> </h2>
+            </td>
+        </tr>
+    </table>             
+    <hr></hr> 
+                     
+    <table width="100%" border="0" >
+        <tr>
+            <td width="100%" colspan="2">
+                <h2><Font size="2"><b> Home </b></font> </h2>
+             </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_HomePage_site" >Home Page</apex:outputLink> 
+            </td>
+        </tr>
+    </table>
+    <hr></hr>
+    
+    
+    
+    <table width="100%" border="0" >
+        <tr>
+            <td width="100%" colspan="2">
+                <h2><Font size="2"><b> Reports </b></font> </h2>
+             </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_Quality_Watch_List_Report" >Quality Watch List</apex:outputLink> 
+            </td>     
+        </tr>
+        <tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_Analysis_Report_Summary" >Analysis Report - Summary</apex:outputLink> 
+            </td>     
+        </tr>
+         <!--<tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_Analysis_Report_Detailed" >Analysis Report - Detailed</apex:outputLink> 
+            </td>     
+        </tr>-->
+        <tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_Global_Summary_Report" >Global Summary Report</apex:outputLink> 
+            </td>     
+        </tr>
+        <tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_Cycle_Time_Report" >Cycle Time Report</apex:outputLink> 
+            </td>     
+        </tr>
+    </table>
+    <hr></hr>
+    
+    
+    <table width="100%" border="0" >
+        <tr>
+            <td width="100%" colspan="2">
+                <h2><Font size="2"><b> Manuals </b></font> </h2>
+             </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:outputLink value="{!$Resource.QIRSUserGuide}" >User Guide</apex:outputLink> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <apex:outputLink value="{!$Resource.QIRS_ED29277}" >QIRS Process (ED29277)</apex:outputLink> 
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <apex:outputLink value="{!$Resource.ED11362_v7_ntwks}" >QIRS Process (ED11362)</apex:outputLink> 
+            </td>
+        </tr>
+    </table>
+    
+    <hr></hr>
+    
+    <table width="100%" border="0" >
+        <tr>
+            <td width="100%" colspan="2">
+                <h2><Font size="2"><b> Change Request </b></font> </h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:outputLink value="/QIRS/QIRS_Change_Request_site" >Change Request</apex:outputLink> 
+            </td>     
+        </tr>
+    </table>
+    <hr></hr>
+    
+            </td>
+            <td width= "85%">    
+            <apex:insert name="body"/>
+            </td>
+        </tr>        
+    </table>
+
+
+</apex:form>
+</apex:page>

@@ -1,0 +1,252 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimMaterialDeviationMap" >
+    <!------------------------------------------------------------------------------------------------>    
+    <apex:pageBlock title="Performance Deviation">
+        <apex:pageBlockSection columns="1"  >            
+ <apex:pageblockTable value="{!PerformanceDev}" var="items" >
+  <apex:column headerValue="Performance Measure Name" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Frequency of Measurement" width="20%">
+      <apex:outputText value="{!items.Frequency_of_Measurement__c}">
+      </apex:outputText>
+  </apex:column>
+  <apex:column headerValue="Measurement Standard" width="20%">
+     <apex:outputText value="{!items.Measurement_Standard__c}">
+      </apex:outputText>
+  </apex:column>
+  <apex:column headerValue="Actual Measurement" width="20%">
+      <apex:outputText value="{!items.Actual_Measurement__c}">
+      </apex:outputText>
+  </apex:column>
+  <apex:column headerValue="Associated Part Code" width="20%">
+      <apex:outputText value="{!items.Associated_Part_Code__r.name}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>                                
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <!------------------------------------------------------------------------------------------------>
+<apex:pageBlock title="Material Deviation">
+ <apex:pageblockTable value="{!MaterialDeviation}" var="items">
+  <apex:column headerValue="Material Deviation ID" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Code" width="20%">
+      <apex:outputText value="{!items.Code__r.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Quantity" width="20%">
+      <apex:outputText value="{!items.Quantity__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="MCARs" width="20%">
+      <apex:outputText value="{!items.MCARs__r.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Serial Number" width="20%">
+      <apex:outputText value="{!items.Serial_Number__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+    <!---------------------------------------------------------------------------------------------------->
+    <apex:pageBlock title="Claim Contacts">
+ <apex:pageblockTable value="{!ClaimContacts}" var="items">
+  <apex:column headerValue="Claim Contact Name" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Contact Type" width="20%">
+      <apex:outputText value="{!items.Contact_Type__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Name" width="20%">
+      <apex:outputText value="{!items.Name__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Phone" width="20%">
+      <apex:outputText value="{!items.Phone__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Email" width="20%">
+      <apex:outputText value="{!items.Email__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+    <!--------------------------------------------------------------------------------------------------------->
+<apex:pageBlock title="NCC Services Worksheet">
+ <apex:pageblockTable value="{!NccService}" var="items">
+  <apex:column headerValue="NCC Category" width="20%">
+      <apex:outputText value="{!items.NCC_Category__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Description" width="20%">
+      <apex:outputText value="{!items.Description__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Qty/Hours" width="20%">
+      <apex:outputText value="{!items.Qty_Hours__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Unit Price" width="20%">
+      <apex:outputText value="{!items.Unit_Price__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Amount" width="20%">
+      <apex:outputText value="{!items.Amount__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock> 
+    <!--------------------------------------------------------------------------------------------------->
+    
+       <apex:pageBlock title="NCC Materials Factory Worksheet">
+ <apex:pageblockTable value="{!NccMaterialFactory }" var="items">
+  <apex:column headerValue="NCC Category" width="20%">
+      <apex:outputText value="{!items.Category__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Description" width="20%">
+      <apex:outputText value="{!items.Description__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Qty/Hours" width="20%">
+      <apex:outputText value="{!items.Qty_Hours__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Unit Price" width="20%">
+      <apex:outputText value="{!items.Unit_Price__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Amount" width="20%">
+      <apex:outputText value="{!items.Amount__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock>
+    
+    <!------------------------------------------------------------------------------------------------->
+    <apex:pageBlock title="NCC Materials Field Worksheet">
+ <apex:pageblockTable value="{!NccMaterialField}" var="items">
+  <apex:column headerValue="NCC Category" width="20%">
+      <apex:outputText value="{!items.Category__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Description" width="20%">
+      <apex:outputText value="{!items.Description__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Qty/Hours" width="20%">
+      <apex:outputText value="{!items.Qty_Hours__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Unit Price" width="20%">
+      <apex:outputText value="{!items.Unit_Price__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Amount" width="20%">
+      <apex:outputText value="{!items.Amount__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock> 
+    
+    <!-------------------------------------------------------------------------------------->
+    
+    <apex:pageBlock title="NCC Materials Hub Worksheet">
+ <apex:pageblockTable value="{!NccMaterialHub}" var="items">
+  <apex:column headerValue="NCC Category" width="20%">
+      <apex:outputText value="{!items.Category__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Description" width="20%">
+      <apex:outputText value="{!items.Description__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Qty/Hours" width="20%">
+      <apex:outputText value="{!items.Qty_Hours__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Unit Price" width="20%">
+      <apex:outputText value="{!items.Unit_Price__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Amount" width="20%">
+      <apex:outputText value="{!items.Amount__c}">
+      </apex:outputText>
+  </apex:column>
+ </apex:pageblockTable>
+</apex:pageBlock> 
+    
+<!-------------------------------------------------------------------------------------------------------->   
+         <apex:pageBlock title="Negotiation Log">
+ <apex:pageblockTable value="{!Negotiationlog}" var="items">
+  <apex:column headerValue="Negotiation Log Name" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Memo Title" width="20%">
+      <apex:outputText value="{!items.Memo_Title__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Memo Description" width="20%">
+      <apex:outputText value="{!items.Memo_Description__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Date of Correspondence" width="20%">
+      <apex:outputText value="{!items.Date__c}">
+      </apex:outputText>
+  </apex:column>       
+ </apex:pageblockTable>
+</apex:pageBlock>
+    <!------------------------------------------------------------------------------------->
+     <apex:pageBlock title="Payment Log">
+ <apex:pageblockTable value="{!paymentlog}" var="items">
+  <apex:column headerValue="Amount" width="20%">
+      <apex:outputText value="{!items.Amount__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Payment or Write Off?" width="20%">
+      <apex:outputText value="{!items.Payment_or_Discount__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Explanation" width="20%">
+      <apex:outputText value="{!items.Discount_Explanation__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue=" Method of Payment" width="20%">
+      <apex:outputText value="{!items.Method_of_Payment__c}">
+      </apex:outputText>
+  </apex:column>     
+ </apex:pageblockTable>
+</apex:pageBlock>
+    
+    <!--------------------------------------------------------------------------------------------------------->   
+    
+    <!--------------------------------------------------------------------------------------------------------->
+   <!-- <apex:pageBlock title="Trace Emails">
+ <apex:pageblockTable value="{!TraceEmail }" var="items">
+  <apex:column headerValue="Email Trace" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="First Time Opened" width="20%">
+      <apex:outputText value="{!items.First_Time_Opened__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Last Time Opened" width="20%">
+      <apex:outputText value="{!items.Last_Time_Opened__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Number Of Times Email Opened" width="20%">
+      <apex:outputText value="{!items.Number_Of_Times_Email_Opened__c}">
+      </apex:outputText>
+  </apex:column>
+     
+ </apex:pageblockTable>
+</apex:pageBlock>-->
+    
+</apex:page>

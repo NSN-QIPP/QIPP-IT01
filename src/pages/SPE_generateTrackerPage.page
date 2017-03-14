@@ -1,0 +1,20 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_generateTrackerPageExt"  sidebar="false">
+
+    <apex:form >
+        <apex:outputPanel id="msg">
+            <apex:pageMessages escape="false"/> 
+        
+        </apex:outputPanel>
+        
+        <apex:sectionHeader title="{!$Label.SPE_AdhocTrackerExecution}" subtitle="{!$Label.SPE_Adhoc}"/>
+        <apex:pageblock >
+            <apex:pageblockButtons >
+                <apex:commandButton value="{!$Label.SPE_GenerateTracker}" action="{!generateTracker}" />
+                <apex:commandButton value="{!$Label.SPE_Cancel}" action="{!cancel}"/>
+            </apex:pageblockButtons>
+            <apex:pageblockSection >
+                <apex:inputText value="{!startDate}" size="10" id="demo" onfocus="DatePicker.pickDate(false, this , false);" label="{!$Label.SPE_TrackerExecution}" required="True"/>
+            </apex:pageblockSection>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

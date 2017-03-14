@@ -1,0 +1,21 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE2_PlanRemovesupplierext" action="{!fetchSuppliers}">
+   <apex:form >
+       <apex:pageBlock title="Selected plans">
+            <apex:pageMessages id="msgId"/>
+            
+            <apex:commandButton value="Remove Supplier(s)" action="{!removeSupplierPlanMap}"/>&nbsp;&nbsp;&nbsp;&nbsp;            
+            <apex:commandButton value="Return" action="{!returnbackToPlan}"/><br/>
+                        
+            <apex:outputPanel id="PanelId">
+                <apex:pageBlockTable value="{!SuppWrapperlist}" var="pl">
+                <apex:column >
+                    <apex:inputCheckbox value="{!pl.isSelected}"/>
+                </apex:column>
+                <apex:column value="{!pl.supplier}" headerValue="Supplier Name"/>
+                <apex:column value="{!pl.plans}" headerValue="SPE Plans"/>
+            </apex:pageBlockTable>             
+            </apex:outputPanel>            
+        </apex:pageBlock>       
+    </apex:form> 
+    
+</apex:page>

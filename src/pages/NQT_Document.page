@@ -1,0 +1,35 @@
+<apex:page standardController="NQT_Document__c" Extensions="Document" >
+    <apex:form >
+    <apex:pageBlock id="block" title="Documents" mode="edit">
+        <apex:messages style="color:red;"/>
+        <apex:pageBlockSection id="section1" title="Document1">
+            <apex:inputFile id="file" accept=".xls, .pdf" value="{!File}" fileName="{!fileName}"/>            
+            <apex:inputField Value="{!ds1.NQT_File_Description__c}"/>
+            <apex:inputField value="{!ds1.NQT_Document_Type__c}"/>
+            <apex:inputField value="{!ds1.Visible_to_Customer__c}" rendered="{!profile}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="section2" title="Document2">
+            <apex:inputFile id="file" accept=".xls, .pdf" value="{!File1}" fileName="{!fileName1}"/>            
+            <apex:inputField Value="{!ds2.NQT_File_Description__c}"/>
+            <apex:inputField value="{!ds2.NQT_Document_Type__c}"/>
+            <apex:inputField value="{!ds2.Visible_to_Customer__c}" rendered="{!profile}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="section3" title="Document3">
+            <apex:inputFile id="file" accept=".xls, .pdf" value="{!File2}" fileName="{!fileName2}"/>            
+            <apex:inputField Value="{!ds3.NQT_File_Description__c}"/>
+            <apex:inputField value="{!ds3.NQT_Document_Type__c}"/>
+            <apex:inputField value="{!ds3.Visible_to_Customer__c}" rendered="{!profile}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="section4" title="Document4">
+            <apex:inputFile id="file" accept=".xls, .pdf" value="{!File3}" fileName="{!fileName3}"/>            
+            <apex:inputField Value="{!ds4.NQT_File_Description__c}"/>
+            <apex:inputField value="{!ds4.NQT_Document_Type__c}"/>
+            <apex:inputField value="{!ds4.Visible_to_Customer__c}" rendered="{!profile}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="Both">
+            <apex:commandButton action="{!on_load}" Title="Click" value="Save" status="Updating..."/>
+            <apex:commandButton action="{!Cancel1}" Title="Cancel" value="Cancel"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,125 @@
+<apex:page standardController="SPE_ConsequenceManagement__c" extensions="SPE_CM_DisplayButtonsExt">
+<div>
+    <apex:outputPanel id="thePanel1" rendered="{!OR(SPE_ConsequenceManagement__c.RecordType.Name  =='Develop',SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC')
+                                             && ISNULL(SPE_ConsequenceManagement__c.Contact__c)}">
+            <marquee BEHAVIOR="ALTERNATE">
+                <font Color="red">
+                    Please Add Supplier Contact To Complete The Consequence Management Ticket. 
+                </font> 
+            </marquee>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="thePanel2" rendered="{!OR(SPE_ConsequenceManagement__c.RecordType.Name  =='Develop',SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC')
+                                             && SPE_ConsequenceManagement__c.KPIName__r.Confidential__c == true}">
+            <marquee BEHAVIOR="ALTERNATE">
+                <font Color="red">
+                    This  KPI  is  Confiedential  and there will not be supplier communication on it.
+                </font>  
+            </marquee>
+    </apex:outputPanel>
+    <apex:outputPanel id="thePanel3" rendered="{!AND(ISNULL(SPE_ConsequenceManagement__c.CategoryManager__c),SPE_ConsequenceManagement__c.RecordType.Name  !='Audit NC')}">
+            <marquee BEHAVIOR="ALTERNATE">
+                <font Color="red">
+                    Please Add Category Manager Contact to send notification to stackholder.
+                </font> 
+            </marquee>
+    </apex:outputPanel>
+    <apex:form >
+       
+    <apex:outputPanel id="develop" rendered="{!OR(SPE_ConsequenceManagement__c.RecordType.Name  =='Develop',SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC')}">
+        <div align="centre" id="saveBtnDiv" style="margin-left: 120px;">
+        <apex:commandButton value="Edit" rendered="{!SPE_ConsequenceManagement__c.RecordType.Name  =='Develop'}" oncomplete="window.open('/apex/SPE_ConsequenceManagementMainPage?Id={!SPE_ConsequenceManagement__c.Id}&recordTypeId={!SPE_ConsequenceManagement__c.RecordType}&isEdit=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c), false,true)}" />       
+        <apex:commandButton value="Edit" rendered="{!SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC'}" oncomplete="window.open('/apex/SPE2_AuditNC_CM?Id={!SPE_ConsequenceManagement__c.Id}&recordTypeId={!SPE_ConsequenceManagement__c.RecordType}&isEdit=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c), false,true)}" />
+        
+        <apex:commandButton value="Clone" rendered="{!SPE_ConsequenceManagement__c.RecordType.Name  =='Develop'}" oncomplete="window.open('/apex/SPE_ConsequenceManagementMainPage?isEdit=false&recordTypeId={!SPE_ConsequenceManagement__c.RecordType.Name}&isClone={!SPE_ConsequenceManagement__c.Id}','_parent');"  />
+        <apex:commandButton value="Clone" rendered="{!SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC'}" oncomplete="window.open('/apex/SPE2_AuditNC_CM?isEdit=false&recordTypeId={!SPE_ConsequenceManagement__c.RecordType.Name}&isClone={!SPE_ConsequenceManagement__c.Id}','_parent');"  />
+        
+        <apex:commandButton value="Open" rendered="{!IF(SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC',false,true)}" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!openButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft' && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && !ISNULL(SPE_ConsequenceManagement__c.CategoryManager__c) && !ISNULL(SPE_ConsequenceManagement__c.Contact__c), false,true)}"/>
+        
+        <apex:commandButton value="Open" rendered="{!IF(SPE_ConsequenceManagement__c.RecordType.Name  =='Audit NC',true,false)}" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!openButton}" disabled="{!if((SPE_ConsequenceManagement__c.TicketStatus__c =='Draft') && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && !ISNULL(SPE_ConsequenceManagement__c.Contact__c), false,true)}"/>
+        <apex:commandButton value="Close" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');"  action="{!closeButton}" disabled="{!if(SPE_ConsequenceManagement__c.TicketStatus__c =='Open' && SPE_ConsequenceManagement__c.X5DSupplierResponseComplete__c == true, false,true)}" />
+        
+        <apex:commandButton value="Delete" oncomplete="window.open('{!URLFOR($Action.SPE_ConsequenceManagement__c.List, $ObjectType.SPE_ConsequenceManagement__c)}','_parent');" action="{!deleteButton}" disabled="{!if((SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft'), false,true)}"/>
+        
+        <apex:commandButton value="Cancelled" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!cancelledButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+    
+        <apex:commandButton value="No trouble Found" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');"  action="{!noTroubleFoundButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+            
+        <apex:commandButton value="Add Category Manager" oncomplete="window.open('/apex/SPE_ConsequenceMngtAddContact?id={!SPE_ConsequenceManagement__c.Id}&supplierManager=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Add Supplier Contact" oncomplete="window.open('/apex/SPE2_ConsequenceMngtAddContact?id={!SPE_ConsequenceManagement__c.Id}','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Link as Child" oncomplete="window.open('/apex/SPE_CMTicketLinkage?id={!SPE_ConsequenceManagement__c.Id}&rel=Child','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Link as Parent" oncomplete="window.open('/apex/SPE_CMTicketLinkage?id={!SPE_ConsequenceManagement__c.Id}&rel=parent','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+    
+        <apex:commandButton value="De Link"  oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!deLinkButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && !ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) , false,true)}"/>
+    </div>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="watchlist" rendered="{!SPE_ConsequenceManagement__c.RecordType.Name  =='Watchlist'}">
+        <div align="centre" id="saveBtnDiv1" style="margin-left: 250px;">
+        <apex:commandButton value="Edit" oncomplete="window.open('/apex/SPE_ConsequenceManagementMainPage?Id={!SPE_ConsequenceManagement__c.Id}&recordTypeId={!SPE_ConsequenceManagement__c.RecordType}&isEdit=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c), false,true)}" />
+        
+        <apex:commandButton value="Clone" oncomplete="window.open('/apex/SPE_ConsequenceManagementMainPage?isEdit=false&recordTypeId={!SPE_ConsequenceManagement__c.RecordType.Name}&isClone={!SPE_ConsequenceManagement__c.Id}','_parent');"  />
+        
+        <apex:commandButton value="Open" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!openButton}" disabled="{!if((SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft' && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c)), false,true)}"/>
+        
+        <apex:commandButton value="Close" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');"  action="{!closeButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+        
+        <apex:commandButton value="Cancelled" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!cancelledButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+        
+        <apex:commandButton value="No trouble Found" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');"  action="{!noTroubleFoundButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+        
+        <apex:commandButton value="Delete" oncomplete="window.open('{!URLFOR($Action.SPE_ConsequenceManagement__c.List, $ObjectType.SPE_ConsequenceManagement__c)}','_parent');" action="{!deleteButton}" disabled="{!if((SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft'), false,true)}"/>
+        
+        <apex:commandButton value="Adhoc Schedule" oncomplete="window.open('/apex/SPE_AdhocTrending?id={!SPE_ConsequenceManagement__c.Id}','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"/>
+    
+        <apex:commandButton value="Continue On Watch" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!continueOnWatchButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"/>
+        <!-- 
+        <apex:commandButton value="Delete" oncomplete="window.open('{!URLFOR($Action.SPE_ConsequenceManagement__c.List, $ObjectType.SPE_ConsequenceManagement__c)}','_parent');" action="{!deleteButton}" disabled="{!if((SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft'), false,true)}"/>
+            
+        <apex:commandButton value="Add Category Manager" oncomplete="window.open('/apex/SPE_ConsequenceMngtAddContact?id={!SPE_ConsequenceManagement__c.Id}&supplierManager=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Adhoc Schedule" oncomplete="window.open('/apex/SPE_AdhocTrending?id={!SPE_ConsequenceManagement__c.Id}','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"/>
+        
+        <apex:commandButton value="Continue On Watch" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!continueOnWatchButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"/>
+         -->
+        </div>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="pahseout" style="align:center" rendered="{!SPE_ConsequenceManagement__c.RecordType.Name  =='Phase Out'}">
+        <div align="centre" id="saveBtnDiv2" style="margin-left: 60px;">
+        <apex:commandButton value="Edit" oncomplete="window.open('/apex/SPE_ConsequenceManagementMainPage?Id={!SPE_ConsequenceManagement__c.Id}&recordTypeId={!SPE_ConsequenceManagement__c.RecordType}&isEdit=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c), false,true)}" />
+        
+        <apex:commandButton value="Clone" oncomplete="window.open('/apex/SPE_ConsequenceManagementMainPage?isEdit=false&recordTypeId={!SPE_ConsequenceManagement__c.RecordType.Name}&isClone={!SPE_ConsequenceManagement__c.Id}','_parent');"  />
+        
+        <apex:commandButton value="Open" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!openButton}" disabled="{!if((SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft' && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c)), false,true)}"/>
+        
+        <apex:commandButton value="Close" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');"  action="{!closeButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open' , false,true)}" />
+        
+        <apex:commandButton value="Delete" oncomplete="window.open('{!URLFOR($Action.SPE_ConsequenceManagement__c.List, $ObjectType.SPE_ConsequenceManagement__c)}','_parent');" action="{!deleteButton}" disabled="{!if((SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.TicketStatus__c =='Draft'), false,true)}"/>
+        
+        <apex:commandButton value="Cancelled" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!cancelledButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+    
+        <apex:commandButton value="No trouble Found" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');"  action="{!noTroubleFoundButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) && SPE_ConsequenceManagement__c.TicketStatus__c =='Open', false,true)}" />
+            
+        <apex:commandButton value="Add Category Manager" oncomplete="window.open('/apex/SPE_ConsequenceMngtAddContact?id={!SPE_ConsequenceManagement__c.Id}&supplierManager=true','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Add Supplier Contact" oncomplete="window.open('/apex/SPE2_ConsequenceMngtAddContact?id={!SPE_ConsequenceManagement__c.Id}','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Approved" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!approvedButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.ApprovalStatus__c == 'Pending' && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c), false,true)}"/>
+        
+        <apex:commandButton value="Rejected" oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!rejectedButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && SPE_ConsequenceManagement__c.ApprovalStatus__c == 'Pending' && ISNULL(SPE_ConsequenceManagement__c.MasterCM__c), false,true)}"/>
+        
+        <apex:commandButton value="Link as Child" oncomplete="window.open('/apex/SPE_CMTicketLinkage?id={!SPE_ConsequenceManagement__c.Id}&rel=Child','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+        
+        <apex:commandButton value="Link as Parent" oncomplete="window.open('/apex/SPE_CMTicketLinkage?id={!SPE_ConsequenceManagement__c.Id}&rel=parent','_parent');" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id, false,true)}"  />
+    
+        <apex:commandButton value="De Link"  oncomplete="window.open('/{!SPE_ConsequenceManagement__c.Id}','_parent');" action="{!deLinkButton}" disabled="{!if(SPE_ConsequenceManagement__c.OwnerId==$User.Id && !ISNULL(SPE_ConsequenceManagement__c.MasterCM__c) , false,true)}"/>
+        </div>
+    </apex:outputPanel>
+  
+</apex:form>
+</div>
+</apex:page>

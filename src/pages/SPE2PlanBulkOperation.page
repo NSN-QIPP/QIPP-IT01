@@ -1,0 +1,25 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE2_PlanBulkOperationExt" recordSetVar="plans" action="{!fetchSPEplans}">
+    <apex:form >
+        <apex:pageBlock >
+            <b>Please Select an Operation: </b>
+            <apex:selectList value="{!selectedOperation}" multiselect="false" size="1" styleClass="btn">
+                <apex:actionSupport event="onchange" action="{!goToOperationPage}" reRender="PanelId"/>
+                <apex:selectOptions value="{!Operations}"/>
+            </apex:selectList>            
+        </apex:pageBlock>
+        <apex:pageBlock >
+           <b>For Changing or Removing Suppliers/Respondents related to SPE Plan,Changing Scoring Template,Changing Stage and Changing SPE Plan Start and End Date use the upper section...</b><br/><br/> 
+           <br/><br/>
+           <b>For Changing any other Scheduling Components: Frequency,Aggregation Duration,Buffer Days,Survey Reminder Date,Survey Due Date please follow the below steps:
+           <br/>1. Click on the list view of SPE Plan.
+           <br/>2. Select the required SPE Plan checkboxes.
+           <br/>3. Double click on the field value for which you want to change.(Click on the pen like picture,comes after hovering on the field value)
+           <br/>4. Change the value from the pop up window.
+           <br/>5. Select the radiobutton mentioning that:
+           <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apply changes to:<br/>   
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. The record which is clicked<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. All selected records
+            <br/>6. Click on Save button.</b> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

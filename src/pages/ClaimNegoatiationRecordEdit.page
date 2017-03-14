@@ -1,0 +1,17 @@
+<apex:page standardController="Negotiation_Log__c" extensions="ClaimNegotiationLogController" >
+    <apex:form >
+        <apex:pageBlock >
+    	<apex:pageBlockSection columns="1" >
+        	<apex:outputField value="{!Negotiation_Log__c.Claim__c}" />
+            <apex:inputField value="{!Negotiation_Log__c.Memo_Title__c}" required="true" />
+            <apex:inputField value="{!Negotiation_Log__c.Memo_Description__c}" required="true" />
+            <apex:inputField value="{!Negotiation_Log__c.Date__c}" />
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons >
+        	<apex:commandButton value="Save" action="{!saveRecord}" />
+            <apex:commandButton value="Save & New" action="{!SaveNewRecord}" />
+            <apex:commandButton value="Cancel" />
+        </apex:pageBlockButtons>            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

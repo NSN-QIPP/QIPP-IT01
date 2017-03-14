@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>QIPP Task Initiator / Implementer</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>QIPP Task Initiator / Implementer</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>QIPP_Project_Lead</parentRole>
+</Role>

@@ -1,0 +1,227 @@
+<apex:page sidebar="false" showHeader="true" tabStyle="QIRS__c" standardController="QIRS__c" extensions="QIRSqualitywatchlist">
+
+
+
+<style type="text/css">
+
+div.scroll {
+width: 375px;
+overflow: auto;
+}
+.table-border {
+
+    border-left: solid 2px black;
+    border-bottom: solid 2px black;
+    border-Top: solid 2px black;
+    border-right: solid 2px black; 
+    border-collapse: collapse;
+}
+</style> 
+<apex:composition template="QIRS_Template_site">
+ <apex:define name="body">
+
+    <table border="0" width="100%">
+        <tr>            
+            <td > 
+                <font size="5">
+                <b>Quality Watchlist-Reports</b>
+                </font>
+             </td>
+        </tr>
+        <tr>
+            <td>       
+                 <b>
+                 <apex:outputLabel title="Filter On Business" value="Business: " />
+                 <apex:selectList id="webform" value="{!Business}" size="1" title="Filter On Business">
+                 <apex:actionSupport event="onchange" status="update"/>
+                 <apex:selectOptions value="{!items}"/>
+                 </apex:selectList>  
+                 <apex:actionStatus id="update" startText=" UPDATING..." startStyle="color:red"></apex:actionStatus></b>
+             </td>
+         </tr>  
+     </table><br/>
+     <apex:pageBlock > 
+    <table class="table-border" border="1" width="100%" height="100%" >
+        <tr>
+            <td width="22%" align="center">
+            <table width="100%"><tr><td><b>Business/Business Group/Product Name/Product PN/Customers</b></td></tr></table>
+            </td>
+            <td width="20%" align="center"><b>Record&nbsp;Number/Alert Type/Root Cause/Factory</b></td>
+            <td width="40%" align="center"><b>Status/Projected Impact</b></td>
+            <td width="20%" align="center"><b>Open&nbsp;Date/Case Owner/<br></br>Projected&nbsp;Release&nbsp;Date</b></td>
+        </tr>
+        
+       <apex:repeat id="reports" value="{!Query_Quality_List}" var="Relatedto">
+        <tr >
+            <td>&nbsp;<B>{!Relatedto.Business__c}</B></td>
+                <td>
+                    <table>
+                        <tr>
+                        <td>
+                        &nbsp;<B>{!Relatedto.Name} </B></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;<B>Alert Type:</B>&nbsp;{!Relatedto.Alert_Type__c}</td>
+                        </tr>
+                     </table>
+                 </td>
+                 <td rowspan='2'><B>Status:</B>&nbsp;  <apex:outputField value="{!Relatedto.Status__c}" style="background-color:red;"/></td> 
+                <td> <B>OD:</B>&nbsp;
+                <apex:outputText value="{0,date, dd/MMM/yyyy}" id="OpenDate">
+                  <apex:param value="{!Relatedto.CreatedDate}"  /> 
+                 </apex:outputText>
+                </td>
+        </tr>
+        <tr>
+            <td><b>&nbsp;BG:&nbsp;</b>{!Relatedto.Business_Group__c}</td>
+            <td><b>&nbsp;Part:</b>&nbsp;{!Relatedto.Defective_Part__c}</td> 
+
+            <td><b>Owner:</b>&nbsp;{!Relatedto.Process_Owner1__r.Name}</td>            
+        </tr>
+        <tr>
+            <td>
+            <table>
+            <tr>
+            <td>
+            <b>Prod Name:&nbsp;</b> {!Relatedto.View_Product_Name__c}
+            </td>
+            </tr>
+            <tr>
+            <td>
+             <b>Prod PN:&nbsp;</b>{!Relatedto.Product_PN__c} &nbsp;{!Relatedto.View_Release_Product__c} 
+            </td>
+            </tr>
+            
+            </table>
+             
+           
+            </td>
+                       
+            <td><b>&nbsp;Symptom:</b>&nbsp;{!Relatedto.Symptom__c}</td>
+
+            <td rowspan='2'   width="40%" ><br></br> 
+        <table>
+        <tr>
+        <td>
+        <b>Comments:</b>&nbsp;
+           <div class="scroll"> 
+           <div align ="left">
+            <apex:outputText escape="false" value="{!Relatedto.WatchListComment__c}"></apex:outputText> 
+            </div>
+            </div>
+        </td>
+        </tr>
+        <tr>
+        <td >
+        <hr></hr>
+        <table> <tr><td><b>At Risk: </b></td>  <td>Orders: {!Relatedto.Orders_backlog__c} </td> <td>Units:{!Relatedto.Units_Backlog__c} </td><td>Revenue:{!Relatedto.Revenue_Backlog__c} </td></tr></table>
+        </td>
+        </tr>
+        <tr>
+        <td >
+        <table id="Impact"> 
+            <tr>
+                <td>
+                    <b>Impact: </b>
+                </td>
+                <td>
+                    <div id="Orderimpact" >Orders: {!Relatedto.Orders_Impact__c}</div>
+                </td>
+                <td>
+                    <div id="Unitimpact" >Units: {!Relatedto.Units_Impact__c}</div>
+                </td>
+                <td>
+                    <div id="Revenueimpact" >Revenue: {!Relatedto.Revenue_Impact__c}</div>
+                </td>
+            </tr>
+          
+        </table>
+       
+        </td>
+        
+        </tr>
+        </table>
+            
+            
+            </td>
+            <td rowspan='2'><b>Projected Release Date:&nbsp;</b>
+             <apex:outputText value="{0,date, dd/MMM/yyyy}" id="OpenLiftedDate">
+                
+                 <apex:param value="{!Relatedto.Projected_Lift_Date__c}"  /> 
+                 
+             </apex:outputText>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <table>
+            <tr>
+            <td>
+           <b>Cust:&nbsp;</b> {!Relatedto.Customer__c}
+            </td>
+            </tr>
+            <tr>
+            <td>
+             <input id="theHiddenInput" type="hidden" name="theHiddenInput" value="{!Relatedto.WatchListType__c}" />
+              <script>
+                    
+                    var watchliststatus = document.getElementById("theHiddenInput").value;
+                   
+                    if('{!Relatedto.WatchListType__c}'=='ProgressRed')
+                        document.write('<img src="{!$Resource.QIRS_ProgressRed}"  valign="top" ALIGN="middle" />');
+                        
+                    if('{!Relatedto.WatchListType__c}'=='RegressRed')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_RegressRed}"  valign="top" ALIGN="middle" />');
+                    }  
+                    if('{!Relatedto.WatchListType__c}'=='NoChangeRed')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_NochangeRed}"  valign="top" ALIGN="middle" />');
+                    }
+                    if('{!Relatedto.WatchListType__c}'=='ProgressYellow')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_ProgressYellow}"  valign="top" ALIGN="middle" />');
+                    }  
+                    if('{!Relatedto.WatchListType__c}'=='RegressYellow')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_RegressYellow}"  valign="top" ALIGN="middle" />');
+                    }  
+                    if('{!Relatedto.WatchListType__c}'=='NoChangeYellow')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_NochangeYellow}"  valign="top" ALIGN="middle" />');
+                    }
+                    if('{!Relatedto.WatchListType__c}'=='ProgressGreen')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_ProgressGreen}"  valign="top" ALIGN="middle" />');
+                    }  
+                    if('{!Relatedto.WatchListType__c}'=='RegressGreen')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_RegressGreen}"  valign="top" ALIGN="middle" />');
+                    }  
+                    if('{!Relatedto.WatchListType__c}'=='NoChangeGreen')
+                    {
+                        document.write('<img src="{!$Resource.QIRS_NochangeGreen}"  valign="top" ALIGN="middle" />');
+                    }
+          
+                </script>
+            </td>
+            </tr>
+            </table>
+            </td>
+            <td><b>&nbsp;Factory:</b>&nbsp;{!Relatedto.Factory__c}</td>
+            
+        </tr>
+        <tr bgcolor="black"  height="10" width="100%">
+        <TD style="border:0;" colspan='4' height="10" width="100%">
+        </TD>
+        </tr>
+        </apex:repeat>
+    
+    </table>
+    <br/><font Size="5" face="Arial"><b><apex:outputLabel rendered="{!IsBlank}" style="bold:true;" value="Currently there are no active issues to report."> </apex:outputLabel></b></font><br/><br/>
+    </apex:pageBlock>    
+
+</apex:define>   
+   
+  </apex:composition>
+</apex:page>

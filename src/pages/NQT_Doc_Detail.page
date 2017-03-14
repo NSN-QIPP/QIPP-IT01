@@ -1,0 +1,5 @@
+<apex:page standardController="NQT_Document__c" extensions="NQTDocDetail">
+CLICK ON THE FILE NAME TO VIEW FILE:<br/><ul><li>
+<apex:outputLink value="{!URLFOR($Action.Attachment.Download, attachment1.id)}" target="_blank" style="color:blue;">{!attachment1.name}({!attachment1.BodyLength}&nbsp;Bytes)</apex:outputLink>
+</li></ul>
+</apex:page>

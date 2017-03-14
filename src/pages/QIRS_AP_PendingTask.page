@@ -1,0 +1,53 @@
+<apex:page tabStyle="QIRS_Action_Plan__c" controller="QIRS_AP_PendingTask_Controller" sidebar="true">
+<apex:form >
+<table width="100%">
+      <apex:sectionHeader title="Action Plan" subtitle="{!QIRS_Action_plan_Tag}"/>
+    <br></br>
+      <tr> 
+                  
+        <td colspan="12">
+         <!--<div style="display:block" id="table_div">      -->
+         <apex:pageBlock id="APQIRSgrid" >
+          
+            <apex:pageBlockTable width="100%" value="{!PendingTask}" var="q">
+
+                <apex:column headerValue="Action" width="12%" >  
+                    <apex:commandLink value="{!q.Name}" id="appRejectBtn"
+                     styleClass="btn" rendered="{!Approve_Flag}"  style="padding:2px 5px 3px 5px; text-decoration:none;"  action="{!ApprRej}">
+                     <apex:param name="LQ1" value="{!q.id}" assignTo="{!CurrentID1}" />
+                     <apex:param name="qirsid" value="{!q.QIRS__c}" assignTo="{!CurrentID1}" />
+                     </apex:commandLink>
+                     <apex:commandLink value="{!q.Name}" rendered="{!Reassign_Flag}" id="ReassignBtn" styleClass="btn"
+                      style="padding:2px 5px 3px 5px; text-decoration:none;" action="{!Reassign}">
+                      <apex:param name="LQ2" value="{!q.id}" assignTo="{!CurrentID1}" />
+                       </apex:commandLink>
+                </apex:column>     
+
+
+<!--                <apex:column headerValue="Record Code" >  
+                  <apex:outputLink value="/{!q.id}" >{!q.Name}
+                  </apex:outputLink>
+                </apex:column>    --> 
+              <apex:column value="{!q.QIRS__c}" /> 
+              <apex:column value="{!q.QIRS__r.Alert_Type__c}" />               
+              <apex:column value="{!q.Action_Type__c}" /> 
+              <apex:column value="{!q.Champion__c}" />
+              <apex:column value="{!q.Approver__c}" />
+              <apex:column value="{!q.CreatedBy.Name}" headerValue="Originator" />
+              <apex:column value="{!q.QIRS__r.Process_Owner1__c}" />
+              <apex:column value="{!q.Required_date__c}" />
+              <apex:column value="{!q.Implementation_Date__c}" headerValue="Implement"/>
+              <apex:column value="{!q.Implementation_Comment__c}" headerValue="Comment"/>
+              <apex:column value="{!q.Status__c}" />
+        
+          </apex:pageBlockTable> 
+      </apex:pageBlock> 
+       </td>
+             
+     </tr>
+             
+
+ </table>
+
+</apex:form>
+</apex:page>

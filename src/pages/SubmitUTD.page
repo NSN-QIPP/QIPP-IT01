@@ -1,0 +1,6 @@
+<apex:page standardcontroller="Measurement__c" extensions="submitUTDClass" action="{!processUTDService}">
+  <br/><br/><h1>Response From UTD:</h1><br/><br/>
+  Result of the UTD Data Submission Request is: <B>
+  <apex:outputText value="{!ResponseID}"></apex:outputText> </B>
+  <apex:form ><apex:commandButton immediate="true" value="Back" action="{!backPage}"/></apex:form>   
+</apex:page>

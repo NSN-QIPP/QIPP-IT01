@@ -1,0 +1,183 @@
+<apex:page controller="spe_verifyGeographyExt" showHeader="false" sidebar="false" standardStylesheets="false">
+  <apex:stylesheet value="{!URLFOR($Resource.Bootstrap_min)}"/> 
+  <script>
+      function geofunction()
+     {
+         geofunc();
+     }
+     function insertfunction()
+     {
+        
+         insfunc();
+     }
+     function skipfunction()
+     {
+        
+         skipfunc();
+     }
+  </script>
+  <style>
+     .navigationBtn{
+    cursor:pointer;
+    border-radius:5px;
+    height: 30px;
+    width: 160px;
+}
+
+ </style>
+  <apex:form >
+   <apex:actionFunction name="geofunc" action="{!updateGeo}" reRender="geo1" status="statusChange1"/>
+   <apex:actionFunction name="insfunc" action="{!BatchUpload}" reRender="BU" status="statusChange2"/>
+   <apex:actionFunction name="skipfunc" action="{!skiptoNxtVal}" reRender="BU" status="statusChange3"/>
+  
+      <div class="container">
+
+     <!--- Panel Heading --->
+    <div class="panel panel-primary" style="border-color:#1485a9;">
+        <div class="panel-heading" style="height: 50px;background-color:#1485a9;"> 
+            <center> <b style="color:white;font-weight:bold;font-size: x-large;" >Validate Geography</b></center>
+        </div>
+        <center>{!Sizei} Records out of {!totalCount} are found Faulty</center>
+        <div style="float:right">
+            <input type="button" class="navigationBtn" style="margin-right: 10px;" value="Skip all Validations" onclick="insertfunction();"/>
+            <apex:actionStatus id="statusChange2">
+                        <apex:facet name="start">
+                           <apex:outputText value=" pending....."/>
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+            </apex:actionStatus>
+        </div>
+        <div >
+            <input type="button" class="navigationBtn" style="margin-left: 1%;" value="Skip current Validation" onclick="skipfunction();"/>
+            <apex:actionStatus id="statusChange3">
+                        <apex:facet name="start">
+                           <apex:outputText value=" pending....."/>
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+            </apex:actionStatus>
+        </div>
+        
+    <!-- Panel heading Ends Here -->
+    
+    <div class="panel-body">
+            <apex:outputPanel id="geo1">
+            <apex:outputPanel id="check44" rendered="{!If(GeographyList1.size>0,true,false)}"  style="overflow:auto" layout="block">
+             
+              
+            <table class="table table-hover" >
+                 
+                 <th style="background-color:#93D7EA">Market</th>
+                 <th style="background-color:#93D7EA">Market Unit</th>
+                 <th style="background-color:#93D7EA">Country</th>
+                 <th style="background-color:#93D7EA">Project</th>
+                 
+                 <th style="background-color:#93D7EA">EnterpriseID</th>
+                 <th style="background-color:#93D7EA">SPE PIValuesTempId</th>
+                 <th style="background-color:#93D7EA">PIDefination</th>
+                 <th style="background-color:#93D7EA">NumberValue</th> 
+                 <th style="background-color:#93D7EA">Period</th>
+                 
+                 
+                 <th style="background-color:#93D7EA">CategoryArea</th>
+                 <th style="background-color:#93D7EA">CategoryGroup</th>
+                 <th style="background-color:#93D7EA">Category</th>
+                 
+                 <th style="background-color:#93D7EA">Business Line</th>
+                 <th style="background-color:#93D7EA">Business Unit</th>
+                 <th style="background-color:#93D7EA">Product</th>
+                 
+                 
+                 
+                 <th style="background-color:#93D7EA">Product</th>
+                 
+                 
+    
+                 <apex:repeat value="{!GeographyList1}" var="ci"> 
+                     <tr>
+                         <td>
+                             <apex:outputPanel rendered="{!Mar}">
+                                 <apex:inputtext value="{!ci.Market__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!Mar}">
+                                 {!ci.Market__c}
+                             </apex:outputPanel>
+                         </td>
+                         <td>
+                             <apex:outputPanel rendered="{!MarUnit}">
+                                 <apex:inputtext value="{!ci.MarketUnit__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!MarUnit}">
+                                 {!ci.MarketUnit__c}
+                             </apex:outputPanel>
+                         </td>
+                         <td>
+                             <apex:outputPanel rendered="{!Con}">
+                                 <apex:inputtext value="{!ci.Country__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!Con}">
+                                 {!ci.Country__c}
+                             </apex:outputPanel>
+                         </td>
+                          <td>
+                             <apex:outputPanel rendered="{!Pro}">
+                                 <apex:inputtext value="{!ci.Project__c}"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel rendered="{!!Pro}">
+                                 {!ci.Project__c}
+                             </apex:outputPanel>
+                         </td>
+                         
+                         
+                         
+                         <td> {!ci.EnterpriseID__c}</td>
+                         <td>{!ci.name}</td>
+                         
+                        <!--*****************Changes For Encryption*******************-->  
+                         <!--<td>{!ci.PIDefination__r.name}</td>-->
+                         <td>{!ci.PIDefination__r.PI_Title__c}</td>
+                        <!--*****************END*******************-->
+                         <td>{!ci.NumberValue__c}</td>
+                         <td>
+                             {!ci.Period__c}
+                         </td>
+                         
+                         
+                         <td>{!ci.Cluster__c}</td>
+                         <td>{!ci.CategoryGroup__c}</td>
+                         <td>{!ci.Category__c}</td>
+                         
+                         <td>{!ci.BusinessLine__c}</td>
+                         <td>{!ci.BusinessUnit__c}</td>
+                         <td>{!ci.Product__c}</td>
+                    
+                     </tr>
+                 </apex:repeat>   
+                   
+             </table>
+             
+         </apex:outputPanel>   
+        </apex:outputPanel>
+        </div>
+        <apex:outputPanel id="categoryvalidate" rendered="{!If(GeographyList1.size>0,true,false)}">
+            <div class="btn-group">
+                     
+                     <input type="button" class="btn btn-primary btn-lg" value="Validate Geography" onclick="geofunction();" style="margin-left: 10%;margin-bottom: 10%;"/>
+                     <apex:actionStatus id="statusChange1">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif" style="vertical-align: middle;"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+            </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="cat1" rendered="{!If(GeographyList1.size=0,true,false)}">
+            <div class="btn-group">
+                     
+                     <b>No more records to validate on Geography</b><br/><br/>
+                    <i>Click "<apex:commandlink value="Proceed" action="{!validateBU}"/>" to further validate Products</i>
+            </div>
+        </apex:outputPanel>
+        </div>
+        </div>
+  </apex:form>
+</apex:page>

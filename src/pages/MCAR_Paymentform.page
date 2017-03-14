@@ -1,0 +1,41 @@
+<apex:page controller="ClaimMaterialDeviation" id="deviationpage" docType="html-5.0">
+  <!--<apex:sectionHeader title="Payment Edit" subtitle="New Payment" />-->
+ 
+   <apex:form id="deviationform" html-novalidate="novalidate">
+    <apex:pageBlock id="pb1" >        
+          <apex:pageBlockSection columns="1" id="pbs1" >        
+             
+               <!--<apex:pageMessages id="errMsg" escape="true" rendered="true" ></apex:pageMessages>--> 
+              <apex:inputField value="{!Claim.Name}" id="claimName" />  
+              <apex:inputField value="{!Paymentlog .Payment_or_Discount__c}" id="paym" >
+              <apex:actionSupport event="onchange" reRender="pbs1"/>
+              </apex:inputField>
+              
+              <apex:inputField value="{!Paymentlog .Amount__c}" id="am" />
+              <apex:inputField value="{!Paymentlog .Method_of_Payment__c}" required="true"/>
+               
+              <apex:inputField value="{!Paymentlog .Discount_Explanation__c}" />
+             
+              <apex:inputField value="{!Paymentlog .Payment_Date__c}" rendered="{!IF(Paymentlog .Payment_or_Discount__c=='Payment',true,false)}" id="textpop2"  required="true"/>
+             
+              <apex:inputField value="{!Paymentlog .Method_of_Payment__c}" required="true"/>
+               <apex:inputField value="{!Paymentlog .Other_Payment__c}" required="true"/>
+            <!--  <apex:inputField value="{!Paymentlog .Last_update__c}" />-->
+        
+            </apex:pageBlockSection> 
+        
+                <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!Save1}" />
+        
+            <apex:commandButton value="Cancel" action="/{!ClaimId}" immediate="true" /> 
+                                                                                                          
+             </apex:pageBlockButtons>
+                                                                                                          
+    </apex:pageBlock>             
+    
+  
+    
+</apex:form>        
+ 
+  
+</apex:page>

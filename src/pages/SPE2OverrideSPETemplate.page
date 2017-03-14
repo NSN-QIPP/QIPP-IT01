@@ -1,0 +1,5 @@
+<apex:page standardController="SPE_SPETemplate__c" extensions="SPE2overrideSPETemplate" action="{!populateSPETemplate}">
+    <apex:form >
+        <apex:pageMessages id="msgid" rendered="{!isAllow}"/>
+    </apex:form>
+</apex:page>

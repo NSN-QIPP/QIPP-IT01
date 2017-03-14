@@ -1,0 +1,25 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_SPEPlanAutoCMTicketExt">
+    <apex:form >
+        <apex:pageBlock title="My Content">
+            <apex:pageBlockSection title="My Content Section" columns="2">
+                    <apex:outputField value="{!spePlan.SPEPlanName__c}" />
+                    <apex:inputField value="{!spePlan.AutoTicket__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                    <apex:commandButton value="Save" action="{!save}"/>
+                </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!spePlanKPIMaps}" var="item">
+                <apex:column value="{!item.KPI__c}"/>
+                <apex:column headerValue="CM Ticket Type">
+                    <apex:inputField value="{!item.CMTicket__c}" />
+                </apex:column>
+                <apex:column headerValue="KPI Score Threshold ">
+                    <apex:inputField value="{!item.KPIScoreThreshold__c}" required="true"/>
+                </apex:column>
+                <apex:column headerValue="Period Range">
+                    <apex:inputField value="{!item.PeriodRange__c}" required="true"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

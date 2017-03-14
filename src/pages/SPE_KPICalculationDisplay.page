@@ -1,0 +1,8 @@
+<apex:page standardController="SPE_KPIDefinition__c">
+Calculation Formula :<b> {!SPE_KPIDefinition__c.CalculationFormula__c} </b>
+<br/>
+<apex:outputPanel rendered="{!!ISBLANK(SPE_KPIDefinition__c.RPNCondition1__c)}">
+Condition Calculation : If {!SPE_KPIDefinition__c.RPNCondition1__c} {!SPE_KPIDefinition__c.RPNCondition__c}  {!SPE_KPIDefinition__c.RPNCondition2__c} then {!SPE_KPIDefinition__c.CalculationFormula__c} else {!SPE_KPIDefinition__c.RPNElse__c}
+</apex:outputPanel>
+
+</apex:page>

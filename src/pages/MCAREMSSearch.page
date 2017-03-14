@@ -1,0 +1,71 @@
+<apex:page tabStyle="MCAR__c" showHeader="true"  Controller="MCAREMSSearchController" sidebar="true">
+<apex:form >
+<apex:pageBlock ><H1>Please enter search criteria</H1>
+</apex:pageBlock>
+<apex:outputPanel >
+<apex:pageBlock >
+<table border="0" >
+
+    <tr>
+        <td>
+        <h2>MCAR No (Optional):</h2>
+        </td>
+        <td>
+            <apex:inputtext id="mcar_number" value="{!mcarnumber}" >
+            </apex:inputText>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>   
+            <h2>MCAR Status:</h2> 
+        </td>
+        <td>    
+            <apex:selectList id="mcar_status" value="{!mcarstatus}" size="1">
+            <apex:selectOptions value="{!items1}"/>
+            
+            </apex:selectList>
+       </td>  
+    </tr>   
+
+    
+</table>
+   <table width="600">   
+    <tr>
+        <td colspan="2">
+        </td>  
+    </tr> 
+    <tr>
+        <td>
+        <apex:commandButton value="Find MCARs" action="{!on_query}" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <apex:commandButton value="Clear Search Results" action="{!clear}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+        </td>
+    </tr>
+</table>
+</apex:pageBlock>
+</apex:outputPanel>
+<apex:outputpanel id="table_records" rendered="true" >
+<apex:pageBlock id="records" >
+    <apex:pageBlockTable value="{!query}" var="nsn">
+        <!--apex:actionSupport event="onchange"/-->
+            <apex:column headerValue="MCAR #">
+            <apex:outputLink value="/{!nsn.Id}">
+            {!nsn.Name}
+            </apex:outputLink>
+            </apex:column>
+            
+            <apex:column headerValue="Code" value="{!nsn.MCAR_Index_NSN_Code__c}"></apex:column> 
+            <apex:column headerValue="Code Description" value="{!nsn.MCAR_Part_Description__c}"></apex:column>
+            <apex:column headerValue="Mfg Part Number" value="{!nsn.MCAR_Mfg_Part_Number__c}"></apex:column>
+            <apex:column headerValue="Facility Name" value="{!nsn.MCAR_Facility__r.name}"></apex:column>
+            <apex:column headerValue="Failure Type" value="{!nsn.MCAR_Failure_Type__c}"></apex:column> 
+    </apex:pageBlockTable>
+</apex:pageBlock> 
+
+
+    
+</apex:outputPanel>
+</apex:form>
+
+</apex:page>

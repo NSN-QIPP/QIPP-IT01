@@ -1,0 +1,23 @@
+<apex:page standardController="MCAR_Claim_Management__c" extensions="ClaimMaterialDeviationMap">
+<apex:pageBlock title="Trace Emails">
+ <apex:pageblockTable value="{!TraceEmail }" var="items">
+  <apex:column headerValue="Email Trace" width="20%">
+      <apex:outputText value="{!items.name}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="First Time Opened" width="20%">
+      <apex:outputText value="{!items.First_Time_Opened__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Last Time Opened" width="20%">
+      <apex:outputText value="{!items.Last_Time_Opened__c}">
+      </apex:outputText>
+  </apex:column>
+     <apex:column headerValue="Number Of Times Email Opened" width="20%">
+      <apex:outputText value="{!items.Number_Of_Times_Email_Opened__c}">
+      </apex:outputText>
+  </apex:column>
+     
+ </apex:pageblockTable>
+</apex:pageBlock>
+</apex:page>

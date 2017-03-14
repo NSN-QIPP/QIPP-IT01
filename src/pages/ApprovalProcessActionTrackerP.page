@@ -1,0 +1,83 @@
+<apex:page controller="ApprovalProcessActionTracker" action="{!actionTrackerProcessor}" showHeader="true" sidebar="false" readOnly="true">    
+<apex:form >
+    <apex:outputpanel >
+        <apex:actionstatus id="StatusId">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Sending Email.....</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputpanel>
+
+    <apex:outputPanel id="panelid">
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1">
+            <p><b><font size="3">Pending Approvals Report</font></b></p>
+             <p>
+                <!--<apex:outputText value="{!countr}"  title="Your counter"><b><font size="2">No Of Records : </font></b></apex:outputText> -->
+                <!--<b><a href="/apex/SubmittedDateExport" target="_blank">Download Report 1</a></b>&nbsp;&nbsp;&nbsp; -->
+                <b><a href="/apex/SubmittedDateExportcsv" target="_blank">Download Report </a></b>
+                
+                
+                 
+            </p>
+            
+           <apex:commandbutton value="    Back    " action="{!Backtopreviouspage}" ></apex:commandbutton>
+        </apex:pageBlockSection>
+        
+        
+        <apex:pageBlockTable value="{!reportresult}" var="Iterator">
+            <apex:column headerValue="QIPP Project ID">
+                <apex:outputLink value="/{!Iterator.ProjID}" target="_Blank">{!Iterator.ProjectID}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Methodology"  value="{!Iterator.Methodology}"/>
+            <apex:column headerValue="Project Lead Name">
+                <apex:outputLink value="/{!Iterator.LeadNameid}" target="_Blank">{!Iterator.LeadName}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Project Lead email"  value="{!Iterator.Leademail}"/>
+            <apex:column headerValue="Project Lead BU"  value="{!Iterator.LeadBU}"/>
+            <apex:column headerValue="Project Lead BL (Level 3 Org)"  value="{!Iterator.LeadBL}"/>
+            <apex:column headerValue="Project Name ? Succinct"  value="{!Iterator.ProjectName}"/>
+            <apex:column headerValue="Benefitting Project BU"  value="{!Iterator.ProjectBU}"/>
+            <apex:column headerValue="Benefitting Project BL (Level 3 Org)"  value="{!Iterator.ProjectBL}"/>
+            <apex:column headerValue="Belt Project Type"  value="{!Iterator.ProjectType}"/>
+            <apex:column headerValue="Belt Phase / Approval Phase" value="{!Iterator.Phase} "/>
+            <apex:column >
+                <apex:facet name="header">  
+                    <apex:commandLink value="Approver Name {!IF(compareField=='Approvername',IF(sortOrder='asc','▼','▲'),'▼▲')}" action="{!sortWrpLst}" rerender="panelid"  status="StatusId">  
+                        <apex:param name="compareField" value="Approvername" assignTo="{!compareField}" />  
+                        <apex:param name="orderType" value="{!IF(sortOrder='asc', 'desc', 'asc')}" assignTo="{!sortOrder}" />  
+                    </apex:commandLink>  
+                </apex:facet> 
+                <apex:outputLink value="/{!Iterator.ApproverID}" target="_Blank">{!Iterator.ApproverName}</apex:outputLink>
+                <!--<apex:outputLink value="/{!Iterator.ApproverID}" target="_Blank" rendered="{!IF(Iterator.ApproverID !='' ,true,false)}">{!Iterator.ApproverName}</apex:outputLink>
+                <apex:outputText value="{!Iterator.ApproverName}" rendered="{!IF(Iterator.ApproverID =='' ,true,false)}"> </apex:outputText> -->
+            </apex:column>
+            <apex:column headerValue="Approver Email"  value="{!Iterator.ApproveEmail}"/>
+            <apex:column headerValue="Approval Step"  value="{!Iterator.ApproveRole}"/>
+            <apex:column headerValue="Approval Request Date"  value="{!Iterator.ApproveDate}"/>
+            <apex:column headerValue="Portfolio Name"  value="{!Iterator.PortfolioName}"/>
+            <apex:column >
+                <apex:facet name="header">  
+                    <apex:commandLink value="Portfolio Owner {!IF(compareField=='PortfolioOwner',IF(sortOrder='asc','▼','▲'),'▼▲')}" action="{!sortWrpLst}" rerender="panelid"  status="StatusId">  
+                        <apex:param name="compareField" value="PortfolioOwner" assignTo="{!compareField}" />  
+                        <apex:param name="orderType" value="{!IF(sortOrder='asc', 'desc', 'asc')}" assignTo="{!sortOrder}" />  
+                    </apex:commandLink>  
+                </apex:facet> 
+                <apex:outputLink value="/{!Iterator.PortfolioOwnerID}" target="_Blank">{!Iterator.PortfolioOwner}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Portfolio Owner email"  value="{!Iterator.PortfolioOwneremail}"/>
+            <apex:column headerValue="BU MBB Name" >                
+                <apex:outputLink value="/{!Iterator.BUMBBID}" target="_Blank">{!Iterator.BUMBBName}</apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="BU MBB email"  value="{!Iterator.BUMBBemail}"/>            
+        </apex:pageBlockTable> 
+    </apex:pageBlock> 
+    </apex:outputPanel>
+</apex:form>
+</apex:page>

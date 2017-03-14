@@ -1,0 +1,58 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE_SPEPlanRespondentExt" >
+<script>
+    function enterPress(e){
+        if(e.keyCode==13){
+            searchFunction();
+            return false;
+        }
+        else 
+        {
+        return true;
+        }
+    }
+</script>     
+    <apex:form id="fm">
+        <apex:pageBlock id="respondents" title="Search Respondent">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save" action="{!insertRespondent}"  reRender="fm"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+            
+            <span class="helpButtonOn" id="showicon-_help">
+                <img src="/s.gif" alt="" class="helpOrb" title="Please provide atleast one character and for the wild card search use *"/>
+            </span>
+            <apex:inputText value="{!contactName}" id="contactName" onkeypress="return enterPress(event)"/> 
+            <apex:commandButton value="Search" action="{!searchRespondent}"  reRender="respondents" status="myStatus" />
+            <apex:actionStatus id="myStatus" startText="Processing..."   stopText=""   startStyleClass="statusStyle"/>
+            <apex:actionFunction action="{!searchRespondent}" name="searchFunction" reRender="respondents" status="myStatus"/>
+            
+            <apex:pageBlockTable value="{!respondentWrapperList}" var="rw">
+                <apex:column headerValue=" ">
+                    <apex:inputCheckbox value="{!rw.isChecked}" />
+                </apex:column>
+                <apex:column headerValue="First Name">
+                    <apex:outputfield value="{!rw.res.Contact__r.FirstName}" />
+                </apex:column>
+                <apex:column headerValue="Last Name">
+                    <apex:outputfield value="{!rw.res.Contact__r.LastName}" />
+                </apex:column>
+                <apex:column headerValue="Email">
+                    <apex:outputfield value="{!rw.res.Contact__r.Email}" />
+                </apex:column>
+                <apex:column headerValue="Category Info">
+                    <apex:pageBlockTable value="{!rw.categories }" var="itemCat">
+                        <apex:column headerValue="Category Area">
+                            <apex:outputField value="{!itemCat.CategoryCluster__c}"/>
+                        </apex:column> 
+                        <apex:column headerValue="Category Group">
+                            <apex:outputField value="{!itemCat.CategoryGroup__c}"/>
+                        </apex:column> 
+                        <apex:column headerValue="Category">
+                            <apex:outputField value="{!itemCat.Category__c}"/>
+                        </apex:column> 
+                    </apex:pageBlockTable>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

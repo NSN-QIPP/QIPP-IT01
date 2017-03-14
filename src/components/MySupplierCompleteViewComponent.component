@@ -1,0 +1,226 @@
+<apex:component controller="MySupplierDataController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+        <head>
+            <title>My Supplier Records</title>
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        </head>   
+        <body>  
+            
+            <div class="slds">        
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <p  class="slds-text-heading--label">My Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="backhome" href="javascript:;" class="slds-button slds-button--brand" onclick="hidesupplierDetails()">Back to Home</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="myapp" >                     
+                      <!--<br/>  <apex:outputText >Business Group : {!bg}  </apex:outputText> -->
+                    <apex:pageBlock id="pb1" >
+                        <apex:pageBlockSection id="pbs1">
+                        <!--
+                        <apex:pageBlockSection >                                                 
+                            
+                         <apex:actionRegion >                               
+                        <tr>
+                          <td>                              
+                        <apex:outputText >Classification : &nbsp;&nbsp;&nbsp;</apex:outputText>&nbsp;&nbsp;
+                   		<apex:selectList value="{!selectclass}" size="1" multiselect="false" >
+                            <apex:selectOptions Value="{!classList}" />
+                            <apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    	</apex:selectList>
+                                                            
+                           </td> 
+                           <!--<td>                                               
+        <apex:panelGrid columns="3" id="abcd">
+            <apex:selectList id="sel1" value="{!leftselected}" multiselect="true" style="width:100px" size="5">
+                <apex:selectOptions value="{!unselectedvalues}" />
+            </apex:selectList>
+                <apex:panelGroup >
+                    <br/>
+                    <apex:image value="{!$Resource.multiselected}">
+                        <apex:actionSupport event="onclick" action="{!selectclick}" reRender="pb1"/>
+                    </apex:image>
+                    <br/><br/>
+                    <apex:image value="{!$Resource.multiunselected}">
+                        <apex:actionSupport event="onclick" action="{!unselectclick}" reRender="pb1"/>
+                    </apex:image>
+                </apex:panelGroup>
+            <apex:selectList id="sel2" value="{!rightselected}" multiselect="true" style="width:100px" size="5">
+                <apex:selectOptions value="{!SelectedValues}" />
+            </apex:selectList>
+        </apex:panelGrid>
+                            
+                            </td> 
+                            
+                            <td>
+                        		<apex:outputText >Business Group : &nbsp;&nbsp;</apex:outputText>&nbsp;
+                   				<apex:selectList value="{!selectedGroup}" size="1" multiselect="false" >
+                            		<apex:selectOptions Value="{!groupList}"  />
+                            		<apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    			</apex:selectList>                             
+                            </td>
+                            
+                            <td>
+                        <apex:outputText >Category Area : &nbsp;&nbsp;</apex:outputText>&nbsp;
+                   		<apex:selectList value="{!selectCA}" size="1" multiselect="false" >
+                            <apex:selectOptions Value="{!CAlist}"  />
+                            <apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    	</apex:selectList>
+                        </td>  
+                             </tr>
+                                                                                      
+                             <apex:actionStatus id="statusChange">                                                               
+                        <apex:facet name="start">                                                   
+                            
+                            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">       
+                                &nbsp;    
+                            </div>   
+                            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">       
+                                <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">          
+                                    <img src="/img/loading.gif" style="float: left; margin: 8px;" />            
+                                    <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>       
+                                </div>    
+                            </div>                                                 
+                        </apex:facet>                           
+                    </apex:actionStatus>
+                             
+                    </apex:actionRegion>                                     
+                        </apex:pageBlockSection> -->
+                        
+                      <table class="slds-table slds-table--bordered" >                          
+                          
+                        <thead>      
+                            
+                            <tr class="slds-text-heading--label">
+                                <th class="slds-cell-shrink" scope="col">
+                                    Supplier Name
+                                </th>    
+                                <th class="slds-cell-shrink" scope="col"  >
+                                    <span class="slds-truncate">Classification <br/>                                   
+                                    </span>
+                                </th> 
+                                
+                                    
+                                <th class="slds-cell-shrink" scope="col">
+                                    <span class="slds-truncate">Business Group</span>
+                                </th>
+
+                                <th class="slds-cell-shrink" scope="col">
+                                    <span class="slds-truncate">Category Area</span>
+                                    
+                                </th>
+                                
+                                <th class="slds-cell-shrink" scope="col">
+                                    <span class="slds-truncate">Role</span>
+                                </th>
+                                <th class="slds-cell-shrink" scope="col">
+                                    <span class="slds-truncate">Contacts</span>
+                                </th>  
+                            </tr>
+                              <!--
+                            <tr>
+                            	<td>
+                   		<apex:selectList value="{!selectclass}" size="1" multiselect="false" >
+                            <apex:selectOptions Value="{!classList}" />
+                            <apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    	</apex:selectList>                                
+                                </td>
+                            </tr> -->                                                  
+                     </thead>                          	
+                           
+                          <apex:outputPanel >                          	
+                              <tr bgcolor="#4E4F4C" >   
+                                  <td>                                  
+                                  </td>
+                                  <td>      
+                                  	<apex:selectList value="{!selectclass}" size="1" multiselect="false" >                            
+                                        <apex:selectOptions Value="{!classList}" />                            
+                                        <apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />                    	
+                                      </apex:selectList> 
+                                      
+                                </td>	
+                                  <td>         
+                                      <apex:selectList value="{!selectedGroup}" size="1" multiselect="false" >
+                            			<apex:selectOptions Value="{!groupList}"  />
+                            			<apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    					</apex:selectList>   
+                                      
+                                  </td>
+                                  <td>             
+                                     
+                                      <apex:selectList value="{!selectCA}" size="1" multiselect="false" >
+                           				 <apex:selectOptions Value="{!CAlist}"  />
+                            			<apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    					</apex:selectList>
+                                         
+                                  </td>                                                                      
+                                  <td>
+                                                                       
+                                      <apex:selectList value="{!selectedRole}" size="1" multiselect="false" >
+                           				 <apex:selectOptions Value="{!roleList}"  />
+                            			<apex:actionSupport event="onchange" status="statusChange" reRender="pb1" />
+                    					</apex:selectList>
+                                          
+                                  </td>
+                                  <td>
+                                  </td>
+                              </tr>
+                          </apex:outputPanel>
+                          <!--<apex:repeat value="{!businessGroups}" var="bg"  >-->                          
+                          
+                           <apex:repeat value="{!mySuppliers}" var="acc" id="theRepeat" >                               								                                                                                      
+                               
+                                 <apex:outputPanel rendered="{! (if(selectedGroup='All',true,if(contains(acc.Business_Groups__c,selectedGroup),true,false)) && (IF(selectclass == 'All',true,if(acc.Classification__c=selectclass,true,false))) 
+                                                             && (IF(selectca == 'All',true,if(acc.CategoryAreaSIM__c=selectca,true,false))))}">                                                                       
+                                     <apex:outputPanel rendered="{! if(selectedRole='All',true, if((selectedRole = 'Supplier_Governance_Manager__c' && $User.Id == acc.Supplier_Governance_Manager__c) || (selectedRole='LSM__c' && $User.Id = acc.LSM__c) || (selectedRole='Business_Owner__c' && $User.Id = acc.Business_Owner__c) ||  (selectedRole = 'SAM_Innovation_Manager__c' && $User.Id == acc.SAM_Innovation_Manager__c) || ( selectedRole ='Sponsor__c' && $User.id = 'Sponsor__c'),true,false) )}" >
+                                <tr>
+                                    <td data-label="Supplier Name">
+                                        <apex:outputLink styleClass="slds-truncate"  value="/{!acc.Id}" target="_blank">{!acc.Name}</apex:outputLink>
+                                    </td>
+                                    <td data-label="Classification">
+                                        <span class="slds-truncate">{!acc.Classification__c}</span>
+                                    </td>                                     
+                                                                         
+                                    <td data-label="Business Groups">
+                                        <span class="slds-truncate">{!acc.Business_Groups__c}</span>
+                                    </td> 
+                                    
+                                    <td data-label="Business Groups">
+                                        <span class="slds-truncate">{!acc.CategoryAreaSIM__c}</span>
+                                    </td>
+                                    
+                                    <td data-label="Role">
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.LSM__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.LSM__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Supplier_Governance_Manager__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Supplier_Governance_Manager__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Business_Owner__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Business_Owner__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.SAM_Innovation_Manager__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.SAM_Innovation_Manager__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF($User.Id == acc.Sponsor__c,true,false)}">
+                                            <span class="slds-truncate">{!$ObjectType.Account.fields.Sponsor__c.Label}</span>
+                                        <br/></apex:outputPanel>
+                                    </td>
+                                    <td data-label="Contacts">
+                                        <apex:outputLink styleClass="slds-truncate"  value="/apex/SupplierContactsViewPage?Id={!acc.Id}" >View Contacts</apex:outputLink>
+                                    </td>
+                                </tr>                                         
+                                     </apex:outputPanel>
+                               </apex:outputPanel>
+                                 </apex:repeat>                               
+                             <!--</apex:repeat>-->
+                            <!--</apex:repeat>                              -->
+                            </table>        
+                            </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </div>
+            </div> 
+        </body>
+    </html>      
+</apex:component>

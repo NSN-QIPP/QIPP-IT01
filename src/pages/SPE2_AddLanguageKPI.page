@@ -1,0 +1,69 @@
+<apex:page standardController="SPE_KPIDefinition__c" extensions="SPE2_AddLanguageKPIExt" id="pg1">
+<c:SPE2_LOADING_ICON_IN_VISUALFORCE_PAGE />
+    <apex:form id="fm">
+        <script>
+            if('{!isLanguageAccessGranted}' == 'false'){
+                alert('Kindly contact the owner of the record to enter alternate language data');
+                window.location.href = '/'+'{!idKPIRecId}';
+            }
+            else{
+                if('{!isKPIFieldValuesAvailable}' == 'false'){
+                    alert('If Alternate Language is used,then,kindly fill data for all the fields in the language section (viz. Description, RCA Instructions, Preventive Action Instructions and Corrective Action Instructions).');
+                    window.location.href = '/'+'{!idKPIRecId}';
+                }
+            }
+            
+           function stopDoubleclk(){
+           document.getElementById('pg1:fm:pb2:pbBtn:savebtn').disabled = true;    
+           saveQB();
+           }
+        </script>
+        <apex:pageBlock title="Preferred Alternate Language" rendered="{!!showNext}" id="pb">
+       
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Next" title="Next" action="{!showNext}" rendered="{!!showNext}" style="width:10%;"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection rendered="{!!showNext}">
+                <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Select Alternate Language"></apex:outputLabel>
+                <apex:selectList id="lang" value="{!inputLanguage}" size="1">
+                    <apex:selectOptions value="{!LanguageValues}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!showNext}" id="pb2">
+         <apex:pageMessages id="msg"></apex:pageMessages>
+            <apex:pageBlockButtons id="pbBtn">
+               <apex:actionStatus id="saveStatus">
+                <apex:facet name="stop">
+                    <apex:commandButton value="Save" action="{!SaveChanges}" status="saveStatus" rerender="msg" />
+                </apex:facet>
+                <apex:facet name="start">
+                    <apex:commandButton value="Saving..." disabled="true" status="saveStatus"/>
+                </apex:facet>
+            </apex:actionStatus>
+                            
+                <apex:commandButton value="Cancel" action="{!cancel}"   />
+            </apex:pageBlockButtons>
+            <apex:actionFunction name="saveQB" action="{!SaveChanges}" rerender="msg"/>
+            <apex:pageBlockSection rendered="{!showNext}" title="Alternate Language KPI Details Entry" collapsible="false" columns="2">
+                <apex:outputText label="KPI Title In English" value="{!objKPI.KPI_Title__c}"/>
+                <apex:inputField value="{!objKPIAltLang.Language_Version__c}" label="Enter the KPI Title in {!inputLanguage}" style="width: 80%;" required="true"/>
+                
+                <apex:outputText label="KPI Description In English" value="{!objKPI.Description__c}"/>
+                <apex:inputField value="{!objKPIAltLang.Alternate_Language_Description__c}" label="Enter the KPI Description in {!inputLanguage}" style="width: 80%;" required="true"/>
+                
+                <apex:outputText label="KPI RCA Instruction In English" value="{!objKPI.RCAInstructions__c}"/>
+                <apex:inputField value="{!objKPIAltLang.Alternate_Language_RCA_Instructions__c}" label="Enter the RCA Instruction in {!inputLanguage}" style="width: 80%;" required="true"/>
+                
+                <apex:outputText label="KPI Preventive Action In English" value="{!objKPI.PreventiveActionInstructions__c}"/>
+                <apex:inputField value="{!objKPIAltLang.Alternate_Language_Preventive_Action_Ins__c}" label="Enter the Preventive Action in {!inputLanguage}" style="width: 80%;" required="true"/>
+                
+                <apex:outputText label="KPI Corrective Action In English" value="{!objKPI.CorrectiveActionInstructions__c}"/> 
+                <apex:inputField value="{!objKPIAltLang.Alternate_Language_Corrective_Action_Ins__c}" label="Enter the Corrective action in {!inputLanguage}" style="width: 80%;" required="true"/>
+            
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,43 @@
+<apex:page standardController="SPE_SurveyQuestion__c" extensions="SPE2_ConvertQuestionToPIDataExt" tabStyle="SPE_PIDefinition__c">
+
+<apex:form >
+   <apex:pageblock Title="PI Data Edit">
+    <apex:pageblockButtons >
+        <apex:commandButton value="Save" action="{!PISave}"/>
+        <apex:commandButton value="Cancel" action="{!PICancel}" immediate="true"/>
+    </apex:pageblockButtons>
+   <apex:pageMessages ></apex:pageMessages>
+    <apex:pageblockSection title="Information" columns="2">
+    
+    <!--***********Changes for Encryption***************-->
+        <!--<apex:inputField value="{!PIDef.Name}" required="true"/>-->
+        <apex:inputField value="{!PIDef.PI_Title__c}" required="true"/>
+    <!--***************END***************-->    
+        
+        <!--<apex:inputField value="{!PIDef.OwnerId}" required="true"/>-->
+        <apex:inputField value="{!PIDef.PIAbbreviation__c}" required="true"/>
+        <apex:pageblockSectionItem >
+        <apex:outputlabel value="Stage"/>
+        <apex:outputText value="Draft"/>
+        </apex:pageblockSectionItem>
+        <apex:inputField value="{!PIDef.Type__c}"/>
+        <apex:inputField value="{!PIDef.Business__c}"/>
+        <apex:inputField value="{!PIDef.ValuesType__c}" required="true"/>
+        <apex:outputField value="{!PIDef.DataAcquisitionMethod__c}" />
+        <apex:inputField value="{!PIDef.OperationalType__c}"/>
+        <apex:outputField value="{!PIDef.SurveyQuestion__c}"/>
+        <apex:inputField value="{!PIDef.UoM__c}" required="true"/>
+        <apex:inputField value="{!PIDef.PurposeAndObjective__c}"/>
+        <apex:inputField value="{!PIDef.PIUploadDuedate__c}" required="true"/>
+        <apex:inputField value="{!PIDef.Additional_Days__c}" label="Buffer Days" style="width: 10%;"/>
+   </apex:pageblockSection>
+   
+   <apex:pageblockSection title="Scope Map" columns="2">
+        <apex:outputField value="{!PIDef.GeoScope__c}" />
+        <apex:outputField value="{!PIDef.CategoryScope__c}"/>
+        <apex:outputField value="{!PIDef.BUScope__c}" />
+   </apex:pageblockSection>
+</apex:pageblock>
+</apex:form>
+
+</apex:page>

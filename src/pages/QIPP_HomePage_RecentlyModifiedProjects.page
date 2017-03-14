@@ -1,0 +1,105 @@
+<apex:page Controller="loggedInUser" showHeader="false" sidebar="false" cache="false">
+    <head>
+        <!--<apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+        <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />
+        <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />-->
+        <script src="{!URLFOR($Resource.Pagination,'DataTable/jquery-1.11.1.min.js')}"></script>
+        <script src="{!URLFOR($Resource.Pagination,'DataTable/jquery.dataTables.min.js')}"></script>
+        <link href="{!URLFOR($Resource.Pagination,'DataTable/jquery.dataTables.css')}" rel="stylesheet" />
+        <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+                var contactTable = j$('[id$="projecttable"]').DataTable({
+                "order": []     
+                });
+                j$('[id$="projecttable_length"]').replaceWith( j$('[id$="newProject"]'));
+                var contactid = '{!contactId}';
+                if(contactid == ''){
+                    j$('[id$="exportReport"]').hide();
+                }
+                var profilee = '{!profilename}';
+                if(profilee == 'Nokia QIPP Project Viewer'){
+                    j$('[id$="newProject"]').hide();
+                }
+                var projectLst = '{!projectList}';
+                if(projectLst == '[]'){
+                    j$('[id$="exportReport"]').hide();
+                }
+            });
+            function projectCreation(){
+                var win = window.open("apex/QIPP_Project_Record_Types_Page?&urlfrom=home&retURL=%2Fa18%2Fo&save_new=1&sfdc.override=1", '_blank');                                   
+               win.focus();
+            }
+        </script>
+   </head>
+    <style>
+        .pbSubheader{
+        background-color:transparent;
+        color:black!important;
+        }
+        .bPageBlock{
+        border-top:3px solid #1797c0;
+        }
+        .bPageBlock .detailList .dataCol{
+        width:100%}
+    </style>
+    <apex:form >
+        <apex:pageBlock >
+            <body>
+                
+                <table id="projecttable" class="display" style="font-size:1em" >
+                                <b style="font-size:1.3em">Recently Modified Projects</b><br/><br/>
+                    <thead>
+                        <tr>
+                        <apex:commandButton id="newProject" onclick="projectCreation()" value="New QIPP Project"  title="Create New QIPP Project" style="margin-left: 400px;font-size: 1.2em;margin-bottom: 10px;"/>
+                        </tr>
+                        
+                        <tr>
+                            <th align="left" style="padding-left: 1px;">Project Number</th>
+                            <th align="left" style="padding-left: 1px;">Project Lead</th>
+                            <th align="left" style="padding-left: 1px;">Portfolio Name</th>
+                            <th id="projName" align="left" style="padding-left: 1px;">Project Name</th>
+                            <th align="left" style="padding-left: 1px;">Project State</th>
+                            <th align="left" style="padding-left: 1px;">Planned (k€)</th>
+                            <th align="left" style="padding-left: 1px;">Validated (k€)</th>
+                            <th align="left" style="padding-left: 1px;">Created Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!projectList}" var="nap"> 
+                            <tr>
+                                <td id="project#"><a href="/{!nap.id}" target="_blank">{!nap.Project_Number__c}</a></td>
+                                <td id="projectlead">{!nap.Project_Lead__r.Name}</td>
+                                <td id="portfolioname">
+                                    <apex:outputPanel rendered="{!IF(len(nap.Portfolio_Name__r.Name)>17,true,false)}">
+                                        <apex:outputText title="{!nap.Portfolio_Name__r.Name}" value="{!left(nap.Portfolio_Name__r.Name,17)}..."> </apex:outputText>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF(len(nap.Portfolio_Name__r.Name)<=17,true,false)}">
+                                        <apex:outputText title="{!nap.Portfolio_Name__r.Name}" value="{!nap.Portfolio_Name__r.Name}"></apex:outputText>
+                                    </apex:outputPanel>
+                                </td>
+                                <td id="projectName">
+                                    <apex:outputPanel rendered="{!IF(len(nap.Project_Name_Succinct__c)>25,true,false)}">
+                                        <apex:outputText title="{!nap.Project_Name_Succinct__c}" value="{!left(nap.Project_Name_Succinct__c,25)}..."> </apex:outputText>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF(len(nap.Project_Name_Succinct__c)<=25,true,false)}">
+                                        <apex:outputText title="{!nap.Project_Name_Succinct__c}" value="{!nap.Project_Name_Succinct__c}"></apex:outputText>
+                                    </apex:outputPanel>
+                                </td>
+                                <td id="projectState">{!nap.Project_State__c}</td>
+                                <td id="plannedamt">{!nap.Total_Benefit_Planned_Amount__c}</td>
+                                <td id="validationamt">{!nap.Total_Project_Validation_Amount__c}</td>
+                                <td>
+                                   <apex:outputText value="{0,date,long}">
+                                    <apex:param value="{!nap.Project_Created_Date__c}" /> 
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                       <table id="exportReport"><tr><td><b><a href="/apex/Homepageexportxls" target="_blank" style="color: blue;">Export Recently Modified Project List</a></b></td></tr></table>
+                </table>
+            </body>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

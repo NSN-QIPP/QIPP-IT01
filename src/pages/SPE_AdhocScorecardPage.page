@@ -1,0 +1,189 @@
+<apex:page extensions="SPE_AdhocScorecardPageEXT" standardController="SPE_ScorecardTemplate__c" sidebar="false" docType="html-5.0">
+ 
+  
+   
+  <apex:form >
+  
+ 
+  <apex:pageBlock title="SPE Plan Selection" mode="edit">
+ 
+  <table width="100%" border="0">
+  <tr>  
+    <td width="200" valign="top">
+ 
+      <apex:pageBlock title="Parameters" mode="edit" id="criteria">
+ 
+      <script type="text/javascript">
+          function doSearch() {
+            searchServer(
+              document.getElementById("SPEPlanName").value,
+              document.getElementById("supplier").value,
+              document.getElementById("market").value,
+              document.getElementById("marketunit").value,
+              document.getElementById("country").value,
+              document.getElementById("project").value,
+              document.getElementById("categoryarea").value,
+              document.getElementById("categorygrp").value,
+              document.getElementById("category").value,
+              document.getElementById("bunit").value,
+              document.getElementById("bline").value,
+              document.getElementById("product").value
+              );
+            
+          }
+      </script>
+      <script>
+        function checkAll(cb)
+        {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++)
+            {
+                if(inputElem[i].id.indexOf("checkedone")!=-1)
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    </script>
+ 
+      <apex:actionFunction name="searchServer" action="{!runSearch}" rerender="results">
+          <apex:param name="SPEPlanName" value="" />
+          <apex:param name="supplier" value="" />
+          <apex:param name="market" value="" />
+          <apex:param name="marketunit" value="" />
+          <apex:param name="country" value="" />
+          <apex:param name="project" value="" />
+          <apex:param name="categoryarea" value="" />
+          <apex:param name="categorygrp" value="" />
+          <apex:param name="category" value="" />
+          <apex:param name="bunit" value="" />
+          <apex:param name="bline" value="" />
+          <apex:param name="product" value="" />
+      </apex:actionFunction>
+      
+      <apex:actionFunction name="removeTrackerValue" action="{!removeTrackerValue}" rerender="results">
+          <apex:param name="tarckerValueId" value="" />
+      </apex:actionFunction>
+ 
+      <table cellpadding="2" cellspacing="2">
+      <tr>
+        <td style="font-weight:bold;">SPE Plan Name<br/>
+        <input type="text" id="SPEPlanName" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Supplier<br/>
+        <input type="text" id="supplier" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+         <td style="font-weight:bold;">Start Date<br/>  
+             <apex:inputfield value="{!plan.StartDate__c}"  id="startDate"  onchange="doSearch();"/>
+         </td>
+         <td style="font-weight:bold;">End Date<br/>    
+        
+            <apex:inputfield value="{!plan.EndDate__c}"  id="endDate" onchange="doSearch();" /> 
+         </td> 
+      
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Market<br/>
+        <input type="text" id="market" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Market Unit<br/>
+        <input type="text" id="marketunit" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Country<br/>
+        <input type="text" id="country" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Project<br/>
+        <input type="text" id="project" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Category Area<br/>
+        <input type="text" id="categoryarea" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Category Group<br/>
+        <input type="text" id="categorygrp" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Category<br/>
+        <input type="text" id="category" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Business Unit<br/>
+        <input type="text" id="bunit" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Business Line<br/>
+        <input type="text" id="bline" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Product<br/>
+        <input type="text" id="product" onkeyup="doSearch();"/>
+        </td>
+      </tr>
+     
+      </table>
+      <br/><br/>
+      
+      <apex:commandButton value="Next" style="cursor:pointer;width: 35%;" action="{!redirectToSecondPg}"/>
+      </apex:pageBlock>
+ 
+    </td>
+    <td valign="top">
+    
+    <apex:pageBlock mode="edit" id="results">
+        <b>Selected SPE Plan</b> 
+        <apex:pageBlockTable value="{!SelectedMap}" var="s">
+       
+               
+                    <apex:column headervalue="Supplier Name" value="{!s.Supplier__r.name}" />
+                    
+                    <apex:column headerValue="SPE Plan"  value="{!s.SPEPlan__r.name}" />     
+            </apex:pageBlockTable>
+               
+        <apex:pageBlockTable value="{!PlanWrapperList}" var="speTrackers">
+           
+            <apex:column >
+               <apex:facet name="header"> 
+                     Select
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!speTrackers.isSelected}" id="checkedone">
+                    <apex:actionSupport event="onclick" action="{!getSelected}" rerender="results"/></apex:inputCheckbox>
+                </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                    Supplier
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.Supplier__r.name}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">
+                     SPE Plan 
+                </apex:facet>
+                <apex:outputField value="{!speTrackers.stv.SPEPlan__r.name}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+ 
+    </apex:pageBlock>
+ 
+    </td>
+  </tr>
+  </table>
+  </apex:pageBlock>
+ 
+  </apex:form>
+ 
+</apex:page>

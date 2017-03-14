@@ -1,0 +1,121 @@
+<apex:page controller="SPE_versionLinkageExt" sidebar="false" showHeader="false" standardStylesheets="false">
+<apex:stylesheet value="{!URLFOR($Resource.Bootstrap_min)}"/> 
+<style>
+.btn {
+    background-color: #66cccc;
+    color: black;
+    width: 150px;
+    line-height: 15px;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+</style>
+
+<script>
+  function Cancelfunction()
+  {
+      var win=window.open("","_self");
+      win.close();
+  }
+  function Proceedfunction()
+  {
+      proceed();
+  }
+  function closeFunction()
+  {
+       alert('You have successfully changed the Stage');
+       var win=window.open("","_self");
+       win.close();
+      
+  }
+</script>
+
+  <apex:form >
+  <apex:actionFunction name="proceed" action="{!updateKPI}" reRender="BU" status="statusChange1" oncomplete="closeFunction();"/>
+  
+  <div class="container">
+      <center>
+          
+              <div class="panel panel-primary" >
+                    <div class="panel-heading"> 
+                    <div style="float:center;font-size: 22px;">
+                        Impacted Objects List
+                    </div>
+                    
+                    <div style="clear:both"/>
+                    </div>
+                
+             </div>
+             
+         
+              <table class="table table-hover" border="1px">
+                 
+                 <th style="background-color:#93D7EA">SPE Template</th>
+                 <th style="background-color:#93D7EA">Scoring Template</th> 
+                 <th style="background-color:#93D7EA">Owner</th> 
+                 <th style="background-color:#93D7EA">Stage</th> 
+                 
+                 <apex:repeat value="{!linkList}" var="k">
+                    
+                     <tr>
+                         <td>
+                            SPE Template : <b><a href="/{!k.sptemId}">{!k.SPETempName}</a></b> <br/>
+                            Owner Name : <b>{!k.SpeOwner}</b><br/>
+                            Stage : <b>{!k.Stage}</b>
+                         </td>
+                         
+                         <td>
+                              <apex:repeat value="{!k.ScorTmpList}" var="i">
+                                      <apex:outputPanel rendered="{!k.Redcolor}">  <b><a href="/{!i.id}"><font color="red">{!i.name}</font></a></b><br/></apex:outputPanel>
+                                      <apex:outputPanel rendered="{!!k.Redcolor}">  <b><a href="/{!i.id}"><font color="green">{!i.name}</font></a></b><br/></apex:outputPanel>
+                               </apex:repeat>
+                                
+                         </td>
+                         <td>
+                              <apex:repeat value="{!k.ScorTmpList}" var="i">
+                                            {!i.Owner.name}<br/>
+                               </apex:repeat>
+                                
+                         </td>
+                         <td>
+                              <apex:repeat value="{!k.ScorTmpList}" var="i">
+                                            {!i.Stage__c}<br/>
+                               </apex:repeat>
+                                
+                         </td>
+                         
+                     </tr>
+                   
+                 </apex:repeat>   
+                   
+             </table>
+             
+            <div class="test" style="align:center"> 
+              <div class="btn-group" style="float:left">
+                     <input type="button" class="btn btn-danger btn-lg" value="Cancel" onclick="Cancelfunction();"/>
+              </div>
+              
+              <div class="btn-group" style="float:right">
+                     <input type="button" class="btn btn-success btn-lg" value="Proceed" onclick="Proceedfunction();" />
+              </div>
+           </div>
+           <div style="clear:both"/>
+           <br/><br/>
+           
+      </center>
+      <div class="panel panel-danger">
+              
+                <div class="panel-heading">The New Version introduced by you will affect the above mentioned Scoring Templates</div>
+              
+              <div class="panel-footer">Green IDs – The latest version will be replaced and old scoring thresholds will be re-used – Plan will run as normal – SPE Scoring Template owner will be notified</div>
+              <div class="panel-footer">Red ID’s – The latest version replacement will break the scoring template – SPE Scoring template owner will be notified</div>
+          </div>
+          
+  </div>
+  
+               
+     
+  </apex:form>
+</apex:page>

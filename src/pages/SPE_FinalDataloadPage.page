@@ -1,0 +1,12 @@
+<apex:page controller="spe_verifyBUExt" showHeader="false" sidebar="false" standardStylesheets="false">
+ <apex:stylesheet value="{!URLFOR($Resource.Bootstrap_min)}"/> 
+ 
+  
+  
+  <div class="container">
+  <br/><br/><br/><br/><br/><br/>
+    <div class="test">
+        <div class="text-center col-md-4 col-md-offset-4" style="background:lightgreen">The Data is Uploading, Please close the window and wait for the email confirmation.</div>
+    </div>
+</div>
+</apex:page>

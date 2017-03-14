@@ -1,0 +1,91 @@
+<apex:page standardController="QIPP_BG_BU_BL_Contact_Mapping__c" extensions="QIPPBGMBBMapController" sidebar="false" >
+
+    <script src="{!URLFOR($Resource.Pagination,'DataTable/jquery-1.11.1.min.js')}"></script>
+    <script src="{!URLFOR($Resource.Pagination,'DataTable/jquery.dataTables.min.js')}"></script>
+    <link href="{!URLFOR($Resource.Pagination,'DataTable/jquery.dataTables.css')}" rel="stylesheet" />    
+
+    <style type = 'text/css'>
+        #loading{
+           width: 100%;
+           height: 100%;
+           top: 0;
+           left: 0;
+           position: fixed;
+           display: block;
+           opacity: 0.5;
+           background-color: #E1E8EB;
+           z-index: 99;
+           text-align: center;
+        }
+        
+        #loading-image{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 100;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        j$ = jQuery.noConflict(); 
+
+        var contactTable;
+        j$(document).ready( function () {
+            contactTable = j$('[id$="projecttable"]').DataTable({
+                "order": [],
+                "lengthMenu": [ 30, 50, 75, 100 ],
+                aoColumnDefs: [{
+                    bSortable: false,
+                    aTargets: [ -1 ]
+                }]
+            });
+         });
+
+        function startProcess(){
+            j$("#loading").show();
+        }
+        
+        function endProcess(){
+            j$("#loading").hide();
+        }
+    </script>
+
+    <apex:form id="frm">
+        <div id="loading" style="display:none;">
+            <img id="loading-image" src="https://raw.githubusercontent.com/ressio/lazy-load-xt/master/src/loading.gif" alt="Loading..." />
+        </div>
+    
+        <apex:pageBlock id="saveBGCon" title="BG - MBB Mapping">
+            <apex:pageMessages id="msg" ></apex:pageMessages>
+            
+            <table id="projecttable" class="display" style="font-size:1em" >
+                <thead>
+                    <tr>
+                        <apex:commandButton value="Save" id="savebtn" action="{!saveBGMap}" style="margin-left:500px" onclick="startProcess();" oncomplete="endProcess();"/>        
+                        <apex:commandButton value="Cancel" id="cancelbtn" action="/{!poid}" style="margin-left:10px" onclick="startProcess();" oncomplete="endProcess();"/>
+                    </tr>
+                    <tr>
+                        <th align="left" style="padding-left: 1px;">Select</th>
+                        <th align="left" style="padding-left: 1px;">Name</th>
+                        <th align="left" style="padding-left: 1px;">Email Address</th>
+                        <th align="left" style="padding-left: 1px;">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <apex:repeat value="{!bgMBBMapList}" var="bg">
+                        <tr id="selecttr">
+                            <td id="isSelect">
+                                <apex:inputCheckbox styleClass="chboxisselect" value="{!bg.isSelect}" />
+                            </td>
+                            <td id="Name">{!bg.Name}</td>
+                            <td id="email">{!bg.Email}</td>
+                            <td id="detail">
+                                <apex:commandLink target="_blank" value="Details" action="/{!bg.cid}"  />
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

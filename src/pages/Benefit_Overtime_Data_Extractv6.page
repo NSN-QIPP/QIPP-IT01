@@ -1,0 +1,34 @@
+<apex:page controller="Benefit_Overtime_Data_Extractv6" showHeader="true" sidebar="false" readOnly="true">
+<apex:form >
+    <apex:outputpanel >
+        <apex:actionstatus id="StatusId">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Sending Email.....</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputpanel>
+    
+    <apex:outputPanel id="panelid">
+        <apex:pageBlock >
+        <p><b><font size="3">Send Project With Benefit Savings Report To Email</font></b></p><br></br>
+        <apex:pageMessages />
+            <apex:panelgrid cellspacing="3" border="0" columns="5">
+              <p><b>Email To : &nbsp;&nbsp;&nbsp;&nbsp;</b></p>&nbsp;&nbsp;
+                <apex:panelGroup styleClass="col02 requiredInput" layout="block">
+                   <apex:panelGroup styleClass="requiredBlock" layout="block"/>
+                    <apex:inputtext value="{!emailTo}" style="width: 300px"></apex:inputtext>&nbsp;&nbsp;
+                </apex:panelGroup>
+                
+                <apex:commandbutton value="Send Email" action="{!sendEmail}" rerender="panelid" status="StatusId"></apex:commandbutton>
+                <apex:commandbutton value="    Back    " action="{!Backtopreviouspage}" ></apex:commandbutton>
+            </apex:panelgrid>
+        </apex:pageBlock>
+    </apex:outputPanel>
+</apex:form>
+</apex:page>

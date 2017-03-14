@@ -1,0 +1,16 @@
+<apex:page standardController="SPE_KPIDefinition__c" extensions="SPE_PIEqualsKPIAdhocScheduleExt" id="PIequalskpiAdhocSchPgId">
+    <apex:form >
+        <apex:pageMessages id="errId"/>
+        <apex:pageBlock tabStyle="SPE_KPIDefinition__c">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Schedule" action="{!scheduleBatch}"/>
+            </apex:pageBlockButtons>
+             <apex:pageBlockSection title="Set Date Range" collapsible="false" columns="2">
+                <apex:inputField value="{!objKPIDef.FromDate__c}"/>
+                          
+                <apex:inputField value="{!objKPIDef.ToDate__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        **It will copy data from PI to KPI for the range specified. If the data is already existing for the specified time range then it is overridden by the new values. 
+    </apex:form>
+</apex:page>

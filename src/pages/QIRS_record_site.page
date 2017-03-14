@@ -1,0 +1,488 @@
+<apex:page cache="false" expires="0" sidebar="false" showHeader="true" tabStyle="QIRS__c" standardcontroller="QIRS__c" extensions="QIRSrecordsite" action="{!temp}">
+   <apex:composition template="QIRS_Template_site">
+   <apex:define name="body">
+   <apex:detail subject="{!temp}" relatedList="false" title="false" relatedListHover="false" />
+   <!-- <apex:pageBlock title="QIRS Detail">    
+    <table border="0" width="100%">
+        <tr>            
+            <td > 
+                <font size="5">
+                <apex:outputText value="{!RecordName}">
+                </apex:outputText>
+                </font>
+             </td>
+        </tr>
+    </table>
+    <br></br>
+    
+    <table border="0" width="100%">
+        <tr>
+            <td width="28%">
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Record Code</h2>
+            </td>
+             <td width="22%">
+                <apex:outputText value="{!RecordName}">
+                </apex:outputText> 
+            </td>
+            <td width="28%">
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Legacy Code</h2>
+            </td>
+             <td width="22%">               
+                <apex:outputText value="{!LegacyCode}">
+                </apex:outputText>             
+            </td>            
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Site</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!Site}">
+                </apex:outputText>
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Process to Stop</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!ProcesstoStop}">
+                </apex:outputText> 
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Case Owner</h2>
+            </td>
+             <td>  
+                <apex:outputText value="{!CaseOwner}">
+                </apex:outputText>
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Business Group</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!BusinessGroup}">
+                </apex:outputText>
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Business</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!Business}">
+                </apex:outputText>
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Issue Level</h2>
+            </td>
+             <td>  
+                <apex:outputText value="{!IssueLevel}">
+                </apex:outputText>
+            </td>            
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Alert Type</h2>
+            </td>
+             <td> 
+                <apex:outputText value="{!AlertType}">
+                </apex:outputText>
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Factory</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!Factory}">
+                </apex:outputText>
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Serial Numbers</h2>
+            </td>
+             <td> 
+                <apex:outputText value="{!SerialNumbers}">
+                </apex:outputText>
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Expected Number of returns</h2>
+            </td>
+             <td> 
+                <apex:outputText value="{!ExpectedNumberofreturns}">
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Problem Description</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!ProblemDescription}">
+                </apex:outputText>
+            </td>            
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Customer Impact</h2>
+            </td>
+             <td> 
+                <apex:outputText value="{!CustomerImpact}">
+                </apex:outputText>
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Customer</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!Customer}">
+                </apex:outputText> 
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>% Factory/DC</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!FactoryDC}">
+                </apex:outputText>
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Exposed Base</h2>
+            </td>
+             <td> 
+                <apex:outputText value="{!ExposedBase}">
+                </apex:outputText>
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Estimated close date</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!Estimatedclosedate}">
+                </apex:outputText> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Total Quality Spills Cost</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!TotalQualitySpillsCost}">
+                </apex:outputText>              
+            </td> 
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Cost</h2>
+            </td>
+             <td> 
+                <apex:outputText value="{!Cost}">
+                </apex:outputText>
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Orders at Risk</h2>
+            </td>
+            <td>               
+                <apex:outputText value="{!Ordersbacklog}">
+                </apex:outputText>               
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Orders Impact</h2>
+            </td>
+             <td>
+                <apex:outputText value="{!OrdersImpact}">
+                </apex:outputText>              
+            </td>            
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Units at Risk</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!UnitsBacklog}">
+                </apex:outputText>               
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Units Impact</h2>
+            </td>
+            <td>               
+                <apex:outputText value="{!UnitsImpact}">
+                </apex:outputText>               
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Revenue at Risk</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!RevenueBacklog}">
+                </apex:outputText>              
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Revenue Impact</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!RevenueImpact}">
+                </apex:outputText>               
+            </td>            
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Defective Part</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!DefectivePart}">
+                </apex:outputText>              
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Symptom</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!Symptom}">
+                </apex:outputText>              
+            </td>            
+        </tr>
+        <tr>
+           <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Next Customer<br/> <font color="white">aaaaaaaaaaaaaa</font>Requested Ship Date (CRSD)</h2>
+            </td>
+            <td>               
+                <apex:outputText value="{!NextCustomerRequestedShipDateCRSD}">
+                </apex:outputText>
+             </td>
+             <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Projected Lift Date</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!ProjectedLiftDate}">
+                </apex:outputText>              
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Operator Warning Message</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!OperatorWarningMessage}">
+                </apex:outputText>              
+            </td>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Impacted Region</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!ImpactedRegion}">
+                </apex:outputText>              
+            </td>            
+        </tr>
+        <tr>
+            <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Lifted Date</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!LiftedDate}">
+                </apex:outputText>             
+            </td>
+             <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Impacted Countries</h2>
+            </td>
+            <td>               
+                <apex:outputText value="{!ImpactedCountries}">
+                </apex:outputText>
+             </td> 
+        </tr>
+        <tr>
+             <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Master Approver</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!MasterApprover}">
+                </apex:outputText>              
+            </td>
+             <td>
+                <font color="white">aaaaaaaaaaaaaa</font><h2>Approval Comments</h2>
+            </td>
+             <td>               
+                <apex:outputText value="{!ApprovalComments}">
+                </apex:outputText>              
+            </td>
+        </tr>
+       
+    </table>
+    </apex:pageBlock>
+    <apex:pageBlock title="Lock Point & Status"> 
+        <table border="0" width="100%">
+            <tr>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>SH-Shipping</h2>
+                </td>
+                 <td width="28%">
+                    <apex:inputCheckbox disabled="True" value="{!Lock_Points_SH_Shipping}" >
+                    </apex:inputCheckbox> 
+                </td>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Status</h2>
+                </td>
+                 <td width="28%" bgcolor="{!color}">
+                    <apex:outputText value="{!Status}"> 
+                    </apex:outputText> 
+                </td>
+            </tr>
+        </table>        
+    </apex:pageBlock>
+    <apex:pageBlock title="Supplier Chargeback"> 
+        <table border="0" width="100%">
+            <tr>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Yes</h2>
+                </td>
+                 <td width="28%">
+                    <apex:inputCheckbox disabled="True" value="{!Yes}" >
+                    </apex:inputCheckbox> 
+                </td>
+            </tr>
+            <tr>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Supplier</h2>
+                </td>
+                 <td width="28%">
+                    <apex:outputText value="{!Supplier}"> 
+                    </apex:outputText> 
+                </td>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Supplier PN</h2>
+                </td>
+                 <td width="28%">
+                    <apex:outputText value="{!SupplierPN}"> 
+                    </apex:outputText> 
+                </td>
+            </tr>
+        </table>      
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Product Safety"> 
+        <table border="0" width="100%">
+            <tr>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Product Safety</h2>
+                </td>
+                 <td width="28%">
+                    <apex:inputCheckbox disabled="True" value="{!QIRS__c.Product_Safety__c}">
+                    </apex:inputCheckbox> 
+                </td>
+            </tr>
+        </table>
+    </apex:pageBlock>
+    
+    <apex:pageBlock title=""> 
+        <table border="0" width="100%">
+             
+            <tr>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Created By</h2>
+                </td>
+                 <td width="28%">
+                    <apex:outputText value="{!CreatedBy}"> 
+                    </apex:outputText> 
+                </td>
+                <td width="22%">
+                    <font color="white">aaaaaaaaaaaaaa</font><h2>Created Date</h2>
+                </td>
+                <td width="28%">
+                    <apex:outputText value="{!CreatedDate}"> 
+                    </apex:outputText> 
+                </td>
+            </tr>      
+        </table>
+    </apex:pageBlock>   -->         
+     
+    <apex:pageBlock title="Product Identification"> 
+        <apex:pageBlockTable value="{!ProductIdentification}" var="Product">
+            <apex:column value="{!Product.Name}"/> 
+            <apex:column value="{!Product.Product_Name__c}"/>
+            <apex:column value="{!Product.Technology__c}"/> 
+            <apex:column headervalue="CreatedBy">                        
+            <apex:outputText value="{!Product.CreatedBy.Name}"/>   
+            </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:column headervalue="CreatedDate">                        
+            <apex:outputText value="{!Product.CreatedDate}"/>   
+            </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+    <apex:pageBlock title="Action Plans"> 
+        <apex:pageBlockTable value="{!actionPlans}" var="item">
+            <apex:column value="{!item.Name}"/> 
+            <apex:column value="{!item.Action_Type__c}"/>
+            <apex:column value="{!item.Champion__c}"/> 
+            <apex:column value="{!item.Required_date__c}"/>
+            <apex:column value="{!item.Approver__c}"/> 
+            <apex:column value="{!item.Status__c}"/>
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+    <apex:pageBlock title="Cost"> 
+        <apex:pageBlockTable value="{!costa}" var="costs">
+             <apex:column headervalue=" Created Date">                         
+             <apex:outputText value="{!costs.CreatedDate}"/>    
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
+             <apex:column headervalue="Catagory">                        
+             <apex:outputText value="{!costs.Category__c}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:column headervalue="Comments">                       
+             <apex:outputText value="{!costs.Comments__c}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:column headervalue="Cost">                       
+             <apex:outputText value="{!costs.Cost__c}"/>
+              </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:column headervalue="Currency">                       
+             <apex:outputText value="{!costs.CurrencyIsoCode}"/>
+              </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock title="MCAR"> 
+     <apex:pageBlockTable value="{!MCAR}" var="MCARR">
+            <apex:column value="{!MCARR.MCAR_Code__c}"/>
+            <apex:column value="{!MCARR.CreatedBy.Name}"/>
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+    <apex:pageBlock title="Status"> 
+         <apex:pageBlockTable value="{!statuss}" var="status1">
+             <apex:column headervalue=" Status">                         
+             <apex:outputText value="{!status1.Status__c}"/>    
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
+             <apex:column headervalue="Created By">                        
+             <apex:outputText value="{!status1.CreatedBy.Name}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:column headervalue="Created Date">                        
+             <apex:outputText value="{!status1.CreatedDate}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <!--<apex:pageBlock title="Notes & Attachments"> 
+        <apex:pageBlockTable value="{!attachment}" var="attach">
+             <apex:column headervalue=" Title">                         
+             <apex:outputText value="{!attach.Title}"/>    
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
+             <apex:column headervalue="Created By">                        
+             <apex:outputText value="{!attach.CreatedBy.Name}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:column headervalue="Created Date">                        
+             <apex:outputText value="{!attach.CreatedDate}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+        </apex:pageBlockTable>
+    </apex:pageBlock>-->
+    <apex:pageBlock title="QIRS History"> 
+        <apex:pageBlockTable value="{!history}" var="hist">
+             <apex:column headervalue="Date">                        
+             <apex:outputText value="{!hist.CreatedDate}"/>   
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
+             <apex:column headervalue="Field">                        
+             <apex:outputText value="{!hist.Field}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:column headervalue="Old Value">                       
+             <apex:outputText value="{!hist.OldValue}"/>
+             </apex:column>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <apex:column headervalue="New Value">                       
+             <apex:outputText value="{!hist.NewValue}"/>
+             </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+ </apex:define>   
+  </apex:composition>
+</apex:page>

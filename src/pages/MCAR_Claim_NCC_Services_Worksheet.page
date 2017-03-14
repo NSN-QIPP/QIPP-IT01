@@ -1,0 +1,155 @@
+<apex:page StandardController="Claim_NCC_Services_Worksheet__c" standardStylesheets="true" recordSetVar="Newproducts" sidebar="true" extensions="Claim_NCC_Services" action="{!on_load}">
+<script type="text/javascript">
+
+
+function getFieldName(e) {
+  e = e || window.event;
+  var key = e.keyCode || e.which,
+      target = e.target || e.srcElement;
+
+ // alert(target.name); 
+  var name1 =target.name;
+  var e = document.getElementById(name1);
+var strUser = e.options[e.selectedIndex].value;
+
+ 
+  //var a ='j_id0:j_id2:thePageBlock:table:3:j_id9';
+if(name1.substr(0,31)=='j_id0:j_id2:thePageBlock:table:')
+    {
+    b=name1.substr(0,33)+'dynamictext';
+    }
+    else
+    {
+    b=name1.substr(0,35)+'editdynamictext';
+    }
+    
+//b=name1.substr(0,33); 
+//b=name1.substr(0,35);
+
+
+   
+//alert(b);
+//var help1=document.getElementById(b).value;
+//alert(help1);
+
+var helptext;
+if (strUser=='Delay related costs')
+{
+    helptext='Time lost</br>Additional effort / resources</br>Re-design cost</br>New Supplier introduction cost (different price,</br> competence transfer, IT, …)';
+}
+else if (strUser=='Direct and claim handling related' )
+{
+helptext='Customer Penalty</br>Travel Costs</br>Inspection and Validation cost</br>Root Cause analysis</br>';
+}
+else if (strUser=='Quality related costs' )
+{
+helptext='Rework cost</br>Additional verification</br>Additional validation</br>';
+}
+else if (strUser=='Health and Safety, environmental' )
+{
+helptext='Logistics cost</br>CAPEX</br>Material cost</br>';
+}
+else
+{
+helptext='';
+}
+//document.getElementById(b).innerHTML='hi31</br>hirt';
+document.getElementById(b).innerHTML=helptext;
+
+  return (key != 13);
+}
+
+    
+</script>
+<apex:form >
+<apex:pageBlock title="NCC Services Worksheet" id="thePageBlock" mode="edit">
+
+
+  
+  
+<apex:pageBlockButtons >
+<apex:commandButton value="Save" action="{!save}"  />  
+<apex:commandButton value="Cancel" action="{!Cancel}"/>   
+ </apex:pageBlockButtons>
+                           
+
+
+
+<!--<apex:inputText id="Rows" label="avalue="{!rows}" size="2" disabled="true"/>-->
+<apex:commandButton value="Add Cost" action="{!addrows}" reRender="table" /> 
+
+<apex:pageBlockTable value="{!prd}" var="a" id="table" border="2">             
+                  <apex:column headerValue="Category">
+                    <apex:inputField value="{!a.NCC_Category__c}"  onchange="return getFieldName(event);">
+                <apex:actionSupport event="onchange" rerender="dynamictext"/>
+                    </apex:inputField>
+                </apex:column>
+                <apex:column headerValue="Possible Costs">
+                    <!-- This is our selected Boolean property in our wrapper class -->
+                    <apex:outputText id="dynamictext" value="{!dynamictextvalue}" escape="true" label="hi"   />
+                 </apex:column>  
+                <apex:column headerValue="Description">
+                    <apex:inputField value="{!a.Description__c}" onclick="return getFieldName(event);" />
+                </apex:column> 
+                 <apex:column headerValue="Qty/Hours">
+                    <apex:inputField value="{!a.Qty_Hours__c}" />
+                </apex:column> 
+                 <apex:column headerValue="Unit Price">
+                    <apex:inputField value="{!a.Unit_Price__c}" />
+                </apex:column> 
+                    <apex:column headerValue="Amount">
+                    <apex:inputField value="{!a.Amount__c}" />
+                </apex:column> 
+                        
+ </apex:pageBlockTable>
+</apex:pageBlock>
+
+<BR></BR><BR></BR>
+<apex:pageBlock title="NCC Services Worksheet List View" id="thePageBlock1" mode="insert">
+<apex:pageBlockButtons >
+<apex:commandButton value="Edit" action="{!updatedrows}"  />  
+<apex:commandButton value="Delete" action="{!deletedrows}"  /> 
+<apex:commandButton value="Back to Claim" action="{!Cancel}"/> 
+ </apex:pageBlockButtons>
+                           
+<apex:pageBlockTable value="{!Contacts}" var="c" id="table1" border="">  
+
+
+
+                <apex:column >
+                    <!-- This is our selected Boolean property in our wrapper class -->
+                    <apex:inputCheckbox value="{!c.selected}" />
+                </apex:column>   
+                        
+                  <apex:column headerValue="Category" >
+                    <apex:inputField value="{!c.con.NCC_Category__c}" onchange="return getFieldName(event);" />
+                 <apex:actionSupport event="onchange" rerender="editdynamictext"/>
+                </apex:column>
+                 <apex:column headerValue="Possible Costs">
+                    <!-- This is our selected Boolean property in our wrapper class -->
+                    <apex:outputText id="editdynamictext" value="{!dynamictextvalue}" escape="true" label="hi"   />
+                 </apex:column>  
+                <apex:column headerValue="Description">
+                    <apex:inputField value="{!c.con.Description__c}" />
+                </apex:column> 
+                 <apex:column headerValue="Qty/Hours">
+                    <apex:inputField value="{!c.con.Qty_Hours__c}" />
+                </apex:column> 
+                 <apex:column headerValue="Unit Price">
+                    <apex:inputField value="{!c.con.Unit_Price__c}" />
+                </apex:column> 
+                    <apex:column headerValue="Amount">
+                    <apex:inputField value="{!c.con.Amount__c}" />
+                </apex:column> 
+                        
+ </apex:pageBlockTable>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <h4>Total Loss</h4>&nbsp;&nbsp;&nbsp;&nbsp;<apex:outputText id="Total_Loss" value="{!total_loss}"/>
+</apex:pageBlock>
+
+
+
+
+
+
+</apex:form>
+</apex:page>

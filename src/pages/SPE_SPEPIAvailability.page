@@ -1,0 +1,104 @@
+<apex:page standardController="SPE_SPETracker__c" extensions="SPE_SPEPIAvailability" tabStyle="SPE__tab" >
+
+     
+    <style>
+    .green {background-color:#66FF66;}
+    .red {background-color:#FF3300;}
+    
+    .fontColor 
+    {
+        font-family: "Times New Roman";
+        color: #FFFFFF;
+        font-size: 20px;
+    }
+    
+    .backgroungColor 
+    {
+        background-color: #1797c0;
+    }
+        
+    </style>
+    
+    <apex:form style="font-family:verdana;;text-align:center">
+    
+    <table  width="50%" border="1"  align="center" class="backgroungColor"> 
+        <H1><font face="Verdana, Arial, Helvetica," size="5" color="black">PI Data Availability</font></H1>
+        <apex:variable var="oldKey" value="" />
+        <apex:variable var="index" value="{!0}" />
+        <!--<apex:repeat value="{!enterprisePIDataIsSurveyExecuteMap}" var="eIds">-->
+        <apex:repeat value="{!enterprisePIDataIsSurveyExecuteMapEncrypted}" var="eIds">
+            <apex:outputPanel rendered="{!(index == 0)}">
+            <tr>
+                <td class="fontColor">
+                    Enterprise Id
+                </td>
+                <!--<apex:repeat value="{!enterprisePIDataIsSurveyExecuteMap[eIds]}" var="piIds">-->
+                <apex:repeat value="{!enterprisePIDataIsSurveyExecuteMapEncrypted[eIds]}" var="piIds">
+                <td class="fontColor">
+                
+                <!--******************************Changes For Encryption********************-->
+                    <!--{!piDefinitionMap[piIds]}-->
+                    {!piDefinitionMapEncrypted[piIds].PI_Title__c}
+                 <!--******************************END********************-->
+                    
+                </td>
+                </apex:repeat>
+            </tr>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!(index != 0)}">
+                <tr>
+                    <td class="fontColor">
+                    
+                    <!--********************Changes For Encryption*********************-->
+                        {!supplierMapEncrypted[oldKey].EnterpriseID__c }
+                    <!--*************************END*************************--> 
+                         
+                    </td>
+                    <!--<apex:repeat value="{!enterprisePIDataIsSurveyExecuteMap[oldKey]}" var="piIds">
+                        <td class="{!IF(enterprisePIDataIsSurveyExecuteMap[oldKey][piIds]==false,'green','red')}">
+                            <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMap[oldKey][piIds]==false,true,false)}" value="Available"  />
+                            <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMap[oldKey][piIds]==true,true,false)}" value="Not Available"/>
+                        </td>
+                    </apex:repeat>-->
+                    <apex:repeat value="{!enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey]}" var="piIds">
+                        <td class="{!IF(enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey][piIds]==false,'green','red')}">
+                            <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey][piIds]==false,true,false)}" value="Available"  />
+                            <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey][piIds]==true,true,false)}" value="Not Available"/>
+                        </td>
+                    </apex:repeat>
+                    
+                </tr>
+            </apex:outputPanel>
+            <apex:variable var="oldKey" value="{!eIds}" />
+            <apex:variable var="index" value="{!index + 1}" />
+        </apex:repeat>
+        <apex:outputPanel >
+            <tr>
+                <td class="fontColor">
+                
+                <!--********************Changes For Encryption*********************-->
+                     {!supplierMapEncrypted[oldKey].EnterpriseID__c}
+                <!--*************************END*************************-->    
+                     
+                </td>
+               <!-- <apex:repeat value="{!enterprisePIDataIsSurveyExecuteMap[oldKey]}" var="piIds">
+                    <td class="{!IF(enterprisePIDataIsSurveyExecuteMap[oldKey][piIds]==false,'green','red')}">
+                        <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMap[oldKey][piIds]==false,true,false)}" value="Available"  />
+                        <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMap[oldKey][piIds]==true,true,false)}" value="Not Available"/>
+                    </td>
+                </apex:repeat>-->
+                
+                <apex:repeat value="{!enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey]}" var="piIds">
+                    <td class="{!IF(enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey][piIds]==false,'green','red')}">
+                        <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey][piIds]==false,true,false)}" value="Available"  />
+                        <apex:outputText rendered="{!IF(enterprisePIDataIsSurveyExecuteMapEncrypted[oldKey][piIds]==true,true,false)}" value="Not Available"/>
+                    </td>
+                </apex:repeat>
+            </tr>
+            </apex:outputPanel>
+    </table>
+</apex:form>
+
+
+</apex:page>

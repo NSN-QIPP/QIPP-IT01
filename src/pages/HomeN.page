@@ -1,0 +1,172 @@
+<apex:page sidebar="false" showHeader="false" standardstylesheets="true">
+
+<apex:form >
+<style>
+h2{
+    color: #000;
+    font-size: 1.3em;
+}
+.header {
+    border:  1px solid #eaeaea;
+    padding: 15px;
+    background-color: #f8f8f8;}
+}
+
+.section {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+/*  COLUMN SETUP  */
+.col {
+    display: block;
+    float:left;
+    margin: 1% 0 1% 1.6%;
+   
+}
+.col:first-child { margin-left: 0; }
+
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+    content:"";
+    display:table;
+    
+}
+.group:after {
+    clear:both;
+}
+.group {
+    zoom:1; /* For IE 6/7 */
+}
+
+/*  GRID OF THREE  */
+.span_3_of_3 {
+    width: 100%;
+}
+.span_2_of_3 {
+    width: 66.1%;
+}
+.span_1_of_3 {
+    width: 48%;
+}
+.span_1_of_4 {
+    width: 59%;
+}
+ .span_1_of_5 {
+    width: 36%;
+}
+#Supp .slds td {
+    text-align: Left;
+}
+
+.slds td th{
+    text-align: center;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 500px) {
+    .col { margin: 1% 0% 1% 0%;}
+    .span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
+    .slds td {
+    text-align: Right;
+    }
+    .slds .slds-table tr > td:last-child {
+    padding-right: 8px;
+    }
+    .slds .slds-table tr > td:first-child {
+    padding-left: 8px;
+    }
+    td, th {
+    margin : 2px;
+    height: 35px;
+}
+}
+}</style>
+
+<div class="header">
+
+<h2>Dashboard</h2>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br/>
+</div>
+<div class="section group" id="mainsection">
+    <div class="col span_1_of_3">
+   <c:MySupplierDataComponent ></c:MySupplierDataComponent>
+  
+   </div>
+    <div class="col span_1_of_3">
+    <c:StrategicSupplierViewComponent ></c:StrategicSupplierViewComponent>
+    </div>
+    <div class="col span_1_of_3">
+<!--<c:riskSummaryComponent ></c:riskSummaryComponent>-->
+     <!--<c:SupplierspendComponent ></c:SupplierspendComponent>-->
+    </div>
+    <div class="col span_1_of_3" id="Supp">
+    <!--<c:MySupplierDataComponent ></c:MySupplierDataComponent>-->
+    <c:MySupplierActionsPageComponent />
+    </div>
+    <div class="col span_1_of_3">
+    <!--<c:MySupplierActionsComponent ></c:MySupplierActionsComponent>-->
+    </div>
+</div>
+
+<div id="supplierDetails">
+
+<c:MySupplierCompleteViewComponent />
+
+</div>
+
+<div id="actionDetails">
+
+<!--<c:MySupplierActionsPageComponent />-->
+</div>
+
+<script>
+
+document.getElementById("supplierDetails").style.display = 'none' ;
+document.getElementById("actionDetails").style.display = 'none' ;
+function showsupplierDetails(){
+
+document.getElementById("supplierDetails").style.display = 'block' ;
+document.getElementById("mainsection").style.display = 'none' ;
+}
+
+function hidesupplierDetails(){
+
+document.getElementById("supplierDetails").style.display = 'none' ;
+document.getElementById("mainsection").style.display = 'block' ;
+}
+
+function Hideactiondetails(){
+
+document.getElementById("actionDetails").style.display = 'none' ;
+document.getElementById("mainsection").style.display = 'block' ;
+}
+
+function showactiondetails(){
+
+document.getElementById("actionDetails").style.display = 'block' ;
+document.getElementById("mainsection").style.display = 'none' ;
+}
+
+</script>
+
+<script> 
+(function()
+   {try{var a=navigator.userAgent; 
+   if((a.indexOf('Salesforce')!=-1)&&(a.indexOf('iPhone')!=-1||a.indexOf('iPad')!=-1)&&(a.indexOf('OS/9')!=-1||a.indexOf('OS 9')!=-1)&&(a.indexOf('Safari')==-1)){ 
+   var s=document.createElement('style'); 
+   s.innerHTML="html,html body{overflow: auto;-webkit-overflow-scrolling:touch;}body{position:absolute;left:0;right:0;top:0;bottom:0;}"; 
+   document.getElementsByTagName('head')[0].appendChild(s);
+   }
+   }catch(e){}})();
+</script>
+
+</apex:form>
+</apex:page>

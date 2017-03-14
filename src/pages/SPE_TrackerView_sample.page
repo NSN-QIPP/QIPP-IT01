@@ -1,0 +1,398 @@
+<!--<apex:page standardController="SPE_SPETracker__c"  extensions="SPE_TrackerView" >-->
+
+<apex:page standardController="SPE_SPETracker__c" extensions="SPE_TrackerView" contentType="application/vnd.ms-excel#SalesForceExport.xls" cache="true">    
+   <style>    
+    .button1 {
+      display: inline-block;
+      border-radius: 5px;
+      background-color: #1797c0;
+      background : #1797c0;
+       
+      border: none;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 12px;
+      padding: 14px;
+      width: 140px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin-top: -11px;
+      margin-left: 50px;
+    }
+    
+    .button1 span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    .button1 span:after {
+      content: '»';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+
+    .button1:hover span {
+      padding-right: 25px;
+    }
+    
+    .button1:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+    .tarckerHeader
+     {
+        border:1px solid black;
+        background-color:#1797c0 ;
+        color:White;
+        text-align:left;
+        padding:5px;
+        height:70px;
+        font-family: "Times New Roman";
+     }
+    .tableStyle
+     {
+        
+        table-layout: fixed;
+        margin-left: 20px;
+        margin-top: 20px;
+        border: 1.7px solid black;
+        border-collapse: collapse;
+        cellpadding="10"
+        
+    }
+    .backgroungColor
+     {
+        background-color:#1797c0;
+     }
+     .fontColor
+     {
+        font-family: "Times New Roman";
+        color:#FFFFFF;
+        font-weight: 600;
+     }
+     tableBorder
+     {
+     border:1px solid black;
+     border-collapse: collapse;
+     }
+     table.widget1 td 
+     {
+        border:1px solid black;
+        
+        
+     }
+     table.widget2 td
+     {
+        color:inherit;
+        padding:13px;
+     }
+     hr{
+        border-color: black;
+        border-width: 1px;
+        -webkit-margin-start: 1.5em;
+        -webkit-margin-end: 1.5em;
+        }
+    </style>
+    <apex:pagemessages ></apex:pagemessages>
+    
+    
+        <apex:pageBlock >
+           
+    
+    <div style="text-align: center;margin-top: 71px;margin-bottom: 42px;">
+            <font Color="#1797c0" size="6"> &nbsp;
+            <apex:outputText value="{!speTracker.Name}" />
+            </font>
+            
+    </div>
+    <div style ="width: 96%;">
+    <div >
+            <table class="tableStyle backgroungColor fontColor widget2 tableBorder" border="1">
+                <tr>
+                <td Style="" width="8%">
+                        {!$Label.SPE_Plan}: 
+                </td>
+                <td width="27%">
+                        <apex:outputField value="{!speTracker.SPEPlan__r.name}"/>
+                    </td>
+                <td Style="" width="8%">
+                        {!$Label.SPE_SPETemplate}: 
+                </td>
+                <td width="27%">
+                        <apex:outputField value="{!speTracker.SPETemplate__r.name}"/>
+                </td>
+                 
+                <td width="15%">
+                        {!$Label.SPE_DateOfExecution} 
+                    </td>
+                    <td width="15%">
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                              <apex:param value="{!speTracker.DateOfExecution__c}" /> 
+                        </apex:outputText>
+                    </td>
+                
+                </tr>
+                <tr>
+                    <td width="8%">
+                        {!$Label.SPE_OwnerLab}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.SPEPlan__r.Owner.name}"/>
+                    </td> 
+                    
+                     
+                    <td width="8%">
+                       {!$Label.SPE_Status}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Status__c}"/>
+                    </td>
+                    <td Style="" width="8%">
+                        {!$Label.SPE_Market}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Region__c}"/>
+                    </td>
+                   
+                </tr>
+                 
+                <tr>
+                   
+                    <td width="8%">
+                        {!$Label.SPE_MarketUnit}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.SubRegion__c}"/>
+                    </td>
+                    <td width="8%">
+                        {!$Label.SPE_Country}:
+                    </td>
+                    <td width="22%">
+                        <apex:outputField value="{!speTracker.Country__c}"/>
+                    </td>
+                    <td Style="padding:10px" width="8%">
+                       {!$Label.SPE_Project}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Project__c}"/>
+                    </td>
+                </tr>
+                 <tr>
+                    
+                    
+                    <td width="8%">
+                        {!$Label.SPE_BusinessUnit}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.BusinessUnit__c}"/>
+                    </td>
+                    
+                    <td width="8%">
+                        {!$Label.SPE_BusinessLine}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.BusinessLine__c}"/>
+                    </td>
+                    <td width="8%">
+                        {!$Label.SPE_Product}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Product__c}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="8%">
+                       {!$Label.SPE_CategoryArea}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.CategoryCluster__c}"/>
+                    </td> 
+                    <td width="8%">
+                       {!$Label.SPE_CategoryGroup}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.CategoryGroup__c}"/>
+                    </td>
+                   <td width="8%">
+                        {!$Label.SPE_Category}:
+                    </td>
+                    <td width="27%">
+                        <apex:outputField value="{!speTracker.Category__c}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div>
+        <table class="tableStyle widget1">
+            <apex:variable var="index" value="{!0}" />
+            <apex:variable var="oldKey" value="{!0}" />
+            <apex:variable var="oldtrackerKey" value="{!0}" />
+            <apex:repeat value="{!trackerWrapperMap}" var="tKey">
+            <tr>
+                <apex:outputPanel rendered="{!(index == 0)}">
+                    <td width="10%" height="100px">
+                    </td>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(index != 0)}">
+                    <td style="background=color: #1797c0;text-align: center;vertical-align: middle;" height="100px">
+                    
+                    <!--**********************Changes For Encryption******************--> 
+                          <!--<font size="3.5"> <b> {!supplierNameMap[oldKey]} </b></font>-->                    
+                          <font size="3.5"> <b> {!supplierNameMap[oldKey].EncryptedEnterpriseId__c} </b></font>
+                    <!--****************************END************************-->  
+                      
+                    </td> 
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(index == 0)}">
+                    <td style="background-color: #1797c0;text-align: center;vertical-align: middle;" width="10%">
+                          <font size="3.5">SPE Score</font>
+                    </td>
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!(index != 0)}">
+                   <apex:repeat value="{!totalSPEScore[oldKey]}" var="w">
+                       <td style="background-color: {!totalSPEScore[oldKey][w].color};text-align: center;vertical-align: middle;"  width="10%">
+                          <font size="3.5"> {!totalSPEScore[oldKey][w].score}</font>
+                       </td>
+                  </apex:repeat>
+                </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!(index == 0)}">
+                   <apex:repeat value="{!supplierGroupScoreMap[tKey]}" var="w">
+                       <td style="background-color:#1797c0 ;text-align: center;vertical-align: middle;" width="10%">
+                          <font size="3.5" >{!w}</font>
+                       </td>
+                   </apex:repeat>
+                </apex:outputPanel>
+                
+              
+                <apex:outputPanel rendered="{!(index != 0)}">
+                    <apex:repeat value="{!supplierGroupScoreMap[oldKey]}" var="w">
+                       <td style="background-color: {!supplierGroupScoreMap[oldKey][w].color};text-align: center;vertical-align: middle;" width="10%">
+                          <font size="3.5" >{!supplierGroupScoreMap[oldKey][w].score}</font>
+                       </td>
+                      </apex:repeat>   
+                   </apex:outputPanel>
+               
+               
+                <apex:repeat value="{!trackerWrapperMap[tKey]}" var="tracker">
+                    <apex:outputPanel rendered="{!(index == 0)}">                            
+                           <td style="color: white;background-color: #1797c0;text-align: center;vertical-align: middle;" width="10%">
+                                <!--*******************Changes For Encryption**************-->
+                                    <!--<b>{!$Label.SPE_KPIName} : {!tracker.trackerValue.KPIDefinition__r.Name} </b> <hr></hr>-->
+                                    <b>{!$Label.SPE_KPIName} : {!tracker.trackerValue.KPIDefinition__r.KPI_Title__c} </b> <hr></hr>
+                                <!--********************END****************--> 
+                                <b>{!$Label.SPE_Group} : {!tracker.trackerValue.KPIDefinition__r.Group1__c} </b> <hr></hr>                               
+                                <b>{!$Label.SPE_Weightage1} : {!tracker.trackerValue.Weight__c}</b>
+                           </td>                       
+                    </apex:outputpanel>
+                </apex:repeat>
+                <apex:outputPanel rendered="{!(index != 0)}">       
+                    <apex:repeat value="{!trackerWrapperMap[oldKey]}" var="tracker">
+                        <td style="text-align: center;vertical-align: middle;background-color:{!tracker.color}">
+                           <font size="2.5" style="color:{!tracker.font}"><b>{!tracker.score} </b></font>                                                       
+                        </td>
+                    </apex:repeat>
+               </apex:outputpanel>
+               </tr>
+                <apex:variable var="oldKey" value="{!tKey}" />
+                <apex:variable var="index" value="{!index + 1}" />
+            </apex:repeat>
+            <br /> <br />
+            <apex:outputPanel rendered="{!oldKey == 0}">
+                <h1><center> {!$Label.SPE_TrackerNotAvailable} </center></h1>
+            </apex:outputPanel>
+            
+            
+            <apex:outputPanel rendered="{!oldKey != 0}">
+                <tr height="100px">
+                    <apex:outputPanel rendered="{!(index != 0)}">
+                        <td style="background-color: #1797c0;text-align: center;vertical-align: middle;" height="100px">
+                        
+                        <!--**********************Changes For Encryption******************-->
+                            <!--<font size="3.5"> <b>{!supplierNameMap[oldKey]} </b></font>-->                     
+                            <font size="3.5"> <b>{!supplierNameMap[oldKey].EncryptedEnterpriseId__c} </b></font>
+                        <!--*****************************END**************************-->
+                          
+                        </td> 
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!(index != 0)}">
+                   <apex:repeat value="{!totalSPEScore[oldKey]}" var="w">
+                           <td style="background-color: {!totalSPEScore[oldKey][w].color};text-align: center;vertical-align: middle;" width="10%">
+                              <font size="3.5">{!totalSPEScore[oldKey][w].score}</font>
+                           </td>
+                   </apex:repeat>
+                  </apex:outputPanel>
+                    <apex:outputPanel rendered="{!(index != 0)}">
+                        <apex:repeat value="{!supplierGroupScoreMap[oldKey]}" var="w">
+                       
+                           <td style="background-color: {!supplierGroupScoreMap[oldKey][w].color};text-align: center;vertical-align: middle;" width="10%">
+                              <font size="3.5">{!supplierGroupScoreMap[oldKey][w].score}</font>
+                           </td>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!(index != 0)}">
+                        <apex:repeat value="{!trackerWrapperMap[oldKey]}" var="tracker">
+                            <td style="text-align: center;vertical-align: middle;background-color:{!tracker.color}">
+                                 <font size="2.5" style="color:{!tracker.font}" ><b>{!tracker.score} </b></font>                                                       
+                            </td>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                 </tr>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!oldKey != 0}">
+                
+                <tr height="100px">
+                    <apex:variable var="score" value="{!0}" />
+                        
+                    <td style="background-color: #1797c0;text-align: center;vertical-align: middle;" height="100px">                     
+                        <font size="3.5"> <b>Overall</b></font>
+                    </td>
+                    <apex:variable var="total" value="total" />
+                    <td style="text-align: center;vertical-align: middle;background-color:{!totalScoreMap1[total].color}" height="100px">                     
+                        <font size="3.5"> <b> {!totalScoreMap1[total].score}  </b></font>
+                    </td>
+                
+                    <apex:variable var="score1" value="{!0}" />
+                    <apex:repeat value="{!trackerWrapperMap}" var="tKey">
+                    <apex:outputPanel rendered="{!score1 == 0}">
+                
+                    <apex:repeat value="{!supplierGroupScoreMap[tKey]}" var="w">
+                       <td style="text-align: center;vertical-align: middle;background-color:{!totalGrpScoreMap1[w].color}" width="10%">
+                          <font size="3.5"><b> {!totalGrpScoreMap1[w].score} </b></font>
+                       </td>
+                    </apex:repeat>
+                    
+                     
+                        <apex:repeat value="{!trackerWrapperMap[tKey]}" var="w">
+                            <td style="text-align: center;vertical-align: middle;background-color:{!totalAggregateKPIcore[w.trackerValue.KPIDefinition__c][total].color}">
+                            <font size="2.5" ><b>{!totalAggregateKPIcore[w.trackerValue.KPIDefinition__c][total].score} </b></font>                                                       
+                            </td>
+                        </apex:repeat>
+                    
+                    
+                   <apex:variable var="score1" value="{!score1+ 1}" />
+                   </apex:outputPanel>
+                   </apex:repeat>
+                   
+                    
+                   
+                 </tr>
+                  
+            </apex:outputPanel>
+           
+                 
+        </table>
+        </div>
+         </div>
+      <!--<apex:actionFunction name="redirectToCM" action="{!redirectToCM}" reRender="fm"/>-->
+    </apex:pageBlock> 
+
+    
+</apex:page>

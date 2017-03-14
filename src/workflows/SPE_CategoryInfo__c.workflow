@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Category_Scope_Combination</fullName>
+        <field>CategoryScopeCombination__c</field>
+        <formula>Region__c +&apos;;&apos;+ SubRegion__c +&apos;;&apos;+ Country__c +&apos;;&apos;+ Project__c +&apos;;&apos;+ CategoryCluster__c +&apos;;&apos;+ CategoryGroup__c +&apos;;&apos;+ Category__c +&apos;;&apos;+ BusinessUnit__c +&apos;;&apos;+ BusinessLine__c +&apos;;&apos;+ Product__c</formula>
+        <name>Category Scope Combination</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <rules>
+        <fullName>SPE2 Category Scope Combination</fullName>
+        <actions>
+            <name>Category_Scope_Combination</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9 AND 10</booleanFilter>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.BusinessLine__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.BusinessUnit__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.CategoryGroup__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.CategoryCluster__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.Category__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.Region__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.SubRegion__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.Country__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.Product__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SPE_CategoryInfo__c.Project__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

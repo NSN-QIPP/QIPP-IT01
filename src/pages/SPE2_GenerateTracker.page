@@ -1,0 +1,44 @@
+<apex:page standardController="SPE_SPEPlan__c" extensions="SPE2_SPEPlanCreateExt_New_3,SPE_MasterDataExt">
+    <apex:form id="fm">
+        <apex:actionFunction id="af" name="GenerateTracker" action="{!generateTracker}" />
+    </apex:form>
+    <script>
+        var stage = '{!spePlan.Stage__c}';
+        var isTrackerCreated = '{!isTrackerCreated}';
+        
+        
+        if ('{!isUserHaveAccessToRecord}' == 'false')
+        {
+                
+                alert('You can only edit SPE under your ownership or shared ownership');
+                       
+                window.location.href="/{!SPE_SPEPlan__c.Id}";
+                
+        }
+        else
+        {
+            if (stage == 'Draft')
+            {
+               
+                
+    
+                if (isTrackerCreated == 'true')
+                {
+                    alert($Label.alertMsg);
+                    
+                    window.location.href='/{!spePlan.Id}';
+                }
+                else
+                {
+                    GenerateTracker();  
+                }
+            }
+            else 
+            {
+                alert($Label.alertMsg);
+                window.location.href='/{!spePlan.Id}';
+                
+            }
+        }   
+    </script>
+</apex:page>

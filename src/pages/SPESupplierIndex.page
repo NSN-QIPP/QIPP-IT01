@@ -1,0 +1,55 @@
+<apex:page controller="SPEGlobalDashboardController" readOnly="true" standardStylesheets="false" sidebar="false">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#6666ff;}
+.tg th{font-family:Arial, sans-serif;font-size:22px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg .tg-nl5m{font-weight:bold;font-size:13px}
+.tg .tg-r8vz{font-weight:bold;font-size:11px;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+.tg .goodCol{background-color:#6666ff;font-size:18px;}
+.tg .meetCol{background-color:#b3d1ff;font-weight:bold;font-size:18px;}
+
+</style>
+<style type="text/css">
+.tg1  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg1 td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#6666ff;}
+.tg1 th{font-family:Arial, sans-serif;font-size:22px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg1 .tg-nl5m{font-weight:bold;font-size:13px}
+.tg1 .tg-r8vz{font-weight:bold;font-size:11px;vertical-align:top}
+.tg1 .tg-yw4l{vertical-align:top}
+.tg1 .goodCol{background-color:red;font-size:18px;}
+.tg1 .meetCol{background-color:#b3d1ff;font-weight:bold;font-size:18px;}
+
+</style>
+    <apex:form >
+        <apex:pageBlock title="Supplier Index Dasboard">
+            <table class="tg">
+         <tr>
+             <th class="tg-nl5m" colspan="8">
+            <apex:outputLabel value="SUPPLIER PERFORMANCE INDEX"/>
+            </th>
+           
+               <td class="goodCol">
+               <apex:outputText value="{0,number,#.##}%">
+               <apex:param value="{!percentVal}"/>
+               </apex:outputText>
+               </td>
+               <td class="meetCol">{!supplierPerf}&nbsp;suppliers passed out of {!uniqueCount} evaluated </td>
+          
+         </tr>
+     </table>    
+     <br/><br/>
+        <table class="tg1">
+            <tr>
+                <th class="tg-nl5m">
+                    <apex:outputLabel value="Suppliers Without Weight"/>
+                </th>
+                <th class="goodCol">
+                    <apex:outputText value="{!suppliersWithoutSpend}"/>
+                </th>
+            </tr>
+        </table>
+        </apex:pageBlock>
+    </apex:form>
+     
+</apex:page>

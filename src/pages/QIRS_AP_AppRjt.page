@@ -1,0 +1,27 @@
+<apex:page tabStyle="QIRS_Action_Plan__c" controller="QIRS_AP_AppRjt_Controller" showHeader="true" sidebar="true">
+<apex:sectionHeader title="Approval Request" subtitle="{!strSubtitleValue}"/>
+<apex:form >
+<apex:messages style="color:Red" />
+<apex:pageBlock title="Approve/Reject Approval Request"  mode="edit">
+<apex:pageBlockButtons location="bottom">
+<apex:commandButton value="Approve" action="{!Approve}"/>
+<apex:commandButton value="Reject" action="{!Reject}"/>
+<apex:commandButton immediate="true" value="Cancel" action="{!cancel}"/>
+</apex:pageBlockButtons>
+<apex:pageBlockSection columns="1">
+<apex:outputField value="{!objap.Name}"/>
+<apex:outputField value="{!objap.QIRS__c}"/>
+<apex:outputField value="{!objap.Action_Type__c}"/>
+<apex:outputField value="{!objap.Task__c}"/>
+<apex:outputField value="{!objap.Champion__c}"/>
+<apex:outputField value="{!objap.Required_date__c}"/>
+<apex:outputField value="{!objap.Approver__c}"/>
+<apex:outputField value="{!objap.Status__c}"/>
+<apex:outputField value="{!objap.Implementation_Date__c}"/>
+<apex:outputField value="{!objap.Implementation_Comment__c}"/>
+<apex:outputField value="{!objap.CreatedByID}"/>
+<apex:inputField value="{!objap.Approval_Comment__c}" label="Comments" style="width:90%"/>
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

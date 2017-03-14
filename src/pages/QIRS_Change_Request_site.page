@@ -1,0 +1,152 @@
+<apex:page cache="false" expires="0" sidebar="false" showheader="true" tabStyle="QIRS_Change_Request__c" standardController="QIRS_Change_Request__c" extensions="QIRSchangerecord" action="{!temp}" >
+    <apex:composition template="QIRS_Template_site">
+        <apex:define name="body">
+        
+    <table border="0" width="100%">
+        <tr>
+            <td align="center">
+                <p><h2><b><font size="5" color="#00BFFF"> Change Request Form</font><br></br>
+                <font size="4" color="#00BFFF"><apex:outputPanel id="trackID1" rendered="{!trackID}">RECORD SAVED Request ID: {!get_id}</apex:outputPanel>
+                <apex:outputPanel id="trackID2" rendered="{!trackID1}">RECORD DETAIL TrackID: {!get_id}</apex:outputPanel></font></b></h2></p>
+                <apex:pageMessages ></apex:pageMessages>
+            </td>
+        </tr>
+    </table>           
+    <hr></hr>
+    
+    <table border="0" width="100%">
+        <tr>
+            <td colspan="2">
+                <p><h2><b><font size="4" color="red">Guest User Information</font></b></h2></p>
+            <td>
+               <font size="3" color="red"><b>|</b></font><font color="red"> = Required Field</font>
+            </td>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <h2>First Name:</h2> 
+            </td>
+            <td>
+                <apex:outputPanel id="FirstName1" rendered="{!FirstName1}">
+                <font size="4" color="red"><b>|</b></font><apex:inputtext value="{!FirstName}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="FirstName2" rendered="{!FirstName2}">
+                <apex:outputText value="{!FirstName}">
+                </apex:outputText>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>Last Name:</h2></td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td>  
+                <apex:outputPanel id="LastName1" rendered="{!FirstName1}">   
+                <font size="4" color="red"><b>|</b></font><apex:inputtext value="{!LastName}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="LastName2" rendered="{!FirstName2}">
+                <apex:outputText value="{!LastName}">
+                </apex:outputText>
+                </apex:outputPanel>
+            </td>
+        </tr>      
+        <tr>
+            <td>
+                <h2>Email ID:</h2>
+            </td>
+            <td> 
+                <apex:outputPanel id="Email1" rendered="{!FirstName1}">   
+                <font size="4" color="red"><b>|</b></font><apex:inputtext value="{!Email}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="Email2" rendered="{!FirstName2}">
+                <apex:outputText value="{!Email}">
+                </apex:outputText>
+                </apex:outputPanel>                
+            </td>
+        </tr>
+    </table>
+    <hr></hr>  
+    
+    <table border="0" width="500">
+        <tr>
+            <td colspan="2">
+                <p><h2><b><font size="4" color="red">Record Information</font></b></h2></p>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                 <h2>QIRS Number:</h2> 
+            </td>
+            <td>
+                <apex:outputPanel id="QIRSNumber1" rendered="{!FirstName1}">
+                <font size="4" color="red"><b>|</b></font><apex:inputtext value="{!QIRSNumber}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="QIRSNumber2" rendered="{!FirstName2}">
+                <apex:outputText value="{!QIRSNumber}">
+                </apex:outputText>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>Action Plan Number:</h2> 
+            </td>
+            <td>
+                <apex:outputPanel id="ActionPlanNumber1" rendered="{!FirstName1}">
+                <font color="white">|</font><apex:inputtext value="{!ActionPlanNumber}">
+                </apex:inputText>
+                </apex:outputPanel>
+                <apex:outputPanel id="ActionPlanNumber2" rendered="{!FirstName2}">
+                <apex:outputText value="{!ActionPlanNumber}">
+                </apex:outputText>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        <tr>            
+            <td valign="top">
+                 <B>Guest Comments : </B>
+                    <apex:outputPanel id="Comments2" rendered="{!FirstName2}">
+                    <apex:outputText value="{!Comments}">
+                    </apex:outputText>
+                    </apex:outputPanel>
+            </td>
+            <td colspan="2">
+                    <apex:outputPanel id="Comments1" rendered="{!FirstName1}">
+                    <font size="4" color="red"><b>|</b></font><apex:inputtextarea cols="51" rows="5" value="{!Comments}"/>
+                    </apex:outputPanel>
+            </td>
+        </tr>   
+         <tr>
+            <td> 
+                <apex:outputPanel id="Status" rendered="{!FirstName2}">
+               
+                <h2>Status: Open</h2>
+                               
+                </apex:outputPanel>                
+            </td>
+        </tr>
+     
+    </table>
+    <hr></hr>  
+    
+    
+    <table border="0" width="100%">
+        <tr>
+           <td width="40%" align="right">            
+                <apex:commandButton value="Save" action="{!Save}"/>
+           </td>
+           <td width="60%"> 
+                <apex:commandButton value="Cancel" action="{!cancel}"/>  
+           </td> 
+        </tr>          
+    </table>
+        
+        </apex:define>   
+    </apex:composition>
+</apex:page>

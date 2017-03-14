@@ -1,0 +1,20 @@
+<apex:page >
+<style type="text/css">
+        p { font-weight: bold; }
+    </style>
+<span style="background-color: ;" class="Apple-style-span"><font class="Apple-style-span" color="#0000ff"><p>Originator/Owner:</p></font></span>
+<br><apex:outputLink value="/apex/QIRS_Action_Plan_SubmitedTask?type=stask" target="_blank">Submitted Tasks</apex:outputLink></br>
+<!--  <apex:outputLink value="/apex/QIRS_Action_Plan_SubmitedTask?type=rtask" target="_blank">Task Review</apex:outputLink>  -->
+<br></br>
+<!-- 
+<span style="background-color: rgb(0, 0, 153);" class="Apple-style-span"><font class="Apple-style-span" color="#0000ff"><p>Champion:</p></font></span>
+<apex:outputLink value="/apex/QIRS_AP_PendingTask?type=ctask" target="_blank">Task Review</apex:outputLink>
+ -->
+<span style="background-color: rgb(0, 0, 153);" class="Apple-style-span"><font class="Apple-style-span" color="#0000ff"><p>Master Approver:</p></font></span>
+
+<!-- <br><apex:outputLink value="/apex/QIRS_AP_PendingTask?type=atask" target="_blank">Task Analysis</apex:outputLink></br>  -->
+<br><apex:outputLink value="/apex/QIRS_AP_MA_PendingTask_Page" target="_blank">Master Task Analysis</apex:outputLink></br>
+<apex:outputLink value="/apex/QIRS_Action_Plan_AccpetedRecordPage?type=timpt" target="_blank">Master's Analysis</apex:outputLink>
+
+
+</apex:page>
