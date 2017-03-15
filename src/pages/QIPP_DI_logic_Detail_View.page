@@ -1722,7 +1722,12 @@
             <!-- BAM Code ends -->
             
             <apex:pageblockSection id="benfitSec" title="Project Benefits" columns="1" collapsible="false" >
-                 <apex:outputText escape="false" value="{!$Label.Benefits_Header_Text}" />
+                <apex:outputText escape="false" value="{!$Label.Benefits_Header_Text}" />
+	            <!-- R17.3 E063 Start-->
+	            <apex:outputText rendered="{!proj.Benefit_Spread_Over_Year__c}">
+	                <span style="color:red;">{!$Label.Benefit_Amount_Spread_Over_12_months}</span>
+	            </apex:outputText>
+	            <!-- R17.3 E063 End-->
                 <apex:pageBlock id="pblockbenfitSec"> 
                     
                     <apex:commandButton id="addBenefit" value="Add New Benefit (Improvement Measure)" action="{!showPopupBenf}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>

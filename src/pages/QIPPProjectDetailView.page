@@ -699,7 +699,7 @@
                 if(document.getElementById('page:form:pblock:bgGroupSection:pbTableMultipleBG:0:defaultbg').value!= 'Global'){
                     
                     if(document.getElementById('page:form:pblock:bgGroupSection:pbTableMultipleBG:1:EnterBG').value=='Global'){    
-                    debugger;
+                    
                     var BBGDefaultopvalamt0=document.getElementById('page:form:pblock:bgGroupSection:pbTableMultipleBG:0:mainBGopval').value;
                     var BBGDefaultfivalamt0=document.getElementById('page:form:pblock:bgGroupSection:pbTableMultipleBG:0:mainBGfival').value;
                     var BBGDefaultprvalamt0=document.getElementById('page:form:pblock:bgGroupSection:pbTableMultipleBG:0:mainBGprojval').value;
@@ -1361,9 +1361,9 @@
                         <!--<apex:commandButton id="benefitButton" action="{!addBenefits}" value="Benefits" title="Benefits" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked == false),true,false)}"/>-->
                         
                         <!--<apex:commandButton id="benefitButton" action="{!URLFOR($Action.QIPP_Project__c.Benefit, Id)}" value="Benefits" title="Benefits" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked == false),true,false)}"/>-->
-                        
+                      
                         <apex:commandButton id="approvalButton" action="{!reqApproval}" rerender="approvepopup,errorblock" Value="Request Phase Completion Approval" title="Request Phase Completion Approval" rendered="{!if( ($Profile.Name =='Nokia QIPP Project Viewer') || (projState=='Complete' || projState=='Closed' &&  (controlStatus=='Completed' || controlStatus=='Delayed') || (recIsLocked==true)),false,true)}" onclick="startProcess();" oncomplete="endProcess();"/>
-                        
+                         <apex:commandButton id="closeButton" action="{!Closeproject}" rerender="errorblock" Value="Close the Project" title="Close the Project" rendered="{!if( ($UserRole.Name =='QIPP Portfolio Manager' ||$Profile.Name =='System Administrator') && (projState=='Complete' &&  (controlStatus=='Completed' || controlStatus=='Delayed') &&((recIsLocked==false))),true,false)}" onclick="startProcess();" oncomplete="endProcess();"/>
                         <!--<apex:inputFile value="{!csvFileBody}" filename="{!csvAsString}" />
 <apex:commandButton value="Import Project" action="{!importCSVFile}" immediate="true"/>-->
                     </apex:pageBlockButtons>   
@@ -1764,6 +1764,11 @@
                     
                     <apex:pageblockSection id="benfitSec" title=" Project Benefits" columns="1" collapsible="false" >
                         <apex:outputText escape="false" value="{!$Label.Benefits_Header_Text}" />
+		                <!-- R17.3 E063 Start-->
+		                <apex:outputText rendered="{!proj.Benefit_Spread_Over_Year__c}">
+		                    <span style="color:red;">{!$Label.Benefit_Amount_Spread_Over_12_months}</span>
+		                </apex:outputText>
+		                <!-- R17.3 E063 End-->
                         <apex:pageBlock id="pblockbenfitSec"> 
                             
                             <apex:commandButton id="addBenefit" value="Add New Benefit (Improvement Measure)" action="{!showPopupBenf}" rendered="{!IF((($Profile.Name !='Nokia QIPP Project Viewer') && recIsLocked==false),true,false)}"/>
@@ -2682,15 +2687,29 @@
     </apex:outputPanel>
 </apex:outputPanel> -->
 
-
-<apex:outputPanel id="skipapprovalpopup">
-    <apex:outputPanel id="skipapproval" styleClass="BenfpopupBackground" layout="block" rendered="{!IF((proj.BGMBB_Rejected__c==True),true,false)}" />
-    <apex:outputPanel styleClass="LeadSponsorEqualPopup" layout="block" rendered="{!IF((proj.BGMBB_Rejected__c==True),true,false)}">
+<apex:outputPanel >
+    <apex:outputPanel id="skipdefineapprovalpopup" >
+   <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!IF(((proj.BGMBB_Define_rejected__c ==True) && (userid==proj.Approver_BU_MBB__c)),true,false)}"/>
+    <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!IF(((proj.BGMBB_Define_rejected__c ==True) && (userid==proj.Approver_BU_MBB__c)),true,false)}">  
      Do you want to skip Project Mentor Approval in Re-approval process ? <br/><br/><br/>
     <div style="text-align:center;margin-top: 8px;">
-    <apex:commandButton id="skipApprove" value="OK" action="{!approveskipapprovalPopup}" reRender="errorblock"/>    
-    <apex:commandButton id="skipCancel" value="Cancel" action="{!closeskipapprovalPopup}"/>
-                                </div>             
+    <apex:commandButton id="skipApprove1" value="Yes" action="{!approvedefineskipapprovalPopup}"/>    
+    <apex:commandButton id="skipCancel1" value="No" action="{!closedefineskipapprovalPopup}"/>
+                                </div> 
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                       </apex:outputPanel>
+                       
+
+<apex:outputPanel id="skipapprovalpopup" >
+   <apex:outputPanel styleClass="LeadSponsorEqualPopup" layout="block" rendered="{!IF(((proj.BGMBB_Rejected__c==True) && (userid==proj.Approver_BU_MBB__c)),true,false)}">
+    <apex:outputPanel styleClass="LeadSponsorEqualPopup" layout="block" rendered="{!IF(((proj.BGMBB_Rejected__c==True) && (userid==proj.Approver_BU_MBB__c)),true,false)}">  
+     Do you want to skip Project Mentor Approval in Re-approval process ? <br/><br/><br/>
+    <div style="text-align:center;margin-top: 8px;">
+    <apex:commandButton id="skipApprove" value="Yes" action="{!approveskipapprovalPopup}"/>    
+    <apex:commandButton id="skipCancel" value="No" action="{!closeskipapprovalPopup}"/>
+                                </div> 
+                                </apex:outputPanel>
                             </apex:outputPanel>
                        </apex:outputPanel>
 

@@ -99,6 +99,7 @@ public with sharing class QIPPProject{
     public date mydate{get;set;}
     public string profilename {get;set;}
     public string rolename {get;set;}
+    public id userid {get;set;}
     public Decimal benefitAmount{get;set;}//benefitAmount is used to store the sum of totalKPI and totalCOPQ
     //public QIPP_Project__c Proj;
     public List<QIPP_Benefit__c> Benefits_RelatedList {get;set;}//Benefits_RelatedList is to store the list of benefits of the project
@@ -114,6 +115,7 @@ public with sharing class QIPPProject{
     
     public boolean projLeadSponsorEqual{get;set;}
     public boolean prjLeadSponsorEqual;
+  
     
     
     public Integer bgRowNum {get;set;}
@@ -155,12 +157,14 @@ public with sharing class QIPPProject{
         UpdateBU = new  List<QIPP_BU_Reporting__c>();
         projLeadSponsorEqual = false;
         prjLeadSponsorEqual = false;
-       
         profile profilena =  [SELECT Id, Name FROM Profile WHERE Id=:userinfo.getProfileId() LIMIT 1];
         profilename = profilena.Name;
         if(UserInfo.getUserRoleId() != null){
         userrole rolenames = [SELECT Id, Name FROM userrole WHERE Id=:UserInfo.getUserRoleId() LIMIT 1];
         rolename = rolenames.Name;}
+        if(UserInfo.getUserId() != null){
+        user usersid = [SELECT Id, Name FROM user WHERE Id=:UserInfo.getUserId() LIMIT 1];
+        userid =usersid.id;}
         projstdController = stdController;
         proj = (QIPP_Project__c)projstdController.getRecord();
          //proj = new QIPP_Project__c();
@@ -199,7 +203,7 @@ public with sharing class QIPPProject{
         if(theId != null){  
              editBBG= true;
              updateChild=false;  
-             proj = [SELECT Id,Business_Unit_Master_Black_Belt__r.Name,Distribution__c, Name,TotalKPI__c,Total_Planned_Financial_Benefits_k__c,Total_Planned_Operational_Benefits_k__c,Total_Planned_Projected_Benefits_k__c,Total_Planned_Realized_Benefits_k__c,TotalCOPQ__c,Total_Project_Validation_Amount__c,Total_Validation_Amount_Projected_k__c,Total_Validation_Amount_Realized_k__c,Old_Benefitting_Business_Grp__c,CEMT_ID__c, Belt_Candidate_Mentor__r.name,Belt_Project_Sponsor__r.name,Project_Lead__r.name,CreatedById,CreatedDate,Project_Lead_Business_Unit__c,Project_Lead_Business_Grp__c,Project_Lead_Business_Line__c,Project_Lead_BU__c,Project_Lead_BL_Level_3_Org__c,Project_Lead_BL_Level_4_Org__c,RecordType.Name,recordtypeid,Project_Name_Succinct__c,Belt_Project_Type__c, Project_Number__c, Project_Lead__c, Portfolio_Name__c,Portfolio_Name__r.name, Portfolio_BU__c, Project_BL__c, Benefitting_Project_BL_Level_4_Org__c, Project_Description_Detailed__c,Project_State__c,Belt_Candidate_Mentor__c,Belt_Project_Sponsor__c,Belt_Project_Champion__c,Finance_Approver__c,Business_Unit_Master_Black_Belt__c,Project_Completion_Date_Forecast__c,Mentor_Certificate__c,DMAIC_Define__c,DMAIC_Analyze__c,Define_Date_Forecast__c,Analyze_Date_Forecast__c,Define_Status__c,Analyze_Status__c,DMAIC_Measure__c,DMAIC_Improve__c,Measure_Date_Forecast__c,Improve_Design_Date_Forecast__c,Measure_Status__c,Improve_Status__c,DMAIC_Control__c,Control_Verify_Date_Forecast__c,Control_Status__c,Progress_To_Date__c,Next_Steps__c,Project_Type__c,Belt_Assigned__c,Quality_Award_Project__c,Project_Document__c,Project_Schedule_Status__c,MO_Site__c,DI_State__c,Planned_Start_Date__c,Project_Completion_Date_Target__c,Project_Start_Date__c,Project_Completion_Date_Actual__c,Belt_Candidate_Location__c,Project_Created_Date__c,Belt_Project_Phase__c,Project_Duration__c,Permission_to_use_Belt_Info__c,Project_Flex_Field_1__c,Project_Member1__c,Project_Member2__c,Countof_Benefits__c,Ben_Override_Resp_From_BUMBB__c,LastModifiedById,LastModifiedDate,Image_to_direct_for_right_button__c,Message_WF_Guidance__c,BGMBB_Rejected__c    FROM QIPP_Project__c WHERE Id =: theId];
+             proj = [SELECT Id,Approver_BU_MBB__c,Business_Unit_Master_Black_Belt__r.Name,Distribution__c, Name,TotalKPI__c,Total_Planned_Financial_Benefits_k__c,Total_Planned_Operational_Benefits_k__c,Total_Planned_Projected_Benefits_k__c,Total_Planned_Realized_Benefits_k__c,TotalCOPQ__c,Total_Project_Validation_Amount__c,Total_Validation_Amount_Projected_k__c,Total_Validation_Amount_Realized_k__c,Old_Benefitting_Business_Grp__c,CEMT_ID__c, Belt_Candidate_Mentor__r.name,Belt_Project_Sponsor__r.name,Project_Lead__r.name,CreatedById,CreatedDate,Project_Lead_Business_Unit__c,Project_Lead_Business_Grp__c,Project_Lead_Business_Line__c,Project_Lead_BU__c,Project_Lead_BL_Level_3_Org__c,Project_Lead_BL_Level_4_Org__c,RecordType.Name,recordtypeid,Project_Name_Succinct__c,Belt_Project_Type__c, Project_Number__c, Project_Lead__c, Portfolio_Name__c,Portfolio_Name__r.name, Portfolio_BU__c, Project_BL__c, Benefitting_Project_BL_Level_4_Org__c, Project_Description_Detailed__c,Project_State__c,Belt_Candidate_Mentor__c,Belt_Project_Sponsor__c,Belt_Project_Champion__c,Finance_Approver__c,Business_Unit_Master_Black_Belt__c,Project_Completion_Date_Forecast__c,Mentor_Certificate__c,DMAIC_Define__c,DMAIC_Analyze__c,Define_Date_Forecast__c,Analyze_Date_Forecast__c,Define_Status__c,Analyze_Status__c,DMAIC_Measure__c,DMAIC_Improve__c,Measure_Date_Forecast__c,Improve_Design_Date_Forecast__c,Measure_Status__c,Improve_Status__c,DMAIC_Control__c,Control_Verify_Date_Forecast__c,Control_Status__c,Progress_To_Date__c,Next_Steps__c,Project_Type__c,Belt_Assigned__c,Quality_Award_Project__c,Project_Document__c,Project_Schedule_Status__c,MO_Site__c,DI_State__c,Planned_Start_Date__c,Project_Completion_Date_Target__c,Project_Start_Date__c,Project_Completion_Date_Actual__c,Belt_Candidate_Location__c,Project_Created_Date__c,Belt_Project_Phase__c,Project_Duration__c,Permission_to_use_Belt_Info__c,Project_Flex_Field_1__c,Project_Member1__c,Project_Member2__c,Countof_Benefits__c,Ben_Override_Resp_From_BUMBB__c,LastModifiedById,LastModifiedDate,Image_to_direct_for_right_button__c,Message_WF_Guidance__c,BGMBB_Rejected__c,BGMBB_Define_rejected__c,Benefit_Spread_Over_Year__c FROM QIPP_Project__c WHERE Id =: theId];
              //portfolio = [select id,name,Portfolio_Owner__c from QIPP_Portfolio__c  where id =:proj.Portfolio_Name__c];//veera
              //contact = [select id,User_License__c from QIPP_Contacts__c where id=:portfolio.Portfolio_Owner__c];//veera
              //portowner =[select id,User_License__c from QIPP_Contacts__c where id=:contact.id].User_License__c;//veera
@@ -243,7 +247,7 @@ public with sharing class QIPPProject{
              benefitAmount = proj.Total_Project_Validation_Amount__c;
 
         }else if(Cloneid != null){
-            QIPP_Project__c cloneproj = [SELECT Id, Name,Business_Unit_Master_Black_Belt__r.Name,CEMT_ID__c,Belt_Candidate_Mentor__r.name,Belt_Project_Sponsor__r.name,Project_Lead__r.name,CreatedById,CreatedDate,Project_Lead_Business_Grp__c,Project_Lead_Business_Unit__c,Project_Lead_Business_Line__c,Project_Lead_BU__c,Project_Lead_BL_Level_3_Org__c,Project_Lead_BL_Level_4_Org__c,RecordType.Name,recordtypeid, Project_Name_Succinct__c,Belt_Project_Type__c, Project_Number__c, Project_Lead__c, Portfolio_Name__c,Portfolio_Name__r.name, Portfolio_BU__c, Project_BL__c, Benefitting_Project_BL_Level_4_Org__c, Project_Description_Detailed__c,Project_State__c,Belt_Candidate_Mentor__c,Belt_Project_Sponsor__c,Belt_Project_Champion__c,Finance_Approver__c,Business_Unit_Master_Black_Belt__c,Project_Completion_Date_Forecast__c,Mentor_Certificate__c,DMAIC_Define__c,DMAIC_Analyze__c,Define_Date_Forecast__c,Analyze_Date_Forecast__c,Define_Status__c,Analyze_Status__c,DMAIC_Measure__c,DMAIC_Improve__c,Measure_Date_Forecast__c,Improve_Design_Date_Forecast__c,Measure_Status__c,Improve_Status__c,DMAIC_Control__c,Control_Verify_Date_Forecast__c,Control_Status__c,Progress_To_Date__c,Next_Steps__c,Project_Type__c,Belt_Assigned__c,Quality_Award_Project__c,Project_Document__c,Project_Schedule_Status__c,MO_Site__c,DI_State__c,Planned_Start_Date__c,Project_Completion_Date_Target__c,Project_Start_Date__c,Project_Completion_Date_Actual__c,Belt_Candidate_Location__c,Project_Created_Date__c,Belt_Project_Phase__c,Project_Duration__c,Permission_to_use_Belt_Info__c,Project_Flex_Field_1__c,Project_Member1__c,Project_Member2__c,Countof_Benefits__c,Ben_Override_Resp_From_BUMBB__c,LastModifiedById,LastModifiedDate,Image_to_direct_for_right_button__c,Message_WF_Guidance__c     FROM QIPP_Project__c WHERE Id =: Cloneid];
+            QIPP_Project__c cloneproj = [SELECT Id, Name,Business_Unit_Master_Black_Belt__r.Name,CEMT_ID__c,Belt_Candidate_Mentor__r.name,Belt_Project_Sponsor__r.name,Project_Lead__r.name,CreatedById,CreatedDate,Project_Lead_Business_Grp__c,Project_Lead_Business_Unit__c,Project_Lead_Business_Line__c,Project_Lead_BU__c,Project_Lead_BL_Level_3_Org__c,Project_Lead_BL_Level_4_Org__c,RecordType.Name,recordtypeid, Project_Name_Succinct__c,Belt_Project_Type__c, Project_Number__c, Project_Lead__c, Portfolio_Name__c,Portfolio_Name__r.name, Portfolio_BU__c, Project_BL__c, Benefitting_Project_BL_Level_4_Org__c, Project_Description_Detailed__c,Project_State__c,Belt_Candidate_Mentor__c,Belt_Project_Sponsor__c,Belt_Project_Champion__c,Finance_Approver__c,Business_Unit_Master_Black_Belt__c,Project_Completion_Date_Forecast__c,Mentor_Certificate__c,DMAIC_Define__c,DMAIC_Analyze__c,Define_Date_Forecast__c,Analyze_Date_Forecast__c,Define_Status__c,Analyze_Status__c,DMAIC_Measure__c,DMAIC_Improve__c,Measure_Date_Forecast__c,Improve_Design_Date_Forecast__c,Measure_Status__c,Improve_Status__c,DMAIC_Control__c,Control_Verify_Date_Forecast__c,Control_Status__c,Progress_To_Date__c,Next_Steps__c,Project_Type__c,Belt_Assigned__c,Quality_Award_Project__c,Project_Document__c,Project_Schedule_Status__c,MO_Site__c,DI_State__c,Planned_Start_Date__c,Project_Completion_Date_Target__c,Project_Start_Date__c,Project_Completion_Date_Actual__c,Belt_Candidate_Location__c,Project_Created_Date__c,Belt_Project_Phase__c,Project_Duration__c,Permission_to_use_Belt_Info__c,Project_Flex_Field_1__c,Project_Member1__c,Project_Member2__c,Countof_Benefits__c,Ben_Override_Resp_From_BUMBB__c,LastModifiedById,LastModifiedDate,Image_to_direct_for_right_button__c,Message_WF_Guidance__c,Benefit_Spread_Over_Year__c FROM QIPP_Project__c WHERE Id =: Cloneid];
             //System.Debug('recordtypeID c1 :'+recordtypeID+proj.RecordType.Name+'***proj.RecordTypeId'+proj.RecordTypeId);
             portfolioName = cloneproj.Portfolio_Name__c;
             proj = cloneproj.clone(false,true,false,false);
@@ -291,6 +295,9 @@ public with sharing class QIPPProject{
             portBL = cloneproj.Benefitting_Project_BL_Level_4_Org__c;
             permBeltInfo = proj.Permission_to_use_Belt_Info__c;
             qtyAwardProj = proj.Quality_Award_Project__c;
+            //--R17.3 E061--Start--//
+            proj.Benefit_Spread_Over_Year__c = false;
+            //--R17.3 E061--End--//
             System.Debug('recordtypeID c2 :'+recordtypeID+proj.RecordType.Name+'***proj.RecordTypeId'+proj.RecordTypeId+'**bumbbName:'+bumbbName);
         }else{
              proj = new QIPP_Project__c();
@@ -1325,6 +1332,25 @@ public with sharing class QIPPProject{
         //veera
     }
    
+   
+   public pagereference Closeproject(){
+       
+      try{
+                ApexPages.StandardController newController = new ApexPages.StandardController(proj);
+                QIPP_Project__c projbbg;
+                proj.Project_State__c ='closed test';
+                if(ApexPages.getMessages().size() == 0){
+                    PageReference pageRef = newController.save();
+                    return PageRef;
+                }
+                else{return null;}
+            }catch(Exception e){
+                system.debug(e.getMessage()+'===='+e.getLineNumber());
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.FATAL,'Insufficient access to create'));
+                return null;
+            } 
+       
+   }
     //cancel method to navigate back to specified location on click of Cancel button from the UI
     public pagereference cancel(){
         initiateErrMsgVariables();
@@ -1355,17 +1381,32 @@ public with sharing class QIPPProject{
         prjLeadSponsorEqual = false;
     }
     
-   public void closeskipapprovalPopup(){
-        proj.BGMBB_Rejected__c = false;
-        proj.SkipMentor_Lean_Approval__c=false;
-        update proj;
+   public pagereference closeskipapprovalPopup(){
+        QIPP_ApprovalsProcessNonSixSigma.closeSkipApprovalProcess(proj.Id);
+       PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+       returnPage.setredirect(true);
+       return returnPage;
     }
     
-     public void approveskipapprovalPopup(){
-      proj.BGMBB_Rejected__c=false;
-      proj.SkipMentor_Lean_Approval__c=true;
-      update proj;
-        
+     public pagereference approveskipapprovalPopup(){
+       QIPP_ApprovalsProcessNonSixSigma.updateSkipApprovalProcess(proj.Id);
+       PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+       returnPage.setredirect(true);
+       return returnPage; 
+            }
+            
+    public pagereference closedefineskipapprovalPopup(){
+        QIPP_ApprovalsProcessNonSixSigma.closeDefineApprovalProcess(proj.Id);
+        PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+        returnPage.setredirect(true);
+        return returnPage;
+    }
+    
+     public pagereference approvedefineskipapprovalPopup(){
+       QIPP_ApprovalsProcessNonSixSigma.updateDefineApprovalProcess(proj.Id);
+       PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+       returnPage.setredirect(true);
+       return returnPage; 
             }
     //Cancel for Validation Rule - Written By Manish
     public pagereference ValidationCancel(){

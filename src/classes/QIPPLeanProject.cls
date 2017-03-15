@@ -119,6 +119,8 @@ Public List<string> fieldList{get;set;}*/
     public String pageMode;
     //--E036-End--//
     
+    public id userid {get;set;}
+    
     public QIPPLeanProject(ApexPages.StandardController stdController){
         deleteChildBBG= new list<Benefiting_Business_Group__c>();
         updateChildBBG= new list<Benefiting_Business_Group__c>();
@@ -133,6 +135,9 @@ Public List<string> fieldList{get;set;}*/
         if(UserInfo.getUserRoleId()!= null){
             userrole rolenames = [SELECT Id, Name FROM userrole WHERE Id=:UserInfo.getUserRoleId() LIMIT 1];
             rolename = rolenames.Name;}
+        if(UserInfo.getUserId() != null){
+        user usersid = [SELECT Id, Name FROM user WHERE Id=:UserInfo.getUserId() LIMIT 1];
+        userid =usersid.id;}
         projstdController = stdController;
         proj = (QIPP_Project__c)projstdController.getRecord();
         currPortfolioId = ApexPages.currentPage().getParameters().get('currPortfolio');
@@ -168,7 +173,7 @@ Public List<string> fieldList{get;set;}*/
         if(theId != null){ 
             editBBG= true;
             updateChild=false;
-            proj = [SELECT Id,Project_Sponsor__c,Name,Business_Unit_Master_Black_Belt__r.Name,Distribution__c,Project_Redeloy_Description__c,Total_Validation_Amount_Projected_k__c,Total_Validation_Amount_Realized_k__c, Total_Benefit_Planned_Amount__c, Approver_Financial_Approver__c,Portfolio_Owner_Id__c,Total_Project_Validation_Amount__c,TotalKPI__c,TotalCOPQ__c,Approver_Project_Owner__c, CEMT_ID__c, Belt_Project_Sponsor__r.name,Project_Completion_Date_Forecast__c,Project_Lead__r.name,Project_Lead_Business_Unit__c,Project_Lead_Business_Line__c,Project_Lead_Business_Grp__c,CreatedById,CreatedDate,Project_Lead_BU__c,Project_Lead_BL_Level_3_Org__c,Project_Lead_BL_Level_4_Org__c,RecordType.Name,recordtypeid,Project_Name_Succinct__c,Lean_Project_Type__c, Project_Number__c, Project_Lead__c, Portfolio_Name__c,Portfolio_Name__r.name, Portfolio_BU__c, Project_BL__c, Benefitting_Project_BL_Level_4_Org__c, Project_Description_Detailed__c,Project_State__c,Belt_Project_Sponsor__c,Lean_Coach__c,Lean_Coach__r.name,Finance_Approver__c,Business_Unit_Master_Black_Belt__c,Progress_To_Date__c,Next_Steps__c,Project_Type__c,Belt_Assigned__c,Quality_Award_Project__c,Project_Document__c,Project_Schedule_Status__c,MO_Site__c,DI_State__c,Planned_Start_Date__c,Project_Owner__c,Project_Completion_Date_Target__c,Project_Start_Date__c,Project_Completion_Date_Actual__c,Project_Created_Date__c,Permission_to_use_Belt_Info__c,Project_Flex_Field_1__c,Project_Member1__c,Project_Member2__c,Countof_Benefits__c,Ben_Override_Resp_From_BUMBB__c,Lean_Project_Phase__c,LastModifiedById,LastModifiedDate,Lean__c, In_Annual_Plan__c, Number_of_Kaizens__c, Schedule_Status__c,X5S__c, Root_Cause_Analysis_Fishbone_5_Whys__c, Autonomation__c, SMED__c, Ergonomics__c, Spaghetti_Diagrams__c, Inspections__c, standard_work__c, Kanban__c, Time_Study__c,Levelized_Production__c, Total_Productive_Maintenance_TPM__c,Poka_yoke__c,Visual_Management__c,Workload_Balancing__c,Yamazumi_Charts__c,One_Piece_Flow__c, Pull__c, Other__c,Benefit_Spread_Over_Year__c FROM QIPP_Project__c WHERE Id =: theId];
+            proj = [SELECT Id,Project_Sponsor__c,Name,Business_Unit_Master_Black_Belt__r.Name,Distribution__c,Project_Redeloy_Description__c,Total_Validation_Amount_Projected_k__c,Total_Validation_Amount_Realized_k__c, Total_Benefit_Planned_Amount__c, Approver_Financial_Approver__c,Portfolio_Owner_Id__c,Total_Project_Validation_Amount__c,TotalKPI__c,TotalCOPQ__c,Approver_Project_Owner__c, CEMT_ID__c, Belt_Project_Sponsor__r.name,Project_Completion_Date_Forecast__c,Project_Lead__r.name,Project_Lead_Business_Unit__c,Project_Lead_Business_Line__c,Project_Lead_Business_Grp__c,CreatedById,CreatedDate,Project_Lead_BU__c,Project_Lead_BL_Level_3_Org__c,Project_Lead_BL_Level_4_Org__c,RecordType.Name,recordtypeid,Project_Name_Succinct__c,Lean_Project_Type__c, Project_Number__c, Project_Lead__c, Portfolio_Name__c,Portfolio_Name__r.name, Portfolio_BU__c, Project_BL__c, Benefitting_Project_BL_Level_4_Org__c, Project_Description_Detailed__c,Project_State__c,Belt_Project_Sponsor__c,Lean_Coach__c,Lean_Coach__r.name,Finance_Approver__c,Business_Unit_Master_Black_Belt__c,Progress_To_Date__c,Next_Steps__c,Project_Type__c,Belt_Assigned__c,Quality_Award_Project__c,Project_Document__c,Project_Schedule_Status__c,MO_Site__c,DI_State__c,Planned_Start_Date__c,Project_Owner__c,Project_Completion_Date_Target__c,Project_Start_Date__c,Project_Completion_Date_Actual__c,Project_Created_Date__c,Permission_to_use_Belt_Info__c,Project_Flex_Field_1__c,Project_Member1__c,Project_Member2__c,Countof_Benefits__c,Ben_Override_Resp_From_BUMBB__c,Lean_Project_Phase__c,LastModifiedById,LastModifiedDate,Lean__c, In_Annual_Plan__c, Number_of_Kaizens__c, Schedule_Status__c,X5S__c, Root_Cause_Analysis_Fishbone_5_Whys__c, Autonomation__c, SMED__c, Ergonomics__c, Spaghetti_Diagrams__c, Inspections__c, standard_work__c, Kanban__c, Time_Study__c,Levelized_Production__c, Total_Productive_Maintenance_TPM__c,Poka_yoke__c,Visual_Management__c,Workload_Balancing__c,Yamazumi_Charts__c,One_Piece_Flow__c, Pull__c, Other__c,Benefit_Spread_Over_Year__c,Approver_BU_MBB__c,BGMBB_Rejected__c,BGMBB_Define_rejected__c FROM QIPP_Project__c WHERE Id =: theId];
             recordIsLocked(theId);
             portfolioName = proj.Portfolio_Name__c;
             lcertName = proj.Lean__c;
@@ -1499,6 +1504,34 @@ ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error,'Completion 
         display15kto250kPopup = false;
         displayPopup = true;
     }
+    
+     public pagereference closeskipapprovalPopup(){
+        QIPP_ApprovalsProcessNonSixSigma.closeSkipApprovalProcess(proj.Id);
+       PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+       returnPage.setredirect(true);
+       return returnPage;
+    }
+    
+     public pagereference approveskipapprovalPopup(){
+       QIPP_ApprovalsProcessNonSixSigma.updateSkipApprovalProcess(proj.Id);
+       PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+       returnPage.setredirect(true);
+       return returnPage; 
+            }
+            
+    public pagereference closedefineskipapprovalPopup(){
+        QIPP_ApprovalsProcessNonSixSigma.closeDefineApprovalProcess(proj.Id);
+        PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+        returnPage.setredirect(true);
+        return returnPage;
+    }
+    
+     public pagereference approvedefineskipapprovalPopup(){
+       QIPP_ApprovalsProcessNonSixSigma.updateDefineApprovalProcess(proj.Id);
+       PageReference returnPage = new PageReference('/apex/QIPPProjectDetailView?id='+proj.Id);
+       returnPage.setredirect(true);
+       return returnPage; 
+            }
     
     //deleteprj to delete the record and to navigate to project home page
     public pageReference deleteprj(){ 
