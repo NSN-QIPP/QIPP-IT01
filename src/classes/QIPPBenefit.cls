@@ -344,10 +344,8 @@ public with sharing class QIPPBenefit
             if(displayPopupeditBenf==true){
                 textdata = benifit.Improvement_Measure_Name__c;
             }
-            system.debug('@@textdata:'+textdata);
-            List<QIPP_Benefit_Conversion_Table__c> newIMPMeas = [SELECT id, Name From QIPP_Benefit_Conversion_Table__c where name= :textdata];
-            system.debug('@@newIMPMeas:'+newIMPMeas);
-            
+
+            List<QIPP_Benefit_Conversion_Table__c> newIMPMeas = [SELECT id,Name,Brief_Description__c,Benefit_Type__c,Unit_of_Measure__c From QIPP_Benefit_Conversion_Table__c where name= :textdata];
             if(newIMPMeas.size()>0){
                 projectMeasureId = newIMPMeas[0].id;
                 createNewImprovementMeasure = false;
@@ -356,17 +354,16 @@ public with sharing class QIPPBenefit
                 createNewImprovementMeasure = true;
                 impMeasure = new QIPP_Benefit_Conversion_Table__c();    //-- E061 -- added --//
             }
+
             // Below code is to create new Improvement Measure
-            //-- R17.3 E061 -- Start --//
-            impMeasure.Name = textdata;
-            impMeasure.Brief_Description__c = benifit.ImprovementMeasure_Brief_Description__c;
-            impMeasure.Benefit_Type__c = benifit.Benefit_Type__c;
-            impMeasure.Unit_of_Measure__c = benifit.Unit_of_Measure__c;
-            upsert impMeasure;
-            system.debug('@@impMeasure:'+impMeasure);
-            //-- R17.3 E061 -- End --//
-                        
             if(createNewImprovementMeasure == true){
+            	//-- R17.3 E061 -- Start --//
+	            impMeasure.Name = textdata;
+	            impMeasure.Brief_Description__c = benifit.ImprovementMeasure_Brief_Description__c;
+                impMeasure.Benefit_Type__c = impBenefitType;
+                impMeasure.Unit_of_Measure__c = UoMeasure;
+	            insert impMeasure;
+	            //-- R17.3 E061 -- End --//
                 /*
                 impMeasure = new QIPP_Benefit_Conversion_Table__c();
                 impMeasure.Name = textdata;
@@ -443,6 +440,17 @@ public with sharing class QIPPBenefit
                 benifit.Unit_of_Measure__c = UoMeasureEdit;
                 //System.Debug('benifit.Unit_of_Measure__c-------'+benifit.Unit_of_Measure__c);
             }
+            //-- R17.3 E061 -- Start --//
+			if(!createNewImprovementMeasure){
+				system.debug('@@Benefit type:'+benifit.Benefit_Type__c+'-UOM-'+benifit.Unit_of_Measure__c+'-Descr-'+benifit.ImprovementMeasure_Brief_Description__c);
+				//impMeasure.Name = textdata; 
+				impMeasure.Brief_Description__c = benifit.ImprovementMeasure_Brief_Description__c;
+				impMeasure.Benefit_Type__c = benifit.Benefit_Type__c;
+				impMeasure.Unit_of_Measure__c = benifit.Unit_of_Measure__c;
+				update impMeasure;
+			}
+			//-- R17.3 E061 -- End --//
+            
             imp_bentype = benifit.Improvement_Measure_Name__c+benifit.Unit_of_Measure__c+benifit.Benefit_Type__c;
             
             listOfBenefitsOfProject = [select id, Improvement_Measure_Name__c, Unit_of_Measure__c, Benefit_Type__c from QIPP_Benefit__c where Project_ID__c =:projectid];
